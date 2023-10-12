@@ -1,0 +1,56 @@
+* {
+    text-align: center;
+}
+
+:root {
+    --primary: teal;
+}
+
+main {
+    display: flex;
+}
+
+#left {
+    width: 30%;
+    /* border: 1px solid black; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#middle {
+    width: 40%;
+    /* border: 1px solid black; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#right {
+    width: 30%;
+    height: 100vh;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    height: 33%;
+    border: 1px dashed blue;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+#schedule {
+    height: 60%;
+    border: 1px dashed blue;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+#daily-checks {
+    height: 40%;
+    border: 1px dashed blue;
+    margin: 5px;
+    border-radius: 10px;
+}
