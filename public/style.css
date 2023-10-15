@@ -36,21 +36,21 @@ main {
 
 .card {
     height: 33%;
-    border: 1px dashed blue;
+    border: 1px solid grey;
     margin: 5px;
     border-radius: 10px;
 }
 
 #schedule {
     height: 60%;
-    border: 1px dashed blue;
+    border: 1px solid grey;
     margin: 5px;
     border-radius: 10px;
 }
 
 #daily-checks {
     height: 40%;
-    border: 1px dashed blue;
+    border: 1px solid grey;
     margin: 5px;
     border-radius: 10px;
 }

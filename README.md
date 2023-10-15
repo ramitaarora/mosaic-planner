@@ -1,1 +1,1 @@
-# planner-react-app
+# planner-app
