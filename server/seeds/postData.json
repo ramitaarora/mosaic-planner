@@ -1,0 +1,27 @@
+[
+    {
+        "post_name": "Getting Express.js Up and Running",
+        "author_id": 1,
+        "post_content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea aperiam delectus ut perferendis numquam dignissimos animi voluptatum laudantium sapiente libero veritatis deleniti nulla ipsam, pariatur consequuntur quaerat sint excepturi! Voluptatum."
+    },
+    {
+        "post_name": "How to Find Interesting Node Modules",
+        "author_id": 2,
+        "post_content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea aperiam delectus ut perferendis numquam dignissimos animi voluptatum laudantium sapiente libero veritatis deleniti nulla ipsam, pariatur consequuntur quaerat sint excepturi! Voluptatum."
+    },
+    {
+        "post_name": "Everything a Web Developer Needs for Christmas",
+        "author_id": 3,
+        "post_content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea aperiam delectus ut perferendis numquam dignissimos animi voluptatum laudantium sapiente libero veritatis deleniti nulla ipsam, pariatur consequuntur quaerat sint excepturi! Voluptatum."
+    },
+    {
+        "post_name": "The Best Resources to Learn React",
+        "author_id": 1,
+        "post_content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea aperiam delectus ut perferendis numquam dignissimos animi voluptatum laudantium sapiente libero veritatis deleniti nulla ipsam, pariatur consequuntur quaerat sint excepturi! Voluptatum."
+    },
+    {
+        "post_name": "Web Development Newsletters to Look Out For",
+        "author_id": 2,
+        "post_content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea aperiam delectus ut perferendis numquam dignissimos animi voluptatum laudantium sapiente libero veritatis deleniti nulla ipsam, pariatur consequuntur quaerat sint excepturi! Voluptatum."
+    }
+]
