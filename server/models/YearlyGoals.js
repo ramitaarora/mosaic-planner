@@ -34,7 +34,7 @@ YearlyGoals.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'yearly-goals'
+        modelName: 'yearlyGoals'
     }
 );
 

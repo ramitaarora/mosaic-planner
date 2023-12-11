@@ -11,7 +11,7 @@ DailyChecks.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        daily_checks: {
+        daily_check: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -19,7 +19,7 @@ DailyChecks.init(
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-          },
+        },
         author_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -34,7 +34,7 @@ DailyChecks.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'daily-checks'
+        modelName: 'dailyChecks'
     }
 );
 

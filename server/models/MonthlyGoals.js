@@ -34,7 +34,7 @@ MonthlyGoals.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'monthly-goals'
+        modelName: 'monthlyGoals'
     }
 );
 

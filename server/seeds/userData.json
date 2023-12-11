@@ -3,15 +3,5 @@
         "name": "Ramita",
         "email": "ramita@example.com",
         "password": "password12345"
-    },
-    {
-        "name": "Sagar",
-        "email": "sagar@example.com",
-        "password": "password12345"
-    },
-    {
-        "name": "Rajul",
-        "email": "rajul@example.com",
-        "password": "password12345"
     }
 ]
