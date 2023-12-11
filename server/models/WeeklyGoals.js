@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection')
 
-class Posts extends Model {}
+class WeeklyGoals extends Model {}
 
-Posts.init(
+WeeklyGoals.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -11,12 +11,8 @@ Posts.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        post_name: {
+        weekly_goal: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        post_content: {
-            type: DataTypes.TEXT,
             allowNull: false,
         },
         date_created: {
@@ -38,8 +34,8 @@ Posts.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'posts'
+        modelName: 'weekly-goals'
     }
 );
 
-module.exports = Posts;
+module.exports = WeeklyGoals;
