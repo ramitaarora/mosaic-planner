@@ -1,6 +1,7 @@
 import './App.css'
 
 export default function App() {
+  
 
   return (
     <div>
@@ -13,19 +14,19 @@ export default function App() {
       <main>
 
         <section id="left">
-          <div id="yearly-goals" class="card">
+          <div id="yearly-goals" className="card">
             <h2>Yearly Goals</h2>
             <div id="yearly-goals-list">
 
             </div>
           </div>
-          <div id="monthly-goals" class="card">
+          <div id="monthly-goals" className="card">
             <h2>Monthly Goals</h2>
             <div id="monthly-goals-list">
 
             </div>
           </div>
-          <div id="weekly-goals" class="card">
+          <div id="weekly-goals" className="card">
             <h2>Weekly Goals</h2>
             <div id="weekly-goals-list">
 
@@ -43,13 +44,13 @@ export default function App() {
         </section>
 
         <section id="right">
-          <div id="notes" class="card">
+          <div id="notes" className="card">
             <h2>Notes & Reminders</h2>
           </div>
-          <div id="calendar" class="card">
+          <div id="calendar" className="card">
             <h2>Calendar</h2>
           </div>
-          <div id="calendar-render" class="card">
+          <div id="calendar-render" className="card">
             <h2>Calendar onClick</h2>
           </div>
         </section>
