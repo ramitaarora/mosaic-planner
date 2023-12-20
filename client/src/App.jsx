@@ -1,6 +1,26 @@
+import { useEffect, useState } from 'react';
 import './App.css'
 
 export default function App() {
+  const [message, setMessage] = useState('test')
+
+  useEffect(() => {
+    fetch('/api/users/test')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); // or response.text() for text data
+      })
+      .then((data) => {
+        setMessage(data.message);
+        console.log(message)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        // Handle the error as needed
+      });
+  }, []);
   
 
   return (
@@ -17,7 +37,9 @@ export default function App() {
           <div id="yearly-goals" className="card">
             <h2>Yearly Goals</h2>
             <div id="yearly-goals-list">
-
+              <ol>
+                <li><p>{message}</p></li>
+              </ol>
             </div>
           </div>
           <div id="monthly-goals" className="card">
