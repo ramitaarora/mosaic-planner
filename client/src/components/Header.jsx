@@ -50,13 +50,19 @@ export default function Header() {
 
     setTimeout(() => {
         let eachSecond = new Date().getSeconds();
+        let eachMinute = new Date().getMinutes()
         setHours(new Date().getHours());
-        setMinutes(new Date().getMinutes());
 
         if (eachSecond < 10) {
             setSeconds('0' + new Date().getSeconds())
         } else if (eachSecond > 9) {
             setSeconds(new Date().getSeconds());
+        }
+
+        if (eachMinute < 10) {
+            setMinutes('0' + new Date().getMinutes());
+        } else if (eachMinute > 9) {
+            setMinutes(new Date().getMinutes());
         }
 
     }, 1000)
