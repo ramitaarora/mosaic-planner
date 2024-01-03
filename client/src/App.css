@@ -1,10 +1,20 @@
 * {
-    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 :root {
     --primary: teal;
     --radius: 10px;
+}
+
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+h2 {
+    text-align: center;
 }
 
 /* Header Styles  */
@@ -16,6 +26,7 @@ header {
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     align-items: center;
+    text-align: center;
 }
 
 #today {
@@ -97,4 +108,30 @@ main {
     border: 1px solid grey;
     margin: 5px;
     border-radius: 10px;
+}
+
+#checks-list {
+    display: flex;
+}
+
+#checks-list label {
+    margin-left: 5px;
+}
+
+#checks-list input:checked + #check-line {
+    text-decoration: line-through;
+}
+
+#goal-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 15px;
+}
+
+#edit-buttons img {
+    margin-left: 5px;
+}
+
+#edit-buttons {
+    display: flex;
 }

@@ -42,7 +42,17 @@ export default function App() {
             <h2>Yearly Goals</h2>
             <div id="yearly-goals-list">
               <ol>
-                {yearGoals.map(((goal, index) => <li key={index}>{goal}</li>))}
+                {yearGoals.map(((goal, index) => 
+                  <div key={index} id="goal-line">
+                    <div>
+                      <li >{goal}</li>
+                    </div>
+                    <div id="edit-buttons">
+                      <img src="./svgs/edit.svg" alt="edit"/>
+                      <img src="./svgs/delete.svg" alt="edit"/>
+                    </div>  
+                </div>
+                ))}
               </ol>
             </div>
           </div>
@@ -50,7 +60,17 @@ export default function App() {
             <h2>Monthly Goals</h2>
             <div id="monthly-goals-list">
               <ol>
-                {monthGoals.map(((goal, index) => <li key={index}>{goal}</li>))}
+                {monthGoals.map(((goal, index) => 
+                  <div key={index} id="goal-line">
+                    <div>
+                      <li >{goal}</li>
+                    </div>
+                    <div id="edit-buttons">
+                      <img src="./svgs/edit.svg" alt="edit"/>
+                      <img src="./svgs/delete.svg" alt="edit"/>
+                    </div>  
+                </div>
+                ))}
               </ol>
             </div>
           </div>
@@ -58,7 +78,17 @@ export default function App() {
             <h2>Weekly Goals</h2>
             <div id="weekly-goals-list">
               <ol>
-                {weekGoals.map(((goal, index) => <li key={index}>{goal}</li>))}
+                {weekGoals.map(((goal, index) => 
+                  <div key={index} id="goal-line">
+                    <div>
+                      <li >{goal}</li>
+                    </div>
+                    <div id="edit-buttons">
+                      <img src="./svgs/edit.svg" alt="edit"/>
+                      <img src="./svgs/delete.svg" alt="edit"/>
+                    </div>  
+                </div>
+                  ))}
               </ol>
             </div>
           </div>
@@ -70,11 +100,18 @@ export default function App() {
           </div>
           <div id="daily-checks">
             <h2>Daily Checks</h2>
-            <div id="daily-checks-list">
-              <ol>
-                {checks.map((check, index) => <li key={index}>{check}</li>)}
-              </ol>
-            </div>
+                {checks.map((check, index) => 
+                  <div id="goal-line" key={index}>
+                    <div id="checks-list">
+                      <input type="checkbox"/>
+                      <label id="check-line">{check}</label>
+                    </div>
+                    <div id="edit-buttons">
+                      <img src="./svgs/edit.svg" alt="edit"/>
+                      <img src="./svgs/delete.svg" alt="edit"/>
+                    </div> 
+                  </div>
+            )}
           </div>
         </section>
 
@@ -83,7 +120,17 @@ export default function App() {
             <h2>Notes & Reminders</h2>
             <div id="daily-checks-list">
               <ol>
-                {notes.map((note, index) => <li key={index}>{note}</li>)}
+                {notes.map((note, index) => 
+                  <div key={index} id="goal-line">
+                    <div>
+                      <li >{note}</li>
+                    </div>
+                    <div id="edit-buttons">
+                      <img src="./svgs/edit.svg" alt="edit"/>
+                      <img src="./svgs/delete.svg" alt="edit"/>
+                    </div>  
+                  </div>
+                )}
               </ol>
             </div>
           </div>
