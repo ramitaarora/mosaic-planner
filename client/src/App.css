@@ -135,3 +135,7 @@ main {
 #edit-buttons {
     display: flex;
 }
+
+#edit-buttons img:hover {
+    cursor: pointer;
+}

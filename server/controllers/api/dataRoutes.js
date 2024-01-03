@@ -17,4 +17,9 @@ router.get('/allgoals', async (req, res) => {
     res.json({yearlyGoals, monthlyGoals, weeklyGoals, notes, dailyChecks});
 });
 
+router.post('/edityearly', async (req, res) => {
+    // const data = await YearlyGoals.findOne({ where: { id: req.body.id }});
+    console.log(req.body);
+})
+
 module.exports = router;

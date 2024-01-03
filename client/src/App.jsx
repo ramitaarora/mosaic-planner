@@ -18,8 +18,8 @@ export default function App() {
         return response.json(); // or response.text() for text data
       })
       .then((data) => {
-        // console.log(data);
-        setYearGoals(data.yearlyGoals.map(goal => goal.yearly_goal));
+        console.log(data);
+        setYearGoals(data.yearlyGoals.map(goal => goal));
         setMonthGoals(data.monthlyGoals.map(goal => goal.monthly_goal));
         setWeekGoals(data.weeklyGoals.map(goal => goal.weekly_goal));
         setNotes(data.notes.map(note => note.note));
@@ -29,6 +29,10 @@ export default function App() {
         console.error('Error fetching data:', error);
       });
   }, []);
+
+  const editYearlyGoal = (event) => {
+    const yearlyGoalID = event.target.attributes[2].nodeValue;
+  }
 
 
   return (
@@ -45,10 +49,10 @@ export default function App() {
                 {yearGoals.map(((goal, index) => 
                   <div key={index} id="goal-line">
                     <div>
-                      <li >{goal}</li>
+                      <li>{goal.yearly_goal}</li>
                     </div>
                     <div id="edit-buttons">
-                      <img src="./svgs/edit.svg" alt="edit"/>
+                      <img src="./svgs/edit.svg" alt="edit" onClick={editYearlyGoal} value={goal.id}/>
                       <img src="./svgs/delete.svg" alt="edit"/>
                     </div>  
                 </div>
