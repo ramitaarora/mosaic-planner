@@ -4,7 +4,51 @@
 
 :root {
     --primary: teal;
+    --radius: 10px;
 }
+
+/* Header Styles  */
+
+header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-rows: repeat(5, 1fr); */
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    align-items: center;
+}
+
+#today {
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+#weather {
+    grid-area: 1 / 5 / 2 / 6;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary);
+    justify-content: center;
+    align-items: center;
+    width:fit-content;
+    height: 90px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    text-align: center;
+}
+
+#weather-1 {
+    display: flex;
+    /* border: 1px solid white; */
+}
+
+#weather-2 {
+    /* border: 1px solid white; */
+    line-height: 0;
+}
+
+/* Main Styles  */
 
 main {
     display: flex;
