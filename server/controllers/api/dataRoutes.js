@@ -18,8 +18,13 @@ router.get('/allgoals', async (req, res) => {
 });
 
 router.post('/edityearly', async (req, res) => {
-    // const data = await YearlyGoals.findOne({ where: { id: req.body.id }});
-    console.log(req.body);
+    try {
+        const yearlyData = await YearlyGoals.update({ yearly_goal: req.body.yearlyGoal }, { where: { id: req.body.id }});
+        res.status(200).json(yearlyData);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+    
 })
 
 module.exports = router;

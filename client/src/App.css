@@ -17,6 +17,14 @@ h2 {
     text-align: center;
 }
 
+.form-hidden {
+    display: none;
+}
+
+.form-visible {
+    display: content;
+}
+
 /* Header Styles  */
 
 header {
@@ -94,6 +102,7 @@ main {
     border: 1px solid grey;
     margin: 5px;
     border-radius: 10px;
+    overflow: scroll;
 }
 
 #schedule {
@@ -126,6 +135,15 @@ main {
     display: flex;
     justify-content: space-between;
     margin: 10px 15px;
+}
+
+.each-goal {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.each-goal input {
+    margin: 0 5px;
 }
 
 #edit-buttons img {

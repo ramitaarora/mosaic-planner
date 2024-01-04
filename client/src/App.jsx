@@ -8,6 +8,8 @@ export default function App() {
   const [weekGoals, setWeekGoals] = useState([]);
   const [notes, setNotes] = useState([]);
   const [checks, setChecks] = useState([]);
+
+  const [inputValue, setInputValue] = useState('');
  
   useEffect(() => {
     fetch('/api/data/allgoals')
@@ -18,7 +20,7 @@ export default function App() {
         return response.json(); // or response.text() for text data
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setYearGoals(data.yearlyGoals.map(goal => goal));
         setMonthGoals(data.monthlyGoals.map(goal => goal.monthly_goal));
         setWeekGoals(data.weeklyGoals.map(goal => goal.weekly_goal));
@@ -32,6 +34,61 @@ export default function App() {
 
   const editYearlyGoal = (event) => {
     const yearlyGoalID = event.target.attributes[2].nodeValue;
+    const yearlyGoalValue = event.target.attributes[3].nodeValue;
+
+    const formID = document.getElementById(`yearlyForm-${yearlyGoalID}`);
+    formID.setAttribute('class', 'form-visible');
+
+    const inputField = document.getElementById(`yearlyInput-${yearlyGoalID}`);
+    inputField.setAttribute('value', yearlyGoalValue);
+  }
+
+  const submitYearlyEdit = async (event) => {
+    event.preventDefault();
+    const yearlyFormID = event.target.id;
+    const yearlyGoalID = event.target.parentElement.parentElement.attributes[1].value;
+    const formInput = event.target[0].value;
+
+    const response = await fetch('/api/data/edityearly', {
+      method: 'POST',
+      body: JSON.stringify({ 
+        id: yearlyGoalID,
+        yearlyGoal: formInput
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      // console.log(response.statusText);
+      fetch('/api/data/allgoals')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); // or response.text() for text data
+      })
+      .then((data) => {
+        // console.log(data);
+        setYearGoals(data.yearlyGoals.map(goal => goal));
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    } else {
+      alert(response.statusText);
+    }
+
+    document.getElementById(yearlyFormID).setAttribute('class', 'form-hidden');
+    setInputValue('');
+  }
+
+  const cancelYearlyEdit = (event) => {
+    event.preventDefault();
+    const yearlyFormID = event.target.form.id;
+
+    const formID = document.getElementById(yearlyFormID);
+    formID.setAttribute('class', 'form-hidden');
+    setInputValue('');
   }
 
 
@@ -47,12 +104,17 @@ export default function App() {
             <div id="yearly-goals-list">
               <ol>
                 {yearGoals.map(((goal, index) => 
-                  <div key={index} id="goal-line">
-                    <div>
+                  <div key={index} id="goal-line" value={goal.id}>
+                    <div id={'yearlyGoal-' + goal.id} className="each-goal">
                       <li>{goal.yearly_goal}</li>
+                      <form id={'yearlyForm-' + goal.id} className="form-hidden" onSubmit={submitYearlyEdit}>
+                        <input id={'yearlyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)}/>
+                        <input type="submit"/>
+                        <button id="cancel-edit" onClick={cancelYearlyEdit}>Cancel</button>
+                      </form>
                     </div>
                     <div id="edit-buttons">
-                      <img src="./svgs/edit.svg" alt="edit" onClick={editYearlyGoal} value={goal.id}/>
+                      <img src="./svgs/edit.svg" alt="edit" onClick={editYearlyGoal} id={goal.id} value={goal.yearly_goal}/>
                       <img src="./svgs/delete.svg" alt="edit"/>
                     </div>  
                 </div>
@@ -67,7 +129,7 @@ export default function App() {
                 {monthGoals.map(((goal, index) => 
                   <div key={index} id="goal-line">
                     <div>
-                      <li >{goal}</li>
+                      <li>{goal}</li>
                     </div>
                     <div id="edit-buttons">
                       <img src="./svgs/edit.svg" alt="edit"/>
