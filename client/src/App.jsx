@@ -8,11 +8,10 @@ export default function App() {
   const [weekGoals, setWeekGoals] = useState([]);
   const [notes, setNotes] = useState([]);
   const [checks, setChecks] = useState([]);
-
   const [inputValue, setInputValue] = useState('');
  
   useEffect(() => {
-    fetch('/api/data/allgoals')
+    fetch('/api/data/allGoals')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -43,13 +42,46 @@ export default function App() {
     inputField.setAttribute('value', yearlyGoalValue);
   }
 
+  const deleteYearlyGoal = async (event) => {
+    const yearlyGoalID = event.target.attributes[2].nodeValue;
+
+    if (window.confirm("Are you sure you want to delete this goal?")) {
+      const response = await fetch('/api/data/deleteYearly', {
+        method: 'DELETE',
+        body: JSON.stringify({
+          id: yearlyGoalID,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (response.ok) {
+        // console.log(response.statusText);
+        fetch('/api/data/allgoals')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json(); // or response.text() for text data
+        })
+        .then((data) => {
+          // console.log(data);
+          setYearGoals(data.yearlyGoals.map(goal => goal));
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+      } else {
+        alert(response.statusText);
+      }
+    }
+  }
+
   const submitYearlyEdit = async (event) => {
     event.preventDefault();
     const yearlyFormID = event.target.id;
     const yearlyGoalID = event.target.parentElement.parentElement.attributes[1].value;
     const formInput = event.target[0].value;
 
-    const response = await fetch('/api/data/edityearly', {
+    const response = await fetch('/api/data/editYearly', {
       method: 'POST',
       body: JSON.stringify({ 
         id: yearlyGoalID,
@@ -115,7 +147,7 @@ export default function App() {
                     </div>
                     <div id="edit-buttons">
                       <img src="./svgs/edit.svg" alt="edit" onClick={editYearlyGoal} id={goal.id} value={goal.yearly_goal}/>
-                      <img src="./svgs/delete.svg" alt="edit"/>
+                      <img src="./svgs/delete.svg" alt="edit" onClick={deleteYearlyGoal} id={goal.id}/>
                     </div>  
                 </div>
                 ))}

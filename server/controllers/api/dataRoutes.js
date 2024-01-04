@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { YearlyGoals, MonthlyGoals, WeeklyGoals, Notes, DailyChecks } = require('../../models');
 
-router.get('/allgoals', async (req, res) => {
+router.get('/allGoals', async (req, res) => {
     const yearlyGoalsData = await YearlyGoals.findAll();
     const monthlyGoalsData = await MonthlyGoals.findAll();
     const weeklyGoalsData = await WeeklyGoals.findAll();
@@ -17,7 +17,7 @@ router.get('/allgoals', async (req, res) => {
     res.json({yearlyGoals, monthlyGoals, weeklyGoals, notes, dailyChecks});
 });
 
-router.post('/edityearly', async (req, res) => {
+router.post('/editYearly', async (req, res) => {
     try {
         const yearlyData = await YearlyGoals.update({ yearly_goal: req.body.yearlyGoal }, { where: { id: req.body.id }});
         res.status(200).json(yearlyData);
@@ -25,6 +25,15 @@ router.post('/edityearly', async (req, res) => {
         res.status(400).json(err);
     }
     
+})
+
+router.delete('/deleteYearly', async (req, res) => {
+    try {
+        const yearlyData = await YearlyGoals.destroy({ where: { id: req.body.id }});
+        res.status(200).json(yearlyData);
+    } catch(err) {
+        res.status(400).json(err);
+    }
 })
 
 module.exports = router;
