@@ -36,4 +36,61 @@ router.delete('/deleteYearly', async (req, res) => {
     }
 })
 
+router.post('/editMonthly', async (req, res) => {
+    try {
+        const monthlyData = await MonthlyGoals.update({ monthly_goal: req.body.monthlyGoal }, { where: { id: req.body.id }});
+        res.status(200).json(monthlyData);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+    
+})
+
+router.delete('/deleteMonthly', async (req, res) => {
+    try {
+        const monthlyData = await MonthlyGoals.destroy({ where: { id: req.body.id }});
+        res.status(200).json(monthlyData);
+    } catch(err) {
+        res.status(400).json(err);
+    }
+})
+
+router.post('/editWeekly', async (req, res) => {
+    try {
+        const weeklyData = await WeeklyGoals.update({ weekly_goal: req.body.weeklyGoal }, { where: { id: req.body.id }});
+        res.status(200).json(weeklyData);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+    
+})
+
+router.delete('/deleteWeekly', async (req, res) => {
+    try {
+        const weeklyData = await WeeklyGoals.destroy({ where: { id: req.body.id }});
+        res.status(200).json(weeklyData);
+    } catch(err) {
+        res.status(400).json(err);
+    }
+})
+
+router.post('/editNote', async (req, res) => {
+    try {
+        const notesData = await Notes.update({ note: req.body.note }, { where: { id: req.body.id }});
+        res.status(200).json(notesData);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+    
+})
+
+router.delete('/deleteNote', async (req, res) => {
+    try {
+        const notesData = await Notes.destroy({ where: { id: req.body.id }});
+        res.status(200).json(notesData);
+    } catch(err) {
+        res.status(400).json(err);
+    }
+})
+
 module.exports = router;

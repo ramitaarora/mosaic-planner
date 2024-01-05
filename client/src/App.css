@@ -4,6 +4,7 @@
 
 :root {
     --primary: teal;
+    --secondary: rgb(127, 218, 218);
     --radius: 10px;
 }
 
@@ -45,7 +46,7 @@ header {
     grid-area: 1 / 5 / 2 / 6;
     display: flex;
     flex-direction: column;
-    background-color: var(--primary);
+    background: linear-gradient(var(--secondary), 60%, var(--primary));
     justify-content: center;
     align-items: center;
     width:fit-content;
