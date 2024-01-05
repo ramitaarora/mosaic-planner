@@ -17,6 +17,42 @@ router.get('/allGoals', async (req, res) => {
     res.json({yearlyGoals, monthlyGoals, weeklyGoals, notes, dailyChecks});
 });
 
+router.post('/addGoal', async (req, res) => {
+    try {
+        if (req.body.goalType === 'Yearly') {
+            const yearlyData = await YearlyGoals.create({
+                yearly_goal: req.body.goal,
+                author_id: req.body.authorID
+            })
+            res.status(200).json(yearlyData);
+        }
+        if (req.body.goalType === 'Monthly') {
+            const monthlyData = await MonthlyGoals.create({
+                monthly_goal: req.body.goal,
+                author_id: req.body.authorID
+            })
+            res.status(200).json(monthlyData);
+        }
+        if (req.body.goalType === 'Weekly') {
+            const weeklyData = await WeeklyGoals.create({
+                weekly_goal: req.body.goal,
+                author_id: req.body.authorID
+            })
+            res.status(200).json(weeklyData);
+        }
+        if (req.body.goalType === 'Note') {
+            const notesData = await Notes.create({
+                note: req.body.note,
+                author_id: req.body.authorID
+            })
+            res.status(200).json(notesData);
+        }
+    } catch(err) {
+        res.status(400).json(err);
+        console.log(err)
+    }
+})
+
 router.post('/editYearly', async (req, res) => {
     try {
         const yearlyData = await YearlyGoals.update({ yearly_goal: req.body.yearlyGoal }, { where: { id: req.body.id }});

@@ -14,16 +14,23 @@ ol {
     list-style: none;
 }
 
-h2 {
-    text-align: center;
-}
-
 .form-hidden {
     display: none;
 }
 
 .form-visible {
     display: content;
+}
+
+input, button {
+    border-radius: var(--radius);
+    border: 1px solid lightgrey;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.submit-button:hover, button:hover {
+    cursor: pointer;
 }
 
 /* Header Styles  */
@@ -68,7 +75,7 @@ header {
     line-height: 0;
 }
 
-/* Main Styles  */
+/* Structure Styles  */
 
 main {
     display: flex;
@@ -98,14 +105,6 @@ main {
     flex-direction: column;
 }
 
-.card {
-    height: 33%;
-    border: 1px solid grey;
-    margin: 5px;
-    border-radius: 10px;
-    overflow: scroll;
-}
-
 #schedule {
     height: 60%;
     border: 1px solid grey;
@@ -120,6 +119,24 @@ main {
     border-radius: 10px;
 }
 
+/* Card Styles  */
+
+.card {
+    height: 33%;
+    border: 1px solid grey;
+    margin: 5px;
+    border-radius: 10px;
+    overflow: scroll;
+}
+
+#card-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+/* Daily Checks Styles */
+
 #checks-list {
     display: flex;
 }
@@ -131,6 +148,8 @@ main {
 #checks-list input:checked + #check-line {
     text-decoration: line-through;
 }
+
+/* Goals Styles  */
 
 #goal-line {
     display: flex;
@@ -157,4 +176,11 @@ main {
 
 #edit-buttons img:hover {
     cursor: pointer;
+}
+
+#add-yearly-goal, 
+#add-monthly-goal,
+#add-weekly-goal,
+#add-note {
+    text-align: center;
 }

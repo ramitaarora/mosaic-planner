@@ -91,9 +91,73 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setIn
         setInputValue('');
     }
 
+    const addNewGoal = (event) => {
+        document.getElementById('add-weekly-goal').setAttribute('class', 'form-visible');
+        document.getElementById('add-weekly-goal-button').setAttribute('class', 'form-hidden');
+        document.getElementById('cancel-weekly-goal-button').setAttribute('class', 'form-visible');
+    }
+
+    const submitNewGoal = async (event) => {
+        event.preventDefault();
+        const newGoalValue = event.target[0].value;
+
+        if (newGoalValue.length) {
+            const response = await fetch('/api/data/addGoal', {
+                method: 'POST',
+                body: JSON.stringify({
+                    authorID: 1,
+                    goal: newGoalValue,
+                    goalType: 'Weekly'
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+    
+            if (response.ok) {
+                // console.log(response.statusText);
+                fetch('/api/data/allgoals')
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json(); // or response.text() for text data
+                    })
+                    .then((data) => {
+                        // console.log(data);
+                        setWeekGoals(data.weeklyGoals.map(goal => goal));
+                        document.getElementById('add-weekly-goal').setAttribute('class', 'form-hidden');
+                        document.getElementById('cancel-weekly-goal-button').setAttribute('class', 'form-hidden');
+                        document.getElementById('add-weekly-goal-button').setAttribute('class', 'form-visible');
+                        setInputValue('')
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching data:', error);
+                    });
+            } else {
+                alert(response.statusText);
+            }
+        }
+    }
+
+    const cancelNewGoal = (event) => {
+        event.preventDefault();
+        document.getElementById('add-weekly-goal').setAttribute('class', 'form-hidden');
+        document.getElementById('cancel-weekly-goal-button').setAttribute('class', 'form-hidden');
+        document.getElementById('add-weekly-goal-button').setAttribute('class', 'form-visible');
+    }
+
     return (
         <div id="weekly-goals" className="card">
-            <h2>Weekly Goals</h2>
+            <div id="card-header">
+                <h2>Weekly Goals</h2>
+                <img id="add-weekly-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal} />
+                <img id="cancel-weekly-goal-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewGoal} className="form-hidden" />
+            </div>
+
+            <form id="add-weekly-goal" onSubmit={submitNewGoal} className="form-hidden">
+                <input placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+                <input type="submit" className="submit-button" />
+                {/*<button id="cancel" onClick={cancelNewGoal}>Cancel</button>*/}
+            </form>
             <div id="weekly-goals-list">
                 <ol>
                     {weekGoals.map(((goal, index) =>
@@ -102,7 +166,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setIn
                                 <li>{goal.weekly_goal}</li>
                                 <form id={'weeklyForm-' + goal.id} className="form-hidden" onSubmit={submitWeeklyEdit}>
                                     <input id={'weeklyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
-                                    <input type="submit" />
+                                    <input type="submit" className="submit-button" />
                                     <button id="cancel-edit" onClick={cancelWeeklyEdit}>Cancel</button>
                                 </form>
                             </div>
