@@ -1,11 +1,14 @@
 * {
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 :root {
     --primary: teal;
     --secondary: rgb(127, 218, 218);
     --radius: 10px;
+    --grey: rgb(230, 230, 230);
+    --shadow: 1px 1px 1px grey;
+    --gradient: linear-gradient(var(--secondary), 60%, var(--primary));
 }
 
 ol {
@@ -23,10 +26,24 @@ ol {
 }
 
 input, button {
-    border-radius: var(--radius);
+    border-radius: 5px; 
     border: 1px solid lightgrey;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 3px 5px;
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar-corner {
+    display: none;
+} 
+
+#goal-line input[type="text"] {
+    width: 100%;
+}
+
+#yearly-goals input[type="text"],
+#monthly-goals input[type="text"],
+#weekly-goals input[type="text"],
+#add-note input[type="text"] {
+    width: 80%;
 }
 
 .submit-button:hover, button:hover {
@@ -43,6 +60,7 @@ header {
     grid-row-gap: 0px;
     align-items: center;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 #today {
@@ -53,26 +71,33 @@ header {
     grid-area: 1 / 5 / 2 / 6;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(var(--secondary), 60%, var(--primary));
+    /* background: linear-gradient(lightgrey, 60%, grey); */
+    background: var(--gradient);
     justify-content: center;
     align-items: center;
     width:fit-content;
-    height: 90px;
+    height: fit-content;
     border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 5px;
     color: white;
     text-align: center;
+    box-shadow: 2px 2px 5px lightgrey;
 }
 
 #weather-1 {
     display: flex;
-    /* border: 1px solid white; */
+    /* border: 1px solid red; */
 }
 
 #weather-2 {
-    /* border: 1px solid white; */
+    /* border: 1px solid red; */
+    width: 100%;
     line-height: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 /* Structure Styles  */
@@ -107,38 +132,51 @@ main {
 
 #schedule {
     height: 60%;
-    border: 1px solid grey;
-    margin: 5px;
-    border-radius: 10px;
 }
 
 #daily-checks {
     height: 40%;
-    border: 1px solid grey;
-    margin: 5px;
-    border-radius: 10px;
 }
 
 /* Card Styles  */
 
+.card,
+#schedule,
+#daily-checks {
+    border: 1px solid lightgrey;
+    border-radius: var(--radius);
+    margin: 0 5px 10px 5px;
+    overflow: overlay;
+    background-color: var(--grey);
+    /* background: linear-gradient(var(--secondary), 60%, var(--primary)); */
+    /* color: white; */
+    box-shadow: 1px 1px 5px lightgrey;
+}
+
 .card {
     height: 33%;
-    border: 1px solid grey;
-    margin: 5px;
-    border-radius: 10px;
-    overflow: scroll;
 }
 
 #card-header {
     display: flex;
     justify-content: space-between;
-    margin: 0 10px;
+    margin: 0 25px;
+}
+
+#add-yearly-goal, 
+#add-monthly-goal,
+#add-weekly-goal,
+#add-note {
+    text-align: center;
+    margin: 10px 35px;
 }
 
 /* Daily Checks Styles */
 
 #checks-list {
     display: flex;
+    align-items: center;
+    margin: 10px 15px;
 }
 
 #checks-list label {
@@ -154,12 +192,27 @@ main {
 #goal-line {
     display: flex;
     justify-content: space-between;
-    margin: 10px 15px;
+    background-color: white;
+    margin: 5px 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    /* color: darkslategrey; */
+}
+
+#goal-line:hover {
+    background-color: rgb(242, 242, 242)
 }
 
 .each-goal {
     display: flex;
+    flex-direction: column;
+    margin: 10px 15px;
     justify-content: space-evenly;
+}
+
+#goal-line form input {
+    /* border: 1px solid black; */
+    margin: 5px 5px 0 0;
 }
 
 .each-goal input {
@@ -172,15 +225,28 @@ main {
 
 #edit-buttons {
     display: flex;
+    margin: 10px 15px;
 }
 
 #edit-buttons img:hover {
     cursor: pointer;
 }
 
-#add-yearly-goal, 
-#add-monthly-goal,
-#add-weekly-goal,
-#add-note {
-    text-align: center;
+/* Mobile Styles */
+
+@media only screen and (max-width: 1000px) {
+    main {
+        display: block;
+    }
+    #left, #middle, #right {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    header {
+        display: block;
+        display: flex;
+        flex-direction: column;
+    }
 }

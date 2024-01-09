@@ -154,7 +154,7 @@ export default function Notes({ notes, setNotes, inputValue, setInputValue}) {
             </div>
 
             <form id="add-note" onSubmit={submitNewNote} className="form-hidden">
-                <input placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+                <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
                 <input type="submit" className="submit-button" />
                 {/*<button id="cancel" onClick={cancelNewNote}>Cancel</button>*/}
             </form>
@@ -165,7 +165,7 @@ export default function Notes({ notes, setNotes, inputValue, setInputValue}) {
                             <div id={'note-' + note.id} className="each-goal">
                                 <li>{note.note}</li>
                                 <form id={'noteForm-' + note.id} className="form-hidden" onSubmit={submitNoteEdit}>
-                                    <input id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} />
+                                    <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button" />
                                     <button id="cancel-edit" onClick={cancelNoteEdit}>Cancel</button>
                                 </form>

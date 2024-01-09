@@ -154,7 +154,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals, inputValue, setIn
             </div>
             
             <form id="add-yearly-goal" onSubmit={submitNewGoal} className="form-hidden">
-                <input placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)}/>
+                <input type="text" placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)}/>
                 <input type="submit" className="submit-button" />
                 {/*<button id="cancel" onClick={cancelNewGoal}>Cancel</button>*/}
             </form>
@@ -166,7 +166,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals, inputValue, setIn
                             <div id={'yearlyGoal-' + goal.id} className="each-goal">
                                 <li>{goal.yearly_goal}</li>
                                 <form id={'yearlyForm-' + goal.id} className="form-hidden" onSubmit={submitYearlyEdit}>
-                                    <input id={'yearlyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
+                                    <input type="text" id={'yearlyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button"/>
                                     <button id="cancel-edit" onClick={cancelYearlyEdit}>Cancel</button>
                                 </form>

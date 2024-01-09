@@ -154,7 +154,7 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals, inputValue, se
             </div>
 
             <form id="add-monthly-goal" onSubmit={submitNewGoal} className="form-hidden">
-                <input placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+                <input type="text" placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
                 <input type="submit" className="submit-button" />
                 {/*<button id="cancel" onClick={cancelNewGoal}>Cancel</button>*/}
             </form>
@@ -165,7 +165,7 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals, inputValue, se
                             <div id={'monthlyGoal-' + goal.id} className="each-goal">
                                 <li>{goal.monthly_goal}</li>
                                 <form id={'monthlyForm-' + goal.id} className="form-hidden" onSubmit={submitMonthlyEdit}>
-                                    <input id={'monthlyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
+                                    <input type="text" id={'monthlyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button" />
                                     <button id="cancel-edit" onClick={cancelMonthlyEdit}>Cancel</button>
                                 </form>

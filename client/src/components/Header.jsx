@@ -101,7 +101,8 @@ export default function Header() {
                     <img src={icon} alt={forecast} height="50px" width="50px"/> 
                 </div>
                 <div id="weather-2">
-                    <p>{(Math.trunc((temp - 273.15) * (9/5) + 32))}°F {forecast}</p>
+                    <p>{(Math.trunc((temp - 273.15) * (9/5) + 32))}° F</p>
+                    <p>{forecast}</p>
                 </div>
             </div>
         </header>

@@ -154,7 +154,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setIn
             </div>
 
             <form id="add-weekly-goal" onSubmit={submitNewGoal} className="form-hidden">
-                <input placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+                <input type="text" placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
                 <input type="submit" className="submit-button" />
                 {/*<button id="cancel" onClick={cancelNewGoal}>Cancel</button>*/}
             </form>
@@ -165,7 +165,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setIn
                             <div id={'weeklyGoal-' + goal.id} className="each-goal">
                                 <li>{goal.weekly_goal}</li>
                                 <form id={'weeklyForm-' + goal.id} className="form-hidden" onSubmit={submitWeeklyEdit}>
-                                    <input id={'weeklyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
+                                    <input type="text" id={'weeklyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button" />
                                     <button id="cancel-edit" onClick={cancelWeeklyEdit}>Cancel</button>
                                 </form>
