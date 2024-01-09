@@ -31,9 +31,9 @@ input, button {
     padding: 3px 5px;
 }
 
-::-webkit-scrollbar, ::-webkit-scrollbar-corner {
+/* ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
     display: none;
-} 
+}  */
 
 #goal-line input[type="text"] {
     width: 100%;
