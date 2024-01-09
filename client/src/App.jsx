@@ -7,7 +7,7 @@ import WeeklyGoals from './components/WeeklyGoals.jsx';
 import DailyChecks from './components/DailyChecks.jsx';
 import Notes from './components/Notes.jsx';
 import Schedule from './components/Schedule.jsx';
-import Calendar from './components/Calendar.jsx';
+import CalendarCard from './components/CalendarCard.jsx';
 import CalendarClick from './components/CalendarClick.jsx';
 
 export default function App() {
@@ -57,7 +57,7 @@ export default function App() {
 
         <section id="right">
           <Notes notes={notes} setNotes={setNotes} inputValue={inputValue} setInputValue={setInputValue} />
-          <Calendar />
+          <CalendarCard />
           <CalendarClick />
         </section>
       </main>
