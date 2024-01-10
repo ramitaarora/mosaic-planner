@@ -1,3 +1,5 @@
+/* Global Styles */
+
 * {
     font-family: 'Montserrat', sans-serif;
 }
@@ -18,11 +20,11 @@ ol {
 }
 
 .form-hidden {
-    display: none;
+    display: none !important;
 }
 
 .form-visible {
-    display: content;
+    display: content !important;
 }
 
 input, button {
@@ -35,22 +37,40 @@ input, button {
     display: none;
 }  */
 
-#goal-line input[type="text"] {
-    width: 100%;
+/* Landing Page Styles  */
+
+#landing {
+    text-align: center;
+    height: 100vh;
+    width: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
-#yearly-goals input[type="text"],
-#monthly-goals input[type="text"],
-#weekly-goals input[type="text"],
-#add-note input[type="text"] {
-    width: 80%;
+#auth-form, #signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 200px;
 }
 
-.submit-button:hover, button:hover {
+#auth-form input, #signup-form input {
+    margin: 5px auto;
+    padding: 5px;
+}
+
+#signup-instead, #login-instead {
+    text-decoration: underline;
+}
+
+#signup-instead:hover, #login-instead:hover {
     cursor: pointer;
 }
 
-/* Header Styles  */
+/* Dashboard Header Styles  */
 
 header {
     display: grid;
@@ -136,6 +156,32 @@ main {
 
 #daily-checks {
     height: 40%;
+}
+
+#goal-line input[type="text"] {
+    width: 100%;
+}
+
+#yearly-goals input[type="text"],
+#monthly-goals input[type="text"],
+#weekly-goals input[type="text"],
+#add-note input[type="text"] {
+    width: 80%;
+}
+
+#add-yearly-goal-button:hover,
+#cancel-yearly-goal-button:hover,
+#add-monthly-goal-button:hover,
+#cancel-monthly-goal-button:hover,
+#add-weekly-goal-button:hover,
+#cancel-weekly-goal-button,
+#add-note-button:hover,
+#cancel-note-button:hover {
+    cursor: pointer;
+}
+
+.submit-button:hover, button:hover {
+    cursor: pointer;
 }
 
 /* Card Styles  */

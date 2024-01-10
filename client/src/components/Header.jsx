@@ -90,7 +90,7 @@ export default function Header() {
     return (
         <header>
             <div id="today">
-                <h1 id="today">Today</h1>
+                <h1 id="today">Ramita's Day</h1>
                 <p id="current-day">{day}, {month} {date}, {year}</p>
                 <p id="current-time">{hours}:{minutes}:{seconds}</p>
             </div>
