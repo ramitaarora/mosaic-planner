@@ -1,9 +1,18 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-router.get('/test', async (req, res) => {
-    res.json( { "message":'Hello!' })
-});
+// router.get('/test', async (req, res) => {
+//     res.json( { "message":'Hello!' })
+// });
+
+// router.get('/landing', (req, res) => {
+//     if (req.session.logged_in) {
+//         res.json( {"loggedIn" : true} );
+//     } else {
+//         res.json( {"loggedIn" : false} );
+//     }
+// })
 
 // router.get('/login', (req, res) => {
 //   if (req.session.logged_in) {

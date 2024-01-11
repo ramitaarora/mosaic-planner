@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const routes = require('./controllers');
-const helpers = require('./utils/helpers');
 const cors = require('cors');
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -20,7 +19,7 @@ const app = express()
 const sess = {
     secret: 'Super secret secret',
     cookie: {
-        maxAge: 300000,
+        maxAge: 300000000,
         httpOnly: true,
         secure: false,
         sameSite: 'strict',
@@ -32,8 +31,12 @@ const sess = {
     })
 };
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,  // Enable credentials (e.g., cookies, authorization headers)
+}));
+
 app.use(session(sess));
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);

@@ -17,13 +17,40 @@ export default function Dashboard() {
     const [notes, setNotes] = useState([]);
     const [checks, setChecks] = useState([]);
     const [inputValue, setInputValue] = useState('');
+
+    const auth = () => {
+      fetch('/api/home/', {
+          method: 'GET',
+          credentials: 'include' 
+      })
+      .then((response) => {
+          if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          // console.log(response);
+          return response.json();
+      })
+      .then((data) => {
+          if (data.loggedIn) {
+              return;
+          } else {
+              window.location.replace('/')
+          }
+      })
+      .catch((error) => {
+          console.error(error)
+      });
+  }
    
     useEffect(() => {
+      auth();
+
       fetch('/api/data/allGoals')
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
+          // console.log(response);
           return response.json(); // or response.text() for text data
         })
         .then((data) => {

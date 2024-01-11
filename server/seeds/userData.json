@@ -2,6 +2,7 @@
     {
         "name": "Ramita",
         "email": "ramita@example.com",
-        "password": "password12345"
+        "password": "password12345",
+        "location": "Pasadena"
     }
 ]
