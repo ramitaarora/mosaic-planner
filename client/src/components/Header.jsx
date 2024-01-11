@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export default function Header() {
-    const [hours, setHours] = useState(new Date().getHours());
+    const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
     const [seconds, setSeconds] = useState(new Date().getSeconds());
 
@@ -51,7 +51,7 @@ export default function Header() {
     setTimeout(() => {
         let eachSecond = new Date().getSeconds();
         let eachMinute = new Date().getMinutes()
-        setHours(new Date().getHours());
+        setHours(new Date().getHours() % 12 || 12);
 
         if (eachSecond < 10) {
             setSeconds('0' + new Date().getSeconds())
