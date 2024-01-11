@@ -42,12 +42,12 @@ input, button {
 #landing {
     text-align: center;
     height: 100vh;
-    width: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* width: 100vh; */
     margin: 0 auto;
+}
+
+#landing h1 {
+    margin: 30vh auto 0 auto;
 }
 
 #auth-form, #signup-form {
@@ -55,6 +55,7 @@ input, button {
     flex-direction: column;
     justify-content: space-evenly;
     width: 200px;
+    margin: 20px auto;
 }
 
 #auth-form input, #signup-form input {
