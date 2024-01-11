@@ -71,6 +71,10 @@ input, button {
     cursor: pointer;
 }
 
+#login-error p {
+    color: red;
+}
+
 /* Dashboard Header Styles  */
 
 header {

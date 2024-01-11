@@ -89,6 +89,12 @@ export default function Header() {
 
     return (
         <header>
+            <div id="navigation">
+                <ul>
+                    <li>Logout</li>
+                </ul>
+            </div>
+
             <div id="today">
                 <h1 id="today">Good Morning, Ramita</h1>
                 <p id="current-day">{day}, {month} {date}, {year}</p>

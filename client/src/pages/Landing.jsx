@@ -37,11 +37,30 @@ export default function Landing() {
         document.getElementById("signup-instead").setAttribute('class', 'form-visible');
     }
 
-    const login = (event) => {
-        console.log(event);
+    const login = async (event) => {
+        event.preventDefault();
+        // console.log(event);
+        const email = event.target[0].value;
+        const password = event.target[1].value;
+
+        const response = await fetch('/api/users/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                password: password
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        if (response.ok) {
+            window.location.replace('/dashboard');
+        } else {
+            console.error(response.statusText);
+            document.getElementById('login-error').setAttribute('class', 'form-visible');
+        }
     }
 
     const signup = (event) => {
+        event.preventDefault();
         console.log(event);
     }
 
@@ -55,6 +74,7 @@ export default function Landing() {
                     <input type="password" placeholder="Password"/>
                     <input type="submit" value="Login"/>
                 </form>
+                <p id="login-error" className="form-hidden">Incorrect email and/or password.</p>
                 
                 <p id="signup-instead" className="form-visible" onClick={showSignup}>Click to sign up instead</p>
 
