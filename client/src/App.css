@@ -155,12 +155,20 @@ main {
     flex-direction: column;
 }
 
+.card {
+    height: 33%;
+}
+
 #schedule {
     height: 60%;
 }
 
 #daily-checks {
     height: 40%;
+}
+
+#calendar {
+    height: 66%;
 }
 
 #goal-line input[type="text"] {
@@ -193,7 +201,8 @@ main {
 
 .card,
 #schedule,
-#daily-checks {
+#daily-checks,
+#calendar {
     border: 1px solid lightgrey;
     border-radius: var(--radius);
     margin: 0 5px 10px 5px;
@@ -202,10 +211,6 @@ main {
     /* background: linear-gradient(var(--secondary), 60%, var(--primary)); */
     /* color: white; */
     box-shadow: 1px 1px 5px lightgrey;
-}
-
-.card {
-    height: 33%;
 }
 
 #card-header {

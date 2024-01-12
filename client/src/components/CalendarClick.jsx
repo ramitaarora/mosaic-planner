@@ -1,7 +1,7 @@
 export default function CalendarClick() {
     return (
-        <div id="calendar-render" className="card">
-            <div id="card-header"><h2>Calendar onClick</h2></div>
+        <div id="calendar-render">
+            <p>Hi! I'm the rendered event info on click.</p>
         </div>
     )
 }

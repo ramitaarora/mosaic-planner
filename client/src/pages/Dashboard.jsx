@@ -8,7 +8,6 @@ import DailyChecks from '../components/DailyChecks.jsx';
 import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
 import CalendarCard from '../components/CalendarCard.jsx';
-import CalendarClick from '../components/CalendarClick.jsx';
 
 export default function Dashboard() {
     const [yearGoals, setYearGoals] = useState([]);
@@ -85,7 +84,6 @@ export default function Dashboard() {
           <section id="right">
             <Notes notes={notes} setNotes={setNotes} inputValue={inputValue} setInputValue={setInputValue} />
             <CalendarCard />
-            <CalendarClick />
           </section>
         </main>
   
