@@ -71,7 +71,7 @@ input, button {
     cursor: pointer;
 }
 
-#login-error p {
+#login-error {
     color: red;
 }
 

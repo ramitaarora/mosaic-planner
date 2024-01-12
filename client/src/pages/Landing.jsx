@@ -28,6 +28,7 @@ export default function Landing() {
         document.getElementById("login-instead").setAttribute('class', 'form-visible');
         document.getElementById('auth-form').setAttribute('class', 'form-hidden');
         document.getElementById("signup-instead").setAttribute('class', 'form-hidden');
+        document.getElementById('login-error').setAttribute('class', 'form-hidden');
     }
 
     const showLogin = () => {
@@ -35,6 +36,7 @@ export default function Landing() {
         document.getElementById("login-instead").setAttribute('class', 'form-hidden');
         document.getElementById('auth-form').setAttribute('class', 'form-visible');
         document.getElementById("signup-instead").setAttribute('class', 'form-visible');
+        document.getElementById('login-error').setAttribute('class', 'form-hidden');
     }
 
     const login = async (event) => {
@@ -52,6 +54,7 @@ export default function Landing() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
+            document.getElementById('login-error').setAttribute('class', 'form-hidden');
             window.location.replace('/dashboard');
         } else {
             console.error(response.statusText);
@@ -59,9 +62,32 @@ export default function Landing() {
         }
     }
 
-    const signup = (event) => {
+    const signup = async (event) => {
         event.preventDefault();
         console.log(event);
+
+        const name = event.target[0].value;
+        const email = event.target[1].value;
+        const location = event.target[2].value;
+        const password = event.target[3].value;
+
+        const response = await fetch('/api/users/createUser', {
+            method: 'POST',
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                location: location
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        if (response.ok) {
+            document.getElementById('login-error').setAttribute('class', 'form-hidden');
+            // window.location.replace('/dashboard');
+        } else {
+            console.error(response.statusText);
+            document.getElementById('login-error').setAttribute('class', 'form-visible');
+        }
     }
 
     return (
@@ -78,11 +104,11 @@ export default function Landing() {
                 
                 <p id="signup-instead" className="form-visible" onClick={showSignup}>Click to sign up instead</p>
 
-                <form id="signup-form" className="form-hidden">
-                    <input type="text" placeholder="Name"/>
-                    <input type="text" placeholder="Email"/>
-                    <input type="text" placeholder="City for Weather"/>
-                    <input type="password" placeholder="Password"/>
+                <form id="signup-form" className="form-hidden" onSubmit={signup}>
+                    <input type="text" placeholder="Name" required/>
+                    <input type="text" placeholder="Email" required/>
+                    <input type="text" placeholder="Location for Weather"/>
+                    <input type="password" placeholder="Password" required/>
                     <input type="submit" value="Sign Up"/>
                 </form>
 

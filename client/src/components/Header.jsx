@@ -87,11 +87,22 @@ export default function Header() {
           });
       }, []);
 
+    const logout = async () => {
+        const response = await fetch('/api/users/logout', {
+            method: 'POST',
+        })
+        if (response.ok) {
+            window.location.replace('/');
+        } else {
+            console.error(response.statusText);
+        }
+    }
+
     return (
         <header>
             <div id="navigation">
                 <ul>
-                    <li>Logout</li>
+                    <li onClick={logout}>Logout</li>
                 </ul>
             </div>
 
