@@ -16,9 +16,16 @@ Events.init(
             allowNull: false,
         },
         date: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: DataTypes.NOW,
+        },
+        start_time: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        end_time: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         address: {
             type: DataTypes.STRING,

@@ -1,20 +1,32 @@
 [
     {
         "event": "Meeting with Dave",
-        "user_id": 1
+        "user_id": 1,
+        "date": "2024-1-12",
+        "start_time": "10:30",
+        "end_time": "12:00"
     },
     {
         "event": "Lunch",
-        "user_id": 1
+        "user_id": 1,
+        "date": "2024-1-12",
+        "start_time": "12:00",
+        "end_time": "14:00"
     },
     {
         "event": "Yoga",
         "user_id": 1,
-        "address": "OneLife Yoga Studio"
+        "address": "OneLife Yoga Studio",
+        "date": "2024-1-12",
+        "start_time": "17:30",
+        "end_time": "18:30"
     },
     {
         "event": "Dinner with Parents",
         "user_id": 1,
-        "address": "Cheesecake Factory"
+        "address": "Cheesecake Factory",
+        "date": "2024-1-12",
+        "start_time": "19:00",
+        "end_time": "21:00"
     }
 ]

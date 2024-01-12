@@ -4,7 +4,7 @@ const router = require('express').Router();
 //     res.json( { "message":'Hello!' })
 // });
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (req.session.logged_in) {
         res.json( {"loggedIn" : true} );
     } else {

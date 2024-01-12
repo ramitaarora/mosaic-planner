@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react';
 
 export default function Landing() {
     useEffect(() => {
-        fetch('api/home/', {
-            method: 'GET',
-            credentials: 'include' 
-        })
+        fetch('api/home/')
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

@@ -16,13 +16,11 @@ export default function Dashboard() {
     const [weekGoals, setWeekGoals] = useState([]);
     const [notes, setNotes] = useState([]);
     const [checks, setChecks] = useState([]);
+    const [events, setEvents] = useState([]);
     const [inputValue, setInputValue] = useState('');
 
     const auth = () => {
-      fetch('/api/home/', {
-          method: 'GET',
-          credentials: 'include' 
-      })
+      fetch('/api/home/')
       .then((response) => {
           if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -32,6 +30,7 @@ export default function Dashboard() {
       })
       .then((data) => {
           if (data.loggedIn) {
+              // console.log(data);
               return;
           } else {
               window.location.replace('/')
@@ -45,7 +44,7 @@ export default function Dashboard() {
     useEffect(() => {
       auth();
 
-      fetch('/api/data/allGoals')
+      fetch('/api/data/allData')
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -60,6 +59,7 @@ export default function Dashboard() {
           setWeekGoals(data.weeklyGoals.map(goal => goal));
           setNotes(data.notes.map(note => note));
           setChecks(data.dailyChecks.map(check => check.daily_check));
+          setEvents(data.events.map(event => event));
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
@@ -78,7 +78,7 @@ export default function Dashboard() {
           </section>
   
           <section id="middle">
-            <Schedule />
+            <Schedule events={events} setEvents={setEvents}/>
             <DailyChecks checks={checks} setChecks={setChecks} />
           </section>
   
