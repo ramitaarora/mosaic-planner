@@ -1,0 +1,20 @@
+[
+    {
+        "event": "Meeting with Dave",
+        "user_id": 1
+    },
+    {
+        "event": "Lunch",
+        "user_id": 1
+    },
+    {
+        "event": "Yoga",
+        "user_id": 1,
+        "address": "OneLife Yoga Studio"
+    },
+    {
+        "event": "Dinner with Parents",
+        "user_id": 1,
+        "address": "Cheesecake Factory"
+    }
+]

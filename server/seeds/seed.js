@@ -6,8 +6,9 @@ const dailyChecksData = require('./dailyChecksData.json');
 const yearlyGoalsData = require('./yearlyGoalsData.json');
 const monthlyGoalsData = require('./monthlyGoalsData.json');
 const weeklyGoalsData = require('./weeklyGoalsData.json');
+const eventsData = require('./eventsData.json');
 
-const { User, Notes, DailyChecks, WeeklyGoals, MonthlyGoals, YearlyGoals } = require('../models');
+const { User, Notes, DailyChecks, WeeklyGoals, MonthlyGoals, YearlyGoals, Events } = require('../models');
 
 
 const seedDatabase = async () => {
@@ -17,6 +18,11 @@ const seedDatabase = async () => {
         individualHooks: true,
         returning: true,
       });
+    
+    const events = await Events.bulkCreate(eventsData, {
+        individualHooks: true,
+        returning: true,
+    })
 
     const notes = await Notes.bulkCreate(notesData, {
         individualHooks: true,
