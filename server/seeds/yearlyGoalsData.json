@@ -1,22 +1,22 @@
 [
     {
         "yearly_goal": "Travel to India",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "yearly_goal": "Get fit",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "yearly_goal": "Learn how to cook",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "yearly_goal": "Read more books",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "yearly_goal": "Make more friends",
-        "author_id": 1
+        "user_id": 1
     }
 ]

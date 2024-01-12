@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection')
 
-class WeeklyGoals extends Model {}
+class Events extends Model {}
 
-WeeklyGoals.init(
+Events.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -11,16 +11,16 @@ WeeklyGoals.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        weekly_goal: {
+        event: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        date_created: {
+        date: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-          },
-          user_id: {
+        },
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -34,8 +34,8 @@ WeeklyGoals.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'weeklyGoals'
+        modelName: 'events'
     }
 );
 
-module.exports = WeeklyGoals;
+module.exports = Events;

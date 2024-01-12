@@ -1,22 +1,22 @@
 [
     {
         "monthly_goal": "Save some from each paycheck into travel fund",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "monthly_goal": "Get a gym membership",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "monthly_goal": "Join a cooking class",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "monthly_goal": "Sign up for a Goodreads account",
-        "author_id": 1
+        "user_id": 1
     },
     {
         "monthly_goal": "Find a friend meetup group online",
-        "author_id": 1
+        "user_id": 1
     }
 ]

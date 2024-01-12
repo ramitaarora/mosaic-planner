@@ -83,7 +83,7 @@ export default function Landing() {
         })
         if (response.ok) {
             document.getElementById('login-error').setAttribute('class', 'form-hidden');
-            // window.location.replace('/dashboard');
+            window.location.replace('/dashboard');
         } else {
             console.error(response.statusText);
             document.getElementById('login-error').setAttribute('class', 'form-visible');
