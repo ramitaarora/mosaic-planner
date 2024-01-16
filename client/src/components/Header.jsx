@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Header({ name, location }) { 
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
@@ -88,26 +87,8 @@ export default function Header({ name, location }) {
           });
       }, []);
 
-    const logout = async () => {
-        const response = await fetch('/api/users/logout', {
-            method: 'POST',
-        })
-        if (response.ok) {
-            window.location.replace('/');
-        } else {
-            console.error(response.statusText);
-        }
-    }
-
     return (
         <header>
-            <div id="navigation">
-                <ul>
-                    <li onClick={logout}>Logout</li>
-                    <li><Link to="profile">Setup</Link></li>
-                </ul>
-            </div>
-
             <div id="today">
                 <h1 id="today">Good Morning, {name}</h1>
                 <p id="current-day">{day}, {month} {date}, {year}</p>

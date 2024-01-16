@@ -37,7 +37,32 @@ input, button {
     display: none;
 }  */
 
-/* Login Page Styles  */
+/* Navigation Styles */
+
+#navigation {
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    margin: 0;
+}
+
+#navigation ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+}
+
+#navigation a, #navigation li {
+    text-decoration: none;
+    color: rgb(37, 37, 37);
+}
+
+#navigation li:hover {
+    cursor: pointer;
+    color: grey;
+}
+
+/* Login Page Styles */
 
 #login {
     text-align: center;
@@ -90,6 +115,7 @@ header {
 
 #today {
     grid-area: 1 / 3 / 2 / 4;
+    width: 500px;
 }
 
 #weather {
