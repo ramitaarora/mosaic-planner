@@ -12,6 +12,7 @@ export default function ProfileSetup() {
                 <div id="setup-header">
                     <h1>Edit Profile or Add Goals, Notes, Reminders or Events</h1>
                 </div>
+                
                 <form id="account-form">
                     <label htmlFor="editName">Name</label>
                     <input type="text" name="editName" required />
@@ -22,11 +23,11 @@ export default function ProfileSetup() {
                     <input type="submit" value="save" />
 
                     <label htmlFor="editEmail">Email</label>
-                    <input type="text" name="editEmail" required />
+                    <input type="email" name="editEmail" required />
                     <input type="submit" value="save" />
 
                     <label htmlFor="editPassword">Password</label>
-                    <input type="text" name="editPassword" required />
+                    <input type="password" name="editPassword" required />
                     <input type="submit" value="save" />
                 </form>
                 <div id="setup-forms">
@@ -44,9 +45,11 @@ export default function ProfileSetup() {
                         <input type="text" name="weekly" required />
 
                         <input type="submit" value="Save" />
+                        <input type="reset" value="Reset"/>
                     </form>
                     <form id="event-form">
                         <h2>Add an Event</h2>
+                        
                         <label htmlFor='eventName'>Name</label>
                         <input type="text" name="eventName" required />
 
@@ -57,21 +60,31 @@ export default function ProfileSetup() {
                         <input type="time" name="startTime" required />
 
                         <label htmlFor='endTime'>End Time</label>
-                        <input type="time" required />
+                        <input type="time" name="endTime" required />
+
+                        <label htmlFor='address'>Address</label>
+                        <input type="text" name="address" />
 
                         <input type="submit" value="Save" />
+                        <input type="reset" value="Reset"/>
                     </form>
                     <form id="notes-form">
                         <h2>Add a note/reminder</h2>
+
                         <label htmlFor='note'>Note/Reminder</label>
                         <input type="text" name="note" required />
+
                         <input type="submit" value="Save" />
+                        <input type="reset" value="Reset"/>
                     </form>
                     <form id="daily-checks-form">
                         <h2>Add a Daily Check</h2>
+
                         <label htmlFor='check'>Daily Check</label>
                         <input type="text" name="check" required />
+
                         <input type="submit" value="Save" />
+                        <input type="reset" value="Reset"/>
                     </form>
                 </div>
 
