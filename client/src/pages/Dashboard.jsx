@@ -16,8 +16,35 @@ export default function Dashboard() {
     const [notes, setNotes] = useState([]);
     const [checks, setChecks] = useState([]);
     const [events, setEvents] = useState([]);
+    const [name, setName] = useState('name')
+    const [location, setLocation] = useState('Pasadena')
 
-    const auth = () => {
+  const getData = () => {
+    fetch('/api/data/allData')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      // console.log(response);
+      return response.json(); // or response.text() for text data
+    })
+    .then((data) => {
+      console.log(data);
+      setYearGoals(data.yearlyGoals.map(goal => goal));
+      setMonthGoals(data.monthlyGoals.map(goal => goal));
+      setWeekGoals(data.weeklyGoals.map(goal => goal));
+      setNotes(data.notes.map(note => note));
+      setChecks(data.dailyChecks.map(check => check.daily_check));
+      setEvents(data.events.map(event => event));
+      setName(data.user.map(user => user.name));
+      setLocation(data.user.map(user => user.location));
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+  }
+   
+    useEffect(() => {
       fetch('/api/home')
       .then((response) => {
           if (!response.ok) {
@@ -29,44 +56,19 @@ export default function Dashboard() {
       .then((data) => {
           if (data.loggedIn) {
               // console.log(data);
-              return;
+              getData();
           } else {
               window.location.replace('/login')
           }
       })
       .catch((error) => {
           console.error(error)
-      });
-  }
-   
-    useEffect(() => {
-      auth();
-
-      fetch('/api/data/allData')
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          // console.log(response);
-          return response.json(); // or response.text() for text data
-        })
-        .then((data) => {
-          // console.log(data);
-          setYearGoals(data.yearlyGoals.map(goal => goal));
-          setMonthGoals(data.monthlyGoals.map(goal => goal));
-          setWeekGoals(data.weeklyGoals.map(goal => goal));
-          setNotes(data.notes.map(note => note));
-          setChecks(data.dailyChecks.map(check => check.daily_check));
-          setEvents(data.events.map(event => event));
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        });
+      });     
     }, []);
   
     return (
       <div>
-        <Header />
+        <Header name={name} location={location}/>
   
         <main>
           <section id="left">

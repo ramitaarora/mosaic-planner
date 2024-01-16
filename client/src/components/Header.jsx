@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Header() {
+export default function Header({ name, location }) { 
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
     const [seconds, setSeconds] = useState(new Date().getSeconds());
@@ -68,7 +68,7 @@ export default function Header() {
     }, 1000)
 
     useEffect(() => {
-        fetch('https://api.openweathermap.org/data/2.5/forecast?q=Pasadena&appid=f2e334424bc1375278888844b225e7a5')
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=f2e334424bc1375278888844b225e7a5`)
           .then((response) => {
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -107,14 +107,14 @@ export default function Header() {
             </div>
 
             <div id="today">
-                <h1 id="today">Good Morning, Ramita</h1>
+                <h1 id="today">Good Morning, {name}</h1>
                 <p id="current-day">{day}, {month} {date}, {year}</p>
                 <p id="current-time">{hours}:{minutes}:{seconds}</p>
             </div>
             
             <div id="weather">
                 <div id="weather-1">
-                    <p>Weather for {city}</p> 
+                    <p>Weather for {location}</p> 
                     <img src={icon} alt={forecast} height="50px" width="50px"/> 
                 </div>
                 <div id="weather-2">

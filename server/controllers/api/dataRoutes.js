@@ -1,10 +1,13 @@
 const router = require('express').Router();
-const { YearlyGoals, MonthlyGoals, WeeklyGoals, Notes, DailyChecks, Events } = require('../../models');
+const { User, YearlyGoals, MonthlyGoals, WeeklyGoals, Notes, DailyChecks, Events } = require('../../models');
 
 router.get('/allData', async (req, res) => {
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
     const day = new Date().getDate();
+
+    const userData = await User.findAll({ where: { id: req.session.user_id } });
+    const user = userData.map(user => user.get({ plain: true }));
 
     const yearlyGoalsData = await YearlyGoals.findAll({ where: { user_id: req.session.user_id } });
     const monthlyGoalsData = await MonthlyGoals.findAll({ where: { user_id: req.session.user_id } });
@@ -23,7 +26,7 @@ router.get('/allData', async (req, res) => {
     const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
     const events = eventsData.map(event => event.get({ plain: true }));
 
-    res.json({yearlyGoals, monthlyGoals, weeklyGoals, notes, dailyChecks, events});
+    res.json({yearlyGoals, monthlyGoals, weeklyGoals, notes, dailyChecks, events, user});
 });
 
 router.post('/addGoal', async (req, res) => {
