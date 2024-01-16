@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export default function Header({ name, location }) { 
+    const [greeting, setGreeting] = useState('Hello');
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
     const [seconds, setSeconds] = useState(new Date().getSeconds());
@@ -51,6 +52,7 @@ export default function Header({ name, location }) {
     setTimeout(() => {
         let eachSecond = new Date().getSeconds();
         let eachMinute = new Date().getMinutes()
+        let theHour = new Date().getHours();
         setHours(new Date().getHours() % 12 || 12);
 
         if (eachSecond < 10) {
@@ -63,6 +65,18 @@ export default function Header({ name, location }) {
             setMinutes('0' + new Date().getMinutes());
         } else if (eachMinute > 9) {
             setMinutes(new Date().getMinutes());
+        }
+        
+        if (theHour < 12) {
+            setGreeting('Good morning');
+        }
+
+        if (theHour >= 12 && theHour < 17) {
+            setGreeting('Good afternoon');
+        }
+
+        if (theHour >= 17) {
+            setGreeting('Good evening')
         }
 
     }, 1000)
@@ -90,14 +104,14 @@ export default function Header({ name, location }) {
     return (
         <header>
             <div id="today">
-                <h1 id="today">Good Morning, {name}</h1>
+                <h1 id="today">{greeting}, {name}</h1>
                 <p id="current-day">{day}, {month} {date}, {year}</p>
                 <p id="current-time">{hours}:{minutes}:{seconds}</p>
             </div>
             
             <div id="weather">
                 <div id="weather-1">
-                    <p>Weather for {location}</p> 
+                    <p>Weather for {city}</p> 
                     <img src={icon} alt={forecast} height="50px" width="50px"/> 
                 </div>
                 <div id="weather-2">
