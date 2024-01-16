@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-export default function Landing() {
+export default function Login() {
     useEffect(() => {
-        fetch('api/home/')
+        fetch('api/home')
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -12,7 +12,7 @@ export default function Landing() {
         })
         .then((data) => {
             if (data.loggedIn) {
-                window.location.replace('/dashboard');
+                window.location.replace('/');
             }
         })
         .catch((error) => {
@@ -52,7 +52,7 @@ export default function Landing() {
         })
         if (response.ok) {
             document.getElementById('login-error').setAttribute('class', 'form-hidden');
-            window.location.replace('/dashboard');
+            window.location.replace('/');
         } else {
             console.error(response.statusText);
             document.getElementById('login-error').setAttribute('class', 'form-visible');
@@ -80,7 +80,7 @@ export default function Landing() {
         })
         if (response.ok) {
             document.getElementById('login-error').setAttribute('class', 'form-hidden');
-            window.location.replace('/dashboard');
+            window.location.replace('/');
         } else {
             console.error(response.statusText);
             document.getElementById('login-error').setAttribute('class', 'form-visible');
@@ -88,7 +88,7 @@ export default function Landing() {
     }
 
     return (
-        <div id="landing">
+        <div id="login">
             <h1>Your goals, schedule & reminders, all in one place.</h1>
             <div id="authentication">
 

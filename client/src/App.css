@@ -37,16 +37,16 @@ input, button {
     display: none;
 }  */
 
-/* Landing Page Styles  */
+/* Login Page Styles  */
 
-#landing {
+#login {
     text-align: center;
     height: 100vh;
     /* width: 100vh; */
     margin: 0 auto;
 }
 
-#landing h1 {
+#login h1 {
     margin: 30vh auto 0 auto;
 }
 

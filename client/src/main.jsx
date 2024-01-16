@@ -6,7 +6,7 @@ import App from './App.jsx'
 import './App.css'
 
 import Dashboard from './pages/Dashboard.jsx';
-import Landing from './pages/Landing.jsx';
+import Login from './pages/Login.jsx';
 import Error from './pages/Error.jsx';
 import Account from './pages/Account.jsx';
 import ProfileSetup from './pages/ProfileSetup.jsx';
@@ -16,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Router>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Landing />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route index element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

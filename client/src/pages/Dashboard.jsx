@@ -19,7 +19,7 @@ export default function Dashboard() {
     const [inputValue, setInputValue] = useState('');
 
     const auth = () => {
-      fetch('/api/home/')
+      fetch('/api/home')
       .then((response) => {
           if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -32,7 +32,7 @@ export default function Dashboard() {
               // console.log(data);
               return;
           } else {
-              window.location.replace('/')
+              window.location.replace('/login')
           }
       })
       .catch((error) => {
