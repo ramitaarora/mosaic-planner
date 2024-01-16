@@ -29,7 +29,7 @@ export default function Dashboard() {
       return response.json(); // or response.text() for text data
     })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       setYearGoals(data.yearlyGoals.map(goal => goal));
       setMonthGoals(data.monthlyGoals.map(goal => goal));
       setWeekGoals(data.weeklyGoals.map(goal => goal));

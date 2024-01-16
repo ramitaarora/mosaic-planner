@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header({ name, location }) { 
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
@@ -103,6 +104,7 @@ export default function Header({ name, location }) {
             <div id="navigation">
                 <ul>
                     <li onClick={logout}>Logout</li>
+                    <li><Link to="profile">Setup</Link></li>
                 </ul>
             </div>
 

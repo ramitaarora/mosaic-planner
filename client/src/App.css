@@ -292,6 +292,61 @@ main {
     margin: 0 20px;
 }
 
+/* Profile Setup Styles */
+
+#profile-setup {
+    width: 100%;
+}
+
+#profile-setup h2 {
+    font-size: 24px;
+}
+
+#setup-header {
+    text-align: center;
+}
+
+#account-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px 0;
+    align-items: center;
+}
+
+#account-form input {
+    margin: 5px;
+}
+
+#setup-forms {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#each-goal-form,
+#event-form,
+#notes-form,
+#daily-checks-form {
+    border: 1px solid var(--grey);
+    border-radius: var(--radius);
+    width: 45%;
+    box-shadow: 1px 1px 5px lightgrey;
+    margin: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#each-goal-form input,
+#event-form input,
+#notes-form input,
+#daily-checks-form input {
+    margin: 10px 0;
+}
+
 /* Mobile Styles */
 
 @media only screen and (max-width: 1000px) {
