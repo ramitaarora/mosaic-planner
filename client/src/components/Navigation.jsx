@@ -6,7 +6,7 @@ export default function Navigation() {
             method: 'POST',
         })
         if (response.ok) {
-            window.location.replace('/');
+            window.location.replace('/login');
         } else {
             console.error(response.statusText);
         }

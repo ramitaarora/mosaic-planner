@@ -1,5 +1,11 @@
+import Navigation from '../components/Navigation';
+
 export default function Error() {
     return (
-        <h1>Error</h1>
+        <div>
+            <Navigation />
+            <h1>Error</h1>
+        </div>
+        
     )
 }

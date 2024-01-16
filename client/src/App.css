@@ -151,6 +151,16 @@ header {
     align-items: center;
 }
 
+/* Footer Styles */
+
+footer {
+    width: 100%;
+    text-align: center;
+    border-top: lightgrey 1px solid;
+    border-bottom: lightgrey 1px solid;
+    margin-top: 10px;
+}
+
 /* Structure Styles  */
 
 main {

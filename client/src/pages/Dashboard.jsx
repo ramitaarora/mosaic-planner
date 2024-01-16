@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import Navigation from '../components/Navigation';
 import Header from '../components/Header.jsx'
 import YearlyGoals from '../components/YearlyGoals.jsx';
 import MonthlyGoals from '../components/MonthlyGoals.jsx';
@@ -68,6 +69,7 @@ export default function Dashboard() {
   
     return (
       <div>
+        <Navigation />
         <Header name={name} location={location}/>
   
         <main>
