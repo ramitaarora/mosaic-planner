@@ -16,7 +16,6 @@ export default function Dashboard() {
     const [notes, setNotes] = useState([]);
     const [checks, setChecks] = useState([]);
     const [events, setEvents] = useState([]);
-    const [inputValue, setInputValue] = useState('');
 
     const auth = () => {
       fetch('/api/home')
@@ -71,9 +70,9 @@ export default function Dashboard() {
   
         <main>
           <section id="left">
-            <YearlyGoals yearGoals={yearGoals} setYearGoals={setYearGoals} inputValue={inputValue} setInputValue={setInputValue} />
-            <MonthlyGoals monthGoals={monthGoals} setMonthGoals={setMonthGoals} inputValue={inputValue} setInputValue={setInputValue} />
-            <WeeklyGoals weekGoals={weekGoals} setWeekGoals={setWeekGoals} inputValue={inputValue} setInputValue={setInputValue} />
+            <YearlyGoals yearGoals={yearGoals} setYearGoals={setYearGoals}/>
+            <MonthlyGoals monthGoals={monthGoals} setMonthGoals={setMonthGoals}/>
+            <WeeklyGoals weekGoals={weekGoals} setWeekGoals={setWeekGoals}/>
           </section>
   
           <section id="middle">
@@ -82,7 +81,7 @@ export default function Dashboard() {
           </section>
   
           <section id="right">
-            <Notes notes={notes} setNotes={setNotes} inputValue={inputValue} setInputValue={setInputValue} />
+            <Notes notes={notes} setNotes={setNotes}/>
             <CalendarCard />
           </section>
         </main>

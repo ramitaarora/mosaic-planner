@@ -1,4 +1,8 @@
+import { useEffect, useState } from 'react';
+
 export default function DailyChecks({ checks, setChecks }) {
+    const [inputValue, setInputValue] = useState('');
+
     return (
         <div id="daily-checks">
             <div id="card-header">

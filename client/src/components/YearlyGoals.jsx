@@ -1,4 +1,8 @@
-export default function YearlyGoals({ yearGoals, setYearGoals, inputValue, setInputValue }) {
+import { useEffect, useState } from 'react';
+
+export default function YearlyGoals({ yearGoals, setYearGoals }) {
+    const [inputValue, setInputValue] = useState('');
+
     const editYearlyGoal = (event) => {
         const yearlyGoalID = event.target.attributes[2].nodeValue;
         const yearlyGoalValue = event.target.attributes[3].nodeValue;
@@ -23,7 +27,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals, inputValue, setIn
             });
             if (response.ok) {
                 // console.log(response.statusText);
-                fetch('/api/data/allgoals')
+                fetch('/api/data/allData')
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -60,7 +64,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals, inputValue, setIn
 
         if (response.ok) {
             // console.log(response.statusText);
-            fetch('/api/data/allgoals')
+            fetch('/api/data/allData')
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -114,7 +118,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals, inputValue, setIn
     
             if (response.ok) {
                 // console.log(response.statusText);
-                fetch('/api/data/allgoals')
+                fetch('/api/data/allData')
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);

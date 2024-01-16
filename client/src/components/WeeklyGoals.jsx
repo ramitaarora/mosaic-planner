@@ -1,4 +1,8 @@
-export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setInputValue }) {
+import { useEffect, useState } from 'react';
+
+export default function WeeklyGoals({ weekGoals, setWeekGoals }) {
+    const [inputValue, setInputValue] = useState('');
+
     const editWeeklyGoal = (event) => {
         const weeklyGoalID = event.target.attributes[2].nodeValue;
         const weeklyGoalValue = event.target.attributes[3].nodeValue;
@@ -23,7 +27,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setIn
             });
             if (response.ok) {
                 // console.log(response.statusText);
-                fetch('/api/data/allgoals')
+                fetch('/api/data/allData')
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -60,7 +64,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setIn
 
         if (response.ok) {
             // console.log(response.statusText);
-            fetch('/api/data/allgoals')
+            fetch('/api/data/allData')
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -114,7 +118,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals, inputValue, setIn
     
             if (response.ok) {
                 // console.log(response.statusText);
-                fetch('/api/data/allgoals')
+                fetch('/api/data/allData')
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);

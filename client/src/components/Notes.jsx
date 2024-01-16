@@ -1,4 +1,8 @@
-export default function Notes({ notes, setNotes, inputValue, setInputValue}) {
+import { useEffect, useState } from 'react';
+
+export default function Notes({ notes, setNotes }) {
+    const [inputValue, setInputValue] = useState('');
+
     const editNote = (event) => {
         const noteID = event.target.attributes[2].nodeValue;
         const noteValue = event.target.attributes[3].nodeValue;
@@ -23,7 +27,7 @@ export default function Notes({ notes, setNotes, inputValue, setInputValue}) {
             });
             if (response.ok) {
                 // console.log(response.statusText);
-                fetch('/api/data/allgoals')
+                fetch('/api/data/allData')
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -60,7 +64,7 @@ export default function Notes({ notes, setNotes, inputValue, setInputValue}) {
 
         if (response.ok) {
             // console.log(response.statusText);
-            fetch('/api/data/allgoals')
+            fetch('/api/data/allData')
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -114,7 +118,7 @@ export default function Notes({ notes, setNotes, inputValue, setInputValue}) {
     
             if (response.ok) {
                 // console.log(response.statusText);
-                fetch('/api/data/allgoals')
+                fetch('/api/data/allData')
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
