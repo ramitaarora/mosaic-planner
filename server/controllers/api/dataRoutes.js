@@ -25,30 +25,9 @@ router.get('/allData', async (req, res) => {
     res.json({goals, notes, dailyChecks, events, user});
 });
 
-router.post('/addGoal', async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
-        if (req.body.goalType === 'Yearly') {
-            const yearlyData = await YearlyGoals.create({
-                yearly_goal: req.body.goal,
-                user_id: req.body.userID
-            })
-            res.status(200).json(yearlyData);
-        }
-        if (req.body.goalType === 'Monthly') {
-            const monthlyData = await MonthlyGoals.create({
-                monthly_goal: req.body.goal,
-                user_id: req.body.userID
-            })
-            res.status(200).json(monthlyData);
-        }
-        if (req.body.goalType === 'Weekly') {
-            const weeklyData = await WeeklyGoals.create({
-                weekly_goal: req.body.goal,
-                user_id: req.body.userID
-            })
-            res.status(200).json(weeklyData);
-        }
-        if (req.body.goalType === 'Note') {
+        if (req.body.type === 'Note') {
             const notesData = await Notes.create({
                 note: req.body.note,
                 user_id: req.body.userID
@@ -61,23 +40,19 @@ router.post('/addGoal', async (req, res) => {
     }
 })
 
-router.put('/editGoal', async (req, res) => {
+router.put('/edit', async (req, res) => {
     try {
-        if (req.body.goalType === 'Yearly') {
-            const yearlyData = await YearlyGoals.update({ yearly_goal: req.body.goal }, { where: { id: req.body.id }});
-            res.status(200).json(yearlyData);
+        if (req.body.type === 'Goal') {
+            const goalData = await Goals.update({ goal: req.body.goal }, { where: { id: req.body.id } });
+            res.status(200).json(goalData);
         }
-        if (req.body.goalType === 'Monthly') {
-            const monthlyData = await MonthlyGoals.update({ monthly_goal: req.body.goal }, { where: { id: req.body.id }});
-            res.status(200).json(monthlyData);
-        }
-        if (req.body.goalType === 'Weekly') {
-            const weeklyData = await WeeklyGoals.update({ weekly_goal: req.body.goal }, { where: { id: req.body.id }});
-            res.status(200).json(weeklyData);
-        }
-        if (req.body.goalType === 'Note') {
-            const notesData = await Notes.update({ note: req.body.note }, { where: { id: req.body.id }});
+        if (req.body.type === 'Note') {
+            const notesData = await Notes.update({ note: req.body.note }, { where: { id: req.body.id } });
             res.status(200).json(notesData);
+        }
+        if (req.body.type === 'Event') {
+            const eventData = await Event.update({ event: event.body.event }, { where: { id: req.body.id } })
+            res.status(200).json(eventData);
         }
     } catch(err) {
         res.status(400).json(err);
@@ -85,24 +60,17 @@ router.put('/editGoal', async (req, res) => {
     }
 })
 
-router.delete('/deleteGoal', async (req, res) => {
+router.delete('/delete', async (req, res) => {
     try {
-        if (req.body.goalType === 'Yearly') {
-            const yearlyData = await YearlyGoals.destroy({ where: { id: req.body.id }});
-            res.status(200).json(yearlyData);
-        }
-        if (req.body.goalType === 'Monthly') {
-            const monthlyData = await MonthlyGoals.destroy({ where: { id: req.body.id }});
-            res.status(200).json(monthlyData);
-        }
-        if (req.body.goalType === 'Weekly') {
-            const weeklyData = await WeeklyGoals.destroy({ where: { id: req.body.id }});
-            res.status(200).json(weeklyData);
+        if (req.body.type === 'Goal') {
+            const goalData = await Goals.destroy({ where: { id: req.body.id }});
+            res.status(200).json(goalData);
         }
         if (req.body.goalType === 'Note') {
             const notesData = await Notes.destroy({ where: { id: req.body.id }});
             res.status(200).json(notesData);
         }
+        
     } catch(err) {
         res.status(400).json(err);
         console.log(err)

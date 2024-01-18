@@ -295,7 +295,7 @@ main {
     background-color: rgb(242, 242, 242)
 }
 
-.each-goal, #each-event {
+.each-goal, #each-event, .each-note {
     display: flex;
     flex-direction: column;
     margin: 5px;

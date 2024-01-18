@@ -18,11 +18,11 @@ export default function Notes({ notes, setNotes }) {
         const noteID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this note?")) {
-            const response = await fetch('/api/data/deleteGoal', {
+            const response = await fetch('/api/data/delete', {
                 method: 'DELETE',
                 body: JSON.stringify({
                     id: noteID,
-                    goalType: 'Note',
+                    type: 'Note',
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -54,12 +54,12 @@ export default function Notes({ notes, setNotes }) {
         const noteID = event.target.parentElement.parentElement.attributes[1].value;
         const formInput = event.target[0].value;
 
-        const response = await fetch('/api/data/editGoal', {
+        const response = await fetch('/api/data/edit', {
             method: 'PUT',
             body: JSON.stringify({
                 id: noteID,
                 note: formInput,
-                goalType: 'Note'
+                type: 'Note'
             }),
             headers: { 'Content-Type': 'application/json' },
         });
@@ -108,12 +108,12 @@ export default function Notes({ notes, setNotes }) {
         const newNoteValue = event.target[0].value;
 
         if (newNoteValue.length) {
-            const response = await fetch('/api/data/addGoal', {
+            const response = await fetch('/api/data/add', {
                 method: 'POST',
                 body: JSON.stringify({
                     userID: 1,
                     note: newNoteValue,
-                    goalType: 'Note'
+                    type: 'Note'
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -129,7 +129,7 @@ export default function Notes({ notes, setNotes }) {
                     })
                     .then((data) => {
                         // console.log(data);
-                        setNotes(data.notes.map(goal => goal));
+                        setNotes(data.notes.map(note => note));
                         document.getElementById('add-note').setAttribute('class', 'form-hidden');
                         document.getElementById('cancel-note-button').setAttribute('class', 'form-hidden');
                         document.getElementById('add-note-button').setAttribute('class', 'form-visible');
@@ -168,7 +168,7 @@ export default function Notes({ notes, setNotes }) {
                 <ol>
                     {notes.map((note, index) =>
                         <div key={index} id="line" value={note.id}>
-                            <div id={'note-' + note.id} className="each-goal">
+                            <div id={'note-' + note.id} className="each-note">
                                 <li>{note.note}</li>
                                 <form id={'noteForm-' + note.id} className="form-hidden" onSubmit={submitNoteEdit}>
                                     <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} />
