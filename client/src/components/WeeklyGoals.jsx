@@ -169,7 +169,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals }) {
                     {weekGoals.map(((goal, index) =>
                         <div key={index} id="goal-line" value={goal.id}>
                             <div id={'weeklyGoal-' + goal.id} className="each-goal">
-                                <li>{goal.weekly_goal}</li>
+                                <li>{goal.goal}</li>
                                 <form id={'weeklyForm-' + goal.id} className="form-hidden" onSubmit={submitWeeklyEdit}>
                                     <input type="text" id={'weeklyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button" />
@@ -177,7 +177,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals }) {
                                 </form>
                             </div>
                             <div id="edit-buttons">
-                                <img src="./svgs/edit.svg" alt="edit" onClick={editWeeklyGoal} id={goal.id} value={goal.weekly_goal} />
+                                <img src="./svgs/edit.svg" alt="edit" onClick={editWeeklyGoal} id={goal.id} value={goal.goal} />
                                 <img src="./svgs/delete.svg" alt="edit" onClick={deleteWeeklyGoal} id={goal.id} />
                             </div>
                         </div>

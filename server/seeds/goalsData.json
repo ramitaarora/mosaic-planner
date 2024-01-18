@@ -24,12 +24,6 @@
         "goal_type": "Yearly"
     },
     {
-        "id": 5,
-        "goal": "Make more friends",
-        "user_id": 1,
-        "goal_type": "Yearly"
-    },
-    {
         "goal": "Save some from each paycheck into travel fund",
         "user_id": 1,
         "goal_type": "Monthly",
@@ -54,12 +48,6 @@
         "parent_goal": 4
     },
     {
-        "goal": "Find a friend meetup group online",
-        "user_id": 1,
-        "goal_type": "Monthly",
-        "parent_goal": 5
-    },
-    {
         "goal": "Plan India trip and budget hotels and sights",
         "user_id": 1,
         "goal_type": "Weekly",
@@ -82,11 +70,5 @@
         "user_id": 1,
         "goal_type": "Weekly",
         "parent_goal": 4
-    },
-    {
-        "goal": "Go to a friend meetup event",
-        "user_id": 1,
-        "goal_type": "Weekly",
-        "parent_goal": 5
     }
 ]

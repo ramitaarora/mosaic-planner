@@ -170,7 +170,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals }) {
                     {yearGoals.map(((goal, index) =>
                         <div key={index} id="goal-line" value={goal.id}>
                             <div id={'yearlyGoal-' + goal.id} className="each-goal">
-                                <li>{goal.yearly_goal}</li>
+                                <li>{goal.goal}</li>
                                 <form id={'yearlyForm-' + goal.id} className="form-hidden" onSubmit={submitYearlyEdit}>
                                     <input type="text" id={'yearlyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button"/>
@@ -178,7 +178,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals }) {
                                 </form>
                             </div>
                             <div id="edit-buttons">
-                                <img src="./svgs/edit.svg" alt="edit" onClick={editYearlyGoal} id={goal.id} value={goal.yearly_goal} />
+                                <img src="./svgs/edit.svg" alt="edit" onClick={editYearlyGoal} id={goal.id} value={goal.goal} />
                                 <img src="./svgs/delete.svg" alt="edit" onClick={deleteYearlyGoal} id={goal.id} />
                             </div>
                         </div>

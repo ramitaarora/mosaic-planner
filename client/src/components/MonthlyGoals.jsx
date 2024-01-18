@@ -169,7 +169,7 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals }) {
                     {monthGoals.map(((goal, index) =>
                         <div key={index} id="goal-line" value={goal.id}>
                             <div id={'monthlyGoal-' + goal.id} className="each-goal">
-                                <li>{goal.monthly_goal}</li>
+                                <li>{goal.goal}</li>
                                 <form id={'monthlyForm-' + goal.id} className="form-hidden" onSubmit={submitMonthlyEdit}>
                                     <input type="text" id={'monthlyInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button" />
@@ -177,7 +177,7 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals }) {
                                 </form>
                             </div>
                             <div id="edit-buttons">
-                                <img src="./svgs/edit.svg" alt="edit" onClick={editMonthlyGoal} id={goal.id} value={goal.monthly_goal} />
+                                <img src="./svgs/edit.svg" alt="edit" onClick={editMonthlyGoal} id={goal.id} value={goal.goal} />
                                 <img src="./svgs/delete.svg" alt="edit" onClick={deleteMonthlyGoal} id={goal.id} />
                             </div>
                         </div>

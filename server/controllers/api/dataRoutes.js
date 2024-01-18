@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, YearlyGoals, MonthlyGoals, WeeklyGoals, Notes, DailyChecks, Events } = require('../../models');
+const { User, Goals, Notes, DailyChecks, Events } = require('../../models');
 
 router.get('/allData', async (req, res) => {
     const year = new Date().getFullYear();
@@ -9,24 +9,20 @@ router.get('/allData', async (req, res) => {
     const userData = await User.findAll({ where: { id: req.session.user_id } });
     const user = userData.map(user => user.get({ plain: true }));
 
-    const yearlyGoalsData = await YearlyGoals.findAll({ where: { user_id: req.session.user_id } });
-    const monthlyGoalsData = await MonthlyGoals.findAll({ where: { user_id: req.session.user_id } });
-    const weeklyGoalsData = await WeeklyGoals.findAll({ where: { user_id: req.session.user_id } });
+    const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
     const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
     const dailyChecksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id } });
     const eventsData = await Events.findAll({ where: { 
         user_id: req.session.user_id,
-        date: `${year}-${month}-${day}`
+        // date: `${year}-${month}-${day}`
      }})
 
-    const yearlyGoals = yearlyGoalsData.map(goal => goal.get({ plain: true }));
-    const monthlyGoals = monthlyGoalsData.map(goal => goal.get({ plain: true }));
-    const weeklyGoals = weeklyGoalsData.map(goal => goal.get({ plain: true }));
+    const goals = goalsData.map(goal => goal.get({ plain: true }));
     const notes = notesData.map(note => note.get({ plain: true }));
     const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
     const events = eventsData.map(event => event.get({ plain: true }));
 
-    res.json({yearlyGoals, monthlyGoals, weeklyGoals, notes, dailyChecks, events, user});
+    res.json({goals, notes, dailyChecks, events, user});
 });
 
 router.post('/addGoal', async (req, res) => {

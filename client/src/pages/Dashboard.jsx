@@ -30,10 +30,10 @@ export default function Dashboard() {
       return response.json(); // or response.text() for text data
     })
     .then((data) => {
-      // console.log(data);
-      setYearGoals(data.yearlyGoals.map(goal => goal));
-      setMonthGoals(data.monthlyGoals.map(goal => goal));
-      setWeekGoals(data.weeklyGoals.map(goal => goal));
+      // console.log(data.goals.filter(goal => goal.goal_type === 'Yearly'));
+      setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
+      setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
+      setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
       setNotes(data.notes.map(note => note));
       setChecks(data.dailyChecks.map(check => check.daily_check));
       setEvents(data.events.map(event => event));
