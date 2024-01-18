@@ -89,7 +89,7 @@ router.put('/editGoal', async (req, res) => {
     }
 })
 
-router.post('/deleteGoal', async (req, res) => {
+router.delete('/deleteGoal', async (req, res) => {
     try {
         if (req.body.goalType === 'Yearly') {
             const yearlyData = await YearlyGoals.destroy({ where: { id: req.body.id }});
