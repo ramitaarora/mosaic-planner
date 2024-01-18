@@ -18,10 +18,11 @@ export default function Notes({ notes, setNotes }) {
         const noteID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this note?")) {
-            const response = await fetch('/api/data/deleteNote', {
+            const response = await fetch('/api/data/deleteGoal', {
                 method: 'DELETE',
                 body: JSON.stringify({
                     id: noteID,
+                    goalType: 'Note',
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -53,11 +54,12 @@ export default function Notes({ notes, setNotes }) {
         const noteID = event.target.parentElement.parentElement.attributes[1].value;
         const formInput = event.target[0].value;
 
-        const response = await fetch('/api/data/editNote', {
+        const response = await fetch('/api/data/editGoal', {
             method: 'POST',
             body: JSON.stringify({
                 id: noteID,
-                note: formInput
+                note: formInput,
+                goalType: 'Note'
             }),
             headers: { 'Content-Type': 'application/json' },
         });
@@ -109,7 +111,7 @@ export default function Notes({ notes, setNotes }) {
             const response = await fetch('/api/data/addGoal', {
                 method: 'POST',
                 body: JSON.stringify({
-                    authorID: 1,
+                    userID: 1,
                     note: newNoteValue,
                     goalType: 'Note'
                 }),

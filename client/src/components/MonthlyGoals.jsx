@@ -18,10 +18,11 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals }) {
         const monthlyGoalID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this goal?")) {
-            const response = await fetch('/api/data/deleteMonthly', {
+            const response = await fetch('/api/data/deleteGoal', {
                 method: 'DELETE',
                 body: JSON.stringify({
                     id: monthlyGoalID,
+                    goalType: 'Monthly'
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -53,11 +54,12 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals }) {
         const monthlyGoalID = event.target.parentElement.parentElement.attributes[1].value;
         const formInput = event.target[0].value;
 
-        const response = await fetch('/api/data/editMonthly', {
+        const response = await fetch('/api/data/editGoal', {
             method: 'POST',
             body: JSON.stringify({
                 id: monthlyGoalID,
-                monthlyGoal: formInput
+                goal: formInput,
+                goalType: 'Monthly'
             }),
             headers: { 'Content-Type': 'application/json' },
         });
@@ -109,7 +111,7 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals }) {
             const response = await fetch('/api/data/addGoal', {
                 method: 'POST',
                 body: JSON.stringify({
-                    authorID: 1,
+                    userID: 1,
                     goal: newGoalValue,
                     goalType: 'Monthly'
                 }),

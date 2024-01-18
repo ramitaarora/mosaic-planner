@@ -18,10 +18,11 @@ export default function YearlyGoals({ yearGoals, setYearGoals }) {
         const yearlyGoalID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this goal?")) {
-            const response = await fetch('/api/data/deleteYearly', {
+            const response = await fetch('/api/data/deleteGoal', {
                 method: 'DELETE',
                 body: JSON.stringify({
                     id: yearlyGoalID,
+                    goalType: 'Yearly',
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -53,11 +54,12 @@ export default function YearlyGoals({ yearGoals, setYearGoals }) {
         const yearlyGoalID = event.target.parentElement.parentElement.attributes[1].value;
         const formInput = event.target[0].value;
 
-        const response = await fetch('/api/data/editYearly', {
+        const response = await fetch('/api/data/editGoal', {
             method: 'POST',
             body: JSON.stringify({
                 id: yearlyGoalID,
-                yearlyGoal: formInput
+                goal: formInput,
+                goalType: 'Yearly'
             }),
             headers: { 'Content-Type': 'application/json' },
         });
@@ -109,7 +111,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals }) {
             const response = await fetch('/api/data/addGoal', {
                 method: 'POST',
                 body: JSON.stringify({
-                    authorID: 1,
+                    userID: 1,
                     goal: newGoalValue,
                     goalType: 'Yearly'
                 }),
