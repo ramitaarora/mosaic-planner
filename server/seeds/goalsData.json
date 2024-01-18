@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "goal": "Travel to India",
+        "user_id": 1,
+        "goal_type": "Yearly"
+    },
+    {
+        "id": 2,
+        "goal": "Get fit",
+        "user_id": 1,
+        "goal_type": "Yearly"
+    },
+    {
+        "id": 3,
+        "goal": "Learn how to cook",
+        "user_id": 1,
+        "goal_type": "Yearly"
+    },
+    {
+        "id": 4,
+        "goal": "Read more books",
+        "user_id": 1,
+        "goal_type": "Yearly"
+    },
+    {
+        "id": 5,
+        "goal": "Make more friends",
+        "user_id": 1,
+        "goal_type": "Yearly"
+    },
+    {
+        "goal": "Save some from each paycheck into travel fund",
+        "user_id": 1,
+        "goal_type": "Monthly",
+        "parent_goal": 1
+    },
+    {
+        "goal": "Get a gym membership",
+        "user_id": 1,
+        "goal_type": "Monthly",
+        "parent_goal": 2
+    },
+    {
+        "goal": "Join a cooking class",
+        "user_id": 1,
+        "goal_type": "Monthly",
+        "parent_goal": 3
+    },
+    {
+        "goal": "Sign up for a Goodreads account",
+        "user_id": 1,
+        "goal_type": "Monthly",
+        "parent_goal": 4
+    },
+    {
+        "goal": "Find a friend meetup group online",
+        "user_id": 1,
+        "goal_type": "Monthly",
+        "parent_goal": 5
+    },
+    {
+        "goal": "Plan India trip and budget hotels and sights",
+        "user_id": 1,
+        "goal_type": "Weekly",
+        "parent_goal": 1
+    },
+    {
+        "goal": "Go to the gym 4x a week",
+        "user_id": 1,
+        "goal_type": "Weekly",
+        "parent_goal": 2
+    },
+    {
+        "goal": "Make a menu for the week's dinners",
+        "user_id": 1,
+        "goal_type": "Weekly",
+        "parent_goal": 3
+    },
+    {
+        "goal": "Get a library book for the week",
+        "user_id": 1,
+        "goal_type": "Weekly",
+        "parent_goal": 4
+    },
+    {
+        "goal": "Go to a friend meetup event",
+        "user_id": 1,
+        "goal_type": "Weekly",
+        "parent_goal": 5
+    }
+]

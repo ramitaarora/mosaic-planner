@@ -1,8 +1,6 @@
 const User = require('./User');
+const Goals = require('./Goals');
 const Notes = require('./Notes');
-const YearlyGoals = require('./YearlyGoals');
-const MonthlyGoals = require('./MonthlyGoals');
-const WeeklyGoals = require('./WeeklyGoals');
 const DailyChecks = require('./DailyChecks');
 const Events = require('./Events');
 
@@ -11,17 +9,7 @@ Notes.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 
-YearlyGoals.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-})
-
-MonthlyGoals.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-})
-
-WeeklyGoals.belongsTo(User, {
+Goals.belongsTo(User, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 })
@@ -36,4 +24,4 @@ Events.belongsTo(User, {
     onDelete: 'CASCADE'
 })
 
-module.exports = { User, Notes, DailyChecks, YearlyGoals, MonthlyGoals, WeeklyGoals, Events };
+module.exports = { User, Goals, DailyChecks, Events, Notes };

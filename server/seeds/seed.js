@@ -2,13 +2,11 @@ const sequelize = require('../config/connection');
 
 const userData = require('./userData.json');
 const notesData = require('./notesData.json');
+const goalsData = require('./goalsData.json');
 const dailyChecksData = require('./dailyChecksData.json');
-const yearlyGoalsData = require('./yearlyGoalsData.json');
-const monthlyGoalsData = require('./monthlyGoalsData.json');
-const weeklyGoalsData = require('./weeklyGoalsData.json');
 const eventsData = require('./eventsData.json');
 
-const { User, Notes, DailyChecks, WeeklyGoals, MonthlyGoals, YearlyGoals, Events } = require('../models');
+const { User, Goals, DailyChecks, Events, Notes } = require('../models');
 
 
 const seedDatabase = async () => {
@@ -24,27 +22,17 @@ const seedDatabase = async () => {
         returning: true,
     })
 
-    const notes = await Notes.bulkCreate(notesData, {
-        individualHooks: true,
-        returning: true,
-    })
-
     const dailyChecks = await DailyChecks.bulkCreate(dailyChecksData, {
         individualHooks: true,
         returning: true,
     })
 
-    const yearlyGoals = await YearlyGoals.bulkCreate(yearlyGoalsData, {
+    const notes = await Notes.bulkCreate(notesData, {
         individualHooks: true,
         returning: true,
     })
 
-    const monthlyGoals = await MonthlyGoals.bulkCreate(monthlyGoalsData, {
-        individualHooks: true,
-        returning: true,
-    })
-
-    const weeklyGoals = await WeeklyGoals.bulkCreate(weeklyGoalsData, {
+    const goals = await Goals.bulkCreate(goalsData, {
         individualHooks: true,
         returning: true,
     })
