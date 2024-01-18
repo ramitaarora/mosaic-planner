@@ -114,7 +114,7 @@ export default function Header({ name, location }) {
           .catch((error) => {
             console.error('Error fetching data:', error);
           });
-      }, []);
+      }, [location]);
 
     return (
         <header>

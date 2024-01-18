@@ -28,7 +28,7 @@ export default function Dashboard() {
       return response.json(); // or response.text() for text data
     })
     .then((data) => {
-      // console.log(data.events.map(event => event));
+      // console.log(data);
       setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
       setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
       setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
