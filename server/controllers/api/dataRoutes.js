@@ -52,9 +52,15 @@ router.post('/add', async (req, res) => {
         if (req.body.type === 'Note') {
             const notesData = await Notes.create({
                 note: req.body.note,
-                user_id: req.body.userID
+                user_id: req.session.user_id
             })
             res.status(200).json(notesData);
+        }
+        if (req.body.type === 'Goal') {
+            const yearlyGoalsData = await Goals.create({
+                user_id: req.session.user_id,
+                goal: req.body.goal,
+            })
         }
     } catch(err) {
         res.status(400).json(err);

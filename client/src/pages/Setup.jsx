@@ -72,29 +72,53 @@ export default function Setup() {
         const inputType = String(event.target.id).split('-')[0];
         const inputData = event.target[0].value;
 
-        const response = await fetch('/api/users/updateUser', {
-            method: 'PUT',
-            body: JSON.stringify({
-                data: inputData,
-                type: inputType
-            }),
-            headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (response.ok) {
-            alert(`${inputType} updated!`)
-            getData();
-        } else {
-            alert(response.statusText);
+        if (inputData.length) {
+            const response = await fetch('/api/users/updateUser', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    data: inputData,
+                    type: inputType
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+    
+            if (response.ok) {
+                alert(`${inputType} updated!`)
+                getData();
+            } else {
+                alert(response.statusText);
+            }
         }
     }
 
-    const saveGoal = (event) => {
+    const saveGoal = async (event) => {
         event.preventDefault();
         console.log(event);
+        // const formID = event.target.id;
+        // let yearlyGoal;
+        // let monthlyGoal;
+        // let weeklyGoal;
+
+        // const response = await fetch('/api/data/add', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         type: 'Goal',
+        //         goal: yearlyGoal,
+        //         goal_type: 'Yearly',
+        //     }),
+        //     headers: { 'Content-Type': 'application/json' },
+        // });
+
+        // if (response.ok) {
+        //     // console.log(response.statusText);
+        //     alert('Goal saved!')
+        //     document.getElementById(formID).reset();
+        // } else {
+        //     alert(response.statusText);
+        // }
     }
 
-    const saveEvent = (event) => {
+    const saveEvent = async (event) => {
         event.preventDefault();
         console.log(event);
     }
@@ -212,9 +236,21 @@ export default function Setup() {
                                 <label htmlFor='endTime'>End Time</label>
                                 <input type="time" name="endTime" required />
                             </div>
-                            <div id="form-input"><label htmlFor='address'>Address</label>
+                            <div id="form-input">
+                                <label htmlFor='address'>Address</label>
                                 <input type="text" name="address" />
                             </div>
+                            <div id="form-input">
+                                <label htmlFor='recurring'>Recurring Event?</label>
+                                <select name="recurring">
+                                    <option value="Not-Recurring">Not Recurring</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Bi-Weekly">Bi-Weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Annually">Annually</option>
+                                </select>
+                            </div>  
                             <div id="form-submit-buttons">
                                 <input type="submit" value="Save" />
                                 <input type="reset" value="Reset" />
@@ -232,7 +268,7 @@ export default function Setup() {
                         <form id="notes-form" className="form-hidden" onSubmit={saveNote}>
                             <div id="form-input">
                                 <label htmlFor='note'>Note/Reminder</label>
-                                <input type="text" name="note" id="note-value" required />
+                                <input type="text" name="note" required />
                             </div>
 
                             <div id="form-submit-buttons">

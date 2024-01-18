@@ -27,7 +27,7 @@ ol, ul {
     display: content !important;
 }
 
-input, button {
+input, button, select {
     border-radius: 5px; 
     border: 1px solid lightgrey;
     padding: 3px 5px;
@@ -415,7 +415,7 @@ main {
     justify-content: center;
 }
 
-#setup-forms input {
+#setup-forms input, #setup-forms select {
     margin: 0 10px 10px 0;
 }
 
@@ -428,6 +428,10 @@ main {
     cursor: pointer;
     position: relative;
     top: -1px;
+}
+
+#setup-forms select {
+    width: 312px;
 }
 
 /* Mobile Styles */
@@ -451,7 +455,10 @@ main {
     #setup-forms input[type="text"],
     #setup-forms input[type="date"],
     #setup-forms input[type="time"] {
-        width: fit-content;
+        width: 100px;
+    }
+    #setup-forms select {
+        width: 112px;
     }
 }
 
