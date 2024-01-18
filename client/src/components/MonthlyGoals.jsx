@@ -167,7 +167,7 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals }) {
             <div id="monthly-goals-list">
                 <ol>
                     {monthGoals.map(((goal, index) =>
-                        <div key={index} id="goal-line" value={goal.id}>
+                        <div key={index} id="line" value={goal.id}>
                             <div id={'monthlyGoal-' + goal.id} className="each-goal">
                                 <li>{goal.goal}</li>
                                 <form id={'monthlyForm-' + goal.id} className="form-hidden" onSubmit={submitMonthlyEdit}>

@@ -168,7 +168,7 @@ export default function YearlyGoals({ yearGoals, setYearGoals }) {
             <div id="yearly-goals-list">
                 <ol>
                     {yearGoals.map(((goal, index) =>
-                        <div key={index} id="goal-line" value={goal.id}>
+                        <div key={index} id="line" value={goal.id}>
                             <div id={'yearlyGoal-' + goal.id} className="each-goal">
                                 <li>{goal.goal}</li>
                                 <form id={'yearlyForm-' + goal.id} className="form-hidden" onSubmit={submitYearlyEdit}>

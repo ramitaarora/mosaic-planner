@@ -207,7 +207,7 @@ main {
     height: 66%;
 }
 
-#goal-line input[type="text"] {
+#line input[type="text"] {
     width: 100%;
 }
 
@@ -265,10 +265,9 @@ main {
 
 /* Daily Checks Styles */
 
-#checks-list {
+#each-check {
     display: flex;
     align-items: center;
-    margin: 10px 15px;
 }
 
 #checks-list label {
@@ -279,35 +278,36 @@ main {
     text-decoration: line-through;
 }
 
-/* Goals Styles  */
+/* Goals, Notes, Events, Checks Styles  */
 
-#goal-line {
+#line {
     display: flex;
     justify-content: space-between;
     background-color: white;
     margin: 5px 20px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    /* color: darkslategrey; */
+    align-items: center;
+    padding: 7px;
 }
 
-#goal-line:hover {
+#line:hover {
     background-color: rgb(242, 242, 242)
 }
 
-.each-goal {
+.each-goal, #each-event {
     display: flex;
     flex-direction: column;
-    margin: 10px 15px;
+    margin: 5px;
     justify-content: space-evenly;
 }
 
-#goal-line form input {
+#line form input {
     /* border: 1px solid black; */
     margin: 5px 5px 0 0;
 }
 
-.each-goal input {
+.each-goal input, #each-event input {
     margin: 0 5px;
 }
 
@@ -326,6 +326,11 @@ main {
 
 .react-calendar {
     margin: 0 20px;
+}
+
+#each-event p {
+    font-size: 80%;
+    margin: 5px 0;
 }
 
 /* Profile Setup Styles */
@@ -413,6 +418,10 @@ main {
     justify-content: space-between;
 }
 
+#form-header img {
+    cursor: pointer;
+}
+
 /* Mobile Styles */
 
 @media only screen and (max-width: 1000px) {
@@ -438,7 +447,13 @@ main {
     }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 1300px) {
+    #weather-2 {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 700px) {
     header {
         display: block;
         display: flex;

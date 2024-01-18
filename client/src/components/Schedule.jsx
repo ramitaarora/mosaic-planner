@@ -10,7 +10,16 @@ export default function Schedule({ events, setEvents }) {
             <div>
                 <ul>
                 {events.map((event, index) =>
-                    <li key={index}>{event.event} {event.date} {event.start_time} {event.end_time}</li>
+                    <div key={index} id="line">
+                            <div id="each-event">
+                                <li>{event.event}</li>
+                                <p>{event.start_time}-{event.end_time}</p>
+                            </div>
+                            <div id="edit-buttons">
+                                <img src="./svgs/edit.svg" alt="edit" />
+                                <img src="./svgs/delete.svg" alt="edit" />
+                            </div>
+                    </div>
                 )}
                 </ul>
             </div>

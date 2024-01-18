@@ -167,7 +167,7 @@ export default function Notes({ notes, setNotes }) {
             <div id="notes-list">
                 <ol>
                     {notes.map((note, index) =>
-                        <div key={index} id="goal-line" value={note.id}>
+                        <div key={index} id="line" value={note.id}>
                             <div id={'note-' + note.id} className="each-goal">
                                 <li>{note.note}</li>
                                 <form id={'noteForm-' + note.id} className="form-hidden" onSubmit={submitNoteEdit}>

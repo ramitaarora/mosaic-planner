@@ -167,7 +167,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals }) {
             <div id="weekly-goals-list">
                 <ol>
                     {weekGoals.map(((goal, index) =>
-                        <div key={index} id="goal-line" value={goal.id}>
+                        <div key={index} id="line" value={goal.id}>
                             <div id={'weeklyGoal-' + goal.id} className="each-goal">
                                 <li>{goal.goal}</li>
                                 <form id={'weeklyForm-' + goal.id} className="form-hidden" onSubmit={submitWeeklyEdit}>
