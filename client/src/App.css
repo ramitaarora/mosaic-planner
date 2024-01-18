@@ -342,7 +342,7 @@ main {
     text-align: center;
 }
 
-#account-form {
+#account-forms {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -351,36 +351,66 @@ main {
     align-items: center;
 }
 
-#account-form input {
-    margin: 5px;
+#account-forms form {
+    width: 300px;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px;
 }
 
 #setup-forms {
     width: 100%;
+}
+
+#setup-forms input[type="text"],
+#setup-forms input[type="date"],
+#setup-forms input[type="time"] {
+    width: 300px;
+}
+
+#each-goal-form-div,
+#event-form-div,
+#notes-form-div,
+#daily-checks-form-div {
+    border: 1px solid var(--grey);
+    border-radius: var(--radius);
+    width: 50%;
+    box-shadow: 1px 1px 5px lightgrey;
+    margin: 15px auto;
+    padding: 20px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
 }
 
 #each-goal-form,
 #event-form,
 #notes-form,
 #daily-checks-form {
-    border: 1px solid var(--grey);
-    border-radius: var(--radius);
-    width: 45%;
-    box-shadow: 1px 1px 5px lightgrey;
-    margin: 10px;
-    padding: 20px;
     display: flex;
     flex-direction: column;
 }
 
-#each-goal-form input,
-#event-form input,
-#notes-form input,
-#daily-checks-form input {
-    margin: 10px 0;
+#form-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#form-submit-buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#setup-forms input {
+    margin: 0 10px 10px 0;
+}
+
+#form-header {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Mobile Styles */
@@ -394,6 +424,17 @@ main {
     }
     #left, #middle, #right {
         width: 100%;
+    }
+    #each-goal-form-div,
+    #event-form-div,
+    #notes-form-div,
+    #daily-checks-form-div {
+        width: 90%;
+    }
+    #setup-forms input[type="text"],
+    #setup-forms input[type="date"],
+    #setup-forms input[type="time"] {
+        width: fit-content;
     }
 }
 
