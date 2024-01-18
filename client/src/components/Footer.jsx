@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <footer>
-            <p>Created by Ramita Indurkhya © 2023</p>
+            <p>© 2023</p>
         </footer>
         
     )

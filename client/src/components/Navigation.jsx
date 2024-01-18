@@ -16,7 +16,7 @@ export default function Navigation() {
         <div id="navigation">
             <ul>
                 <li><Link to="/">Dashboard</Link></li>
-                <li><Link to="/profile">Setup</Link></li>
+                <li><Link to="/setup">Setup</Link></li>
                 <li onClick={logout}>Logout</li>
             </ul>
         </div>

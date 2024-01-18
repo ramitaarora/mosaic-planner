@@ -424,8 +424,10 @@ main {
     justify-content: space-between;
 }
 
-#form-header img {
+#form-header img:hover {
     cursor: pointer;
+    position: relative;
+    top: -1px;
 }
 
 /* Mobile Styles */

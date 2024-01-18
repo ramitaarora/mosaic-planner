@@ -20,6 +20,9 @@ export default function Header({ name, location }) {
         let monthNum = new Date().getMonth();
         let dayNum = new Date().getDay();
         let dateNum = new Date().getDate();
+        
+        let theHour = new Date().getHours();
+        setHours(new Date().getHours() % 12 || 12);
 
         if (monthNum === 0) setMonth('January');
         if (monthNum === 1) setMonth('February');
@@ -47,13 +50,25 @@ export default function Header({ name, location }) {
         if ((String(dateNum)).endsWith('3')) setDate(new Date().getDate() + 'rd');
         if (!(String(dateNum)).endsWith('1') && !(String(dateNum)).endsWith('2') && !(String(dateNum)).endsWith('3')) setDate(new Date().getDate() + 'th');
 
+        if (theHour < 12) {
+            setGreeting('Good morning');
+        }
+
+        if (theHour >= 12 && theHour < 17) {
+            setGreeting('Good afternoon');
+        }
+
+        if (theHour >= 17) {
+            setGreeting('Good evening')
+        }
+
     }, [])
 
     setTimeout(() => {
         let eachSecond = new Date().getSeconds();
         let eachMinute = new Date().getMinutes()
-        let theHour = new Date().getHours();
-        setHours(new Date().getHours() % 12 || 12);
+        // let theHour = new Date().getHours();
+        // setHours(new Date().getHours() % 12 || 12);
 
         if (eachSecond < 10) {
             setSeconds('0' + new Date().getSeconds())
@@ -67,17 +82,17 @@ export default function Header({ name, location }) {
             setMinutes(new Date().getMinutes());
         }
         
-        if (theHour < 12) {
-            setGreeting('Good morning');
-        }
+        // if (theHour < 12) {
+        //     setGreeting('Good morning');
+        // }
 
-        if (theHour >= 12 && theHour < 17) {
-            setGreeting('Good afternoon');
-        }
+        // if (theHour >= 12 && theHour < 17) {
+        //     setGreeting('Good afternoon');
+        // }
 
-        if (theHour >= 17) {
-            setGreeting('Good evening')
-        }
+        // if (theHour >= 17) {
+        //     setGreeting('Good evening')
+        // }
 
     }, 1000)
 

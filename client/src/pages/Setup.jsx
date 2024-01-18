@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 
-export default function ProfileSetup() {
+export default function Setup() {
     const [inputValue, setInputValue] = useState('');
 
     const showForm = (event) => {
