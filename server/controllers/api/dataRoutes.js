@@ -26,7 +26,6 @@ router.get('/allData', async (req, res) => {
     } catch (err) {
         res.status(400).json(err);
     }
-
 });
 
 router.post('/event', async (req, res) => {

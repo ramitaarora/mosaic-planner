@@ -381,7 +381,7 @@ main {
     width: 300px;
 }
 
-#each-goal-form-div,
+#goal-form-div,
 #event-form-div,
 #notes-form-div,
 #daily-checks-form-div {
@@ -395,7 +395,7 @@ main {
     flex-direction: column;
 }
 
-#each-goal-form,
+#goal-form,
 #event-form,
 #notes-form,
 #daily-checks-form {
@@ -442,7 +442,7 @@ main {
     #left, #middle, #right {
         width: 100%;
     }
-    #each-goal-form-div,
+    #goal-form-div,
     #event-form-div,
     #notes-form-div,
     #daily-checks-form-div {

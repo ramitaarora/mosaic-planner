@@ -3,6 +3,50 @@ import Navigation from '../components/Navigation';
 
 export default function Setup() {
     const [inputValue, setInputValue] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [location, setLocation] = useState('')
+
+    const getData = () => {
+        fetch('/api/users/getUser')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // console.log(response);
+                return response.json(); // or response.text() for text data
+            })
+            .then((data) => {
+                setName(data.name);
+                setEmail(data.email);
+                setLocation(data.location);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    useEffect(() => {
+        fetch('/api/home')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // console.log(response);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.loggedIn) {
+                    // console.log(data);
+                    getData();
+                } else {
+                    window.location.replace('/login')
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+            });
+    }, []);
 
     const showForm = (event) => {
         // console.log(event);
@@ -23,6 +67,69 @@ export default function Setup() {
         document.querySelector(`#${caretRight}`).setAttribute('class', 'form-visible');
     }
 
+    const updateProfile = async (event) => {
+        event.preventDefault();
+        const inputType = String(event.target.id).split('-')[0];
+        const inputData = event.target[0].value;
+
+        const response = await fetch('/api/users/updateUser', {
+            method: 'PUT',
+            body: JSON.stringify({
+                data: inputData,
+                type: inputType
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            alert(`${inputType} updated!`)
+            getData();
+        } else {
+            alert(response.statusText);
+        }
+    }
+
+    const saveGoal = (event) => {
+        event.preventDefault();
+        console.log(event);
+    }
+
+    const saveEvent = (event) => {
+        event.preventDefault();
+        console.log(event);
+    }
+
+    const saveNote = async (event) => {
+        event.preventDefault();
+        const formID = event.target.id;
+        const newNoteValue = event.target[0].value;
+
+        if (newNoteValue.length) {
+            const response = await fetch('/api/data/add', {
+                method: 'POST',
+                body: JSON.stringify({
+                    userID: 1,
+                    note: newNoteValue,
+                    type: 'Note'
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+    
+            if (response.ok) {
+                // console.log(response.statusText);
+                alert('Note saved!')
+                document.getElementById(formID).reset();
+            } else {
+                alert(response.statusText);
+            }
+        }
+    }
+
+    const saveChecks = (event) => {
+        event.preventDefault();
+        console.log(event);
+    }
+
     return (
         <div>
             <Navigation />
@@ -33,37 +140,32 @@ export default function Setup() {
                 </div>
 
                 <div id="account-forms">
-                    <form id="name-form">
+                    <form id="name-form" onSubmit={updateProfile}>
                         <label htmlFor="editName">Name</label>
-                        <input type="text" name="editName" required />
-                        <input type="submit" value="save" />
+                        <input type="text" name="editName" id="editName" value={name} onChange={(event) => setName(event.target.value)} required />
+                        <input type="submit" value="Save" />
                     </form>
-                    <form id="location-form">
+                    <form id="location-form" onSubmit={updateProfile}>
                         <label htmlFor="editLocation">Location</label>
-                        <input type="text" name="editLocation" required />
-                        <input type="submit" value="save" />
+                        <input type="text" name="editLocation" id="editLocation" value={location} onChange={(event) => setLocation(event.target.value)} required />
+                        <input type="submit" value="Save" />
                     </form>
-                    <form id="email-form">
+                    <form id="email-form" onSubmit={updateProfile}>
                         <label htmlFor="editEmail">Email</label>
-                        <input type="email" name="editEmail" required />
-                        <input type="submit" value="save" />
-                    </form>
-                    <form id="password-form">
-                        <label htmlFor="editPassword">Password</label>
-                        <input type="password" name="editPassword" required />
-                        <input type="submit" value="save" />
+                        <input type="email" name="editEmail" id="editEmail" value={email} onChange={(event) => setEmail(event.target.value)} required />
+                        <input type="submit" value="Save" />
                     </form>
                 </div>
 
                 <div id="setup-forms">
 
-                    <div id="each-goal-form-div">
+                    <div id="goal-form-div">
                         <div id="form-header">
                             <h2>Save a Goal</h2>
                             <img src="./svgs/caret-right.svg" id="caret-right-goal" alt="caret-right" className="form-visible" onClick={showForm} />
                             <img src="./svgs/caret-down.svg" id="caret-down-goal" alt="caret-down" className="form-hidden" onClick={closeForm} />
                         </div>
-                        <form id="save-goal" className="form-hidden">
+                        <form id="save-goal" className="form-hidden" onSubmit={saveGoal}>
                             <p>Yearly resolutions break down into monthly goals, which can be further broken down into weekly goals.</p>
                             <div id="form-input">
                                 <label htmlFor='yearly'>Yearly Goal</label>
@@ -93,7 +195,7 @@ export default function Setup() {
                             <img src="./svgs/caret-right.svg" id="caret-right-event" alt="caret-right" className="form-visible" onClick={showForm} />
                             <img src="./svgs/caret-down.svg" id="caret-down-event" alt="caret-down" className="form-hidden" onClick={closeForm} />
                         </div>
-                        <form id="event-form" className="form-hidden">
+                        <form id="event-form" className="form-hidden" onSubmit={saveEvent}>
                             <div id="form-input">
                                 <label htmlFor='eventName'>Name</label>
                                 <input type="text" name="eventName" required />
@@ -127,9 +229,10 @@ export default function Setup() {
                             <img src="./svgs/caret-down.svg" id="caret-down-notes" alt="caret-down" className="form-hidden" onClick={closeForm} />
                         </div>
 
-                        <form id="notes-form" className="form-hidden">
-                            <div id="form-input"><label htmlFor='note'>Note/Reminder</label>
-                                <input type="text" name="note" required />
+                        <form id="notes-form" className="form-hidden" onSubmit={saveNote}>
+                            <div id="form-input">
+                                <label htmlFor='note'>Note/Reminder</label>
+                                <input type="text" name="note" id="note-value" required />
                             </div>
 
                             <div id="form-submit-buttons">
@@ -147,7 +250,7 @@ export default function Setup() {
                             <img src="./svgs/caret-down.svg" id="caret-down-checks" alt="caret-down" className="form-hidden" onClick={closeForm} />
                         </div>
 
-                        <form id="daily-checks-form" className="form-hidden">
+                        <form id="daily-checks-form" className="form-hidden" onSubmit={saveChecks}>
 
                             <div id="form-input">
                                 <label htmlFor='check'>Daily Check</label>
