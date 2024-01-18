@@ -320,13 +320,23 @@ main {
     cursor: pointer;
 }
 
+#each-event p {
+    font-size: 80%;
+    margin: 5px 0;
+}
+
+/* Calendar Styles */
+
 .react-calendar {
     margin: 0 20px;
 }
 
-#each-event p {
-    font-size: 80%;
-    margin: 5px 0;
+.react-calendar button:hover {
+    background-color: white;
+}
+
+#events-message {
+    text-align: center;
 }
 
 /* Profile Setup Styles */

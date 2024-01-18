@@ -2,28 +2,51 @@ const router = require('express').Router();
 const { User, Goals, Notes, DailyChecks, Events } = require('../../models');
 
 router.get('/allData', async (req, res) => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
+    try {
+        const year = new Date().getFullYear();
+        const month = new Date().getMonth() + 1;
+        const day = new Date().getDate();
+    
+        const userData = await User.findAll({ where: { id: req.session.user_id } });
+        const user = userData.map(user => user.get({ plain: true }));
+    
+        const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
+        const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
+        const dailyChecksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id } });
+        const eventsData = await Events.findAll({ where: { 
+            user_id: req.session.user_id,
+            // date: `${year}-${month}-${day}`
+         }})
+        const goals = goalsData.map(goal => goal.get({ plain: true }));
+        const notes = notesData.map(note => note.get({ plain: true }));
+        const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
+        const events = eventsData.map(event => event.get({ plain: true }));
+    
+        res.status(200).json({goals, notes, dailyChecks, events, user});
+    } catch (err) {
+        res.status(400).json(err);
+    }
 
-    const userData = await User.findAll({ where: { id: req.session.user_id } });
-    const user = userData.map(user => user.get({ plain: true }));
-
-    const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
-    const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
-    const dailyChecksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id } });
-    const eventsData = await Events.findAll({ where: { 
-        user_id: req.session.user_id,
-        // date: `${year}-${month}-${day}`
-     }})
-
-    const goals = goalsData.map(goal => goal.get({ plain: true }));
-    const notes = notesData.map(note => note.get({ plain: true }));
-    const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
-    const events = eventsData.map(event => event.get({ plain: true }));
-
-    res.json({goals, notes, dailyChecks, events, user});
 });
+
+router.post('/event', async (req, res) => {
+    try {
+        const eventsData = await Events.findAll({
+            where: {
+                user_id: req.session.user_id,
+                date: `${req.body.year}-${req.body.month}-${req.body.day}`
+            }
+        })
+
+        if (eventsData.length) {
+            res.status(200).json(eventsData);
+        } else {
+            res.status(200).json({ "message": "No events on this date." });
+        }
+    } catch (err) {
+        res.status(400).json(err);
+    }
+})
 
 router.post('/add', async (req, res) => {
     try {

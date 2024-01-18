@@ -171,20 +171,20 @@ export default function Schedule({ events, setEvents }) {
                 <ul>
                 {events.map((event, index) =>
                     <div key={index} id="line" value={event.id}>
-                            <div id="each-event">
-                                <li>{event.event}</li>
-                                <p>{event.start_time}-{event.end_time}</p>
+                        <div id="each-event">
+                            <li>{event.event}</li>
+                            <p>{event.start_time}-{event.end_time}</p>
 
-                                <form id={'eventForm-' + event.id} className="form-hidden" onSubmit={submitEdit}>
-                                    <input type="text" id={'eventInput-' + event.id} onChange={(event) => setInputValue(event.target.value)} />
-                                    <input type="submit" className="submit-button" />
-                                    <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
-                                </form>
-                            </div>
-                            <div id="edit-buttons">
+                            <form id={'eventForm-' + event.id} className="form-hidden" onSubmit={submitEdit}>
+                                <input type="text" id={'eventInput-' + event.id} onChange={(event) => setInputValue(event.target.value)} />
+                                <input type="submit" className="submit-button" />
+                                <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
+                            </form>
+                        </div>
+                        <div id="edit-buttons">
                             <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id} value={event.event} />
                             <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id} />
-                            </div>
+                        </div>
                     </div>
                 )}
                 </ul>
