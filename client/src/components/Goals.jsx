@@ -7,18 +7,17 @@ export default function Goals({ goals, setGoals, goalType }) {
         const goalID = event.target.attributes[2].nodeValue;
         const goalValue = event.target.attributes[3].nodeValue;
 
-        const formID = document.getElementById(`form-${goalID}`);
+        const formID = document.getElementById(`goalForm-${goalID}`);
         formID.setAttribute('class', 'form-visible');
 
-        const inputField = document.getElementById(`input-${goalID}`);
+        const inputField = document.getElementById(`goalInput-${goalID}`);
         inputField.setAttribute('value', goalValue);
     }
 
     const deleteGoal = async (event) => {
         const goalID = event.target.attributes[2].nodeValue;
-        console.log(goalID);
 
-        if (window.confirm("Are you sure you want to delete this goal?")) {
+        if (window.confirm("Are you sure you want to delete this goal? It will delete all related goals.")) {
             const response = await fetch('/api/data/delete', {
                 method: 'DELETE',
                 body: JSON.stringify({
@@ -99,9 +98,10 @@ export default function Goals({ goals, setGoals, goalType }) {
     }
 
     const addNewGoal = (event) => {
-        document.getElementById('add-goal').setAttribute('class', 'form-visible');
-        document.getElementById('add-goal-button').setAttribute('class', 'form-hidden');
-        document.getElementById('cancel-goal-button').setAttribute('class', 'form-visible');
+        console.log(event);
+        // document.getElementById('add-goal').setAttribute('class', 'form-visible');
+        // document.getElementById('add-goal-button').setAttribute('class', 'form-hidden');
+        // document.getElementById('cancel-goal-button').setAttribute('class', 'form-visible');
     }
 
     const submitNewGoal = async (event) => {
@@ -146,10 +146,11 @@ export default function Goals({ goals, setGoals, goalType }) {
     }
 
     const cancelNewGoal = (event) => {
+        console.log(event)
         event.preventDefault();
-        document.getElementById('add-goal').setAttribute('class', 'form-hidden');
-        document.getElementById('cancel-goal-button').setAttribute('class', 'form-hidden');
-        document.getElementById('add-goal-button').setAttribute('class', 'form-visible');
+        // document.getElementById('add-goal').setAttribute('class', 'form-hidden');
+        // document.getElementById('cancel-goal-button').setAttribute('class', 'form-hidden');
+        // document.getElementById('add-goal-button').setAttribute('class', 'form-visible');
     }
 
     return (
@@ -160,11 +161,10 @@ export default function Goals({ goals, setGoals, goalType }) {
                 <img id="cancel-goal-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewGoal} className="form-hidden" />
             </div>
             
-            <form id="add-goal" onSubmit={submitNewGoal} className="form-hidden">
+            {/*<form id="add-goal" onSubmit={submitNewGoal} className="form-hidden">
                 <input type="text" placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)}/>
                 <input type="submit" className="submit-button" />
-                {/*<button id="cancel" onClick={cancelNewGoal}>Cancel</button>*/}
-            </form>
+            </form> */}
 
             <div id="goals-list">
                 <ol>
@@ -172,8 +172,8 @@ export default function Goals({ goals, setGoals, goalType }) {
                         <div key={index} id="line" value={goal.id}>
                             <div id={'goal-' + goal.id} className="each-goal">
                                 <li>{goal.goal}</li>
-                                <form id={'form-' + goal.id} className="form-hidden" onSubmit={submitEdit}>
-                                    <input type="text" id={'input-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
+                                <form id={'goalForm-' + goal.id} className="form-hidden" onSubmit={submitEdit}>
+                                    <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button"/>
                                     <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                                 </form>

@@ -51,7 +51,7 @@ router.put('/edit', async (req, res) => {
             res.status(200).json(notesData);
         }
         if (req.body.type === 'Event') {
-            const eventData = await Event.update({ event: event.body.event }, { where: { id: req.body.id } })
+            const eventData = await Events.update({ event: req.body.event }, { where: { id: req.body.id } })
             res.status(200).json(eventData);
         }
     } catch(err) {
@@ -66,11 +66,14 @@ router.delete('/delete', async (req, res) => {
             const goalData = await Goals.destroy({ where: { id: req.body.id }});
             res.status(200).json(goalData);
         }
-        if (req.body.goalType === 'Note') {
-            const notesData = await Notes.destroy({ where: { id: req.body.id }});
-            res.status(200).json(notesData);
+        if (req.body.type === 'Note') {
+            const noteData = await Notes.destroy({ where: { id: req.body.id }});
+            res.status(200).json(noteData);
         }
-        
+        if (req.body.type === 'Event') {
+            const eventData = await Events.destroy({ where: { id: req.body.id }});
+            res.status(200).json(eventData);
+        }
     } catch(err) {
         res.status(400).json(err);
         console.log(err)

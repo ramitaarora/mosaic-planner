@@ -3,9 +3,6 @@ import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Header from '../components/Header.jsx';
 import Goals from '../components/Goals.jsx';
-import YearlyGoals from '../components/YearlyGoals.jsx';
-import MonthlyGoals from '../components/MonthlyGoals.jsx';
-import WeeklyGoals from '../components/WeeklyGoals.jsx';
 import DailyChecks from '../components/DailyChecks.jsx';
 import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
@@ -78,9 +75,6 @@ export default function Dashboard() {
             <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" />
             <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" />
             <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" />
-            {/*<YearlyGoals yearGoals={yearGoals} setYearGoals={setYearGoals}/>
-            <MonthlyGoals monthGoals={monthGoals} setMonthGoals={setMonthGoals}/>
-            <WeeklyGoals weekGoals={weekGoals} setWeekGoals={setWeekGoals}/>*/}
           </section>
   
           <section id="middle">

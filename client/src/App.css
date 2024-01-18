@@ -211,29 +211,24 @@ main {
     width: 100%;
 }
 
-#yearly-goals input[type="text"],
-#monthly-goals input[type="text"],
-#weekly-goals input[type="text"],
-#add-note input[type="text"] {
+#add-goal input[type="text"],
+#add-note input[type="text"],
+#add-event input[type="text"] {
     width: 80%;
 }
 
-#add-yearly-goal-button:hover,
-#cancel-yearly-goal-button:hover,
-#add-monthly-goal-button:hover,
-#cancel-monthly-goal-button:hover,
-#add-weekly-goal-button:hover,
-#cancel-weekly-goal-button,
+#add-goal-button:hover,
+#cancel-goal-button:hover,
 #add-note-button:hover,
-#cancel-note-button:hover {
+#cancel-note-button:hover,
+#add-event-button:hover,
+#cancel-event-button:hover {
     cursor: pointer;
 }
 
 .submit-button:hover, button:hover {
     cursor: pointer;
 }
-
-/* Card Styles  */
 
 .card,
 #schedule,
@@ -255,12 +250,13 @@ main {
     margin: 0 25px;
 }
 
-#add-yearly-goal, 
-#add-monthly-goal,
-#add-weekly-goal,
+#add-goal, 
+#add-event,
 #add-note {
     text-align: center;
     margin: 10px 35px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 /* Daily Checks Styles */
