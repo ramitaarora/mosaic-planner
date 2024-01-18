@@ -55,7 +55,7 @@ export default function WeeklyGoals({ weekGoals, setWeekGoals }) {
         const formInput = event.target[0].value;
 
         const response = await fetch('/api/data/editGoal', {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify({
                 id: weeklyGoalID,
                 goal: formInput,

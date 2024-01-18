@@ -55,7 +55,7 @@ export default function MonthlyGoals({ monthGoals, setMonthGoals }) {
         const formInput = event.target[0].value;
 
         const response = await fetch('/api/data/editGoal', {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify({
                 id: monthlyGoalID,
                 goal: formInput,
