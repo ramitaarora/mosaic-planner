@@ -2,6 +2,25 @@ import { useState, useEffect } from 'react';
 
 export default function Schedule({ events, setEvents }) {
     const [inputValue, setInputValue] = useState('');
+
+    const getHours = (time) => {
+        if (Number(time[0] + time[1]) <= 12) {
+            return time;
+        }
+        else if (time[0] + time[1] === '13') return '1' + time.slice(-3);
+        else if (time[0] + time[1] === '14') return '2' + time.slice(-3);
+        else if (time[0] + time[1] === '15') return '3' + time.slice(-3);
+        else if (time[0] + time[1] === '16') return '4' + time.slice(-3);
+        else if (time[0] + time[1] === '17') return '5' + time.slice(-3);
+        else if (time[0] + time[1] === '18') return '6' + time.slice(-3);
+        else if (time[0] + time[1] === '19') return '7' + time.slice(-3);
+        else if (time[0] + time[1] === '20') return '8' + time.slice(-3);
+        else if (time[0] + time[1] === '21') return '9' + time.slice(-3);
+        else if (time[0] + time[1] === '22') return '10' + time.slice(-3);
+        else if (time[0] + time[1] === '23') return '11' + time.slice(-3);
+        else if (time[0] + time[1] === '24') return '12' + time.slice(-3);
+        else return 'Error';
+    }
     
     const editEvent = (event) => {
         const eventID = event.target.attributes[2].nodeValue;
@@ -173,7 +192,8 @@ export default function Schedule({ events, setEvents }) {
                     <div key={index} id="line" value={event.id}>
                         <div id="each-event">
                             <li>{event.event}</li>
-                            <p>{event.start_time}-{event.end_time}</p>
+                            <p>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
+                            {event.address ? <p>{event.address}</p> : null}
 
                             <form id={'eventForm-' + event.id} className="form-hidden" onSubmit={submitEdit}>
                                 <input type="text" id={'eventInput-' + event.id} onChange={(event) => setInputValue(event.target.value)} />

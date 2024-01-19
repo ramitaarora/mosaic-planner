@@ -4,14 +4,16 @@
         "user_id": 1,
         "date": "2024-1-18",
         "start_time": "10:30",
-        "end_time": "12:00"
+        "end_time": "12:00",
+        "recurring": "Daily"
     },
     {
         "event": "Lunch",
         "user_id": 1,
         "date": "2024-1-18",
         "start_time": "12:00",
-        "end_time": "14:00"
+        "end_time": "14:00",
+        "recurring": "Daily"
     },
     {
         "event": "Yoga",
@@ -19,7 +21,8 @@
         "address": "OneLife Yoga Studio",
         "date": "2024-1-18",
         "start_time": "17:30",
-        "end_time": "18:30"
+        "end_time": "18:30",
+        "recurring": "Weekly"
     },
     {
         "event": "Dinner with Parents",
@@ -27,6 +30,7 @@
         "address": "Cheesecake Factory",
         "date": "2024-1-18",
         "start_time": "19:00",
-        "end_time": "21:00"
+        "end_time": "21:00",
+        "recurring": "Monthly"
     }
 ]

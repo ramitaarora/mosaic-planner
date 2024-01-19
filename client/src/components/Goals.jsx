@@ -113,7 +113,6 @@ export default function Goals({ goals, setGoals, goalType }) {
             const response = await fetch('/api/data/add', {
                 method: 'POST',
                 body: JSON.stringify({
-                    userID: 1,
                     goal: newGoalValue,
                     type: 'Goal'
                 }),

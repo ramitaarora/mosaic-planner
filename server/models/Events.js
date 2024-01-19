@@ -27,6 +27,9 @@ Events.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        recurring: {
+            type: DataTypes.STRING,
+        },
         address: {
             type: DataTypes.STRING,
             allowNull: true,
@@ -38,7 +41,7 @@ Events.init(
                 model: 'user',
                 key: 'id'
             }
-        }
+        },
     },
     {
         sequelize,

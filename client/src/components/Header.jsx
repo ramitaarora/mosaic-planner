@@ -5,6 +5,7 @@ export default function Header({ name, location }) {
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
     const [seconds, setSeconds] = useState(new Date().getSeconds());
+    const [suffix, setSuffix] = useState('');
 
     const [month, setMonth] = useState(new Date().getMonth())
     const [day, setDay] = useState(new Date().getDay());
@@ -52,14 +53,17 @@ export default function Header({ name, location }) {
 
         if (theHour < 12) {
             setGreeting('Good morning');
+            setSuffix('AM')
         }
 
         if (theHour >= 12 && theHour < 17) {
             setGreeting('Good afternoon');
+            setSuffix('PM')
         }
 
         if (theHour >= 17) {
             setGreeting('Good evening')
+            setSuffix('PM')
         }
 
     }, [])
@@ -121,7 +125,7 @@ export default function Header({ name, location }) {
             <div id="today">
                 <h1 id="today">{greeting}, {name}</h1>
                 <p id="current-day">{day}, {month} {date}, {year}</p>
-                <p id="current-time">{hours}:{minutes}:{seconds}</p>
+                <p id="current-time">{hours}:{minutes}:{seconds} {suffix}</p>
             </div>
             
             <div id="weather">
