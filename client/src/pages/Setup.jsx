@@ -93,29 +93,30 @@ export default function Setup() {
 
     const saveGoal = async (event) => {
         event.preventDefault();
-        console.log(event);
-        // const formID = event.target.id;
-        // let yearlyGoal;
-        // let monthlyGoal;
-        // let weeklyGoal;
+        const formID = event.target.id;
+        let yearlyGoal = event.target[0].value;
+        let monthlyGoal = event.target[1].value;
+        let weeklyGoal = event.target[2].value;
 
-        // const response = await fetch('/api/data/add', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         type: 'Goal',
-        //         goal: yearlyGoal,
-        //         goal_type: 'Yearly',
-        //     }),
-        //     headers: { 'Content-Type': 'application/json' },
-        // });
+        const response = await fetch('/api/data/add', {
+            method: 'POST',
+            body: JSON.stringify({
+                type: 'Goal',
+                yearlyGoal: yearlyGoal,
+                monthlyGoal: monthlyGoal,
+                weeklyGoal: weeklyGoal,
+                goal_type: 'Goals',
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
 
-        // if (response.ok) {
-        //     // console.log(response.statusText);
-        //     alert('Goal saved!')
-        //     document.getElementById(formID).reset();
-        // } else {
-        //     alert(response.statusText);
-        // }
+        if (response.ok) {
+            // console.log(response.statusText);
+            alert('Goal saved!')
+            document.getElementById(formID).reset();
+        } else {
+            alert(response.statusText);
+        }
     }
 
     const saveEvent = async (event) => {

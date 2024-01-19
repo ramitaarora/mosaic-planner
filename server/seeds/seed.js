@@ -2,7 +2,8 @@ const sequelize = require('../config/connection');
 
 const userData = require('./userData.json');
 const notesData = require('./notesData.json');
-const goalsData = require('./goalsData.json');
+const parentGoalsData = require('./parentGoalsData.json');
+const childGoalsData = require('./childGoalsData.json');
 const dailyChecksData = require('./dailyChecksData.json');
 const eventsData = require('./eventsData.json');
 
@@ -31,7 +32,12 @@ const seedDatabase = async () => {
         returning: true,
     })
 
-    const goals = await Goals.bulkCreate(goalsData, {
+    const parentGoals = await Goals.bulkCreate(parentGoalsData, {
+        individualHooks: true,
+        returning: true,
+    })
+
+    const childGoals = await Goals.bulkCreate(childGoalsData, {
         individualHooks: true,
         returning: true,
     })

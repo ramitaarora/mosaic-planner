@@ -59,11 +59,30 @@ router.post('/add', async (req, res) => {
             })
             res.status(200).json(notesData);
         }
-        if (req.body.type === 'Goal') {
+        if (req.body.goal_type === 'Goals') {
             const yearlyGoalsData = await Goals.create({
                 user_id: req.session.user_id,
-                goal: req.body.goal,
+                goal: req.body.yearlyGoal,
+                goal_type: 'Yearly',
             })
+            const parentID = yearlyGoalsData.dataValues.id;
+
+            const monthlyGoalsData = await Goals.create({
+                user_id: req.session.user_id,
+                goal: req.body.monthlyGoal,
+                goal_type: 'Monthly',
+                parent_goal: parentID,
+            })
+
+            const weeklyGoalsData = await Goals.create({
+                user_id: req.session.user_id,
+                goal: req.body.weeklyGoal,
+                goal_type: 'Weekly',
+                parent_goal: parentID,
+            })
+
+            res.status(200).json({yearlyGoalsData, monthlyGoalsData, weeklyGoalsData});
+            console.log({yearlyGoalsData, monthlyGoalsData, weeklyGoalsData})
         }
     } catch(err) {
         res.status(400).json(err);

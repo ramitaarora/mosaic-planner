@@ -1,29 +1,5 @@
 [
     {
-        "id": 1,
-        "goal": "Travel to India",
-        "user_id": 1,
-        "goal_type": "Yearly"
-    },
-    {
-        "id": 2,
-        "goal": "Get fit",
-        "user_id": 1,
-        "goal_type": "Yearly"
-    },
-    {
-        "id": 3,
-        "goal": "Learn how to cook",
-        "user_id": 1,
-        "goal_type": "Yearly"
-    },
-    {
-        "id": 4,
-        "goal": "Read more books",
-        "user_id": 1,
-        "goal_type": "Yearly"
-    },
-    {
         "id": 5,
         "goal": "Save some from each paycheck into travel fund",
         "user_id": 1,
