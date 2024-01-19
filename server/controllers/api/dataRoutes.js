@@ -69,19 +69,6 @@ router.get('/getAllChecks', async (req, res) => {
     }
 })
 
-router.post('/addNewCheck', async (req, res) => {
-    try {
-        const checksData = await DailyChecks.create({
-            daily_check: req.body.dailyCheck,
-            user_id: req.session.user_id
-        })
-        res.status(200).json(checksData);
-    } catch(err) {
-        res.status(400).json(err);
-        console.log(err);
-    }
-})
-
 router.post('/add', async (req, res) => {
     try {
         if (req.body.type === 'Note') {
@@ -115,6 +102,13 @@ router.post('/add', async (req, res) => {
 
             res.status(200).json({yearlyGoalsData, monthlyGoalsData, weeklyGoalsData});
             console.log({yearlyGoalsData, monthlyGoalsData, weeklyGoalsData})
+        }
+        if (req.body.type === 'Daily Check') {
+            const checksData = await DailyChecks.create({
+                daily_check: req.body.dailyCheck,
+                user_id: req.session.user_id
+            })
+            res.status(200).json(checksData);
         }
     } catch(err) {
         res.status(400).json(err);

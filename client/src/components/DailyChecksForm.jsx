@@ -4,7 +4,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
     const [checks, setChecks] = useState([]);
     const [todaysChecks, setTodaysChecks] = useState([]);
 
-    useEffect(() => {
+    const getChecks = () => {
         fetch('/api/data/getAllChecks')
         .then((response) => {
           if (!response.ok) {
@@ -20,6 +20,10 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
+    }
+
+    useEffect(() => {
+        getChecks();
     },[])
 
     const closeModal = () => {
@@ -32,16 +36,18 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         const inputValue = event.target[0].value;
 
         if (inputValue.length) {
-            const response = await fetch('/api/data/addNewCheck', {
+            const response = await fetch('/api/data/add', {
                 method: 'POST',
                 body: JSON.stringify({
                     dailyCheck: inputValue,
+                    type: 'Daily Check'
                 }),
                 headers: { 'Content-Type': 'application/json' },
             })
             if (response.ok) {
                 // console.log(response.statusText);
                 alert("New daily check saved!")
+                getChecks();
                 document.getElementById(formID).reset();
             } else {
                 alert(response.statusText);
