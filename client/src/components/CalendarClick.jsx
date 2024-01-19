@@ -142,7 +142,7 @@ export default function CalendarClick( { events, setEvents }) {
                 )}
                 </ul>
             ) : (
-                <p id="events-message">{events.message}</p>
+                <p id="events-message">{events.Message}</p>
             )}
         </div>
     )
