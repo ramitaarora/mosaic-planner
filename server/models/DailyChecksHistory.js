@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection')
 
-class DailyChecks extends Model {}
+class DailyChecksHistory extends Model {}
 
-DailyChecks.init(
+DailyChecksHistory.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -14,6 +14,16 @@ DailyChecks.init(
         daily_check: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        },
+        completed: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
         },
         user_id: {
             type: DataTypes.INTEGER,
@@ -29,8 +39,8 @@ DailyChecks.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'dailyChecks'
+        modelName: 'dailyChecksHistory'
     }
 );
 
-module.exports = DailyChecks;
+module.exports = DailyChecksHistory;

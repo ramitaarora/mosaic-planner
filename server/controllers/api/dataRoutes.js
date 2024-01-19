@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
-const { User, Goals, Notes, DailyChecks, Events } = require('../../models');
+const { User, Goals, Notes, DailyChecks, DailyChecksHistory, Events } = require('../../models');
 
 router.get('/allData', async (req, res) => {
     try {
@@ -13,7 +13,10 @@ router.get('/allData', async (req, res) => {
     
         const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
         const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
-        const dailyChecksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id } });
+        const dailyChecksData = await DailyChecksHistory.findAll({ where: { 
+            user_id: req.session.user_id,
+            date: `${year}-${month}-${day}`
+        } });
         const eventsData = await Events.findAll({ where: { 
             user_id: req.session.user_id,
             // date: `${year}-${month}-${day}`
@@ -42,7 +45,23 @@ router.post('/event', async (req, res) => {
         if (eventsData.length) {
             res.status(200).json(eventsData);
         } else {
-            res.status(200).json({ "message": "No events on this date." });
+            res.status(200).json({ "Message": "No events on this date." });
+        }
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+})
+
+router.get('/getAllChecks', async (req, res) => {
+    try {
+        const checksData = await DailyChecks.findAll({
+            where: { user_id: req.session.user_id }
+        })
+        if (checksData.length) {
+            res.status(200).json(checksData);
+        } else {
+            res.status(200).json({ "Message": "No existing checks." });
         }
     } catch (err) {
         res.status(400).json(err);
