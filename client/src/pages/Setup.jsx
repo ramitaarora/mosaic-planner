@@ -149,9 +149,28 @@ export default function Setup() {
         }
     }
 
-    const saveChecks = (event) => {
+    const saveChecks = async (event) => {
         event.preventDefault();
-        console.log(event);
+        const formID = event.target.id;
+        const inputValue = event.target[0].value;
+
+        if (inputValue.length) {
+            const response = await fetch('/api/data/add', {
+                method: 'POST',
+                body: JSON.stringify({
+                    dailyCheck: inputValue,
+                    type: 'Daily Check'
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            })
+            if (response.ok) {
+                // console.log(response.statusText);
+                alert("New daily check saved!")
+                document.getElementById(formID).reset();
+            } else {
+                alert(response.statusText);
+            }
+        }
     }
 
     return (
