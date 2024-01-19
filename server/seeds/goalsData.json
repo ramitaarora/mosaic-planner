@@ -24,48 +24,56 @@
         "goal_type": "Yearly"
     },
     {
+        "id": 5,
         "goal": "Save some from each paycheck into travel fund",
         "user_id": 1,
         "goal_type": "Monthly",
         "parent_goal": 1
     },
     {
+        "id": 6,
         "goal": "Get a gym membership",
         "user_id": 1,
         "goal_type": "Monthly",
         "parent_goal": 2
     },
     {
+        "id": 7,
         "goal": "Join a cooking class",
         "user_id": 1,
         "goal_type": "Monthly",
         "parent_goal": 3
     },
     {
+        "id": 8,
         "goal": "Sign up for a Goodreads account",
         "user_id": 1,
         "goal_type": "Monthly",
         "parent_goal": 4
     },
     {
+        "id": 9,
         "goal": "Plan India trip and budget hotels and sights",
         "user_id": 1,
         "goal_type": "Weekly",
         "parent_goal": 1
     },
     {
+        "id": 10,
         "goal": "Go to the gym 4x a week",
         "user_id": 1,
         "goal_type": "Weekly",
         "parent_goal": 2
     },
     {
+        "id": 11,
         "goal": "Make a menu for the week's dinners",
         "user_id": 1,
         "goal_type": "Weekly",
         "parent_goal": 3
     },
     {
+        "id": 12,
         "goal": "Get a library book for the week",
         "user_id": 1,
         "goal_type": "Weekly",

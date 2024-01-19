@@ -37,7 +37,8 @@ export default function Goals({ goals, setGoals, goalType }) {
                     })
                     .then((data) => {
                         // console.log(data);
-                        setGoals(data.goals.filter(goal => goal.goal_type === goalType));
+                        // setGoals(data.goals.filter(goal => goal.goal_type === goalType));
+                        location.reload();
                     })
                     .catch((error) => {
                         console.error('Error fetching data:', error);
