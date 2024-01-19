@@ -8,7 +8,6 @@ const eventsData = require('./eventsData.json');
 
 const { User, Goals, DailyChecks, Events, Notes } = require('../models');
 
-
 const seedDatabase = async () => {
     await sequelize.sync({ force: true });
 
@@ -36,8 +35,6 @@ const seedDatabase = async () => {
         individualHooks: true,
         returning: true,
     })
-
-    
 
     process.exit(0);
 };

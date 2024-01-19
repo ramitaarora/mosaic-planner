@@ -29,7 +29,8 @@ Goals.init(
             references: {
                 model: 'goals',
                 key: 'id'
-            }
+            },
+            onDelete: 'CASCADE',
         },
         user_id: {
             type: DataTypes.INTEGER,

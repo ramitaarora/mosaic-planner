@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Op } = require('sequelize');
 const { User, Goals, Notes, DailyChecks, Events } = require('../../models');
 
 router.get('/allData', async (req, res) => {
@@ -25,6 +26,7 @@ router.get('/allData', async (req, res) => {
         res.status(200).json({goals, notes, dailyChecks, events, user});
     } catch (err) {
         res.status(400).json(err);
+        console.log(err);
     }
 });
 
@@ -44,6 +46,7 @@ router.post('/event', async (req, res) => {
         }
     } catch (err) {
         res.status(400).json(err);
+        console.log(err);
     }
 })
 
@@ -91,7 +94,9 @@ router.put('/edit', async (req, res) => {
 router.delete('/delete', async (req, res) => {
     try {
         if (req.body.type === 'Goal') {
-            const goalData = await Goals.destroy({ where: { id: req.body.id }});
+            const goalData = await Goals.destroy({ where: { 
+                [Op.or]: [ { id: req.body.id }, { parent_goal: req.body.id } ]
+            }});
             res.status(200).json(goalData);
         }
         if (req.body.type === 'Note') {
