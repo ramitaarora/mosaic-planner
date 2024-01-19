@@ -293,7 +293,7 @@ main {
 }
 
 #add-each-check {
-    width: 200px;
+    width: 220px;
     display: flex;
     justify-content: space-between;
 }

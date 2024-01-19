@@ -14,7 +14,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
           return response.json(); // or response.text() for text data
         })
         .then((data) => {
-          console.log(data);
+        //   console.log(data);
           setChecks(data);
         })
         .catch((error) => {
@@ -24,6 +24,29 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
 
     const closeModal = () => {
         setVisibility('form-hidden');
+    }
+
+    const submitNewCheck = async (event) => {
+        event.preventDefault();
+        const formID = event.target.id;
+        const inputValue = event.target[0].value;
+
+        if (inputValue.length) {
+            const response = await fetch('/api/data/addNewCheck', {
+                method: 'POST',
+                body: JSON.stringify({
+                    dailyCheck: inputValue,
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            })
+            if (response.ok) {
+                // console.log(response.statusText);
+                alert("New daily check saved!")
+                document.getElementById(formID).reset();
+            } else {
+                alert(response.statusText);
+            }
+        }
     }
 
     return (
@@ -38,7 +61,11 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                             {checks.map((check, index) =>
                                 <div key={index} id="add-each-check">
                                     <p>{check.daily_check}</p>
-                                    <img src="./svgs/add.svg" alt="add" />
+                                    <div id="edit-buttons">
+                                        <img src="./svgs/edit.svg" alt="edit" />
+                                        <img src="./svgs/add.svg" alt="add" />
+                                    </div>
+                                    
                                 </div>
                             )}
                         </div>
@@ -53,9 +80,9 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                         </div>
                     </div>
 
-                    <form id="add-new-check-form">
+                    <form id="add-new-check-form" onSubmit={submitNewCheck}>
                         <label htmlFor='add-new-check'>Add New Check:</label>
-                        <input type="text" name="add-new-check"/>
+                        <input type="text" name="add-new-check" required/>
                         <input type="submit"/>
                     </form>
 
