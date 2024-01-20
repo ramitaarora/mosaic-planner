@@ -7,6 +7,9 @@ export default function Notes({ notes, setNotes }) {
         const noteID = event.target.attributes[2].nodeValue;
         const noteValue = event.target.attributes[3].nodeValue;
 
+        const noteItem = document.getElementById(`note-list-item-${noteID}`)
+        noteItem.setAttribute('class', 'form-hidden');
+
         const formID = document.getElementById(`noteForm-${noteID}`);
         formID.setAttribute('class', 'form-visible');
 
@@ -53,6 +56,7 @@ export default function Notes({ notes, setNotes }) {
         const noteFormID = event.target.id;
         const noteID = event.target.parentElement.parentElement.attributes[1].value;
         const formInput = event.target[0].value;
+        const noteItem = document.getElementById(`note-list-item-${noteID}`)
 
         const response = await fetch('/api/data/edit', {
             method: 'PUT',
@@ -85,15 +89,19 @@ export default function Notes({ notes, setNotes }) {
         }
 
         document.getElementById(noteFormID).setAttribute('class', 'form-hidden');
+        noteItem.setAttribute('class', 'form-visible');
         setInputValue('');
     }
 
     const cancelNoteEdit = (event) => {
         event.preventDefault();
+        const noteID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
         const noteFormID = event.target.form.id;
-
+        const noteItem = document.getElementById(`note-list-item-${noteID}`)
+        
         const formID = document.getElementById(noteFormID);
         formID.setAttribute('class', 'form-hidden');
+        noteItem.setAttribute('class', 'form-visible');
         setInputValue('');
     }
 
@@ -168,7 +176,7 @@ export default function Notes({ notes, setNotes }) {
                     {notes.map((note, index) =>
                         <div key={index} id="line" value={note.id}>
                             <div id={'note-' + note.id} className="each-note">
-                                <li>{note.note}</li>
+                                <li id={'note-list-item-' + note.id}>{note.note}</li>
                                 <form id={'noteForm-' + note.id} className="form-hidden" onSubmit={submitNoteEdit}>
                                     <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button" />

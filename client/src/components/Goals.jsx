@@ -7,6 +7,9 @@ export default function Goals({ goals, setGoals, goalType }) {
         const goalID = event.target.attributes[2].nodeValue;
         const goalValue = event.target.attributes[3].nodeValue;
 
+        const goalItem = document.getElementById(`goal-list-item-${goalID}`)
+        goalItem.setAttribute('class', 'form-hidden');
+
         const formID = document.getElementById(`goalForm-${goalID}`);
         formID.setAttribute('class', 'form-visible');
 
@@ -54,6 +57,7 @@ export default function Goals({ goals, setGoals, goalType }) {
         const formID = event.target.id;
         const goalID = event.target.parentElement.parentElement.attributes[1].value;
         const formInput = event.target[0].value;
+        const goalItem = document.getElementById(`goal-list-item-${goalID}`)
 
         const response = await fetch('/api/data/edit', {
             method: 'PUT',
@@ -86,15 +90,20 @@ export default function Goals({ goals, setGoals, goalType }) {
         }
 
         document.getElementById(formID).setAttribute('class', 'form-hidden');
+        goalItem.setAttribute('class', 'form-visible');
         setInputValue('');
     }
 
     const cancelEdit = (event) => {
         event.preventDefault();
         const formID = event.target.form.id;
+        const goalID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
 
         const formEl = document.getElementById(formID);
         formEl.setAttribute('class', 'form-hidden');
+
+        const goalItem = document.getElementById(`goal-list-item-${goalID}`)
+        goalItem.setAttribute('class', 'form-visible');
         setInputValue('');
     }
 
@@ -171,7 +180,7 @@ export default function Goals({ goals, setGoals, goalType }) {
                     {goals.map(((goal, index) =>
                         <div key={index} id="line" value={goal.id}>
                             <div id={'goal-' + goal.id} className="each-goal">
-                                <li>{goal.goal}</li>
+                                <li id={'goal-list-item-'+ goal.id}>{goal.goal}</li>
                                 <form id={'goalForm-' + goal.id} className="form-hidden" onSubmit={submitEdit}>
                                     <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button"/>

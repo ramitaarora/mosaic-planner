@@ -13,8 +13,7 @@ export default function DailyChecks({ checks, setChecks }) {
         <div id="daily-checks">
             <div id="card-header">
                 <h2>Daily Checks</h2>
-                <img id="add-daily-checks-button" src="./svgs/add.svg" alt="add" />
-                <img id="cancel-daily-checks-button" src="./svgs/minus.svg" alt="minus" className="form-hidden" />
+                <img id="add-daily-checks-button" src="./svgs/add.svg" alt="add" onClick={showModal}/>
             </div>
             {checks.length ? (
                 checks.map((check, index) =>

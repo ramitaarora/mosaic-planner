@@ -326,6 +326,10 @@ main {
     font-size: 12px;
 }
 
+#card-header img:hover {
+    cursor: pointer;
+}
+
 #add-goal, 
 #add-event,
 #add-note {
