@@ -53,7 +53,7 @@ router.post('/event', async (req, res) => {
     }
 })
 
-router.get('/getAllChecks', async (req, res) => {
+router.get('/checks', async (req, res) => {
     try {
         const checksData = await DailyChecks.findAll({
             where: { user_id: req.session.user_id }

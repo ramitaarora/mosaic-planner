@@ -286,13 +286,13 @@ main {
     cursor: pointer;
 }
 
-#checks-lists {
+#checks-modal {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 5px;
 }
 
-#add-each-check {
+#add-each-check, #each-added-check {
     width: 220px;
     display: flex;
     justify-content: space-between;
@@ -344,6 +344,11 @@ main {
 #each-check {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+}
+
+#each-check img {
+    margin-right: 5px;
 }
 
 #checks-list label {

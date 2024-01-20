@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 
 export default function DailyChecksForm({ visibility, setVisibility }) {
+    const [inputValue, setInputValue] = useState('');
     const [checks, setChecks] = useState([]);
     const [todaysChecks, setTodaysChecks] = useState([]);
+    const [addedStatus, setAddedStatus] = useState(false)
 
     const getChecks = () => {
-        fetch('/api/data/getAllChecks')
+        fetch('/api/data/checks')
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -55,34 +57,58 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         }
     }
 
+    const addCheck = (event) => {
+        const addedItem = checks.filter(check => check.id === Number(event.target.id));
+        if (!todaysChecks.includes(addedItem[0])) {
+            setTodaysChecks((pre) => [...pre, addedItem[0]]);
+        }  
+    }
+
+    const removeCheck = (event) => {
+        const newArray = todaysChecks.filter(check => check.id !== Number(event.target.id));
+        setTodaysChecks(newArray);
+    }
+
+    const submitTodaysChecks = () => {
+        console.log('submit')
+    }
+
     return (
         <div id="modal-background" className={visibility}>
             <div id="modal">
                 <div id="modal-content">
                 <img src="./svgs/exit.svg" alt="exit" onClick={closeModal}/>
 
-                    <div id="checks-lists">
+                    <div id="checks-modal">
                         <div id="check-list">
                             <h2>Add Daily Checks</h2>
                             {checks.map((check, index) =>
                                 <div key={index} id="add-each-check">
-                                    <p>{check.daily_check}</p>
-                                    <div id="edit-buttons">
-                                        <img src="./svgs/edit.svg" alt="edit" />
-                                        <img src="./svgs/add.svg" alt="add" />
+                                    <div id="each-check">
+                                        <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck}/>
+                                        <p id={'check-list-item-' + check.id}>{check.daily_check}</p>
                                     </div>
-                                    
+                                    <form id={'checksForm-' + check.id} className="form-hidden">
+                                        <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
+                                        <input type="submit" className="submit-button" />
+                                        <button id="cancel-edit">Cancel</button>
+                                    </form>
+                                    <div id="edit-buttons">
+                                        <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} />
+                                        <img src="./svgs/delete.svg" alt="delete" id={check.id} />
+                                    </div>
                                 </div>
                             )}
                         </div>
 
                         <div id="added-checks">
                             <h2>Checks for Today</h2>
-                            {todaysChecks.map((check, index) => {
+                            {todaysChecks.map((check, index) =>
                                 <div key={index} id="each-added-check">
-                                    <p>{todaysChecks.daily_check}</p>
+                                    <p>{check.daily_check}</p>
+                                    <img src="./svgs/minus.svg" alt="minus" id={check.id} onClick={removeCheck}/>
                                 </div>
-                            })}
+                            )}
                         </div>
                     </div>
 
@@ -92,6 +118,8 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                         <input type="submit"/>
                     </form>
 
+                    <button onClick={submitTodaysChecks}>Done</button>
+                    <button onClick={closeModal}>Cancel</button>
                 </div>
             </div>
         </div>
