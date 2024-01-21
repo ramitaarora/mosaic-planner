@@ -2,12 +2,12 @@ const router = require('express').Router();
 const { Op } = require('sequelize');
 const { User, Goals, Notes, DailyChecks, DailyChecksHistory, Events } = require('../../models');
 
+const year = new Date().getFullYear();
+const month = new Date().getMonth() + 1;
+const day = new Date().getDate();
+
 router.get('/allData', async (req, res) => {
     try {
-        const year = new Date().getFullYear();
-        const month = new Date().getMonth() + 1;
-        const day = new Date().getDate();
-    
         const userData = await User.findAll({ where: { id: req.session.user_id } });
         const user = userData.map(user => user.get({ plain: true }));
     
@@ -107,6 +107,15 @@ router.post('/add', async (req, res) => {
             const checksData = await DailyChecks.create({
                 daily_check: req.body.dailyCheck,
                 user_id: req.session.user_id
+            })
+            res.status(200).json(checksData);
+        }
+        if (req.body.type === 'Daily Checks History') {
+            const checksData = await DailyChecksHistory.create({
+                daily_check: req.body.dailyCheck,
+                user_id: req.session.user_id,
+                date: `${year}-${month}-${day}`,
+                completed: false,
             })
             res.status(200).json(checksData);
         }

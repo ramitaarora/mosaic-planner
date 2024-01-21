@@ -4,7 +4,6 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
     const [inputValue, setInputValue] = useState('');
     const [checks, setChecks] = useState([]);
     const [todaysChecks, setTodaysChecks] = useState([]);
-    const [addedStatus, setAddedStatus] = useState(false)
 
     const getChecks = () => {
         fetch('/api/data/checks')
@@ -69,8 +68,30 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         setTodaysChecks(newArray);
     }
 
-    const submitTodaysChecks = () => {
-        console.log('submit')
+    const submitTodaysChecks = async () => {
+
+        if (todaysChecks.length) {
+            for (let i = 0; i < todaysChecks.length; i++) {
+                const response = await fetch('/api/data/add', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        type: 'Daily Checks History',
+                        dailyCheck: todaysChecks[i].daily_check,
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                if (response.ok) {
+                    console.log(response.statusText);
+                } else {
+                    alert(response);
+                    console.log(response.statusText);
+                }
+            } 
+           
+        }
+        setTodaysChecks([]);
+        closeModal();
+        location.reload();
     }
 
     return (
