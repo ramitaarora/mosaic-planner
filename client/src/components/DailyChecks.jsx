@@ -29,10 +29,10 @@ export default function DailyChecks({ checks, setChecks }) {
             )) : (
                 <div id="add-checks-link">
                     <h3 onClick={showModal}>No daily checks yet! Click to add some for today.</h3>
-                    <DailyChecksForm visibility={visibility} setVisibility={setVisibility} />
                 </div>
             )
-        }
+            }
+            <DailyChecksForm visibility={visibility} setVisibility={setVisibility} />
         </div>
     )
 }
