@@ -21,6 +21,25 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
+
+        fetch('/api/data/checksHistory')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          // console.log(response);
+          return response.json(); // or response.text() for text data
+        })
+        .then((data) => {
+        //   console.log(data);
+          if (data.Message) {
+            console.log(data.Message);
+          } else {
+            setTodaysChecks(data);
+        }})
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
     }
 
     useEffect(() => {
@@ -60,12 +79,16 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         const addedItem = checks.filter(check => check.id === Number(event.target.id));
         if (!todaysChecks.includes(addedItem[0])) {
             setTodaysChecks((pre) => [...pre, addedItem[0]]);
-        }  
+            let newArray = checks.filter(check => check !== addedItem[0]);
+            setChecks(newArray);
+        }
     }
 
     const removeCheck = (event) => {
+        const removedItem = todaysChecks.filter(check => check.id === Number(event.target.id));
         const newArray = todaysChecks.filter(check => check.id !== Number(event.target.id));
         setTodaysChecks(newArray);
+        setChecks((pre) => [...pre, removedItem[0]]);
     }
 
     const submitTodaysChecks = async () => {

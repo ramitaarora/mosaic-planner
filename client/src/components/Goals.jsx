@@ -189,7 +189,7 @@ export default function Goals({ goals, setGoals, goalType }) {
                             </div>
                             <div id="edit-buttons">
                                 <img src="./svgs/edit.svg" alt="edit" onClick={editGoal} id={goal.id} value={goal.goal} />
-                                <img src="./svgs/delete.svg" alt="edit" onClick={deleteGoal} id={goal.id} />
+                                <img src="./svgs/delete.svg" alt="delete" onClick={deleteGoal} id={goal.id} />
                             </div>
                         </div>
                     ))}

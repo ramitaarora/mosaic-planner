@@ -69,6 +69,25 @@ router.get('/checks', async (req, res) => {
     }
 })
 
+router.get('/checksHistory', async (req, res) => {
+    try {
+        const checksData = await DailyChecksHistory.findAll( {
+            where: { 
+                user_id: req.session.user_id,
+                date: `${year}-${month}-${day}`
+            }
+        })
+        if (checksData.length) {
+            res.status(200).json(checksData);
+        } else {
+            res.status(200).json({ "Message": "No existing checks for today." })
+        }
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+})
+
 router.post('/add', async (req, res) => {
     try {
         if (req.body.type === 'Note') {

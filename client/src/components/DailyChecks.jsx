@@ -13,7 +13,7 @@ export default function DailyChecks({ checks, setChecks }) {
         <div id="daily-checks">
             <div id="card-header">
                 <h2>Daily Checks</h2>
-                <img id="add-daily-checks-button" src="./svgs/add.svg" alt="add" onClick={showModal}/>
+                <img src="./svgs/add.svg" alt="add" onClick={showModal} />
             </div>
             {checks.length ? (
                 checks.map((check, index) =>
@@ -23,7 +23,8 @@ export default function DailyChecks({ checks, setChecks }) {
                         <label id="check-line">{check}</label>
                     </div>
                     <div id="edit-buttons">
-                        <img src="./svgs/delete.svg" alt="edit" />
+                        <img src="./svgs/edit.svg" alt="edit" />
+                        <img src="./svgs/delete.svg" alt="delete" />
                     </div>
                 </div>
             )) : (
