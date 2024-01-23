@@ -1,21 +1,26 @@
 [
     {
+        "id": 1,
         "daily_check": "Drink water",
         "user_id": 1
     },
     {
+        "id": 2,
         "daily_check": "Take vitamins",
         "user_id": 1
     },
     {
+        "id": 3,
         "daily_check": "Go for a walk",
         "user_id": 1
     },
     {
+        "id": 4,
         "daily_check": "Stretch/do yoga",
         "user_id": 1
     },
     {
+        "id": 5,
         "daily_check": "Gratitude journaling",
         "user_id": 1
     }
