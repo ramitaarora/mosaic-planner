@@ -64,7 +64,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
             })
             if (response.ok) {
                 // console.log(response.statusText);
-                alert("New daily check saved!")
+                // alert("New daily check saved!")
                 getChecks();
                 document.getElementById(formID).reset();
             } else {
@@ -98,6 +98,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                     body: JSON.stringify({
                         type: 'Daily Checks History',
                         dailyCheck: todaysChecks[i].daily_check,
+                        parentID: todaysChecks[i].id
                     }),
                     headers: { 'Content-Type': 'application/json' },
                 })
@@ -115,6 +116,82 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         location.reload();
     }
 
+    const editCheck = (event) => {
+        const checkID = event.target.attributes[2].nodeValue;
+        const checkValue = event.target.attributes[3].nodeValue;
+
+        const checkItem = document.getElementById(`check-list-item-${checkID}`)
+        checkItem.setAttribute('class', 'form-hidden');
+
+        const formID = document.getElementById(`checksForm-${checkID}`);
+        formID.setAttribute('class', 'form-visible');
+
+        const inputField = document.getElementById(`checkInput-${checkID}`);
+        inputField.setAttribute('value', checkValue);
+    }
+
+    const deleteCheck = async (event) => {
+        const checkID = event.target.attributes[2].nodeValue;
+
+        if (window.confirm("Are you sure you want to delete this check?")) {
+            const response = await fetch('/api/data/delete', {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    id: checkID,
+                    type: 'Daily Check',
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (response.ok) {
+                getChecks();
+            } else {
+                alert(response.statusText);
+            }
+        }
+    }
+
+    const submitCheckEdit = async (event) => {
+        event.preventDefault();
+        const formID = event.target.id;
+        const checkID = event.target[2].id;
+        const formInput = event.target[0].value;
+        const checkItem = document.getElementById(`check-list-item-${checkID}`)
+
+        const response = await fetch('/api/data/edit', {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: checkID,
+                check: formInput,
+                type: 'Daily Check'
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            // console.log(response.statusText);
+            getChecks();
+        } else {
+            alert(response.statusText);
+        }
+
+        document.getElementById(formID).setAttribute('class', 'form-hidden');
+        checkItem.setAttribute('class', 'form-visible');
+        setInputValue('');
+    }
+
+    const cancelEdit = (event) => {
+        event.preventDefault();
+        const formID = event.target.form.id;
+        const checkID = event.target.id;
+
+        const formEl = document.getElementById(formID);
+        formEl.setAttribute('class', 'form-hidden');
+
+        const checkItem = document.getElementById(`check-list-item-${checkID}`)
+        checkItem.setAttribute('class', 'form-visible');
+        setInputValue('');
+    }
+
     return (
         <div id="modal-background" className={visibility}>
             <div id="modal">
@@ -130,14 +207,14 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                                         <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck}/>
                                         <p id={'check-list-item-' + check.id}>{check.daily_check}</p>
                                     </div>
-                                    <form id={'checksForm-' + check.id} className="form-hidden">
+                                    <form id={'checksForm-' + check.id} className="form-hidden" onSubmit={submitCheckEdit}>
                                         <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
                                         <input type="submit" className="submit-button" />
-                                        <button id="cancel-edit">Cancel</button>
+                                        <button id={check.id} onClick={cancelEdit}>Cancel</button>
                                     </form>
                                     <div id="edit-buttons">
-                                        <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} />
-                                        <img src="./svgs/delete.svg" alt="delete" id={check.id} />
+                                        <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} onClick={editCheck}/>
+                                        <img src="./svgs/delete.svg" alt="delete" id={check.id} onClick={deleteCheck}/>
                                     </div>
                                 </div>
                             )}

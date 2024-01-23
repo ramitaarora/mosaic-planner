@@ -147,6 +147,7 @@ router.post('/add', async (req, res) => {
                 user_id: req.session.user_id,
                 date: `${year}-${month}-${day}`,
                 completed: false,
+                parent_id: req.body.parentID
             })
             res.status(200).json(checksData);
         }

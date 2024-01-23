@@ -32,6 +32,14 @@ DailyChecksHistory.init(
                 model: 'user',
                 key: 'id'
             }
+        },
+        parent_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'dailyChecks',
+                key: 'id'
+            }
         }
     },
     {
