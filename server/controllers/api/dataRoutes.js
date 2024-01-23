@@ -88,6 +88,18 @@ router.get('/checksHistory', async (req, res) => {
     }
 })
 
+router.put('/completed', async (req, res) => {
+    try {
+        const checksData = await DailyChecksHistory.update({ completed: req.body.completed }, {
+            where: { id: req.body.id }
+        })
+        res.status(200).json(checksData);
+    } catch(err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+})
+
 router.post('/add', async (req, res) => {
     try {
         if (req.body.type === 'Note') {

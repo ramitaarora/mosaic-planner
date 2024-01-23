@@ -111,6 +111,71 @@ export default function DailyChecks({ checks, setChecks }) {
         setInputValue('');
     }
 
+    const checkbox = async (event) => {
+        const checkID = event.target.parentElement.parentElement.attributes[1].value;
+
+        if (event.target.checked) {
+            const response = await fetch('/api/data/completed', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: checkID,
+                    completed: event.target.checked,
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+    
+            if (response.ok) {
+                // console.log(response.statusText);
+                fetch('/api/data/allData')
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json(); // or response.text() for text data
+                    })
+                    .then((data) => {
+                        // console.log(data);
+                        setChecks(data.dailyChecks.map(check => check));
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching data:', error);
+                    });
+            } else {
+                alert(response.statusText);
+            }
+        }
+        else {
+            const response = await fetch('/api/data/completed', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: checkID,
+                    completed: event.target.checked,
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+    
+            if (response.ok) {
+                // console.log(response.statusText);
+                fetch('/api/data/allData')
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json(); // or response.text() for text data
+                    })
+                    .then((data) => {
+                        // console.log(data);
+                        setChecks(data.dailyChecks.map(check => check));
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching data:', error);
+                    });
+            } else {
+                alert(response.statusText);
+            }
+        }
+    }
+
     return (
         <div id="daily-checks">
             <div id="card-header">
@@ -121,7 +186,7 @@ export default function DailyChecks({ checks, setChecks }) {
                 checks.map((check, index) =>
                     <div id="line" key={index} value={check.id}>
                         <div id={'check-list-item-' + check.id} className="each-check">
-                            <input type="checkbox" id={"is-completed-" + check.id}/>
+                            <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false}/>
                             <label id="check-line">{check.daily_check}</label>
                         </div>
                         <form id={'checkForm-' + check.id} className="form-hidden" onSubmit={submitEdit}>

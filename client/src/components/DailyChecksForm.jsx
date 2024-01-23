@@ -32,9 +32,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         })
         .then((data) => {
         //   console.log(data);
-          if (data.Message) {
-            console.log(data.Message);
-          } else {
+          if (!data.Message) {
             setTodaysChecks(data);
         }})
         .catch((error) => {
