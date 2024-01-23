@@ -4,6 +4,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
     const [inputValue, setInputValue] = useState('');
     const [checks, setChecks] = useState([]);
     const [todaysChecks, setTodaysChecks] = useState([]);
+    const [savedChecks, setSavedChecks] = useState([])
 
     const getChecks = () => {
         fetch('/api/data/checks')
@@ -34,6 +35,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         //   console.log(data);
           if (!data.Message) {
             setTodaysChecks(data);
+            setSavedChecks(data);
         }})
         .catch((error) => {
           console.error('Error fetching data:', error);
@@ -75,43 +77,75 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
 
     const addCheck = (event) => {
         const addedItem = checks.filter(check => check.id === Number(event.target.id));
-        if (!todaysChecks.includes(addedItem[0])) {
+        const matches = todaysChecks.find(check => check.parent_id === addedItem[0].id);
+        const includes = todaysChecks.includes(addedItem[0]);
+
+        if (!matches && !includes) {
             setTodaysChecks((pre) => [...pre, addedItem[0]]);
-            let newArray = checks.filter(check => check !== addedItem[0]);
-            setChecks(newArray);
         }
     }
 
-    const removeCheck = (event) => {
-        const removedItem = todaysChecks.filter(check => check.id === Number(event.target.id));
-        const newArray = todaysChecks.filter(check => check.id !== Number(event.target.id));
+    const removeCheck = async (event) => {
+        const newArray = todaysChecks.filter(check => check.parent_id !== Number(event.target.id));
         setTodaysChecks(newArray);
-        setChecks((pre) => [...pre, removedItem[0]]);
+
+        if (savedChecks.length) {
+            const response = await fetch('/api/data/delete', {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    id: Number(event.target.id),
+                    type: 'Daily Check History',
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (response.ok) {
+                getChecks();
+            } else {
+                alert(response.statusText);
+            }
+        }
     }
 
     const submitTodaysChecks = async () => {
+        let checksToSave = [];
 
         if (todaysChecks.length) {
-            for (let i = 0; i < todaysChecks.length; i++) {
-                const response = await fetch('/api/data/add', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        type: 'Daily Checks History',
-                        dailyCheck: todaysChecks[i].daily_check,
-                        parentID: todaysChecks[i].id
-                    }),
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                if (response.ok) {
-                    console.log(response.statusText);
-                } else {
-                    alert(response);
-                    console.log(response.statusText);
+            if (savedChecks.length) {
+                for (let i = 0; i < todaysChecks.length; i++) {
+                    const matches = savedChecks.find(check => check.parent_id === todaysChecks[i].parent_id);
+                    if (!matches) {
+                        checksToSave.push(todaysChecks[i]);
+                    }
                 }
-            } 
+            } else {
+                checksToSave = todaysChecks;
+            }
+
+            if (checksToSave.length) {
+                for (let i = 0; i < checksToSave.length; i++) {
+                    const response = await fetch('/api/data/add', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            type: 'Daily Checks History',
+                            dailyCheck: checksToSave[i].daily_check,
+                            parentID: checksToSave[i].id
+                        }),
+                        headers: { 'Content-Type': 'application/json' },
+                    })
+                    if (response.ok) {
+                        console.log(response.statusText);
+                    } else {
+                        alert(response);
+                        console.log(response.statusText);
+                    }
+                } 
+            }
+
+
            
         }
         setTodaysChecks([]);
+        setSavedChecks([])
         closeModal();
         location.reload();
     }
