@@ -43,7 +43,7 @@ input[type="submit"]:hover {
 
 /* Navigation Styles */
 
-#navigation {
+/* #navigation {
     width: 100%;
     border-bottom: 1px solid lightgrey;
     margin: 0;
@@ -64,7 +64,7 @@ input[type="submit"]:hover {
 #navigation li:hover {
     cursor: pointer;
     color: grey;
-}
+} */
 
 /* Login Page Styles */
 

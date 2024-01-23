@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import Navigation from './Navigation';
 
-export default function Header({ name, location }) { 
+export default function Header({ name, location, visibility, setVisibility }) { 
     const [greeting, setGreeting] = useState('Hello');
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
@@ -122,6 +123,8 @@ export default function Header({ name, location }) {
 
     return (
         <header>
+            <Navigation visibility={visibility} setVisibility={setVisibility} />
+
             <div id="today">
                 <h1 id="today">{greeting}, {name}</h1>
                 <p id="current-day">{day}, {month} {date}, {year}</p>

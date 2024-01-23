@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-
-export default function Navigation() {
+export default function Navigation({ visiblity, setVisibility }) {
     const logout = async () => {
         const response = await fetch('/api/users/logout', {
             method: 'POST',
@@ -11,12 +9,15 @@ export default function Navigation() {
             console.error(response.statusText);
         }
     }
+    
+    const openModal = () => {
+        setVisibility('form-visible');
+    }
 
     return (
         <div id="navigation">
             <ul>
-                <li><Link to="/">Dashboard</Link></li>
-                <li><Link to="/setup">Setup</Link></li>
+                <li onClick={openModal}>Edit Profile</li>
                 <li onClick={logout}>Logout</li>
             </ul>
         </div>

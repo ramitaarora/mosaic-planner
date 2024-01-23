@@ -8,7 +8,6 @@ import './App.css'
 import Dashboard from './pages/Dashboard.jsx';
 import Login from './pages/Login.jsx';
 import Error from './pages/Error.jsx';
-import Setup from './pages/Setup.jsx';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -17,7 +16,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />}>
           <Route index element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/setup" element={<Setup />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import Navigation from '../components/Navigation';
 import Header from '../components/Header.jsx';
 import Goals from '../components/Goals.jsx';
 import DailyChecks from '../components/DailyChecks.jsx';
 import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
 import CalendarCard from '../components/CalendarCard.jsx';
+import ProfileForm from '../components/ProfileForm.jsx';
 
 export default function Dashboard() {
     const [yearGoals, setYearGoals] = useState([]);
@@ -17,6 +17,7 @@ export default function Dashboard() {
     const [events, setEvents] = useState([]);
     const [name, setName] = useState('name')
     const [location, setLocation] = useState('Pasadena')
+    const [visibility, setVisibility] = useState('form-hidden');
 
   const getData = () => {
     fetch('/api/data/allData')
@@ -67,8 +68,9 @@ export default function Dashboard() {
   
     return (
       <div>
-        <Navigation />
-        <Header name={name} location={location}/>
+        
+        <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility}/>
+        <ProfileForm visibility={visibility} setVisibility={setVisibility} />
   
         <main>
           <section id="left">
