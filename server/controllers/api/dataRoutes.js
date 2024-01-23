@@ -1,12 +1,13 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
+const withAuth = require('../../utils/auth');
 const { User, Goals, Notes, DailyChecks, DailyChecksHistory, Events } = require('../../models');
 
 const year = new Date().getFullYear();
 const month = new Date().getMonth() + 1;
 const day = new Date().getDate();
 
-router.get('/allData', async (req, res) => {
+router.get('/allData', withAuth, async (req, res) => {
     try {
         const userData = await User.findAll({ where: { id: req.session.user_id } });
         const user = userData.map(user => user.get({ plain: true }));
@@ -33,7 +34,7 @@ router.get('/allData', async (req, res) => {
     }
 });
 
-router.post('/event', async (req, res) => {
+router.post('/event', withAuth, async (req, res) => {
     try {
         const eventsData = await Events.findAll({
             where: {
@@ -53,7 +54,7 @@ router.post('/event', async (req, res) => {
     }
 })
 
-router.get('/checks', async (req, res) => {
+router.get('/checks', withAuth, async (req, res) => {
     try {
         const checksData = await DailyChecks.findAll({
             where: { user_id: req.session.user_id }
@@ -69,7 +70,7 @@ router.get('/checks', async (req, res) => {
     }
 })
 
-router.get('/checksHistory', async (req, res) => {
+router.get('/checksHistory', withAuth, async (req, res) => {
     try {
         const checksData = await DailyChecksHistory.findAll( {
             where: { 
@@ -88,10 +89,13 @@ router.get('/checksHistory', async (req, res) => {
     }
 })
 
-router.put('/completed', async (req, res) => {
+router.put('/completed', withAuth, async (req, res) => {
     try {
         const checksData = await DailyChecksHistory.update({ completed: req.body.completed }, {
-            where: { id: req.body.id }
+            where: { 
+                id: req.body.id,
+                user_id: req.session.user_id,  
+            }
         })
         res.status(200).json(checksData);
     } catch(err) {
@@ -100,7 +104,7 @@ router.put('/completed', async (req, res) => {
     }
 })
 
-router.post('/add', async (req, res) => {
+router.post('/add', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Note') {
             const notesData = await Notes.create({
@@ -157,26 +161,41 @@ router.post('/add', async (req, res) => {
     }
 })
 
-router.put('/edit', async (req, res) => {
+router.put('/edit', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Goal') {
-            const goalData = await Goals.update({ goal: req.body.goal }, { where: { id: req.body.id } });
+            const goalData = await Goals.update({ goal: req.body.goal }, { where: { 
+                id: req.body.id,
+                user_id: req.session.user_id, 
+            }});
             res.status(200).json(goalData);
         }
         if (req.body.type === 'Note') {
-            const notesData = await Notes.update({ note: req.body.note }, { where: { id: req.body.id } });
+            const notesData = await Notes.update({ note: req.body.note }, { where: { 
+                id: req.body.id,
+                user_id: req.session.user_id,  
+            }});
             res.status(200).json(notesData);
         }
         if (req.body.type === 'Event') {
-            const eventData = await Events.update({ event: req.body.event }, { where: { id: req.body.id } })
+            const eventData = await Events.update({ event: req.body.event }, { where: { 
+                id: req.body.id,
+                user_id: req.session.user_id,  
+            }})
             res.status(200).json(eventData);
         }
         if (req.body.type === 'Daily Check') {
-            const checksData = await DailyChecks.update({ daily_check: req.body.check }, { where: { id: req.body.id } })
+            const checksData = await DailyChecks.update({ daily_check: req.body.check }, { where: { 
+                id: req.body.id,
+                user_id: req.session.user_id,  
+            }})
             res.status(200).json(checksData);
         }
         if (req.body.type === 'Daily Check History') {
-            const checksData = await DailyChecksHistory.update({ daily_check: req.body.check }, { where: { id: req.body.id } })
+            const checksData = await DailyChecksHistory.update({ daily_check: req.body.check }, { where: { 
+                id: req.body.id,
+                user_id: req.session.user_id, 
+            }})
             res.status(200).json(checksData);
         }
     } catch(err) {
@@ -185,28 +204,41 @@ router.put('/edit', async (req, res) => {
     }
 })
 
-router.delete('/delete', async (req, res) => {
+router.delete('/delete', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Goal') {
             const goalData = await Goals.destroy({ where: { 
-                [Op.or]: [ { id: req.body.id }, { parent_goal: req.body.id } ]
+                [Op.or]: [ { id: req.body.id }, { parent_goal: req.body.id } ],
+                user_id: req.session.user_id, 
             }});
             res.status(200).json(goalData);
         }
         if (req.body.type === 'Note') {
-            const noteData = await Notes.destroy({ where: { id: req.body.id }});
+            const noteData = await Notes.destroy({ where: { 
+                id: req.body.id,
+                user_id: req.session.user_id,  
+            }});
             res.status(200).json(noteData);
         }
         if (req.body.type === 'Event') {
-            const eventData = await Events.destroy({ where: { id: req.body.id }});
+            const eventData = await Events.destroy({ where: { 
+                id: req.body.id,
+                user_id: req.session.user_id, 
+            }});
             res.status(200).json(eventData);
         }
         if (req.body.type === 'Daily Check') {
-            const checksData = await DailyChecks.destroy({ where: { id: req.body.id }});
+            const checksData = await DailyChecks.destroy({ where: { 
+                id: req.body.id,
+                user_id: req.session.user_id, 
+            }});
             res.status(200).json(checksData);
         }
         if (req.body.type === 'Daily Check History') {
-            const checksData = await DailyChecksHistory.destroy({ where: { id: req.body.id }});
+            const checksData = await DailyChecksHistory.destroy({ where: { 
+                id: req.body.id,
+                user_id: req.session.user_id,
+            }});
             res.status(200).json(checksData);
         }
     } catch(err) {
