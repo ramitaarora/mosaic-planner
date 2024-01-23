@@ -277,6 +277,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
 
                     <button onClick={submitTodaysChecks}>Done</button>
                     <button onClick={closeModal}>Cancel</button>
+                    
                 </div>
             </div>
         </div>

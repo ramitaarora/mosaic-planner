@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import GoalsForm from './GoalsForm';
 
 export default function Goals({ goals, setGoals, goalType }) {
     const [inputValue, setInputValue] = useState('');
+    const [visibility, setVisibility] = useState('form-hidden');
 
     const editGoal = (event) => {
         const goalID = event.target.attributes[2].nodeValue;
@@ -106,58 +108,7 @@ export default function Goals({ goals, setGoals, goalType }) {
     }
 
     const addNewGoal = (event) => {
-        console.log(event);
-        // document.getElementById('add-goal').setAttribute('class', 'form-visible');
-        // document.getElementById('add-goal-button').setAttribute('class', 'form-hidden');
-        // document.getElementById('cancel-goal-button').setAttribute('class', 'form-visible');
-    }
-
-    const submitNewGoal = async (event) => {
-        event.preventDefault();
-        const newGoalValue = event.target[0].value;
-
-        if (newGoalValue.length) {
-            const response = await fetch('/api/data/add', {
-                method: 'POST',
-                body: JSON.stringify({
-                    goal: newGoalValue,
-                    type: 'Goal'
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-    
-            if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        // console.log(data);
-                        setGoals(data.goals.filter(goal => goal.goal_type === goalType));
-                        document.getElementById('add-goal').setAttribute('class', 'form-hidden');
-                        document.getElementById('cancel-goal-button').setAttribute('class', 'form-hidden');
-                        document.getElementById('add-goal-button').setAttribute('class', 'form-visible');
-                        setInputValue('')
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
-            } else {
-                alert(response.statusText);
-            }
-        }
-    }
-
-    const cancelNewGoal = (event) => {
-        console.log(event)
-        event.preventDefault();
-        // document.getElementById('add-goal').setAttribute('class', 'form-hidden');
-        // document.getElementById('cancel-goal-button').setAttribute('class', 'form-hidden');
-        // document.getElementById('add-goal-button').setAttribute('class', 'form-visible');
+        setVisibility('form-visible')
     }
 
     return (
@@ -165,13 +116,9 @@ export default function Goals({ goals, setGoals, goalType }) {
             <div id="card-header">
                 <h2>{goalType} Goals</h2>
                 <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal} />
-                <img id="cancel-goal-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewGoal} className="form-hidden" />
             </div>
-            
-            {/*<form id="add-goal" onSubmit={submitNewGoal} className="form-hidden">
-                <input type="text" placeholder="Write new goal here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)}/>
-                <input type="submit" className="submit-button" />
-            </form> */}
+
+            <GoalsForm visibility={visibility} setVisibility={setVisibility} />
 
             <div id="goals-list">
                 <ol>
