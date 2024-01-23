@@ -86,10 +86,11 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
     }
 
     const removeCheck = async (event) => {
-        const newArray = todaysChecks.filter(check => check.parent_id !== Number(event.target.id));
-        setTodaysChecks(newArray);
 
         if (savedChecks.length) {
+            const newArray = todaysChecks.filter(check => check.parent_id !== Number(event.target.id));
+            setTodaysChecks(newArray);
+
             const response = await fetch('/api/data/delete', {
                 method: 'DELETE',
                 body: JSON.stringify({
@@ -103,6 +104,9 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
             } else {
                 alert(response.statusText);
             }
+        } else {
+            const newArray = todaysChecks.filter(check => check.id !== Number(event.target.id));
+            setTodaysChecks(newArray);
         }
     }
 
