@@ -39,8 +39,6 @@ export default function Goals({ goals, setGoals, goalType }) {
                         return response.json(); // or response.text() for text data
                     })
                     .then((data) => {
-                        // console.log(data);
-                        // setGoals(data.goals.filter(goal => goal.goal_type === goalType));
                         location.reload();
                     })
                     .catch((error) => {

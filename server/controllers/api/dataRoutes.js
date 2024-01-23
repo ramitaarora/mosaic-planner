@@ -158,6 +158,14 @@ router.put('/edit', async (req, res) => {
             const eventData = await Events.update({ event: req.body.event }, { where: { id: req.body.id } })
             res.status(200).json(eventData);
         }
+        if (req.body.type === 'Daily Check') {
+            const checksData = await DailyChecks.update({ daily_check: req.body.check }, { where: { id: req.body.id } })
+            res.status(200).json(checksData);
+        }
+        if (req.body.type === 'Daily Check History') {
+            const checksData = await DailyChecksHistory.update({ daily_check: req.body.check }, { where: { id: req.body.id } })
+            res.status(200).json(checksData);
+        }
     } catch(err) {
         res.status(400).json(err);
         console.log(err)
@@ -179,6 +187,14 @@ router.delete('/delete', async (req, res) => {
         if (req.body.type === 'Event') {
             const eventData = await Events.destroy({ where: { id: req.body.id }});
             res.status(200).json(eventData);
+        }
+        if (req.body.type === 'Daily Check') {
+            const checksData = await DailyChecks.destroy({ where: { id: req.body.id }});
+            res.status(200).json(checksData);
+        }
+        if (req.body.type === 'Daily Check History') {
+            const checksData = await DailyChecksHistory.destroy({ where: { id: req.body.id }});
+            res.status(200).json(checksData);
         }
     } catch(err) {
         res.status(400).json(err);
