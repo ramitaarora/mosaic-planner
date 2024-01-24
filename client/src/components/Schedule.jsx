@@ -178,23 +178,24 @@ export default function Schedule({ events, setEvents }) {
             <div id="card-header">
                 <h2>Today's Schedule</h2>
                 <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
-                <img id="cancel-event-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewEvent} className="form-hidden" />
             </div>
-
-            {/* <form id="add-event" onSubmit={submitNewEvent} className="form-hidden">
-                <input type="text" placeholder="Write new event here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-                <input type="submit" className="submit-button" />
-            </form> */}
 
             <div>
                 <ul>
-                {events.map((event, index) =>
+                {events ? ( 
+                    events.map((event, index) =>
                     <div key={index} id="line" value={event.id}>
                         <div id="each-event">
-                            <li>{event.event}</li>
-                            <p>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
-                            {event.address ? <p>{event.address}</p> : null}
-
+                            { event.all_day ? (
+                                <p id="all-day-event">{event.event}</p>
+                            ) : (
+                                <div>
+                                    <li>{event.event}</li>
+                                    <p>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
+                                    {event.address ? <p>{event.address}</p> : null}
+                                </div>
+                            )
+                            }
                             <form id={'eventForm-' + event.id} className="form-hidden" onSubmit={submitEdit}>
                                 <input type="text" id={'eventInput-' + event.id} onChange={(event) => setInputValue(event.target.value)} />
                                 <input type="submit" className="submit-button" />
@@ -206,7 +207,8 @@ export default function Schedule({ events, setEvents }) {
                             <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id} />
                         </div>
                     </div>
-                )}
+                )
+                ) : ( null )}
                 </ul>
             </div>
         </div>

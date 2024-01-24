@@ -17,22 +17,27 @@ Events.init(
         },
         date: {
             type: DataTypes.STRING,
-            allowNull: false,
+        },
+        start_date: {
+            type: DataTypes.STRING,
+        },
+        end_date: {
+            type: DataTypes.STRING,
         },
         start_time: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
         end_time: {
             type: DataTypes.STRING,
-            allowNull: false,
+        },
+        all_day: {
+            type: DataTypes.BOOLEAN,
         },
         recurring: {
             type: DataTypes.STRING,
         },
         address: {
             type: DataTypes.STRING,
-            allowNull: true,
         },
         user_id: {
             type: DataTypes.INTEGER,

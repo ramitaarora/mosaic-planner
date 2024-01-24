@@ -2,24 +2,33 @@
     {
         "event": "Meeting with Dave",
         "user_id": 1,
-        "date": "2024-1-18",
+        "start_date": "2024-1-18",
         "start_time": "10:30",
         "end_time": "12:00",
-        "recurring": "Daily"
+        "recurring": "Weekly"
     },
     {
         "event": "Lunch",
         "user_id": 1,
-        "date": "2024-1-18",
+        "start_date": "2024-1-18",
         "start_time": "12:00",
-        "end_time": "14:00",
+        "end_time": "13:00",
         "recurring": "Daily"
     },
     {
         "event": "Yoga",
         "user_id": 1,
-        "address": "OneLife Yoga Studio",
-        "date": "2024-1-18",
+        "address": "Life Yoga Studio",
+        "start_date": "2024-1-16",
+        "start_time": "17:30",
+        "end_time": "18:30",
+        "recurring": "Weekly"
+    },
+    {
+        "event": "Yoga",
+        "user_id": 1,
+        "address": "Life Yoga Studio",
+        "start_date": "2024-1-18",
         "start_time": "17:30",
         "end_time": "18:30",
         "recurring": "Weekly"
@@ -28,9 +37,83 @@
         "event": "Dinner with Parents",
         "user_id": 1,
         "address": "Cheesecake Factory",
-        "date": "2024-1-18",
+        "start_date": "2024-1-18",
         "start_time": "19:00",
         "end_time": "21:00",
         "recurring": "Monthly"
+    },
+    {
+        "event": "My Birthday!",
+        "user_id": 1,
+        "start_date": "2023-8-23",
+        "recurring": "Annually",
+        "all_day": true
+    },
+    {
+        "event": "Spinning Class",
+        "user_id": 1,
+        "start_date": "2024-1-15",
+        "start_time": "8:00",
+        "end_time": "8:45",
+        "recurring": "Weekly",
+        "address": "LA Fitness"
+    },
+    {
+        "event": "Spinning Class",
+        "user_id": 1,
+        "start_date": "2024-1-17",
+        "start_time": "8:00",
+        "end_time": "8:45",
+        "recurring": "Weekly",
+        "address": "LA Fitness"
+    },
+    {
+        "event": "Spinning Class",
+        "user_id": 1,
+        "start_date": "2024-1-19",
+        "start_time": "8:00",
+        "end_time": "8:45",
+        "recurring": "Weekly",
+        "address": "LA Fitness"
+    },
+    {
+        "event": "Do Laundry",
+        "user_id": 1,
+        "start_date": "2024-1-14",
+        "start_time": "14:30",
+        "end_time": "17:30",
+        "recurring": "Weekly"
+    },
+    {
+        "event": "Meeting with Melissa",
+        "user_id": 1,
+        "start_date": "2024-1-16",
+        "start_time": "14:30",
+        "end_time": "15:30",
+        "recurring": "Weekly"
+    },
+    {
+        "event": "Company Meeting",
+        "user_id": 1,
+        "start_date": "2024-1-18",
+        "start_time": "15:00",
+        "end_time": "17:00",
+        "recurring": "Weekly"
+    },
+    {
+        "event": "Pay rent",
+        "user_id": 1,
+        "start_date": "2024-1-1",
+        "all_day": true,
+        "recurring": "Monthly"
+    },
+    {
+        "event": "Brunch",
+        "user_id": 1,
+        "start_date": "2024-1-20",
+        "start_time": "10:30",
+        "end_time": "12:30",
+        "recurring": "Weekly",
+        "address": "Popping Yolk Cafe"
     }
 ]
