@@ -115,5 +115,13 @@
         "end_time": "12:30",
         "recurring": "Weekly",
         "address": "Popping Yolk Cafe"
+    },
+    {
+        "event": "Today's Event Only!",
+        "user_id": 1,
+        "date": "2024-1-24",
+        "start_time": "11:30",
+        "end_time": "12:30",
+        "address": "Space and Time"
     }
 ]

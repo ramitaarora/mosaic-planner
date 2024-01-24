@@ -6,10 +6,20 @@ export default function Schedule({ events, setEvents }) {
     const [todaysEvents, setTodaysEvents] = useState([])
 
     const getTodaysEvents = () => {
+        const nonRecurring = events.filter(event => event.date);
         const dailyEvents = events.filter(event => event.recurring === "Daily");
         const weeklyEvents = events.filter(event => event.recurring === "Weekly");
         const monthlyEvents = events.filter(event => event.recurring === "Monthly");
         const annualEvents = events.filter(event => event.recurring === "Annually");
+
+        nonRecurring.forEach(event => {
+            let eventDate = new Date(event.date);
+            const checkDuplicate = todaysEvents.find(event => event.id === event.id);
+
+            if ((String(eventDate)).slice(0,15) === (String(today)).slice(0,15) && !checkDuplicate) {
+                setTodaysEvents((pre => [...pre, event]));
+            }
+        })
 
         dailyEvents.forEach(event => {
             let dailyDates = [];
