@@ -37,6 +37,10 @@ input[type="submit"]:hover {
     cursor: pointer;
 }
 
+.active {
+    background-color: white;
+}
+
 /* ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
     display: none;
 }  */
@@ -172,7 +176,7 @@ main {
 }
 
 #left {
-    width: 30%;
+    width: 33%;
     /* border: 1px solid black; */
     height: 100vh;
     display: flex;
@@ -180,7 +184,7 @@ main {
 }
 
 #middle {
-    width: 40%;
+    width: 34%;
     /* border: 1px solid black; */
     height: 100vh;
     display: flex;
@@ -188,7 +192,7 @@ main {
 }
 
 #right {
-    width: 30%;
+    width: 33%;
     height: 100vh;
     /* border: 1px solid black; */
     display: flex;
@@ -200,15 +204,15 @@ main {
 }
 
 #schedule {
-    height: 60%;
+    height: 66%;
 }
 
 #daily-checks {
-    height: 40%;
+    height: 66%;
 }
 
 #calendar {
-    height: 66%;
+    height: 33%;
 }
 
 #line input[type="text"] {

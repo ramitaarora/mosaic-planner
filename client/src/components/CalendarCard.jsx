@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-import CalendarClick from './CalendarClick';
+// import CalendarClick from './CalendarClick';
 
 export default function CalendarCard() {
-    const [value, setValue] = useState(new Date())
     const [events, setEvents] = useState('');
 
     const clickDay = async (event, value) => {
@@ -12,6 +11,10 @@ export default function CalendarCard() {
         let day = fullDateArray[2];
         let year = fullDateArray[3];
         let monthNum = 0;
+
+        console.log(value.target)
+        const el = document.querySelector(`[aria-label="${value.target.ariaLabel}"]`);
+        el.setAttribute('class', 'active')
 
         if (month === 'Jan') monthNum = 1;
         if (month === 'Feb') monthNum = 2;
@@ -56,7 +59,6 @@ export default function CalendarCard() {
                 <h2>Calendar</h2>
             </div>
              <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay}/>
-             <CalendarClick events={events} setEvents={setEvents}/>
         </div>
     )
 }

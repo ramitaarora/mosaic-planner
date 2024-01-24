@@ -9,87 +9,87 @@ import CalendarCard from '../components/CalendarCard.jsx';
 import ProfileForm from '../components/ProfileForm.jsx';
 
 export default function Dashboard() {
-    const [yearGoals, setYearGoals] = useState([]);
-    const [monthGoals, setMonthGoals] = useState([]);
-    const [weekGoals, setWeekGoals] = useState([]);
-    const [notes, setNotes] = useState([]);
-    const [checks, setChecks] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [name, setName] = useState('name')
-    const [location, setLocation] = useState('Pasadena')
-    const [visibility, setVisibility] = useState('form-hidden');
+  const [yearGoals, setYearGoals] = useState([]);
+  const [monthGoals, setMonthGoals] = useState([]);
+  const [weekGoals, setWeekGoals] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [checks, setChecks] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [name, setName] = useState('name')
+  const [location, setLocation] = useState('Pasadena')
+  const [visibility, setVisibility] = useState('form-hidden');
 
   const getData = () => {
     fetch('/api/data/allData')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      // console.log(response);
-      return response.json(); // or response.text() for text data
-    })
-    .then((data) => {
-      // console.log(data.events);
-      setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
-      setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
-      setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
-      setNotes(data.notes.map(note => note));
-      setChecks(data.dailyChecks.map(check => check));
-      setName(data.user.map(user => user.name));
-      setLocation(data.user.map(user => user.location));
-      setEvents(data.events.map(event => event));
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
-  }
-   
-    useEffect(() => {
-      fetch('/api/home')
       .then((response) => {
-          if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          // console.log(response);
-          return response.json();
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // console.log(response);
+        return response.json(); // or response.text() for text data
       })
       .then((data) => {
-          if (data.loggedIn) {
-              // console.log(data);
-              getData();
-          } else {
-              window.location.replace('/login')
-          }
+        // console.log(data.events);
+        setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
+        setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
+        setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
+        setNotes(data.notes.map(note => note));
+        setChecks(data.dailyChecks.map(check => check));
+        setName(data.user.map(user => user.name));
+        setLocation(data.user.map(user => user.location));
+        setEvents(data.events.map(event => event));
       })
       .catch((error) => {
-          console.error(error)
-      });     
-    }, []);
-  
-    return (
-      <div>
-        
-        <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility}/>
-        <ProfileForm visibility={visibility} setVisibility={setVisibility} />
-  
-        <main>
-          <section id="left">
-            <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" />
-            <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" />
-            <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" />
-          </section>
-  
-          <section id="middle">
-            <Schedule events={events} setEvents={setEvents}/>
-            <DailyChecks checks={checks} setChecks={setChecks} />
-          </section>
-  
-          <section id="right">
-            <Notes notes={notes} setNotes={setNotes}/>
-            <CalendarCard />
-          </section>
-        </main>
-  
-      </div>
-    )
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  useEffect(() => {
+    fetch('/api/home')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        if (data.loggedIn) {
+          // console.log(data);
+          getData();
+        } else {
+          window.location.replace('/login')
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+  }, []);
+
+  return (
+    <div>
+
+      <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} />
+      <ProfileForm visibility={visibility} setVisibility={setVisibility} />
+
+      <main>
+        <section id="left">
+          <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" />
+          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" />
+          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" />
+        </section>
+
+        <section id="middle">
+          <CalendarCard />
+          <Schedule events={events} setEvents={setEvents} />
+        </section>
+
+        <section id="right">
+          <DailyChecks checks={checks} setChecks={setChecks} />
+          <Notes notes={notes} setNotes={setNotes} />
+        </section>
+      </main>
+
+    </div>
+  )
 }
