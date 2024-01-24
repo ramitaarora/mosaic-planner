@@ -4,34 +4,97 @@ export default function Schedule({ events, setEvents }) {
     const [inputValue, setInputValue] = useState('');
     const today = new Date();
     const [todaysEvents, setTodaysEvents] = useState([])
-    const [dailyDates, setDailyDates] = useState([])
 
     const getTodaysEvents = () => {
         const dailyEvents = events.filter(event => event.recurring === "Daily");
         const weeklyEvents = events.filter(event => event.recurring === "Weekly");
         const monthlyEvents = events.filter(event => event.recurring === "Monthly");
         const annualEvents = events.filter(event => event.recurring === "Annually");
-        const allDayEvents = events.filter(event => event.all_day === true);
 
         dailyEvents.forEach(event => {
-            let startDate = new Date(event.start_date);
+            let dailyDates = [];
+
             for (let i = 0; i < 52; i++) {
-                const addDay = startDate.setDate(startDate.getDate() + 1);  
+                let startDate = new Date(event.start_date);
+                const addDay = startDate.setDate(startDate.getDate() + i);  
                 const eachDate = new Date(addDay)
-                setDailyDates((pre) => [...pre, eachDate]);
+                dailyDates.push(eachDate)
             }
 
-            const isToday = dailyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));
+            const isToday = dailyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));            
+            const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
-            if (isToday) {
+            if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
-                setDailyDates([]);
             }
         })
+
+        weeklyEvents.forEach(event => {
+            let weeklyDates = [];
+            let startDate = new Date(event.start_date);
+            weeklyDates.push(startDate)
+
+            for (let i = 0; i < 52; i++) {
+                let newDate = new Date(weeklyDates[i])
+                const addWeek = newDate.setDate(newDate.getDate() + 7);  
+                const eachDate = new Date(addWeek)
+                weeklyDates.push(eachDate)
+            }
+
+            const isToday = weeklyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));            
+            const checkDuplicate = todaysEvents.find(event => event.id === event.id);
+
+            if (isToday && !checkDuplicate) {
+                setTodaysEvents((pre) => [...pre, event]);
+            }
+        })
+
+        monthlyEvents.forEach(event => {
+            let monthlyDates = [];
+            let startDate = new Date(event.start_date);
+            monthlyDates.push(startDate)
+
+            for (let i = 0; i < 24; i++) {
+                let newDate = new Date(monthlyDates[i]);
+                const addMonth = newDate.setMonth(newDate.getMonth() + 1);  
+                const eachDate = new Date(addMonth)
+                monthlyDates.push(eachDate);
+            }
+            
+            const isToday = monthlyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));
+            const checkDuplicate = todaysEvents.find(event => event.id === event.id);
+
+            if (isToday && !checkDuplicate) {
+                setTodaysEvents((pre) => [...pre, event]);
+            }
+        })
+
+        annualEvents.forEach(event => {
+            let annualDates = [];
+            let startDate = new Date(event.start_date);
+            annualDates.push(startDate)
+
+            for (let i = 0; i < 50; i++) {
+                let newDate = new Date(annualDates[i]);
+                const addYear = newDate.setFullYear(newDate.getFullYear() + 1);  
+                const eachDate = new Date(addYear)
+                annualDates.push(eachDate);
+            }
+            
+            const isToday = annualDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));
+            const checkDuplicate = todaysEvents.find(event => event.id === event.id);
+
+            if (isToday && !checkDuplicate) {
+                setTodaysEvents((pre) => [...pre, event]);
+            }
+        })
+
     }
 
     useEffect(() => {
-        getTodaysEvents();
+        if (events.length) {
+            getTodaysEvents();
+        }
     }, [events])
 
     const getHours = (time) => {
@@ -50,7 +113,7 @@ export default function Schedule({ events, setEvents }) {
         else if (time[0] + time[1] === '22') return '10' + time.slice(-3);
         else if (time[0] + time[1] === '23') return '11' + time.slice(-3);
         else if (time[0] + time[1] === '24') return '12' + time.slice(-3);
-        else return 'Error';
+        else return time;
     }
     
     const editEvent = (event) => {
