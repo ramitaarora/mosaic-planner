@@ -20,7 +20,6 @@ router.get('/allData', withAuth, async (req, res) => {
         } });
         const eventsData = await Events.findAll({ where: { 
             user_id: req.session.user_id,
-            // date: `${year}-${month}-${day}`
          }})
         const goals = goalsData.map(goal => goal.get({ plain: true }));
         const notes = notesData.map(note => note.get({ plain: true }));

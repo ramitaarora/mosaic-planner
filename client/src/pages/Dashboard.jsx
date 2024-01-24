@@ -29,15 +29,15 @@ export default function Dashboard() {
       return response.json(); // or response.text() for text data
     })
     .then((data) => {
-      // console.log(data);
+      // console.log(data.events);
       setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
       setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
       setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
       setNotes(data.notes.map(note => note));
       setChecks(data.dailyChecks.map(check => check));
-      setEvents(data.events.map(event => event));
       setName(data.user.map(user => user.name));
       setLocation(data.user.map(user => user.location));
+      setEvents(data.events.map(event => event));
     })
     .catch((error) => {
       console.error('Error fetching data:', error);

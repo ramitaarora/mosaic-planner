@@ -2,6 +2,37 @@ import { useState, useEffect } from 'react';
 
 export default function Schedule({ events, setEvents }) {
     const [inputValue, setInputValue] = useState('');
+    const today = new Date();
+    const [todaysEvents, setTodaysEvents] = useState([])
+    const [dailyDates, setDailyDates] = useState([])
+
+    const getTodaysEvents = () => {
+        const dailyEvents = events.filter(event => event.recurring === "Daily");
+        const weeklyEvents = events.filter(event => event.recurring === "Weekly");
+        const monthlyEvents = events.filter(event => event.recurring === "Monthly");
+        const annualEvents = events.filter(event => event.recurring === "Annually");
+        const allDayEvents = events.filter(event => event.all_day === true);
+
+        dailyEvents.forEach(event => {
+            let startDate = new Date(event.start_date);
+            for (let i = 0; i < 52; i++) {
+                const addDay = startDate.setDate(startDate.getDate() + 1);  
+                const eachDate = new Date(addDay)
+                setDailyDates((pre) => [...pre, eachDate]);
+            }
+
+            const isToday = dailyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));
+
+            if (isToday) {
+                setTodaysEvents((pre) => [...pre, event]);
+                setDailyDates([]);
+            }
+        })
+    }
+
+    useEffect(() => {
+        getTodaysEvents();
+    }, [events])
 
     const getHours = (time) => {
         if (Number(time[0] + time[1]) <= 12) {
@@ -182,8 +213,8 @@ export default function Schedule({ events, setEvents }) {
 
             <div>
                 <ul>
-                {events ? ( 
-                    events.map((event, index) =>
+                {todaysEvents.length ? ( 
+                    todaysEvents.map((event, index) =>
                     <div key={index} id="line" value={event.id}>
                         <div id="each-event">
                             { event.all_day ? (
@@ -208,7 +239,7 @@ export default function Schedule({ events, setEvents }) {
                         </div>
                     </div>
                 )
-                ) : ( null )}
+                ) : ( <p>No events today!</p> )}
                 </ul>
             </div>
         </div>
