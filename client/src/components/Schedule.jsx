@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Schedule({ events, setEvents }) {
+export default function Schedule({ events, setEvents, getData }) {
     const [inputValue, setInputValue] = useState('');
     const today = new Date();
     const [todaysEvents, setTodaysEvents] = useState([])

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function Notes({ notes, setNotes }) {
+export default function Notes({ notes, setNotes, getData }) {
     const [inputValue, setInputValue] = useState('');
 
     const editNote = (event) => {
@@ -30,21 +30,7 @@ export default function Notes({ notes, setNotes }) {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        // console.log(data);
-                        setNotes(data.notes.map(note => note));
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
+                getData();
             } else {
                 alert(response.statusText);
             }
@@ -69,21 +55,7 @@ export default function Notes({ notes, setNotes }) {
         });
 
         if (response.ok) {
-            // console.log(response.statusText);
-            fetch('/api/data/allData')
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json(); // or response.text() for text data
-                })
-                .then((data) => {
-                    // console.log(data);
-                    setNotes(data.notes.map(note => note));
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
+            getData();
         } else {
             alert(response.statusText);
         }
@@ -126,25 +98,7 @@ export default function Notes({ notes, setNotes }) {
             });
     
             if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        // console.log(data);
-                        setNotes(data.notes.map(note => note));
-                        document.getElementById('add-note').setAttribute('class', 'form-hidden');
-                        document.getElementById('cancel-note-button').setAttribute('class', 'form-hidden');
-                        document.getElementById('add-note-button').setAttribute('class', 'form-visible');
-                        setInputValue('')
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
+                getData();
             } else {
                 alert(response.statusText);
             }

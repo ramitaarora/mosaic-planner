@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import DailyChecksForm from './DailyChecksForm';
 
-export default function DailyChecks({ checks, setChecks }) {
+export default function DailyChecks({ checks, setChecks, getData }) {
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('form-hidden');
 
@@ -36,20 +36,7 @@ export default function DailyChecks({ checks, setChecks }) {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        location.reload();
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
+                getData();
             } else {
                 alert(response.statusText);
             }
@@ -74,21 +61,7 @@ export default function DailyChecks({ checks, setChecks }) {
         });
 
         if (response.ok) {
-            // console.log(response.statusText);
-            fetch('/api/data/allData')
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json(); // or response.text() for text data
-                })
-                .then((data) => {
-                    console.log(data);
-                    setChecks(data.dailyChecks.map(check => check));
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
+            getData()
         } else {
             alert(response.statusText);
         }
@@ -125,21 +98,7 @@ export default function DailyChecks({ checks, setChecks }) {
             });
     
             if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        // console.log(data);
-                        setChecks(data.dailyChecks.map(check => check));
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
+                getData()
             } else {
                 alert(response.statusText);
             }
@@ -155,21 +114,7 @@ export default function DailyChecks({ checks, setChecks }) {
             });
     
             if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        // console.log(data);
-                        setChecks(data.dailyChecks.map(check => check));
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
+                getData()
             } else {
                 alert(response.statusText);
             }

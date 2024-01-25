@@ -33,20 +33,6 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
             });
             if (response.ok) {
                 getData();
-                // console.log(response.statusText);
-                // fetch('/api/data/allData')
-                //     .then((response) => {
-                //         if (!response.ok) {
-                //             throw new Error(`HTTP error! Status: ${response.status}`);
-                //         }
-                //         return response.json(); // or response.text() for text data
-                //     })
-                //     .then((data) => {
-                //         location.reload();
-                //     })
-                //     .catch((error) => {
-                //         console.error('Error fetching data:', error);
-                //     });
             } else {
                 alert(response.statusText);
             }
@@ -71,21 +57,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
         });
 
         if (response.ok) {
-            // console.log(response.statusText);
-            fetch('/api/data/allData')
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json(); // or response.text() for text data
-                })
-                .then((data) => {
-                    // console.log(data);
-                    setGoals(data.goals.filter(goal => goal.goal_type === goalType));
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
+            getData();
         } else {
             alert(response.statusText);
         }

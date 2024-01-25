@@ -81,12 +81,12 @@ export default function Dashboard() {
 
         <section id="middle">
           <CalendarCard />
-          <Schedule events={events} setEvents={setEvents} />
+          <Schedule events={events} setEvents={setEvents} getData={getData}/>
         </section>
 
         <section id="right">
-          <DailyChecks checks={checks} setChecks={setChecks} />
-          <Notes notes={notes} setNotes={setNotes} />
+          <DailyChecks checks={checks} setChecks={setChecks} getData={getData}/>
+          <Notes notes={notes} setNotes={setNotes} getData={getData}/>
         </section>
       </main>
 
