@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import GoalsForm from './GoalsForm';
 
-export default function Goals({ goals, setGoals, goalType }) {
+export default function Goals({ goals, setGoals, goalType, getData }) {
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('form-hidden');
 
@@ -32,20 +32,21 @@ export default function Goals({ goals, setGoals, goalType }) {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
+                getData();
                 // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        location.reload();
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
+                // fetch('/api/data/allData')
+                //     .then((response) => {
+                //         if (!response.ok) {
+                //             throw new Error(`HTTP error! Status: ${response.status}`);
+                //         }
+                //         return response.json(); // or response.text() for text data
+                //     })
+                //     .then((data) => {
+                //         location.reload();
+                //     })
+                //     .catch((error) => {
+                //         console.error('Error fetching data:', error);
+                //     });
             } else {
                 alert(response.statusText);
             }

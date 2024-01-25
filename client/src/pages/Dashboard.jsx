@@ -74,9 +74,9 @@ export default function Dashboard() {
 
       <main>
         <section id="left">
-          <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" />
-          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" />
-          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" />
+          <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData}/>
+          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
+          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
         </section>
 
         <section id="middle">

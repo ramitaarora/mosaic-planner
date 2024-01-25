@@ -206,11 +206,27 @@ router.put('/edit', withAuth, async (req, res) => {
 router.delete('/delete', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Goal') {
-            const goalData = await Goals.destroy({ where: { 
-                [Op.or]: [ { id: req.body.id }, { parent_goal: req.body.id } ],
-                user_id: req.session.user_id, 
+            const goalType = await Goals.findOne({ where: { 
+                user_id: req.session.user_id,
+                id: req.body.id
             }});
-            res.status(200).json(goalData);
+
+            if (goalType.dataValues.goal_type === 'Weekly' || goalType.dataValues.goal_type === 'Monthly') {
+                const goalsData = await Goals.destroy({ where: { 
+                    user_id: req.session.user_id, 
+                    id: goalType.dataValues.parent_goal,
+                    },
+                });
+                res.status(200).json(goalsData);
+            } else {
+                const goalsData = await Goals.destroy({ where: { 
+                    user_id: req.session.user_id, 
+                    id: req.body.id
+                    },
+                });
+                res.status(200).json(goalsData);
+            }
+
         }
         if (req.body.type === 'Note') {
             const noteData = await Notes.destroy({ where: { 
