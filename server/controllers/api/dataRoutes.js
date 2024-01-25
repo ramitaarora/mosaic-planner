@@ -154,6 +154,23 @@ router.post('/add', withAuth, async (req, res) => {
             })
             res.status(200).json(checksData);
         }
+
+        if (req.body.type === 'Event') {
+            const eventData = await Events.create({
+                event: req.body.event,
+                date: req.body.date,
+                start_date: req.body.startDate,
+                end_date: req.body.endDate,
+                start_time: req.body.startTime,
+                end_time: req.body.endTime,
+                all_day: req.body.allDay,
+                address: req.body.address,
+                recurring: req.body.recurring,
+                user_id: req.session.user_id,
+            })
+            res.status(200).json(eventData);
+            console.log(req.body);
+        }
     } catch(err) {
         res.status(400).json(err);
         console.log(err)

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import AddEventsForm from './AddEventsForm';
 
 export default function Schedule({ events, setEvents, getData }) {
     const [inputValue, setInputValue] = useState('');
     const today = new Date();
     const [todaysEvents, setTodaysEvents] = useState([])
+    const [addVisibility, setAddVisibility] = useState('form-hidden');
 
     const getTodaysEvents = () => {
         const nonRecurring = events.filter(event => event.date);
@@ -30,7 +32,7 @@ export default function Schedule({ events, setEvents, getData }) {
                 const eachDate = new Date(addDay)
                 dailyDates.push(eachDate)
             }
-
+            
             const isToday = dailyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));            
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
@@ -98,7 +100,6 @@ export default function Schedule({ events, setEvents, getData }) {
                 setTodaysEvents((pre) => [...pre, event]);
             }
         })
-
     }
 
     useEffect(() => {
@@ -222,10 +223,7 @@ export default function Schedule({ events, setEvents, getData }) {
     }
 
     const addNewEvent = (event) => {
-        console.log(event);
-        // document.getElementById('add-event').setAttribute('class', 'form-visible');
-        // document.getElementById('add-event-button').setAttribute('class', 'form-hidden');
-        // document.getElementById('cancel-event-button').setAttribute('class', 'form-visible');
+        setAddVisibility('form-visible')
     }
 
     const submitNewEvent = async (event) => {
@@ -283,6 +281,7 @@ export default function Schedule({ events, setEvents, getData }) {
                 <h2>Today's Schedule</h2>
                 <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
             </div>
+            <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} />
 
             <div>
                 <ul>
