@@ -194,9 +194,19 @@ router.put('/edit', withAuth, async (req, res) => {
             res.status(200).json(notesData);
         }
         if (req.body.type === 'Event') {
-            const eventData = await Events.update({ event: req.body.event }, { where: { 
-                id: req.body.id,
-                user_id: req.session.user_id,  
+            const eventData = await Events.update({ 
+                event: req.body.event,
+                date: req.body.date,
+                start_time: req.body.startTime,
+                end_time: req.body.endTime,
+                all_day: req.body.allDay,
+                address: req.body.address,
+                start_date: req.body.startDate,
+                recurring: req.body.recurring,
+            }, 
+                { where: { 
+                    id: req.body.id,
+                    user_id: req.session.user_id,  
             }})
             res.status(200).json(eventData);
         }

@@ -1,15 +1,41 @@
 import { useEffect, useState } from 'react';
 
 export default function EditEventsForm({ editVisibility, setEditVisibility, getData, eventToEdit }) {
-    const [eventName, setEventName] = useState();
-    const [eventDate, setEventDate] = useState();
-    const [startTime, setStartTime] = useState();
-    const [endTime, setEndTime] = useState();
-    const [allDay, setAllDay] = useState();
-    const [address, setAddress] = useState();
-    const [recurring, setRecurring] = useState();
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
+    const [eventName, setEventName] = useState('');
+    const [eventDate, setEventDate] = useState('');
+    const [startTime, setStartTime] = useState('');
+    const [endTime, setEndTime] = useState('');
+    const [allDay, setAllDay] = useState('');
+    const [address, setAddress] = useState('');
+    const [recurring, setRecurring] = useState('');
+    const [startDate, setStartDate] = useState('');
+
+    const [timeVisibility, setTimeVisibility] = useState('form-hidden')
+
+    useEffect(() => {
+        if (eventToEdit) {
+            setEventName(eventToEdit.event);
+            setEventDate(eventToEdit.date ? formatDateHTML(eventToEdit.date) : '');
+            setStartTime(eventToEdit.start_time ? eventToEdit.start_time : '');
+            setEndTime(eventToEdit.end_time ? eventToEdit.end_time : '');
+            setAllDay(eventToEdit.all_day ? true : false);
+            setAddress(eventToEdit.address ? eventToEdit.address : '');
+            setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
+            setRecurring(eventToEdit.recurring ? eventToEdit.recurring : 'Not-Recurring');
+            setTimeVisibility(eventToEdit.all_day ? 'form-hidden' : 'form-visible')
+        }
+    }, [eventToEdit])
+
+    const changeAllDay = (event) => {
+        if (event.target.checked) {
+            setTimeVisibility('form-hidden');
+            setAllDay(true)
+        }
+        if (!event.target.checked) {
+            setTimeVisibility('form-visible');
+            setAllDay(false)
+        }
+    }
 
     const formatDateHTML = (fullDate) => {
         let day = new Date(fullDate).getDate();
@@ -22,18 +48,8 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
         return `${year}-${month}-${day}`;
     }
 
-    formatDateHTML();
-
     const saveEvent = async (event) => {
         event.preventDefault();
-        const formID = event.target.id;
-        const eventName = event.target[0].value;
-        const date = event.target[1].value;
-        const startTime = event.target[2].value;
-        const endTime = event.target[3].value;
-        const allDay = event.target[4].checked;
-        const address = event.target[5].value;
-        const endDate = event.target[8].value;
 
         const formatDate = (fullDate) => {
             const day = new Date(fullDate + 'T00:00').getDate();
@@ -49,23 +65,23 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
         if ((!startTime || !endTime) && !allDay) {
             alert('Event must have a start time and end time.');
         }
-        else if (!date) {
+        else if (!eventDate && !startDate) {
             alert("Event must have a date.")
         }
         else {
 
-            const response = await fetch('/api/data/add', {
-                method: 'POST',
+            const response = await fetch('/api/data/edit', {
+                method: 'PUT',
                 body: JSON.stringify({
                     type: 'Event',
+                    id: eventToEdit.id,
                     event: eventName,
-                    date: recurring === 'Not Recurring' ? formatDate(date) : null,
+                    date: recurring === 'Not-Recurring' ? formatDate(eventDate) : null,
                     startTime: allDay ? null : startTime,
                     endTime: allDay ? null : endTime,
                     allDay: allDay,
                     address: address ? address : null,
-                    startDate: recurring !== 'Not-Recurring' ? formatDate(date) : null,
-                    endDate: recurring !== 'Not-Recurring' && endDate ? formatDate(endDate) : null,
+                    startDate: recurring !== 'Not-Recurring' ? formatDate(startDate) : null,
                     recurring: recurring !== 'Not-Recurring' ? recurring : null,
                 }),
                 headers: { 'Content-Type': 'application/json' },
@@ -73,7 +89,6 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
             if (response.ok) {
                 alert('Event saved!')
-                document.getElementById(formID).reset();
                 getData();
                 closeModal();
                 location.reload();
@@ -87,8 +102,19 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
         setEditVisibility('form-hidden');
     }
 
-    const resetForm = () => {
-        
+    const resetForm = (event) => {
+        event.preventDefault();
+        if (eventToEdit) {
+            setEventName(eventToEdit.event);
+            setEventDate(eventToEdit.date ? formatDateHTML(eventToEdit.date) : '');
+            setStartTime(eventToEdit.start_time ? eventToEdit.start_time : '');
+            setEndTime(eventToEdit.end_time ? eventToEdit.end_time : '');
+            setAllDay(eventToEdit.all_day ? true : false);
+            setAddress(eventToEdit.address ? eventToEdit.address : '');
+            setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
+            setRecurring(eventToEdit.recurring ? eventToEdit.recurring : 'Not-Recurring');
+            setTimeVisibility(eventToEdit.all_day ? 'form-hidden' : 'form-visible')
+        }
     }
 
     return (
@@ -102,79 +128,75 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                         </div>
                         <form id="event-form" onSubmit={saveEvent}>
 
-                        {eventToEdit ? (
-                            <div id="form-input">
-                            <label htmlFor='eventName'>Name</label>
-                            <input type="text" name="eventName" value={eventToEdit.event} onChange={event => setEventName(event.target.value)} required />
-                            </div>
-                        ) : null}
-                            
-                        {eventToEdit ? (
-                            eventToEdit.date ? (
+                            {eventToEdit ? (
                                 <div id="form-input">
-                                <label htmlFor='date'>Date</label>
-                                <input type="date" name="date" value={formatDateHTML(eventToEdit.date)} onChange={event => setEventDate(event.target.value)}/>
+                                    <label htmlFor='eventName'>Name</label>
+                                    <input type="text" name="eventName" value={eventName} onChange={event => setEventName(event.target.value)} required />
                                 </div>
-                            ) : null
-                        ) : null}
-                            
-                        {eventToEdit ? (
-                            eventToEdit.start_time ? (
-                                <div id="form-input">
-                                <label htmlFor='startTime'>Start Time</label>
-                                <input type="time" name="startTime" value={eventToEdit.start_time} onChange={event => setStartTime(event.target.value)}/>
+                            ) : null}
+
+                            {eventToEdit ? (
+                                eventToEdit.date ? (
+                                    <div id="form-input">
+                                        <label htmlFor='date'>Date</label>
+                                        <input type="date" name="date" value={eventDate} onChange={event => setEventDate(event.target.value)} />
+                                    </div>
+                                ) : null
+                            ) : null}
+
+                            {eventToEdit ? (
+                                <div>
+                                    <div id="form-input" className={timeVisibility}>
+                                        <label htmlFor='startTime'>Start Time</label>
+                                        <input type="time" name="startTime" value={startTime} onChange={event => setStartTime(event.target.value)} />
+                                    </div>
+
+                                    <div id="form-input" className={timeVisibility}>
+                                        <label htmlFor='endTime'>End Time</label>
+                                        <input type="time" name="endTime" value={endTime} onChange={event => setEndTime(event.target.value)} />
+                                    </div>
                                 </div>
-                            ) : null
-                        ) : null}
+                            ) : null}
 
-                        {eventToEdit ? (
-                            eventToEdit.end_time ? (
+                            {eventToEdit ? (
                                 <div id="form-input">
-                                <label htmlFor='endTime'>End Time</label>
-                                <input type="time" name="endTime" value={eventToEdit.end_time} onChange={event => setEndTime(event.target.value)}/>
+                                    <label htmlFor='allDay'>All Day</label>
+                                    <input type="checkbox" name="allDay" checked={allDay} onChange={changeAllDay} />
                                 </div>
-                            ) : null
-                        ) : null}
-                            
-                        {eventToEdit ? (
+                            ) : null}
+
+                            {eventToEdit ? (
                                 <div id="form-input">
-                                <label htmlFor='allDay'>All Day</label>
-                                <input type="checkbox" name="allDay" checked={eventToEdit.all_day} onChange={event => setAllDay(event.target.checked)}/>
-                            </div>
-                        ) : null}
+                                    <label htmlFor='address'>Address</label>
+                                    <input type="text" name="address" value={address} onChange={event => setAddress(event.target.value)} />
+                                </div>
+                            ) : null}
 
-                        {eventToEdit ? (
-                            <div id="form-input">
-                            <label htmlFor='address'>Address</label>
-                            <input type="text" name="address" value={eventToEdit.address ? eventToEdit.address : ''} onChange={event => setAddress(event.target.value)}/>
-                        </div>
-                        ): null}
-
-                        {eventToEdit ? (
-                            <div id="form-input">
-                            <label htmlFor='recurring'>Recurring Event?</label>
-                            <select name="recurring" value={eventToEdit.recurring ? eventToEdit.recurring : "Not-Recurring"} onChange={event => setRecurring(event.target.value)}>
-                                <option value="Not-Recurring">Not Recurring</option>
-                                <option value="Daily">Daily</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Annually">Annually</option>
-                            </select>
-                            </div>
-                        ) : null}
-
-                        {eventToEdit ? (
-                            eventToEdit.recurring ? (
+                            {eventToEdit ? (
                                 <div id="form-input">
-                                <label htmlFor='startDate'>Start Date</label>
-                                <input type="date" name="startDate" value={formatDateHTML(eventToEdit.start_date)} onChange={event => setStartTime(event.target.value)}/>
-                            </div>
-                            ) : null
-                        ) : null}
+                                    <label htmlFor='recurring'>Recurring Event?</label>
+                                    <select name="recurring" value={recurring} onChange={event => setRecurring(event.target.value)}>
+                                        <option value="Not-Recurring">Not Recurring</option>
+                                        <option value="Daily">Daily</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Annually">Annually</option>
+                                    </select>
+                                </div>
+                            ) : null}
+
+                            {eventToEdit ? (
+                                eventToEdit.recurring ? (
+                                    <div id="form-input">
+                                        <label htmlFor='startDate'>Start Date</label>
+                                        <input type="date" name="startDate" value={startDate} onChange={event => setStartDate(event.target.value)} />
+                                    </div>
+                                ) : null
+                            ) : null}
 
                             <div id="form-submit-buttons">
                                 <input type="submit" value="Save" />
-                                <input type="reset" value="Reset" onClick={resetForm}/>
+                                <input type="reset" value="Reset" onClick={resetForm} />
                             </div>
                         </form>
                     </div>
