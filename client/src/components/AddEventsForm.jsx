@@ -1,39 +1,14 @@
 import { useEffect, useState } from 'react';
 
 export default function AddEventsForm({ addVisibility, setAddVisibility, getData }) {
-    const [showEndDate, setShowEndDate] = useState('form-hidden');
     const [showTime, setShowTime] = useState('form-visible');
     const [recurring, setReccuring] = useState('Not-Recurring');
-    const [endCheckVisibility, setEndCheckVisibility] = useState('form-hidden');
-    const [endDateCheck, setEndDateCheck] = useState("");
-
-    const setEndTimeVisibility = (event) => {
-        setEndDateCheck("checked")
-        if (event.target.checked) {
-            setShowEndDate('form-visible');
-        } else {
-            setShowEndDate('form-hidden')
-        }
-    }
 
     const setTimeVisibility = (event) => {
         if (event.target.checked) {
             setShowTime('form-hidden');
         } else {
             setShowTime('form-visible')
-        }
-    }
-
-    const onChangeRecurring = (event) => {
-        setReccuring(event.target.value);
-
-        if (event.target.value !== 'Not-Recurring') {
-            setEndCheckVisibility('form-visible');
-        }
-        if (event.target.value === 'Not-Recurring') {
-            setEndCheckVisibility('form-hidden');
-            setShowEndDate('form-hidden');
-            setEndDateCheck("")
         }
     }
 
@@ -46,7 +21,6 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
         const endTime = event.target[3].value;
         const allDay = event.target[4].checked;
         const address = event.target[5].value;
-        const endDate = event.target[8].value;
 
         const formatDate = (fullDate) => {
             const day = new Date(fullDate + 'T00:00').getDate();
@@ -72,13 +46,12 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                 body: JSON.stringify({
                     type: 'Event',
                     event: eventName,
-                    date: recurring === 'Not Recurring' ? formatDate(date) : null,
+                    date: recurring === 'Not-Recurring' ? formatDate(date) : null,
                     startTime: allDay ? null : startTime,
                     endTime: allDay ? null : endTime,
                     allDay: allDay,
                     address: address ? address : null,
                     startDate: recurring !== 'Not-Recurring' ? formatDate(date) : null,
-                    endDate: recurring !== 'Not-Recurring' && endDate ? formatDate(endDate) : null,
                     recurring: recurring !== 'Not-Recurring' ? recurring : null,
                 }),
                 headers: { 'Content-Type': 'application/json' },
@@ -101,11 +74,8 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
     }
 
     const resetForm = () => {
-        setShowEndDate('form-hidden');
         setShowTime('form-visible');
         setReccuring('Non-Recurring');
-        setEndCheckVisibility('form-hidden');
-        setEndDateCheck("")
         
     }
 
@@ -148,7 +118,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                             </div>
                             <div id="form-input">
                                 <label htmlFor='recurring'>Recurring Event?</label>
-                                <select name="recurring" onChange={onChangeRecurring}>
+                                <select name="recurring" onChange={event => setReccuring(event.target.value)}>
                                     <option value="Not-Recurring">Not Recurring</option>
                                     <option value="Daily">Daily</option>
                                     <option value="Weekly">Weekly</option>
@@ -156,14 +126,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                                     <option value="Annually">Annually</option>
                                 </select>
                             </div>
-                            <div id="form-input" className={endCheckVisibility}>
-                                <input type="checkbox" name="checkForEndDate" checked={endDateCheck} onChange={setEndTimeVisibility} />
-                                <p>End Date?</p>
-                            </div>
-                            <div id="form-input" className={showEndDate}>
-                                <label htmlFor='endDate'>End Date</label>
-                                <input type="date" name="endDate" />
-                            </div>
+
                             <div id="form-submit-buttons">
                                 <input type="submit" value="Save" />
                                 <input type="reset" value="Reset" onClick={resetForm}/>

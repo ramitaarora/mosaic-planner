@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import AddEventsForm from './AddEventsForm';
+import EditEventsForm from './EditEventForm';
 
 export default function Schedule({ events, setEvents, getData }) {
     const [inputValue, setInputValue] = useState('');
     const today = new Date();
     const [todaysEvents, setTodaysEvents] = useState([])
     const [addVisibility, setAddVisibility] = useState('form-hidden');
+    const [editVisibility, setEditVisibility] = useState('form-hidden');
+    const [eventToEdit, setEventToEdit] = useState()
 
     const getTodaysEvents = () => {
         const nonRecurring = events.filter(event => event.date);
@@ -109,8 +112,11 @@ export default function Schedule({ events, setEvents, getData }) {
     }, [events])
 
     const getHours = (time) => {
-        if (Number(time[0] + time[1]) <= 12) {
+        if (Number(time[0] + time[1]) <= 12 && Number(time[0]) !== 0) {
             return time;
+        }
+        else if (Number(time[0]) === 0) {
+            return time[1] + time.slice(-3);
         }
         else if (time[0] + time[1] === '13') return '1' + time.slice(-3);
         else if (time[0] + time[1] === '14') return '2' + time.slice(-3);
@@ -129,13 +135,9 @@ export default function Schedule({ events, setEvents, getData }) {
     
     const editEvent = (event) => {
         const eventID = event.target.attributes[2].nodeValue;
-        const eventValue = event.target.attributes[3].nodeValue;
-
-        const formID = document.getElementById(`eventForm-${eventID}`);
-        formID.setAttribute('class', 'form-visible');
-
-        const inputField = document.getElementById(`eventInput-${eventID}`);
-        inputField.setAttribute('value', eventValue);
+        const targetEvent = todaysEvents.find(event => event.id == eventID);
+        setEventToEdit(targetEvent);
+        setEditVisibility('form-visible');
     }
 
     const deleteEvent = async (event) => {
@@ -226,54 +228,6 @@ export default function Schedule({ events, setEvents, getData }) {
         setAddVisibility('form-visible')
     }
 
-    const submitNewEvent = async (event) => {
-        event.preventDefault();
-        const newEventValue = event.target[0].value;
-
-        if (newEventValue.length) {
-            const response = await fetch('/api/data/add', {
-                method: 'POST',
-                body: JSON.stringify({
-                    userID: 1,
-                    event: newEventValue,
-                    type: 'Event'
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-    
-            if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        // console.log(data);
-                        setEvents(data.events.map(event => event));
-                        document.getElementById('add-event').setAttribute('class', 'form-hidden');
-                        document.getElementById('cancel-event-button').setAttribute('class', 'form-hidden');
-                        document.getElementById('add-event-button').setAttribute('class', 'form-visible');
-                        setInputValue('')
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
-            } else {
-                alert(response.statusText);
-            }
-        }
-    }
-
-    const cancelNewEvent = (event) => {
-        event.preventDefault();
-        // document.getElementById('add-event').setAttribute('class', 'form-hidden');
-        // document.getElementById('cancel-event-button').setAttribute('class', 'form-hidden');
-        // document.getElementById('add-event-button').setAttribute('class', 'form-visible');
-    }
-
     return (
         <div id="schedule">
 
@@ -282,6 +236,7 @@ export default function Schedule({ events, setEvents, getData }) {
                 <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
             </div>
             <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} />
+            <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit}/>
 
             <div>
                 <ul>
@@ -299,14 +254,9 @@ export default function Schedule({ events, setEvents, getData }) {
                                 </div>
                             )
                             }
-                            <form id={'eventForm-' + event.id} className="form-hidden" onSubmit={submitEdit}>
-                                <input type="text" id={'eventInput-' + event.id} onChange={(event) => setInputValue(event.target.value)} />
-                                <input type="submit" className="submit-button" />
-                                <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
-                            </form>
                         </div>
                         <div id="edit-buttons">
-                            <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id} value={event.event} />
+                            <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id} />
                             <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id} />
                         </div>
                     </div>
