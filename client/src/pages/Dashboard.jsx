@@ -80,7 +80,6 @@ export default function Dashboard() {
         </section>
 
         <section id="middle">
-          <CalendarCard />
           <Schedule events={events} setEvents={setEvents} getData={getData}/>
         </section>
 

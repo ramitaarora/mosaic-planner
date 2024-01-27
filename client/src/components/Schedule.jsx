@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AddEventsForm from './AddEventsForm';
 import EditEventsForm from './EditEventForm';
+import Calendar from 'react-calendar';
 
 export default function Schedule({ events, setEvents, getData }) {
     const [inputValue, setInputValue] = useState('');
@@ -74,8 +75,9 @@ export default function Schedule({ events, setEvents, getData }) {
                 const addMonth = newDate.setMonth(newDate.getMonth() + 1);  
                 const eachDate = new Date(addMonth)
                 monthlyDates.push(eachDate);
+                
             }
-            
+
             const isToday = monthlyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
@@ -174,67 +176,65 @@ export default function Schedule({ events, setEvents, getData }) {
         }
     }
 
-    const submitEdit = async (event) => {
-        event.preventDefault();
-        const formID = event.target.id;
-        const eventID = event.target.parentElement.parentElement.attributes[1].value;
-        const formInput = event.target[0].value;
-        console.log(formInput)
-
-        const response = await fetch('/api/data/edit', {
-            method: 'PUT',
-            body: JSON.stringify({
-                id: eventID,
-                event: formInput,
-                type: 'Event'
-            }),
-            headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (response.ok) {
-            // console.log(response.statusText);
-            fetch('/api/data/allData')
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json(); // or response.text() for text data
-                })
-                .then((data) => {
-                    // console.log(data);
-                    setEvents(data.events.map(event => event));
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
-        } else {
-            alert(response.statusText);
-        }
-
-        document.getElementById(formID).setAttribute('class', 'form-hidden');
-        setInputValue('');
-    }
-
-    const cancelEdit = (event) => {
-        event.preventDefault();
-        const formID = event.target.form.id;
-
-        const formEl = document.getElementById(formID);
-        formEl.setAttribute('class', 'form-hidden');
-        setInputValue('');
-    }
-
     const addNewEvent = (event) => {
         setAddVisibility('form-visible')
     }
 
+    const clickDay = async (event, value) => {
+        const fullDateArray = String(event).split(' ');
+        let month = fullDateArray[1];
+        let day = fullDateArray[2];
+        let year = fullDateArray[3];
+        let monthNum = 0;
+
+        console.log(value.target)
+        const el = document.querySelector(`[aria-label="${value.target.ariaLabel}"]`);
+        el.setAttribute('class', 'active')
+
+        if (month === 'Jan') monthNum = 1;
+        if (month === 'Feb') monthNum = 2;
+        if (month === 'Mar') monthNum = 3;
+        if (month === 'Apr') monthNum = 4;
+        if (month === 'May') monthNum = 5;
+        if (month === 'Jun') monthNum = 6;
+        if (month === 'Jul') monthNum = 7;
+        if (month === 'Aug') monthNum = 8;
+        if (month === 'Sep') monthNum = 9;
+        if (month === 'Oct') monthNum = 10;
+        if (month === 'Nov') monthNum = 11;
+        if (month === 'Dec') monthNum = 12;
+        
+        const response = await fetch('/api/data/event', {
+            method: 'POST',
+            body: JSON.stringify({
+                month: monthNum,
+                day: day,
+                year: year
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            // console.log(response);
+            return response.json(); // or response.text() for text data
+          })
+          .then((data) => {
+            setEvents(data);
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
+    }
+
     return (
         <div id="schedule">
-
             <div id="card-header">
-                <h2>Today's Schedule</h2>
+                <h2>Schedule</h2>
                 <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
             </div>
+            <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay} />
             <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} />
             <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit}/>
 
