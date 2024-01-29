@@ -10,7 +10,7 @@ export default function Schedule({ events, setEvents, getData }) {
     const [addVisibility, setAddVisibility] = useState('form-hidden');
     const [editVisibility, setEditVisibility] = useState('form-hidden');
     const [eventToEdit, setEventToEdit] = useState();
-    const [formattedDate, setFormattedDate] = useState(String(currentDate).slice(3, 15))
+    const [formattedDate, setFormattedDate] = useState('')
 
     const getTodaysEvents = () => {
         const nonRecurring = events.filter(event => event.date);
@@ -111,8 +111,47 @@ export default function Schedule({ events, setEvents, getData }) {
     useEffect(() => {
         if (events.length) {
             getTodaysEvents();
+            formatDate(currentDate);
         }
     }, [events, todaysEvents])
+
+    const formatDate = (dateToFormat) => {
+        let monthNum = new Date(dateToFormat).getMonth();
+        let dayNum = new Date(dateToFormat).getDay();
+        let dateNum = new Date(dateToFormat).getDate();
+
+        let month;
+        let day;
+        let date;
+
+        if (monthNum === 0) month = 'January';
+        if (monthNum === 1) month = 'February';
+        if (monthNum === 2) month = 'March';
+        if (monthNum === 3) month = 'April';
+        if (monthNum === 4) month = 'May';
+        if (monthNum === 5) month = 'June';
+        if (monthNum === 6) month = 'July';
+        if (monthNum === 7) month = 'August';
+        if (monthNum === 8) month = 'September';
+        if (monthNum === 9) month = 'October';
+        if (monthNum === 10) month = 'November';
+        if (monthNum === 11) month = 'December';
+
+        if (dayNum === 0) day = 'Sunday';
+        if (dayNum === 1) day = 'Monday';
+        if (dayNum === 2) day = 'Tuesday';
+        if (dayNum === 3) day = 'Wednesday';
+        if (dayNum === 4) day = 'Thursday';
+        if (dayNum === 5) day = 'Friday';
+        if (dayNum === 6) day = 'Saturday';
+
+        if ((String(dateNum)).endsWith('1')) date = new Date(dateToFormat).getDate() + 'st';
+        if ((String(dateNum)).endsWith('2')) date = new Date(dateToFormat).getDate() + 'nd';
+        if ((String(dateNum)).endsWith('3')) date = new Date(dateToFormat).getDate() + 'rd';
+        if (!(String(dateNum)).endsWith('1') && !(String(dateNum)).endsWith('2') && !(String(dateNum)).endsWith('3'))  date = new Date(dateToFormat).getDate() + 'th';
+
+        setFormattedDate(`${day}, ${month} ${date}`);
+    }
 
     const getHours = (time) => {
         if (Number(time[0] + time[1]) <= 12 && Number(time[0]) !== 0) {
@@ -169,6 +208,7 @@ export default function Schedule({ events, setEvents, getData }) {
 
     const clickDay = (event, value) => {
         let selectedDate = new Date(event);
+        formatDate(selectedDate);
         setCurrentDate(selectedDate);
         setTodaysEvents([]);
     }
