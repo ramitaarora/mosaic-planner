@@ -5,11 +5,12 @@ import Calendar from 'react-calendar';
 
 export default function Schedule({ events, setEvents, getData }) {
     const [inputValue, setInputValue] = useState('');
-    const today = new Date();
+    const [currentDate, setCurrentDate] = useState(new Date());
     const [todaysEvents, setTodaysEvents] = useState([])
     const [addVisibility, setAddVisibility] = useState('form-hidden');
     const [editVisibility, setEditVisibility] = useState('form-hidden');
-    const [eventToEdit, setEventToEdit] = useState()
+    const [eventToEdit, setEventToEdit] = useState();
+    const [formattedDate, setFormattedDate] = useState(String(currentDate).slice(3, 15))
 
     const getTodaysEvents = () => {
         const nonRecurring = events.filter(event => event.date);
@@ -22,7 +23,7 @@ export default function Schedule({ events, setEvents, getData }) {
             let eventDate = new Date(event.date);
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
-            if ((String(eventDate)).slice(0,15) === (String(today)).slice(0,15) && !checkDuplicate) {
+            if ((String(eventDate)).slice(0, 15) === (String(currentDate)).slice(0, 15) && !checkDuplicate) {
                 setTodaysEvents((pre => [...pre, event]));
             }
         })
@@ -32,12 +33,12 @@ export default function Schedule({ events, setEvents, getData }) {
 
             for (let i = 0; i < 52; i++) {
                 let startDate = new Date(event.start_date);
-                const addDay = startDate.setDate(startDate.getDate() + i);  
+                const addDay = startDate.setDate(startDate.getDate() + i);
                 const eachDate = new Date(addDay)
                 dailyDates.push(eachDate)
             }
-            
-            const isToday = dailyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));            
+
+            const isToday = dailyDates.find(date => (String(date)).slice(0, 15) === (String(currentDate)).slice(0, 15));
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
             if (isToday && !checkDuplicate) {
@@ -52,12 +53,12 @@ export default function Schedule({ events, setEvents, getData }) {
 
             for (let i = 0; i < 52; i++) {
                 let newDate = new Date(weeklyDates[i])
-                const addWeek = newDate.setDate(newDate.getDate() + 7);  
+                const addWeek = newDate.setDate(newDate.getDate() + 7);
                 const eachDate = new Date(addWeek)
                 weeklyDates.push(eachDate)
             }
 
-            const isToday = weeklyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));            
+            const isToday = weeklyDates.find(date => (String(date)).slice(0, 15) === (String(currentDate)).slice(0, 15));
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
             if (isToday && !checkDuplicate) {
@@ -72,13 +73,13 @@ export default function Schedule({ events, setEvents, getData }) {
 
             for (let i = 0; i < 24; i++) {
                 let newDate = new Date(monthlyDates[i]);
-                const addMonth = newDate.setMonth(newDate.getMonth() + 1);  
+                const addMonth = newDate.setMonth(newDate.getMonth() + 1);
                 const eachDate = new Date(addMonth)
                 monthlyDates.push(eachDate);
-                
+
             }
 
-            const isToday = monthlyDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));
+            const isToday = monthlyDates.find(date => (String(date)).slice(0, 15) === (String(currentDate)).slice(0, 15));
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
             if (isToday && !checkDuplicate) {
@@ -93,12 +94,12 @@ export default function Schedule({ events, setEvents, getData }) {
 
             for (let i = 0; i < 50; i++) {
                 let newDate = new Date(annualDates[i]);
-                const addYear = newDate.setFullYear(newDate.getFullYear() + 1);  
+                const addYear = newDate.setFullYear(newDate.getFullYear() + 1);
                 const eachDate = new Date(addYear)
                 annualDates.push(eachDate);
             }
-            
-            const isToday = annualDates.find(date => (String(date)).slice(0,15) === (String(today)).slice(0,15));
+
+            const isToday = annualDates.find(date => (String(date)).slice(0, 15) === (String(currentDate)).slice(0, 15));
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
 
             if (isToday && !checkDuplicate) {
@@ -111,7 +112,7 @@ export default function Schedule({ events, setEvents, getData }) {
         if (events.length) {
             getTodaysEvents();
         }
-    }, [events])
+    }, [events, todaysEvents])
 
     const getHours = (time) => {
         if (Number(time[0] + time[1]) <= 12 && Number(time[0]) !== 0) {
@@ -134,7 +135,7 @@ export default function Schedule({ events, setEvents, getData }) {
         else if (time[0] + time[1] === '24') return '12' + time.slice(-3);
         else return time;
     }
-    
+
     const editEvent = (event) => {
         const eventID = event.target.attributes[2].nodeValue;
         const targetEvent = todaysEvents.find(event => event.id == eventID);
@@ -155,113 +156,59 @@ export default function Schedule({ events, setEvents, getData }) {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
-                // console.log(response.statusText);
-                fetch('/api/data/allData')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json(); // or response.text() for text data
-                    })
-                    .then((data) => {
-                        // console.log(data);
-                        setEvents(data.events.map(event => event));
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching data:', error);
-                    });
+                getDate();
             } else {
                 alert(response.statusText);
             }
         }
     }
 
-    const addNewEvent = (event) => {
+    const addNewEvent = () => {
         setAddVisibility('form-visible')
     }
 
-    const clickDay = async (event, value) => {
-        const fullDateArray = String(event).split(' ');
-        let month = fullDateArray[1];
-        let day = fullDateArray[2];
-        let year = fullDateArray[3];
-        let monthNum = 0;
-
-        console.log(value.target)
-        const el = document.querySelector(`[aria-label="${value.target.ariaLabel}"]`);
-        el.setAttribute('class', 'active')
-
-        if (month === 'Jan') monthNum = 1;
-        if (month === 'Feb') monthNum = 2;
-        if (month === 'Mar') monthNum = 3;
-        if (month === 'Apr') monthNum = 4;
-        if (month === 'May') monthNum = 5;
-        if (month === 'Jun') monthNum = 6;
-        if (month === 'Jul') monthNum = 7;
-        if (month === 'Aug') monthNum = 8;
-        if (month === 'Sep') monthNum = 9;
-        if (month === 'Oct') monthNum = 10;
-        if (month === 'Nov') monthNum = 11;
-        if (month === 'Dec') monthNum = 12;
-        
-        const response = await fetch('/api/data/event', {
-            method: 'POST',
-            body: JSON.stringify({
-                month: monthNum,
-                day: day,
-                year: year
-            }),
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            // console.log(response);
-            return response.json(); // or response.text() for text data
-          })
-          .then((data) => {
-            setEvents(data);
-          })
-          .catch((error) => {
-            console.error('Error fetching data:', error);
-          });
+    const clickDay = (event, value) => {
+        let selectedDate = new Date(event);
+        setCurrentDate(selectedDate);
+        setTodaysEvents([]);
     }
 
     return (
         <div id="schedule">
+
             <div id="card-header">
-                <h2>Schedule</h2>
-                <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
+                <h2>{formattedDate}</h2>
+                <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent}/>
             </div>
-            <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay} />
+
+            <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay} value={currentDate} onChange={clickDay}/>
             <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} />
-            <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit}/>
+            <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit} />
 
             <div>
                 <ul>
-                {todaysEvents.length ? ( 
-                    todaysEvents.map((event, index) =>
-                    <div key={index} id="line" value={event.id}>
-                        <div id="each-event">
-                            { event.all_day ? (
-                                <p id="all-day-event">{event.event}</p>
-                            ) : (
-                                <div>
-                                    <li>{event.event}</li>
-                                    <p>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
-                                    {event.address ? <p>{event.address}</p> : null}
+                    {todaysEvents.length ? (
+                        todaysEvents.map((event, index) =>
+                            <div key={index} id="line" value={event.id}>
+                                <div id="each-event">
+                                    {event.all_day ? (
+                                        <p id="all-day-event">{event.event}</p>
+                                    ) : (
+                                        <div>
+                                            <li>{event.event}</li>
+                                            <p>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
+                                            {event.address ? <p>{event.address}</p> : null}
+                                        </div>
+                                    )
+                                    }
                                 </div>
-                            )
-                            }
-                        </div>
-                        <div id="edit-buttons">
-                            <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id} />
-                            <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id} />
-                        </div>
-                    </div>
-                )
-                ) : ( <p>No events today!</p> )}
+                                <div id="edit-buttons">
+                                    <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id} />
+                                    <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id} />
+                                </div>
+                            </div>
+                        )
+                    ) : null}
                 </ul>
             </div>
         </div>
