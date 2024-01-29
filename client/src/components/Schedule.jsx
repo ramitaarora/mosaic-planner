@@ -4,7 +4,6 @@ import EditEventsForm from './EditEventForm';
 import Calendar from 'react-calendar';
 
 export default function Schedule({ events, setEvents, getData }) {
-    const [inputValue, setInputValue] = useState('');
     const [currentDate, setCurrentDate] = useState(new Date());
     const [todaysEvents, setTodaysEvents] = useState([])
     const [addVisibility, setAddVisibility] = useState('form-hidden');
@@ -25,6 +24,7 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if ((String(eventDate)).slice(0, 15) === (String(currentDate)).slice(0, 15) && !checkDuplicate) {
                 setTodaysEvents((pre => [...pre, event]));
+                sortTodaysEvents();
             }
         })
 
@@ -43,6 +43,7 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
+                sortTodaysEvents();
             }
         })
 
@@ -63,6 +64,7 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
+                sortTodaysEvents();
             }
         })
 
@@ -84,6 +86,7 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
+                sortTodaysEvents();
             }
         })
 
@@ -104,6 +107,7 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
+                sortTodaysEvents();
             }
         })
     }
@@ -112,8 +116,20 @@ export default function Schedule({ events, setEvents, getData }) {
         if (events.length) {
             getTodaysEvents();
             formatDate(currentDate);
+            sortTodaysEvents();
         }
     }, [events, todaysEvents])
+
+    const sortTodaysEvents = () => {
+        todaysEvents.sort((a, b) => {
+            if (a.all_day !== b.all_day) {
+                return a.all_day ? -1 : 1;
+            }
+            const timeA = a.start_time || '';
+            const timeB = b.start_time || '';
+            return timeA.localeCompare(timeB);
+        })
+    }
 
     const formatDate = (dateToFormat) => {
         let monthNum = new Date(dateToFormat).getMonth();
@@ -148,7 +164,7 @@ export default function Schedule({ events, setEvents, getData }) {
         if ((String(dateNum)).endsWith('1')) date = new Date(dateToFormat).getDate() + 'st';
         if ((String(dateNum)).endsWith('2')) date = new Date(dateToFormat).getDate() + 'nd';
         if ((String(dateNum)).endsWith('3')) date = new Date(dateToFormat).getDate() + 'rd';
-        if (!(String(dateNum)).endsWith('1') && !(String(dateNum)).endsWith('2') && !(String(dateNum)).endsWith('3'))  date = new Date(dateToFormat).getDate() + 'th';
+        if (!(String(dateNum)).endsWith('1') && !(String(dateNum)).endsWith('2') && !(String(dateNum)).endsWith('3')) date = new Date(dateToFormat).getDate() + 'th';
 
         setFormattedDate(`${day}, ${month} ${date}`);
     }
@@ -218,10 +234,10 @@ export default function Schedule({ events, setEvents, getData }) {
 
             <div id="card-header">
                 <h2>{formattedDate}</h2>
-                <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent}/>
+                <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
             </div>
 
-            <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay} value={currentDate} onChange={clickDay}/>
+            <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay} value={currentDate} onChange={clickDay} />
             <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} />
             <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit} />
 
