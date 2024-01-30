@@ -89,18 +89,18 @@ export default function Login() {
     }
 
     return (
-        <div id="login">
-            <h1>Your goals, schedule & reminders, all in one place.</h1>
+        <div id="login" className={css`text-align: center; height: 100vh; margin: 0 auto;`}>
+            <h1 className={css`margin: 30vh auto 0 auto;`}>Your goals, schedule & reminders, all in one place.</h1>
             <div id="authentication">
 
-                <form id="auth-form" className="form-visible" onSubmit={login}>
+                <form id="auth-form" className="visible" onSubmit={login}>
                     <input type="text" placeholder="Email"/>
                     <input type="password" placeholder="Password"/>
                     <input type="submit" value="Login"/>
                 </form>
                 <p id="login-error" className="hidden">Incorrect email and/or password.</p>
                 
-                <p id="signup-instead" className="visible" onClick={showSignup}>Click to sign up instead</p>
+                <button id="signup-instead" className="visible" onClick={showSignup}>Sign up instead</button>
 
                 <form id="signup-form" className="hidden" onSubmit={signup}>
                     <input type="text" placeholder="Name" required/>
@@ -110,7 +110,7 @@ export default function Login() {
                     <input type="submit" value="Sign Up"/>
                 </form>
 
-                <p id="login-instead" className="hidden" onClick={showLogin}>Click to login instead</p>
+                <button id="login-instead" className="hidden" onClick={showLogin}>Login instead</button>
             </div>
         </div>
     )

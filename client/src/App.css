@@ -37,51 +37,7 @@ input[type="submit"]:hover {
     cursor: pointer;
 }
 
-.active {
-    background-color: white;
-}
-
-/* ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
-    display: none;
-}  */
-
-/* Navigation Styles */
-
-/* #navigation {
-    width: 100%;
-    border-bottom: 1px solid lightgrey;
-    margin: 0;
-}
-
-#navigation ul {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-}
-
-#navigation a, #navigation li {
-    text-decoration: none;
-    color: rgb(37, 37, 37);
-}
-
-#navigation li:hover {
-    cursor: pointer;
-    color: grey;
-} */
-
 /* Login Page Styles */
-
-#login {
-    text-align: center;
-    height: 100vh;
-    /* width: 100vh; */
-    margin: 0 auto;
-}
-
-#login h1 {
-    margin: 30vh auto 0 auto;
-}
 
 #auth-form, #signup-form {
     display: flex;
@@ -94,14 +50,6 @@ input[type="submit"]:hover {
 #auth-form input, #signup-form input {
     margin: 5px auto;
     padding: 5px;
-}
-
-#signup-instead, #login-instead {
-    text-decoration: underline;
-}
-
-#signup-instead:hover, #login-instead:hover {
-    cursor: pointer;
 }
 
 #login-error {
