@@ -33,26 +33,6 @@ router.get('/allData', withAuth, async (req, res) => {
     }
 });
 
-router.post('/event', withAuth, async (req, res) => {
-    try {
-        const eventsData = await Events.findAll({
-            where: {
-                user_id: req.session.user_id,
-                date: `${req.body.year}-${req.body.month}-${req.body.day}`
-            }
-        })
-
-        if (eventsData.length) {
-            res.status(200).json(eventsData);
-        } else {
-            res.status(200).json({ "Message": "No events on this date." });
-        }
-    } catch (err) {
-        res.status(400).json(err);
-        console.log(err);
-    }
-})
-
 router.get('/checks', withAuth, async (req, res) => {
     try {
         const checksData = await DailyChecks.findAll({
@@ -97,6 +77,21 @@ router.put('/completed', withAuth, async (req, res) => {
             }
         })
         res.status(200).json(checksData);
+    } catch(err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+})
+
+router.put('/finishedGoal', withAuth, async (req, res) => {
+    try {
+        const goalsData = await Goals.update({ completed: req.body.completed }, {
+            where: {
+                id: req.body.id,
+                user_id: req.session.user_id,
+            }
+        })
+        res.status(200).json(goalsData);
     } catch(err) {
         res.status(400).json(err);
         console.log(err);
