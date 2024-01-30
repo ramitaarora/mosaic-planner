@@ -3,10 +3,10 @@ import DailyChecksForm from './DailyChecksForm';
 
 export default function DailyChecks({ checks, setChecks, getData }) {
     const [inputValue, setInputValue] = useState('');
-    const [visibility, setVisibility] = useState('form-hidden');
+    const [visibility, setVisibility] = useState('hidden');
 
     const showModal = () => {
-        setVisibility('form-visible')
+        setVisibility('visible')
     }
 
     const editCheck = (event) => {
@@ -14,10 +14,10 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         const checkValue = event.target.attributes[3].nodeValue;
 
         const goalItem = document.getElementById(`check-list-item-${checkID}`)
-        goalItem.setAttribute('class', 'form-hidden');
+        goalItem.setAttribute('class', 'hidden');
 
         const formID = document.getElementById(`checkForm-${checkID}`);
-        formID.setAttribute('class', 'form-visible');
+        formID.setAttribute('class', 'visible');
 
         const inputField = document.getElementById(`checkInput-${checkID}`);
         inputField.setAttribute('value', checkValue);
@@ -66,8 +66,8 @@ export default function DailyChecks({ checks, setChecks, getData }) {
             alert(response.statusText);
         }
 
-        document.getElementById(formID).setAttribute('class', 'form-hidden');
-        checkItem.setAttribute('class', 'form-visible');
+        document.getElementById(formID).setAttribute('class', 'hidden');
+        checkItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
@@ -77,10 +77,10 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         const checkID = event.target.parentElement.parentElement.attributes[1].value;
 
         const formEl = document.getElementById(formID);
-        formEl.setAttribute('class', 'form-hidden');
+        formEl.setAttribute('class', 'hidden');
 
         const checkItem = document.getElementById(`check-list-item-${checkID}`)
-        checkItem.setAttribute('class', 'form-visible');
+        checkItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
@@ -134,7 +134,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                             <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false}/>
                             <label id="check-line">{check.daily_check}</label>
                         </div>
-                        <form id={'checkForm-' + check.id} className="form-hidden" onSubmit={submitEdit}>
+                        <form id={'checkForm-' + check.id} className="hidden" onSubmit={submitEdit}>
                             <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
                             <input type="submit" className="submit-button" />
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>

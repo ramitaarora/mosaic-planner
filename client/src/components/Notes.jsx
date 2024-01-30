@@ -8,10 +8,10 @@ export default function Notes({ notes, setNotes, getData }) {
         const noteValue = event.target.attributes[3].nodeValue;
 
         const noteItem = document.getElementById(`note-list-item-${noteID}`)
-        noteItem.setAttribute('class', 'form-hidden');
+        noteItem.setAttribute('class', 'hidden');
 
         const formID = document.getElementById(`noteForm-${noteID}`);
-        formID.setAttribute('class', 'form-visible');
+        formID.setAttribute('class', 'visible');
 
         const inputField = document.getElementById(`noteInput-${noteID}`);
         inputField.setAttribute('value', noteValue);
@@ -60,8 +60,8 @@ export default function Notes({ notes, setNotes, getData }) {
             alert(response.statusText);
         }
 
-        document.getElementById(noteFormID).setAttribute('class', 'form-hidden');
-        noteItem.setAttribute('class', 'form-visible');
+        document.getElementById(noteFormID).setAttribute('class', 'hidden');
+        noteItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
@@ -72,15 +72,15 @@ export default function Notes({ notes, setNotes, getData }) {
         const noteItem = document.getElementById(`note-list-item-${noteID}`)
         
         const formID = document.getElementById(noteFormID);
-        formID.setAttribute('class', 'form-hidden');
-        noteItem.setAttribute('class', 'form-visible');
+        formID.setAttribute('class', 'hidden');
+        noteItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
     const addNewNote = (event) => {
-        document.getElementById('add-note').setAttribute('class', 'form-visible');
-        document.getElementById('add-note-button').setAttribute('class', 'form-hidden');
-        document.getElementById('cancel-note-button').setAttribute('class', 'form-visible');
+        document.getElementById('add-note').setAttribute('class', 'visible');
+        document.getElementById('add-note-button').setAttribute('class', 'hidden');
+        document.getElementById('cancel-note-button').setAttribute('class', 'visible');
     }
 
     const submitNewNote = async (event) => {
@@ -107,9 +107,9 @@ export default function Notes({ notes, setNotes, getData }) {
 
     const cancelNewNote = (event) => {
         event.preventDefault();
-        document.getElementById('add-note').setAttribute('class', 'form-hidden');
-        document.getElementById('cancel-note-button').setAttribute('class', 'form-hidden');
-        document.getElementById('add-note-button').setAttribute('class', 'form-visible');
+        document.getElementById('add-note').setAttribute('class', 'hidden');
+        document.getElementById('cancel-note-button').setAttribute('class', 'hidden');
+        document.getElementById('add-note-button').setAttribute('class', 'visible');
     }
 
     return (
@@ -117,10 +117,10 @@ export default function Notes({ notes, setNotes, getData }) {
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />
-                <img id="cancel-note-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewNote} className="form-hidden" />
+                <img id="cancel-note-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewNote} className="hidden" />
             </div>
 
-            <form id="add-note" onSubmit={submitNewNote} className="form-hidden">
+            <form id="add-note" onSubmit={submitNewNote} className="hidden">
                 <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
                 <input type="submit" className="submit-button" />
                 {/*<button id="cancel" onClick={cancelNewNote}>Cancel</button>*/}
@@ -131,7 +131,7 @@ export default function Notes({ notes, setNotes, getData }) {
                         <div key={index} id="line" value={note.id}>
                             <div id={'note-' + note.id} className="each-note">
                                 <li id={'note-list-item-' + note.id}>{note.note}</li>
-                                <form id={'noteForm-' + note.id} className="form-hidden" onSubmit={submitNoteEdit}>
+                                <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
                                     <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button" />
                                     <button id="cancel-edit" onClick={cancelNoteEdit}>Cancel</button>

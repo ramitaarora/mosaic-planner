@@ -6,8 +6,8 @@ import Calendar from 'react-calendar';
 export default function Schedule({ events, setEvents, getData }) {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [todaysEvents, setTodaysEvents] = useState([])
-    const [addVisibility, setAddVisibility] = useState('form-hidden');
-    const [editVisibility, setEditVisibility] = useState('form-hidden');
+    const [addVisibility, setAddVisibility] = useState('hidden');
+    const [editVisibility, setEditVisibility] = useState('hidden');
     const [eventToEdit, setEventToEdit] = useState();
     const [formattedDate, setFormattedDate] = useState('')
 
@@ -195,7 +195,7 @@ export default function Schedule({ events, setEvents, getData }) {
         const eventID = event.target.attributes[2].nodeValue;
         const targetEvent = todaysEvents.find(event => event.id == eventID);
         setEventToEdit(targetEvent);
-        setEditVisibility('form-visible');
+        setEditVisibility('visible');
     }
 
     const deleteEvent = async (event) => {
@@ -219,7 +219,7 @@ export default function Schedule({ events, setEvents, getData }) {
     }
 
     const addNewEvent = () => {
-        setAddVisibility('form-visible')
+        setAddVisibility('visible')
     }
 
     const clickDay = (event, value) => {

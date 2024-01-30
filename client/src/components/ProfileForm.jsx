@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 
 export default function ProfileForm({ visibility, setVisibility }) {
-    const [inputValue, setInputValue] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [location, setLocation] = useState('')
 
     const closeModal = () => {
-        setVisibility('form-hidden');
+        setVisibility('hidden');
     }
 
     const getData = () => {

@@ -11,7 +11,7 @@ export default function Navigation({ visiblity, setVisibility }) {
     }
     
     const openModal = () => {
-        setVisibility('form-visible');
+        setVisibility('visible');
     }
 
     return (

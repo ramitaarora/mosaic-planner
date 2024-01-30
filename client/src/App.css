@@ -19,11 +19,11 @@ ol, ul {
     list-style: none;
 }
 
-.form-hidden {
+.hidden {
     display: none !important;
 }
 
-.form-visible {
+.visible {
     display: content !important;
 }
 

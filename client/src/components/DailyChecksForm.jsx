@@ -47,7 +47,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
     },[])
 
     const closeModal = () => {
-        setVisibility('form-hidden');
+        setVisibility('hidden');
     }
 
     const submitNewCheck = async (event) => {
@@ -159,10 +159,10 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         const checkValue = event.target.attributes[3].nodeValue;
 
         const checkItem = document.getElementById(`check-list-item-${checkID}`)
-        checkItem.setAttribute('class', 'form-hidden');
+        checkItem.setAttribute('class', 'hidden');
 
         const formID = document.getElementById(`checksForm-${checkID}`);
-        formID.setAttribute('class', 'form-visible');
+        formID.setAttribute('class', 'visible');
 
         const inputField = document.getElementById(`checkInput-${checkID}`);
         inputField.setAttribute('value', checkValue);
@@ -212,8 +212,8 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
             alert(response.statusText);
         }
 
-        document.getElementById(formID).setAttribute('class', 'form-hidden');
-        checkItem.setAttribute('class', 'form-visible');
+        document.getElementById(formID).setAttribute('class', 'hidden');
+        checkItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
@@ -223,10 +223,10 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         const checkID = event.target.id;
 
         const formEl = document.getElementById(formID);
-        formEl.setAttribute('class', 'form-hidden');
+        formEl.setAttribute('class', 'hidden');
 
         const checkItem = document.getElementById(`check-list-item-${checkID}`)
-        checkItem.setAttribute('class', 'form-visible');
+        checkItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
@@ -245,7 +245,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                                         <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck}/>
                                         <p id={'check-list-item-' + check.id}>{check.daily_check}</p>
                                     </div>
-                                    <form id={'checksForm-' + check.id} className="form-hidden" onSubmit={submitCheckEdit}>
+                                    <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>
                                         <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
                                         <input type="submit" className="submit-button" />
                                         <button id={check.id} onClick={cancelEdit}>Cancel</button>

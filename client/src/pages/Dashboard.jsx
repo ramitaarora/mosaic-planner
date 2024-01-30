@@ -6,7 +6,6 @@ import Goals from '../components/Goals.jsx';
 import DailyChecks from '../components/DailyChecks.jsx';
 import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
-import CalendarCard from '../components/CalendarCard.jsx';
 import ProfileForm from '../components/ProfileForm.jsx';
 
 export default function Dashboard() {
@@ -18,7 +17,7 @@ export default function Dashboard() {
   const [events, setEvents] = useState([]);
   const [name, setName] = useState('name')
   const [location, setLocation] = useState('Pasadena')
-  const [visibility, setVisibility] = useState('form-hidden');
+  const [visibility, setVisibility] = useState('hidden');
 
   const getData = () => {
     fetch('/api/data/allData')

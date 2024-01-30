@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 
 export default function GoalsForm({ visibility, setVisibility }) {
-    const [inputValue, setInputValue] = useState('');
 
     const closeModal = () => {
-        setVisibility('form-hidden');
+        setVisibility('hidden');
     }
 
     const saveGoal = async (event) => {

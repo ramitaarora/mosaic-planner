@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
 export default function AddEventsForm({ addVisibility, setAddVisibility, getData }) {
-    const [showTime, setShowTime] = useState('form-visible');
+    const [showTime, setShowTime] = useState('visible');
     const [recurring, setReccuring] = useState('Not-Recurring');
 
     const setTimeVisibility = (event) => {
         if (event.target.checked) {
-            setShowTime('form-hidden');
+            setShowTime('hidden');
         } else {
-            setShowTime('form-visible')
+            setShowTime('visible')
         }
     }
 
@@ -70,11 +70,11 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
     }
 
     const closeModal = () => {
-        setAddVisibility('form-hidden');
+        setAddVisibility('hidden');
     }
 
     const resetForm = () => {
-        setShowTime('form-visible');
+        setShowTime('visible');
         setReccuring('Non-Recurring');
         
     }

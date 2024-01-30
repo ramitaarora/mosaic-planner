@@ -3,17 +3,17 @@ import GoalsForm from './GoalsForm';
 
 export default function Goals({ goals, setGoals, goalType, getData }) {
     const [inputValue, setInputValue] = useState('');
-    const [visibility, setVisibility] = useState('form-hidden');
+    const [visibility, setVisibility] = useState('hidden');
 
     const editGoal = (event) => {
         const goalID = event.target.attributes[2].nodeValue;
         const goalValue = event.target.attributes[3].nodeValue;
 
         const goalItem = document.getElementById(`goal-list-item-${goalID}`)
-        goalItem.setAttribute('class', 'form-hidden');
+        goalItem.setAttribute('class', 'hidden');
 
         const formID = document.getElementById(`goalForm-${goalID}`);
-        formID.setAttribute('class', 'form-visible');
+        formID.setAttribute('class', 'visible');
 
         const inputField = document.getElementById(`goalInput-${goalID}`);
         inputField.setAttribute('value', goalValue);
@@ -62,8 +62,8 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
             alert(response.statusText);
         }
 
-        document.getElementById(formID).setAttribute('class', 'form-hidden');
-        goalItem.setAttribute('class', 'form-visible');
+        document.getElementById(formID).setAttribute('class', 'hidden');
+        goalItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
@@ -73,15 +73,15 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
         const goalID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
 
         const formEl = document.getElementById(formID);
-        formEl.setAttribute('class', 'form-hidden');
+        formEl.setAttribute('class', 'hidden');
 
         const goalItem = document.getElementById(`goal-list-item-${goalID}`)
-        goalItem.setAttribute('class', 'form-visible');
+        goalItem.setAttribute('class', 'visible');
         setInputValue('');
     }
 
     const addNewGoal = (event) => {
-        setVisibility('form-visible')
+        setVisibility('visible')
     }
 
     return (
@@ -99,7 +99,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                         <div key={index} id="line" value={goal.id}>
                             <div id={'goal-' + goal.id} className="each-goal">
                                 <li id={'goal-list-item-'+ goal.id}>{goal.goal}</li>
-                                <form id={'goalForm-' + goal.id} className="form-hidden" onSubmit={submitEdit}>
+                                <form id={'goalForm-' + goal.id} className="hidden" onSubmit={submitEdit}>
                                     <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
                                     <input type="submit" className="submit-button"/>
                                     <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>

@@ -27,7 +27,7 @@ export default function CalendarClick( { events, setEvents }) {
         const eventValue = event.target.attributes[3].nodeValue;
 
         const formID = document.getElementById(`calForm-${eventID}`);
-        formID.setAttribute('class', 'form-visible');
+        formID.setAttribute('class', 'visible');
 
         const inputField = document.getElementById(`calInput-${eventID}`);
         inputField.setAttribute('value', eventValue);
@@ -104,7 +104,7 @@ export default function CalendarClick( { events, setEvents }) {
             alert(response.statusText);
         }
 
-        document.getElementById(formID).setAttribute('class', 'form-hidden');
+        document.getElementById(formID).setAttribute('class', 'hidden');
         setInputValue('');
     }
 
@@ -113,7 +113,7 @@ export default function CalendarClick( { events, setEvents }) {
         const formID = event.target.form.id;
 
         const formEl = document.getElementById(formID);
-        formEl.setAttribute('class', 'form-hidden');
+        formEl.setAttribute('class', 'hidden');
         setInputValue('');
     }
 
@@ -128,7 +128,7 @@ export default function CalendarClick( { events, setEvents }) {
                             <p>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
                             {event.address ? <p>{event.address}</p> : null}
 
-                            <form id={'calForm-' + event.id} className="form-hidden" onSubmit={submitEdit}>
+                            <form id={'calForm-' + event.id} className="hidden" onSubmit={submitEdit}>
                                 <input type="text" id={'calInput-' + event.id} onChange={(event) => setInputValue(event.target.value)} />
                                 <input type="submit" className="submit-button" />
                                 <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>

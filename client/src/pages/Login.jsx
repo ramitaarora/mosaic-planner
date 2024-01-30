@@ -22,19 +22,19 @@ export default function Login() {
     }, [])
 
     const showSignup = () => {
-        document.getElementById('signup-form').setAttribute('class', 'form-visible');
-        document.getElementById("login-instead").setAttribute('class', 'form-visible');
-        document.getElementById('auth-form').setAttribute('class', 'form-hidden');
-        document.getElementById("signup-instead").setAttribute('class', 'form-hidden');
-        document.getElementById('login-error').setAttribute('class', 'form-hidden');
+        document.getElementById('signup-form').setAttribute('class', 'visible');
+        document.getElementById("login-instead").setAttribute('class', 'visible');
+        document.getElementById('auth-form').setAttribute('class', 'hidden');
+        document.getElementById("signup-instead").setAttribute('class', 'hidden');
+        document.getElementById('login-error').setAttribute('class', 'hidden');
     }
 
     const showLogin = () => {
-        document.getElementById('signup-form').setAttribute('class', 'form-hidden');
-        document.getElementById("login-instead").setAttribute('class', 'form-hidden');
-        document.getElementById('auth-form').setAttribute('class', 'form-visible');
-        document.getElementById("signup-instead").setAttribute('class', 'form-visible');
-        document.getElementById('login-error').setAttribute('class', 'form-hidden');
+        document.getElementById('signup-form').setAttribute('class', 'hidden');
+        document.getElementById("login-instead").setAttribute('class', 'hidden');
+        document.getElementById('auth-form').setAttribute('class', 'visible');
+        document.getElementById("signup-instead").setAttribute('class', 'visible');
+        document.getElementById('login-error').setAttribute('class', 'hidden');
     }
 
     const login = async (event) => {
@@ -52,11 +52,11 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            document.getElementById('login-error').setAttribute('class', 'form-hidden');
+            document.getElementById('login-error').setAttribute('class', 'hidden');
             window.location.replace('/');
         } else {
             console.error(response.statusText);
-            document.getElementById('login-error').setAttribute('class', 'form-visible');
+            document.getElementById('login-error').setAttribute('class', 'visible');
         }
     }
 
@@ -80,11 +80,11 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            document.getElementById('login-error').setAttribute('class', 'form-hidden');
+            document.getElementById('login-error').setAttribute('class', 'hidden');
             window.location.replace('/');
         } else {
             console.error(response.statusText);
-            document.getElementById('login-error').setAttribute('class', 'form-visible');
+            document.getElementById('login-error').setAttribute('class', 'visible');
         }
     }
 
@@ -98,11 +98,11 @@ export default function Login() {
                     <input type="password" placeholder="Password"/>
                     <input type="submit" value="Login"/>
                 </form>
-                <p id="login-error" className="form-hidden">Incorrect email and/or password.</p>
+                <p id="login-error" className="hidden">Incorrect email and/or password.</p>
                 
-                <p id="signup-instead" className="form-visible" onClick={showSignup}>Click to sign up instead</p>
+                <p id="signup-instead" className="visible" onClick={showSignup}>Click to sign up instead</p>
 
-                <form id="signup-form" className="form-hidden" onSubmit={signup}>
+                <form id="signup-form" className="hidden" onSubmit={signup}>
                     <input type="text" placeholder="Name" required/>
                     <input type="text" placeholder="Email" required/>
                     <input type="text" placeholder="Location for Weather"/>
@@ -110,7 +110,7 @@ export default function Login() {
                     <input type="submit" value="Sign Up"/>
                 </form>
 
-                <p id="login-instead" className="form-hidden" onClick={showLogin}>Click to login instead</p>
+                <p id="login-instead" className="hidden" onClick={showLogin}>Click to login instead</p>
             </div>
         </div>
     )

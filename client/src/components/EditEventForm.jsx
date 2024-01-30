@@ -10,7 +10,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     const [recurring, setRecurring] = useState('');
     const [startDate, setStartDate] = useState('');
 
-    const [timeVisibility, setTimeVisibility] = useState('form-hidden')
+    const [timeVisibility, setTimeVisibility] = useState('hidden')
 
     useEffect(() => {
         if (eventToEdit) {
@@ -22,17 +22,17 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
             setAddress(eventToEdit.address ? eventToEdit.address : '');
             setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
             setRecurring(eventToEdit.recurring ? eventToEdit.recurring : 'Not-Recurring');
-            setTimeVisibility(eventToEdit.all_day ? 'form-hidden' : 'form-visible')
+            setTimeVisibility(eventToEdit.all_day ? 'hidden' : 'visible')
         }
     }, [eventToEdit])
 
     const changeAllDay = (event) => {
         if (event.target.checked) {
-            setTimeVisibility('form-hidden');
+            setTimeVisibility('hidden');
             setAllDay(true)
         }
         if (!event.target.checked) {
-            setTimeVisibility('form-visible');
+            setTimeVisibility('visible');
             setAllDay(false)
         }
     }
@@ -99,7 +99,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     }
 
     const closeModal = () => {
-        setEditVisibility('form-hidden');
+        setEditVisibility('hidden');
     }
 
     const resetForm = (event) => {
@@ -113,7 +113,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
             setAddress(eventToEdit.address ? eventToEdit.address : '');
             setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
             setRecurring(eventToEdit.recurring ? eventToEdit.recurring : 'Not-Recurring');
-            setTimeVisibility(eventToEdit.all_day ? 'form-hidden' : 'form-visible')
+            setTimeVisibility(eventToEdit.all_day ? 'hidden' : 'visible')
         }
     }
 
