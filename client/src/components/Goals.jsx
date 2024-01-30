@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import GoalsForm from './GoalsForm';
+import { css } from '@emotion/css'
 
 export default function Goals({ goals, setGoals, goalType, getData }) {
     const [inputValue, setInputValue] = useState('');
@@ -85,10 +86,10 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     return (
-        <div id="goals" className="card">
+        <div id="goals" className={css`height: 33%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
             <div id="card-header">
                 <h2>{goalType} Goals</h2>
-                <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal} />
+                <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal}/>
             </div>
 
             <GoalsForm visibility={visibility} setVisibility={setVisibility} />
@@ -97,11 +98,11 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                 <ol>
                     {goals.map(((goal, index) =>
                         <div key={index} id="line" value={goal.id}>
-                            <div id={'goal-' + goal.id} className="each-goal">
+                            <div id={'goal-' + goal.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                 <li id={'goal-list-item-'+ goal.id}>{goal.goal}</li>
                                 <form id={'goalForm-' + goal.id} className="hidden" onSubmit={submitEdit}>
-                                    <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} />
-                                    <input type="submit" className="submit-button"/>
+                                    <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
+                                    <input type="submit" />
                                     <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                                 </form>
                             </div>

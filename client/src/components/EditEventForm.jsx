@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { css } from '@emotion/css';
 
 export default function EditEventsForm({ editVisibility, setEditVisibility, getData, eventToEdit }) {
     const [eventName, setEventName] = useState('');
@@ -121,7 +122,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
         <div id="modal-background" className={editVisibility}>
             <div id="modal">
                 <div id="modal-content">
-                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} />
+                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right; &:hover {cursor: pointer;}`}/>
                     <div id="edit-event-modal">
                         <div id="form-header">
                             <h2>Edit {eventToEdit ? eventToEdit.event : null}</h2>

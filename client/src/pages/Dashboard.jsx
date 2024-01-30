@@ -72,18 +72,18 @@ export default function Dashboard() {
       <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} />
       <ProfileForm visibility={visibility} setVisibility={setVisibility} />
 
-      <main>
-        <section id="left">
+      <main className={css`display: flex;`}>
+        <section id="left" className={css`width: 33%; height: 100vh; display: flex; flex-direction: column;`}>
           <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData}/>
           <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
           <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
         </section>
 
-        <section id="middle">
+        <section id="middle" className={css`width: 34%; height: 100vh; display: flex; flex-direction: column;`}>
           <Schedule events={events} setEvents={setEvents} getData={getData}/>
         </section>
 
-        <section id="right">
+        <section id="right" className={css`width: 33%; height: 100vh; display: flex; flex-direction: column;`}>
           <DailyChecks checks={checks} setChecks={setChecks} getData={getData}/>
           <Notes notes={notes} setNotes={setNotes} getData={getData}/>
         </section>

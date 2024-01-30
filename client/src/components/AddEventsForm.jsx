@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { css } from '@emotion/css';
 
 export default function AddEventsForm({ addVisibility, setAddVisibility, getData }) {
     const [showTime, setShowTime] = useState('visible');
@@ -83,7 +84,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
         <div id="modal-background" className={addVisibility}>
             <div id="modal">
                 <div id="modal-content">
-                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} />
+                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right; &:hover {cursor: pointer;}`}/>
 
                     <div id="add-event-modal">
                         <div id="form-header">

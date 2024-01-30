@@ -33,7 +33,9 @@ input, button, select {
     padding: 3px 5px;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, 
+input[type="reset"]:hover,
+button:hover {
     cursor: pointer;
 }
 
@@ -56,149 +58,69 @@ input[type="submit"]:hover {
     color: red;
 }
 
-/* Dashboard Header Styles  */
+/* Goals, Notes, Schedule, Checks Styles  */
 
-header {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    /* grid-template-rows: repeat(5, 1fr); */
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-#today {
-    grid-area: 1 / 3 / 2 / 4;
-    width: 480px;
-}
-
-#weather {
-    grid-area: 1 / 5 / 2 / 6;
+#card-header {
     display: flex;
-    flex-direction: column;
-    /* background: linear-gradient(lightgrey, 60%, grey); */
-    background: var(--gradient);
-    justify-content: center;
-    align-items: center;
-    width:fit-content;
-    height: fit-content;
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    color: white;
-    text-align: center;
-    box-shadow: 2px 2px 5px lightgrey;
+    justify-content: space-between;
+    margin: 0 25px;
+    font-size: 12px;
 }
 
-#weather-1 {
-    display: flex;
-    /* border: 1px solid red; */
-}
-
-#weather-2 {
-    /* border: 1px solid red; */
-    width: 100%;
-    line-height: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-/* Footer Styles */
-
-footer {
-    width: 100%;
-    text-align: center;
-    border-top: lightgrey 1px solid;
-    border-bottom: lightgrey 1px solid;
-    margin-top: 10px;
-}
-
-/* Structure Styles  */
-
-main {
-    display: flex;
-}
-
-#left {
-    width: 33%;
-    /* border: 1px solid black; */
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-#middle {
-    width: 34%;
-    /* border: 1px solid black; */
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-#right {
-    width: 33%;
-    height: 100vh;
-    /* border: 1px solid black; */
-    display: flex;
-    flex-direction: column;
-}
-
-.card {
-    height: 33%;
-}
-
-#schedule {
-    height: 100%;
-}
-
-#daily-checks, #notes {
-    height: 50%;
-}
-
-#calendar {
-    height: 33%;
-}
-
-#line input[type="text"] {
-    width: 100%;
-}
-
-#add-goal input[type="text"],
-#add-note input[type="text"],
-#add-event input[type="text"] {
-    width: 80%;
-}
-
-#add-goal-button:hover,
-#cancel-goal-button:hover,
-#add-note-button:hover,
-#cancel-note-button:hover,
-#add-event-button:hover,
-#cancel-event-button:hover {
+#card-header img:hover {
     cursor: pointer;
 }
 
-.submit-button:hover, button:hover {
-    cursor: pointer;
-}
-
-.card,
-#schedule,
-#daily-checks,
-#calendar {
-    border: 1px solid lightgrey;
+#line {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    margin: 5px 20px;
     border-radius: var(--radius);
-    margin: 0 5px 10px 5px;
-    overflow: overlay;
-    background-color: var(--grey);
-    /* background: linear-gradient(var(--secondary), 60%, var(--primary)); */
-    /* color: white; */
-    box-shadow: 1px 1px 5px lightgrey;
+    box-shadow: var(--shadow);
+    align-items: center;
+    padding: 7px;
 }
+
+#line input:checked + #check-label {
+    text-decoration: line-through;
+}
+
+#line:hover {
+    background-color: rgb(242, 242, 242)
+}
+
+#edit-buttons img {
+    margin-left: 5px;
+}
+
+#edit-buttons {
+    display: flex;
+    margin: 10px 15px;
+}
+
+#edit-buttons img:hover {
+    cursor: pointer;
+}
+
+#add-note {
+    text-align: center;
+    margin: 10px 35px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Calendar Styles */
+
+.react-calendar {
+    margin: 0 20px;
+}
+
+.react-calendar button:hover {
+    background-color: white;
+}
+
+/* Modal Form Styles */
 
 #modal-background {
     display: block;
@@ -230,216 +152,6 @@ main {
     margin: 10px;
 }
 
-#modal-content img {
-    float: right;
-}
-
-#modal-content img:hover {
-    cursor: pointer;
-}
-
-#checks-modal {
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 5px;
-}
-
-#add-each-check, #each-added-check {
-    width: 220px;
-    display: flex;
-    justify-content: space-between;
-}
-
-#add-new-check-form {
-    border-top: 1px solid lightgrey;
-    width: 75%;
-    padding: 20px 0;
-    margin: auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-#add-checks-link h3 {
-    text-decoration: underline;
-    text-align: center;
-    font-size: 16px;
-}
-
-#add-checks-link h3:hover {
-    cursor: pointer;
-    color: grey;
-}
-
-#card-header {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 25px;
-    font-size: 12px;
-}
-
-#card-header img:hover {
-    cursor: pointer;
-}
-
-#add-goal, 
-#add-event,
-#add-note {
-    text-align: center;
-    margin: 10px 35px;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-/* Daily Checks Styles */
-
-.each-check {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.each-check img {
-    margin-right: 5px;
-}
-
-#checks-list label {
-    margin-left: 5px;
-}
-
-#checks-list input:checked + #check-line {
-    text-decoration: line-through;
-}
-
-/* Goals, Notes, Events, Checks Styles  */
-
-#line {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    margin: 5px 20px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    align-items: center;
-    padding: 7px;
-}
-
-#line:hover {
-    background-color: rgb(242, 242, 242)
-}
-
-.each-goal, #each-event, .each-note {
-    display: flex;
-    flex-direction: column;
-    margin: 5px;
-    justify-content: space-evenly;
-}
-
-#line form input {
-    /* border: 1px solid black; */
-    margin: 5px 5px 0 0;
-}
-
-.each-goal input, #each-event input {
-    margin: 0 5px;
-}
-
-#edit-buttons img {
-    margin-left: 5px;
-}
-
-#edit-buttons {
-    display: flex;
-    margin: 10px 15px;
-}
-
-#edit-buttons img:hover {
-    cursor: pointer;
-}
-
-#each-event p {
-    font-size: 80%;
-    margin: 5px 0;
-}
-
-/* Calendar Styles */
-
-.react-calendar {
-    margin: 0 20px;
-}
-
-.react-calendar button:hover {
-    background-color: white;
-}
-
-#events-message {
-    text-align: center;
-}
-
-/* Profile Setup Styles */
-
-#profile-setup {
-    width: 100%;
-}
-
-#profile-setup h2 {
-    font-size: 24px;
-}
-
-#setup-header {
-    text-align: center;
-}
-
-#account-forms {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 10px 0;
-    align-items: center;
-}
-
-#account-forms form {
-    width: 300px;
-    /* border: 1px solid black; */
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 10px;
-}
-
-#setup-forms {
-    width: 100%;
-}
-
-#setup-forms input[type="text"],
-#setup-forms input[type="date"],
-#setup-forms input[type="time"] {
-    width: 300px;
-}
-
-#goal-form-div,
-#event-form-div,
-#notes-form-div,
-#daily-checks-form-div {
-    border: 1px solid var(--grey);
-    border-radius: var(--radius);
-    width: 50%;
-    box-shadow: 1px 1px 5px lightgrey;
-    margin: 15px auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-#goal-form,
-#event-form,
-#notes-form,
-#daily-checks-form {
-    display: flex;
-    flex-direction: column;
-}
-
 #form-input {
     display: flex;
     justify-content: space-between;
@@ -450,25 +162,6 @@ main {
     margin-top: 10px;
     display: flex;
     justify-content: center;
-}
-
-#setup-forms input, #setup-forms select {
-    margin: 0 10px 10px 0;
-}
-
-#form-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-#form-header img:hover {
-    cursor: pointer;
-    position: relative;
-    top: -1px;
-}
-
-#setup-forms select {
-    width: 312px;
 }
 
 /* Mobile Styles */

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Navigation from './Navigation';
+import { css } from '@emotion/css';
 
 export default function Header({ name, location, visibility, setVisibility }) { 
     const [greeting, setGreeting] = useState('Hello');
@@ -122,7 +123,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
       }, [location]);
 
     return (
-        <header>
+        <header className={css`border: 1px solid black; width: 100%; display: flex; justify-content: space-evenly; text-align: center;`}>
             <Navigation visibility={visibility} setVisibility={setVisibility} />
 
             <div id="today">
@@ -132,11 +133,11 @@ export default function Header({ name, location, visibility, setVisibility }) {
             </div>
             
             <div id="weather">
-                <div id="weather-1">
+                <div id="weather-1" className={css`display: flex;`}>
                     <p>Weather for {city}</p> 
                     <img src={icon} alt={forecast} height="50px" width="50px"/> 
                 </div>
-                <div id="weather-2">
+                <div id="weather-2" className={css`display: flex; justify-content: space-around; align-items: center; line-height: 0; width: 100%;`}>
                     <p>{(Math.trunc((temp - 273.15) * (9/5) + 32))}° F</p>
                     <p>{forecast}</p>
                 </div>

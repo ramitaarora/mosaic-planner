@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { css } from '@emotion/css';
 import AddEventsForm from './AddEventsForm';
 import EditEventsForm from './EditEventForm';
 import Calendar from 'react-calendar';
@@ -211,7 +212,7 @@ export default function Schedule({ events, setEvents, getData }) {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
-                getDate();
+                getData();
             } else {
                 alert(response.statusText);
             }
@@ -230,7 +231,7 @@ export default function Schedule({ events, setEvents, getData }) {
     }
 
     return (
-        <div id="schedule">
+        <div id="schedule" className={css`height: 100%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
 
             <div id="card-header">
                 <h2>{formattedDate}</h2>
@@ -246,21 +247,21 @@ export default function Schedule({ events, setEvents, getData }) {
                     {todaysEvents.length ? (
                         todaysEvents.map((event, index) =>
                             <div key={index} id="line" value={event.id}>
-                                <div id="each-event">
+                                <div id="each-event" className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     {event.all_day ? (
-                                        <p id="all-day-event">{event.event}</p>
+                                        <p id="all-day-event" className={css`font-size: 80%; margin: 5px 0;`}>{event.event}</p>
                                     ) : (
                                         <div>
                                             <li>{event.event}</li>
-                                            <p>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
-                                            {event.address ? <p>{event.address}</p> : null}
+                                            <p className={css`font-size: 80%; margin: 5px 0;`}>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
+                                            {event.address ? <p className={css`font-size: 80%; margin: 5px 0;`}>{event.address}</p> : null}
                                         </div>
                                     )
                                     }
                                 </div>
                                 <div id="edit-buttons">
-                                    <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id} />
-                                    <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id} />
+                                    <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id}/>
+                                    <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id}/>
                                 </div>
                             </div>
                         )

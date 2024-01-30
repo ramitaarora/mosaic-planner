@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { css } from '@emotion/css';
 
 export default function Notes({ notes, setNotes, getData }) {
     const [inputValue, setInputValue] = useState('');
@@ -113,7 +114,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     return (
-        <div id="notes" className="card">
+        <div id="notes" className={css`height: 50%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />
@@ -121,19 +122,19 @@ export default function Notes({ notes, setNotes, getData }) {
             </div>
 
             <form id="add-note" onSubmit={submitNewNote} className="hidden">
-                <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-                <input type="submit" className="submit-button" />
+                <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`}/>
+                <input type="submit" />
                 {/*<button id="cancel" onClick={cancelNewNote}>Cancel</button>*/}
             </form>
             <div id="notes-list">
                 <ol>
                     {notes.map((note, index) =>
                         <div key={index} id="line" value={note.id}>
-                            <div id={'note-' + note.id} className="each-note">
+                            <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                 <li id={'note-list-item-' + note.id}>{note.note}</li>
                                 <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
-                                    <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} />
-                                    <input type="submit" className="submit-button" />
+                                    <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
+                                    <input type="submit" />
                                     <button id="cancel-edit" onClick={cancelNoteEdit}>Cancel</button>
                                 </form>
                             </div>

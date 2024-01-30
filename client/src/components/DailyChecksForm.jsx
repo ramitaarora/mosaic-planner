@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { css } from '@emotion/css';
 
 export default function DailyChecksForm({ visibility, setVisibility }) {
     const [inputValue, setInputValue] = useState('');
@@ -234,15 +235,15 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         <div id="modal-background" className={visibility}>
             <div id="modal">
                 <div id="modal-content">
-                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal}/>
+                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right; &:hover {cursor: pointer;}`}/>
 
-                    <div id="checks-modal">
+                    <div id="checks-modal" className={css`display: flex; justify-content: space-evenly; margin-bottom: 5px;`}>
                         <div id="check-list">
                             <h2>Add Daily Checks</h2>
                             {checks.map((check, index) =>
-                                <div key={index} id="add-each-check">
+                                <div key={index} id="add-each-check" className={css`width: 220px; display: flex; justify-content: space-between;`}>
                                     <div id="each-check">
-                                        <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck}/>
+                                        <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck} className={css`&:hover {cursor: pointer;}`}/>
                                         <p id={'check-list-item-' + check.id}>{check.daily_check}</p>
                                     </div>
                                     <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>
@@ -261,15 +262,15 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                         <div id="added-checks">
                             <h2>Checks for Today</h2>
                             {todaysChecks.map((check, index) =>
-                                <div key={index} id="each-added-check">
+                                <div key={index} id="each-added-check" className={css`width: 220px; display: flex; justify-content: space-between;`}>
                                     <p>{check.daily_check}</p>
-                                    <img src="./svgs/minus.svg" alt="minus" id={check.id} onClick={removeCheck}/>
+                                    <img src="./svgs/minus.svg" alt="minus" id={check.id} onClick={removeCheck} className={css`&:hover {cursor: pointer;}`}/>
                                 </div>
                             )}
                         </div>
                     </div>
 
-                    <form id="add-new-check-form" onSubmit={submitNewCheck}>
+                    <form id="add-new-check-form" onSubmit={submitNewCheck} className={css`border-top: 1px solid lightgrey; width: 75%; padding: 20px 0; margin: auto; display: flex; justify-content: space-evenly; align-items: center;`}>
                         <label htmlFor='add-new-check'>Add New Check:</label>
                         <input type="text" name="add-new-check" required/>
                         <input type="submit"/>

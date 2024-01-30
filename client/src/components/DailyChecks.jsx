@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import DailyChecksForm from './DailyChecksForm';
+import { css } from '@emotion/css';
 
 export default function DailyChecks({ checks, setChecks, getData }) {
     const [inputValue, setInputValue] = useState('');
@@ -122,7 +123,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     }
 
     return (
-        <div id="daily-checks">
+        <div id="daily-checks" className={css`height: 50%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
             <div id="card-header">
                 <h2>Daily Checks</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
@@ -130,12 +131,12 @@ export default function DailyChecks({ checks, setChecks, getData }) {
             {checks.length ? (
                 checks.map((check, index) =>
                     <div id="line" key={index} value={check.id}>
-                        <div id={'check-list-item-' + check.id} className="each-check">
-                            <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false}/>
-                            <label id="check-line">{check.daily_check}</label>
+                        <div id={'check-list-item-' + check.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
+                            <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`}/>
+                            <label id="check-label">{check.daily_check}</label>
                         </div>
                         <form id={'checkForm-' + check.id} className="hidden" onSubmit={submitEdit}>
-                            <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
+                            <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
                             <input type="submit" className="submit-button" />
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                         </form>
