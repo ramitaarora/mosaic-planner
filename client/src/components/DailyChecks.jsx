@@ -123,7 +123,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     }
 
     return (
-        <div id="daily-checks" className={css`height: 50%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
+        <div id="daily-checks" className="card">
             <div id="card-header">
                 <h2>Daily Checks</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />

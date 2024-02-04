@@ -62,6 +62,16 @@ button:hover {
 
 /* Goals, Notes, Schedule, Checks Styles  */
 
+.card {
+    padding: 15px 0; 
+    border: 1px solid lightgrey; 
+    border-radius: var(--radius); 
+    margin: 0 5px 10px 5px; 
+    overflow: overlay; 
+    background-color: var(--grey); 
+    box-shadow: 1px 1px 5px lightgrey;
+}
+
 #card-header {
     display: flex;
     justify-content: space-between;
@@ -84,7 +94,7 @@ button:hover {
     padding: 7px;
 }
 
-#line input:checked + #check-label {
+#line input:checked + label {
     text-decoration: line-through;
 }
 
@@ -115,7 +125,7 @@ button:hover {
 /* Calendar Styles */
 
 .react-calendar {
-    margin: 0 20px;
+    margin: 20px;
 }
 
 .react-calendar button:hover {

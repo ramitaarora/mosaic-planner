@@ -86,7 +86,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     return (
-        <div id="goals" className={css`height: 33%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
+        <div id="goals" className="card">
             <div id="card-header">
                 <h2>{goalType} Goals</h2>
                 <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal}/>

@@ -114,7 +114,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     return (
-        <div id="notes" className={css`height: 50%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
+        <div id="notes" className="card">
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />

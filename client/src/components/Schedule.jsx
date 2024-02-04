@@ -231,7 +231,7 @@ export default function Schedule({ events, setEvents, getData }) {
     }
 
     return (
-        <div id="schedule" className={css`height: 100%; border: 1px solid lightgrey; border-radius: var(--radius); margin: 0 5px 10px 5px; overflow: overlay; background-color: var(--grey); box-shadow: 1px 1px 5px lightgrey;`}>
+        <div id="schedule" className="card">
 
             <div id="card-header">
                 <h2>{formattedDate}</h2>
