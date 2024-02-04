@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navigation from './Navigation';
 import { css } from '@emotion/css';
 
-export default function Header({ name, location, visibility, setVisibility }) { 
+export default function Header({ name, location, visibility, setVisibility }) {
     const [greeting, setGreeting] = useState('Hello');
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
@@ -23,7 +23,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
         let monthNum = new Date().getMonth();
         let dayNum = new Date().getDay();
         let dateNum = new Date().getDate();
-        
+
         let theHour = new Date().getHours();
         setHours(new Date().getHours() % 12 || 12);
 
@@ -87,61 +87,49 @@ export default function Header({ name, location, visibility, setVisibility }) {
         } else if (eachMinute > 9) {
             setMinutes(new Date().getMinutes());
         }
-        
-        // if (theHour < 12) {
-        //     setGreeting('Good morning');
-        // }
-
-        // if (theHour >= 12 && theHour < 17) {
-        //     setGreeting('Good afternoon');
-        // }
-
-        // if (theHour >= 17) {
-        //     setGreeting('Good evening')
-        // }
 
     }, 1000)
 
     useEffect(() => {
         fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=f2e334424bc1375278888844b225e7a5`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json(); // or response.text() for text data
-          })
-          .then((data) => {
-            // console.log(data);
-            setCity(data.city.name);
-            setTemp(data.list[0].main.temp);
-            setForecast(data.list[0].weather[0].description)
-            setIcon(`http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
-          })
-          .catch((error) => {
-            console.error('Error fetching data:', error);
-          });
-      }, [location]);
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // or response.text() for text data
+            })
+            .then((data) => {
+                // console.log(data);
+                setCity(data.city.name);
+                setTemp(data.list[0].main.temp);
+                setForecast(data.list[0].weather[0].description)
+                setIcon(`http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }, [location]);
 
     return (
-        <header className={css`border: 1px solid black; width: 100%; display: flex; justify-content: space-evenly; text-align: center;`}>
-            <Navigation visibility={visibility} setVisibility={setVisibility} />
+        <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px;`}>
 
-            <div id="today">
-                <h1 id="today">{greeting}, {name}</h1>
-                <p id="current-day">{day}, {month} {date}, {year}</p>
-                <p id="current-time">{hours}:{minutes}:{seconds} {suffix}</p>
-            </div>
-            
-            <div id="weather">
-                <div id="weather-1" className={css`display: flex;`}>
-                    <p>Weather for {city}</p> 
-                    <img src={icon} alt={forecast} height="50px" width="50px"/> 
+            <div id="weather" className={css` width: 33%; display: flex; justify-content: center; align-items: center; flex-direction: column;`}>
+                <div id="weather-1" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
+                    <p>Weather for {city}</p>
+                    <img src={icon} alt={forecast} height="50px" width="50px" />
                 </div>
-                <div id="weather-2" className={css`display: flex; justify-content: space-around; align-items: center; line-height: 0; width: 100%;`}>
-                    <p>{(Math.trunc((temp - 273.15) * (9/5) + 32))}° F</p>
+                <div id="weather-2" className={css` width: 50%; display: flex; justify-content: space-evenly; align-items: center;`}>
+                    <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p>
                     <p>{forecast}</p>
                 </div>
             </div>
+
+            <div id="today" className={css`width: 34%; height: 80px; text-align: center; display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;`}>
+                <h1 id="today">{greeting}, {name}</h1>
+                <p id="current-day">{day}, {month} {date}, {year} • {hours}:{minutes}:{seconds} {suffix}</p>
+            </div>
+
+            <Navigation visibility={visibility} setVisibility={setVisibility} />
         </header>
     );
 }
