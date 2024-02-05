@@ -8,7 +8,17 @@
 
 :root {
     --radius: 10px;
-    --shadow: 1px 1px 1px grey;
+    --background: white;
+    --card-background: rgb(230, 230, 230);
+    --line-background: white;
+    --text: black;
+    --border: lightgrey;
+    --shadow: lightgrey;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
 }
 
 ol, ul {
@@ -27,7 +37,7 @@ ol, ul {
 
 input, button, select {
     border-radius: 5px; 
-    border: 1px solid lightgrey;
+    border: 1px solid var(--border);
     padding: 3px 5px;
 }
 
@@ -54,18 +64,19 @@ button:hover {
 
 #login-error {
     color: red;
+    margin: 10px 0;
 }
 
 /* Goals, Notes, Schedule, Checks Styles  */
 
 .card {
     padding: 15px 0; 
-    border: 1px solid lightgrey; 
+    border: 1px solid var(--border); 
     border-radius: var(--radius); 
     margin: 0 5px 10px 5px; 
     overflow: overlay; 
-    background-color: rgba(230, 230, 230, 0.694); 
-    box-shadow: 1px 1px 5px lightgrey;
+    background-color: var(--card-background); 
+    box-shadow: 1px 1px 5px var(--shadow);
 }
 
 #card-header {
@@ -86,12 +97,12 @@ button:hover {
 #line {
     display: flex;
     justify-content: space-between;
-    background-color: white;
+    background-color: var(--line-background);
     margin: 5px 20px;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: 0px 3px 3px var(--shadow);
     align-items: center;
-    padding: 7px;
+    padding: 3px 15px;
 }
 
 #line input:checked + label {
@@ -99,7 +110,7 @@ button:hover {
 }
 
 #line:hover {
-    background-color: rgb(242, 242, 242)
+    background-color: var(--card-background);
 }
 
 #edit-buttons img {
@@ -108,7 +119,7 @@ button:hover {
 
 #edit-buttons {
     display: flex;
-    margin: 10px 15px;
+    margin: 10px 0;
 }
 
 #edit-buttons img:hover {
@@ -122,14 +133,23 @@ button:hover {
     justify-content: space-evenly;
 }
 
+#empty {
+    text-align: center;
+}
+
 /* Calendar Styles */
 
 .react-calendar {
     margin: 0 20px 10px 20px;
 }
 
+.react-calendar button {
+    background-color: var(--line-background);
+    border: 1px solid var(--border);
+}
+
 .react-calendar button:hover {
-    background-color: white;
+    background-color: var(--card-background);
 }
 
 /* Modal Form Styles */
@@ -153,8 +173,8 @@ button:hover {
 #modal {
     height: fit-content;
     width: 600px;
-    background-color: white;
-    border: 1px solid lightgrey;
+    background-color: var(--line-background);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     margin: auto;
     overflow: overlay;

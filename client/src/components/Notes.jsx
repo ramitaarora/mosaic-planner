@@ -114,7 +114,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     return (
-        <div id="notes" className={`card ${css`height: 50%`}`}>
+        <div id="notes" className={`card ${css`max-height: 50vh; min-height: 30vh;`}`}>
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />
@@ -128,7 +128,8 @@ export default function Notes({ notes, setNotes, getData }) {
             </form>
             <div id="notes-list">
                 <ol>
-                    {notes.map((note, index) =>
+                    {notes.length ? (
+                        notes.map((note, index) =>
                         <div key={index} id="line" value={note.id}>
                             <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                 <li id={'note-list-item-' + note.id}>{note.note}</li>
@@ -143,6 +144,8 @@ export default function Notes({ notes, setNotes, getData }) {
                                 <img src="./svgs/delete.svg" alt="edit" onClick={deleteNote} id={note.id} />
                             </div>
                         </div>
+                    )) : (
+                        <p id="empty">No notes yet!</p>
                     )}
                 </ol>
             </div>

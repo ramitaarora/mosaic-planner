@@ -240,7 +240,8 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                     <div id="checks-modal" className={css`display: flex; justify-content: space-evenly; margin-bottom: 5px;`}>
                         <div id="check-list">
                             <h2>Add Daily Checks</h2>
-                            {checks.map((check, index) =>
+                            {checks.length ? (
+                                checks.map((check, index) =>
                                 <div key={index} id="add-each-check" className={css`width: 220px; display: flex; justify-content: space-between;`}>
                                     <div id="each-check">
                                         <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck}/>
@@ -256,6 +257,8 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                                         <img src="./svgs/delete.svg" alt="delete" id={check.id} onClick={deleteCheck}/>
                                     </div>
                                 </div>
+                            )) : (
+                                null
                             )}
                         </div>
 

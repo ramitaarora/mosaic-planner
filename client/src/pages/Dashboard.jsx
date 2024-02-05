@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [checks, setChecks] = useState([]);
   const [events, setEvents] = useState([]);
   const [name, setName] = useState('name')
-  const [location, setLocation] = useState('Pasadena')
+  const [location, setLocation] = useState('')
   const [visibility, setVisibility] = useState('hidden');
 
   const getData = () => {
@@ -29,7 +29,7 @@ export default function Dashboard() {
         return response.json(); // or response.text() for text data
       })
       .then((data) => {
-        // console.log(data.events);
+        console.log(data);
         setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
         setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
@@ -72,18 +72,18 @@ export default function Dashboard() {
       <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} />
       <ProfileForm visibility={visibility} setVisibility={setVisibility} />
 
-      <main className={css`display: flex;`}>
-        <section id="left" className={css`width: 33%; height: 100vh; display: flex; flex-direction: column;`}>
+      <main className={css`display: flex; width: 100vw;`}>
+        <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
           <DailyChecks checks={checks} setChecks={setChecks} getData={getData}/>
           <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData}/>
         </section>
 
-        <section id="middle" className={css`width: 34%; height: 100vh; display: flex; flex-direction: column;`}>
+        <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
           <Schedule events={events} setEvents={setEvents} getData={getData}/>
           <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
         </section>
 
-        <section id="right" className={css`width: 33%; height: 100vh; display: flex; flex-direction: column;`}>
+        <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
           <Notes notes={notes} setNotes={setNotes} getData={getData}/>
           <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
         </section>

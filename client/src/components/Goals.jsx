@@ -86,7 +86,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     return (
-        <div id="goals" className={`card ${css`height: 50%`}`}>
+        <div id="goals" className={`card ${css`max-height: 50vh; min-height: 30vh;`}`}>
             <div id="card-header">
                 <h2>{goalType} Goals</h2>
                 <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal}/>
@@ -96,7 +96,8 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
 
             <div id="goals-list">
                 <ol>
-                    {goals.map(((goal, index) =>
+                    {goals.length ? (
+                        goals.map(((goal, index) =>
                         <div key={index} id="line" value={goal.id}>
                             <div id={'goal-' + goal.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                 <li id={'goal-list-item-'+ goal.id}>{goal.goal}</li>
@@ -111,7 +112,10 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                                 <img src="./svgs/delete.svg" alt="delete" onClick={deleteGoal} id={goal.id} />
                             </div>
                         </div>
-                    ))}
+                    ))) : (
+                        <p id="empty">No goals yet!</p>
+                    )
+                }
                 </ol>
             </div>
         </div>

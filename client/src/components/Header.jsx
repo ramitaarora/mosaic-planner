@@ -111,7 +111,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
     }, [location]);
 
     return (
-        <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px;`}>
+        <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px; text-align: center; `}>
 
             <div id="weather" className={css` width: 33%; display: flex; justify-content: center; align-items: center; flex-direction: column;`}>
                 <div id="weather-1" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
@@ -124,7 +124,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
                 </div>
             </div>
 
-            <div id="today" className={css`width: 34%; height: 80px; text-align: center; display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;`}>
+            <div id="today" className={css`width: 34%; height: 80px; display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;`}>
                 <h1 id="today">{greeting}, {name}</h1>
                 <p id="current-day">{day}, {month} {date}, {year} • {hours}:{minutes}:{seconds} {suffix}</p>
             </div>

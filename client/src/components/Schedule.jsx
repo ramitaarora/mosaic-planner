@@ -119,6 +119,9 @@ export default function Schedule({ events, setEvents, getData }) {
             formatDate(currentDate);
             sortTodaysEvents();
         }
+        else {
+            formatDate(currentDate);
+        }
     }, [events, todaysEvents])
 
     const sortTodaysEvents = () => {
@@ -231,10 +234,10 @@ export default function Schedule({ events, setEvents, getData }) {
     }
 
     return (
-        <div id="schedule" className={`card ${css`height: 50%`}`}>
+        <div id="schedule" className={`card ${css`max-height: 50vh; min-height: 30vh;`}`}>
 
             <div id="card-header">
-                <h2>{formattedDate}</h2>
+                <h2>{formattedDate ? formattedDate : "Today"}</h2>
                 <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
             </div>
 
@@ -265,7 +268,9 @@ export default function Schedule({ events, setEvents, getData }) {
                                 </div>
                             </div>
                         )
-                    ) : null}
+                    ) : (
+                        <p id="empty">No events yet!</p>
+                    )}
                 </ul>
             </div>
         </div>

@@ -123,7 +123,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     }
 
     return (
-        <div id="daily-checks" className={`card ${css`height: 50%`}`}>
+        <div id="daily-checks" className={`card ${css`max-height: 50vh; min-height: 30vh;`}`}>
             <div id="card-header">
                 <h2>Daily Checks</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
@@ -133,7 +133,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                     <div id="line" key={index} value={check.id}>
                         <div id={'check-list-item-' + check.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
                             <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`}/>
-                            <label id="check-label">{check.daily_check}</label>
+                            <label>{check.daily_check}</label>
                         </div>
                         <form id={'checkForm-' + check.id} className="hidden" onSubmit={submitEdit}>
                             <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
@@ -146,9 +146,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                         </div>
                     </div>
                 )) : (
-                <div id="add-checks-link">
-                    <h3 onClick={showModal}>No daily checks yet! Click to add some for today.</h3>
-                </div>
+                    <p id="empty" onClick={showModal}>No daily checks yet!</p>
             )
             }
             <DailyChecksForm visibility={visibility} setVisibility={setVisibility} />
