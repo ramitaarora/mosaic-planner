@@ -231,7 +231,7 @@ export default function Schedule({ events, setEvents, getData }) {
     }
 
     return (
-        <div id="schedule" className="card">
+        <div id="schedule" className={`card ${css`height: 50%`}`}>
 
             <div id="card-header">
                 <h2>{formattedDate}</h2>

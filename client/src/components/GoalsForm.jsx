@@ -41,7 +41,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
         <div id="modal-background" className={visibility}>
             <div id="modal">
                 <div id="modal-content">
-                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right; &:hover {cursor: pointer;}`}/>
+                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
 
                     <div id="goals-modal">
                         <form id="save-goal" onSubmit={saveGoal}>

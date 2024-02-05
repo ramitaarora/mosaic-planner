@@ -235,7 +235,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         <div id="modal-background" className={visibility}>
             <div id="modal">
                 <div id="modal-content">
-                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right; &:hover {cursor: pointer;}`}/>
+                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
 
                     <div id="checks-modal" className={css`display: flex; justify-content: space-evenly; margin-bottom: 5px;`}>
                         <div id="check-list">
@@ -243,7 +243,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                             {checks.map((check, index) =>
                                 <div key={index} id="add-each-check" className={css`width: 220px; display: flex; justify-content: space-between;`}>
                                     <div id="each-check">
-                                        <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck} className={css`&:hover {cursor: pointer;}`}/>
+                                        <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck}/>
                                         <p id={'check-list-item-' + check.id}>{check.daily_check}</p>
                                     </div>
                                     <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>

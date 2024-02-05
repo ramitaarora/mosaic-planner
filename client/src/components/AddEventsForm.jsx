@@ -84,7 +84,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
         <div id="modal-background" className={addVisibility}>
             <div id="modal">
                 <div id="modal-content">
-                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right; &:hover {cursor: pointer;}`}/>
+                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
 
                     <div id="add-event-modal">
                         <div id="form-header">

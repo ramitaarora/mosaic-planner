@@ -73,19 +73,19 @@ export default function Dashboard() {
       <ProfileForm visibility={visibility} setVisibility={setVisibility} />
 
       <main className={css`display: flex;`}>
-        <section id="left" className={css`width: 33%; display: flex; flex-direction: column;`}>
-          <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData}/>
-          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
-          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
-        </section>
-
-        <section id="middle" className={css`width: 34%; display: flex; flex-direction: column;`}>
-          <Schedule events={events} setEvents={setEvents} getData={getData}/>
-        </section>
-
-        <section id="right" className={css`width: 33%; display: flex; flex-direction: column;`}>
+        <section id="left" className={css`width: 33%; height: 100vh; display: flex; flex-direction: column;`}>
           <DailyChecks checks={checks} setChecks={setChecks} getData={getData}/>
+          <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData}/>
+        </section>
+
+        <section id="middle" className={css`width: 34%; height: 100vh; display: flex; flex-direction: column;`}>
+          <Schedule events={events} setEvents={setEvents} getData={getData}/>
+          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
+        </section>
+
+        <section id="right" className={css`width: 33%; height: 100vh; display: flex; flex-direction: column;`}>
           <Notes notes={notes} setNotes={setNotes} getData={getData}/>
+          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
         </section>
       </main>
 

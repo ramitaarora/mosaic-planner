@@ -122,7 +122,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
         <div id="modal-background" className={editVisibility}>
             <div id="modal">
                 <div id="modal-content">
-                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right; &:hover {cursor: pointer;}`}/>
+                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
                     <div id="edit-event-modal">
                         <div id="form-header">
                             <h2>Edit {eventToEdit ? eventToEdit.event : null}</h2>
