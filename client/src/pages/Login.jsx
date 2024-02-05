@@ -94,8 +94,8 @@ export default function Login() {
             <div id="authentication">
 
                 <form id="auth-form" className="visible" onSubmit={login}>
-                    <input type="text" placeholder="Email"/>
-                    <input type="password" placeholder="Password"/>
+                    <input type="text" placeholder="Email" required/>
+                    <input type="password" placeholder="Password" required/>
                     <input type="submit" value="Login"/>
                 </form>
                 <p id="login-error" className="hidden">Incorrect email and/or password.</p>
