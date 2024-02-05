@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-router.get('/getUser', async (req, res) => {
+router.get('/getUser', withAuth, async (req, res) => {
   try {
     const userData = await User.findAll({ where: { id: req.session.user_id } });
     const user = userData.map(user => user.get({ plain: true }));
@@ -10,14 +10,15 @@ router.get('/getUser', async (req, res) => {
     const name = user.map(user => user.name)
     const email = user.map(user => user.email)
     const location = user.map(user => user.location)
+    const colour = user.map(user => user.colour)
 
-    res.status(200).json({ name, location, email });
+    res.status(200).json({ name, location, email, colour });
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.put('/updateUser', async (req, res) => {
+router.put('/updateUser', withAuth, async (req, res) => {
   try {
     if (req.body.type === 'name') {
       const userData = await User.update({ name : req.body.data }, { where: { id: req.session.user_id }} );
@@ -29,6 +30,10 @@ router.put('/updateUser', async (req, res) => {
     }
     if (req.body.type === 'location') {
       const userData = await User.update({ location : req.body.data }, { where: { id: req.session.user_id }} );
+      res.status(200).json(userData);
+    }
+    if (req.body.type === 'colour') {
+      const userData = await User.update({ colour: req.body.colourTheme}, { where: { id: req.session.user_id }});
       res.status(200).json(userData);
     }
   } catch (err) {

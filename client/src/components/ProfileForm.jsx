@@ -23,6 +23,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                 setName(data.name);
                 setEmail(data.email);
                 setLocation(data.location);
+                setColourTheme(data.colour);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -57,8 +58,24 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
         getData();
     }, [])
 
-    const handleColours = (event) => {
+    const handleColours = async (event) => {
         setColourTheme(event.target.id);
+
+        const response = await fetch('/api/users/updateUser', {
+            method: 'PUT',
+            body: JSON.stringify({
+                type: 'colour',
+                colourTheme: event.target.id
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            // alert(`Colour theme updated!`)
+            getData();
+        } else {
+            alert(response.statusText);
+        }
     }
 
     return (

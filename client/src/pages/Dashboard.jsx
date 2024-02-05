@@ -39,7 +39,7 @@ export default function Dashboard() {
         setName(data.user.map(user => user.name));
         setLocation(data.user.map(user => user.location));
         setEvents(data.events.map(event => event));
-        setColourTheme(data.user.map(user => user.colour));
+        setColourTheme(data.user[0].colour);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
