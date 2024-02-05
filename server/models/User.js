@@ -39,6 +39,10 @@ User.init(
     location: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    colour: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   },
   {

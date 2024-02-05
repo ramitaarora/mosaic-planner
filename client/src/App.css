@@ -8,10 +8,11 @@
 
 :root {
     --radius: 10px;
+    --text: #000f08;
     --background: #1c3738;
     --card-background: #8baaad;
     --line-background: #f4fff8;
-    --text: 000f08;
+    
 }
 
 header, footer {
@@ -221,12 +222,22 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 5px;
+}
+
+#form-input input[type="radio"] {
+    display: none;
 }
 
 #form-submit-buttons {
     margin-top: 10px;
     display: flex;
     justify-content: center;
+}
+
+#colour-form img {
+    border: 1px solid var(--background);
+    height: 60px;
 }
 
 /* Mobile Styles */
