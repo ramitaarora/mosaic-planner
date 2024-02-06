@@ -113,7 +113,7 @@ input[type="checkbox"]:not(:disabled):checked {
     margin: 0 5px 10px 5px; 
     overflow: overlay; 
     background-color: var(--card-background); 
-    box-shadow: 1px 1px 5px var(--shadow);
+    box-shadow: 1px 1px 5px var(--text);
 }
 
 #card-header {
