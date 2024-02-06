@@ -6,6 +6,8 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
     const [checks, setChecks] = useState([]);
     const [todaysChecks, setTodaysChecks] = useState([]);
     const [savedChecks, setSavedChecks] = useState([])
+    const modalEl = document.getElementById('modal');
+    const backgroundModalEl = document.getElementById('modal-background');
 
     const getChecks = () => {
         fetch('/api/data/checks')
@@ -49,7 +51,11 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
     }, [])
 
     const closeModal = () => {
-        setVisibility('hidden');
+        modalEl.style.animation = 'fadeOut 400ms';
+        backgroundModalEl.style.animation = 'fadeOut 400ms';
+        setTimeout(() => {
+            setVisibility('hidden');
+        }, 0)
     }
 
     const submitNewCheck = async (event) => {
