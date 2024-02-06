@@ -91,7 +91,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
     }, 1000)
 
     useEffect(() => {
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=f2e334424bc1375278888844b225e7a5`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${import.meta.env.VITE_WEATHER_API}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
