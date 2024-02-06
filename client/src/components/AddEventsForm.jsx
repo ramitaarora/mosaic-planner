@@ -18,9 +18,9 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
         const formID = event.target.id;
         const eventName = event.target[0].value;
         const date = event.target[1].value;
-        const startTime = event.target[2].value;
-        const endTime = event.target[3].value;
-        const allDay = event.target[4].checked;
+        const startTime = event.target[3].value;
+        const endTime = event.target[4].value;
+        const allDay = event.target[2].checked;
         const address = event.target[5].value;
 
         const formatDate = (fullDate) => {
@@ -32,7 +32,6 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
 
         // startTime and endTime must not be null unless allDay is checked
         // date must not be null unless recurring
-        // end date must not be a value unless recurring
 
         if ((!startTime || !endTime) && !allDay) {
             alert('Event must have a start time and end time.');

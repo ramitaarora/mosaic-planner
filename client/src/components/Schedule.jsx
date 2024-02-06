@@ -93,7 +93,7 @@ export default function Schedule({ events, setEvents, getData }) {
 
         annualEvents.forEach(event => {
             let annualDates = [];
-            let startDate = new Date(event.start_date);
+            let startDate = new Date(event.start_date + 'T00:00');
             annualDates.push(startDate)
 
             for (let i = 0; i < 50; i++) {

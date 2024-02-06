@@ -9,19 +9,19 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     const [allDay, setAllDay] = useState('');
     const [address, setAddress] = useState('');
     const [recurring, setRecurring] = useState('');
-    const [startDate, setStartDate] = useState('');
+    // const [startDate, setStartDate] = useState('');
 
     const [timeVisibility, setTimeVisibility] = useState('hidden')
 
     useEffect(() => {
         if (eventToEdit) {
             setEventName(eventToEdit.event);
-            setEventDate(eventToEdit.date ? formatDateHTML(eventToEdit.date) : '');
+            setEventDate(eventToEdit.date ? formatDateHTML(eventToEdit.date) : formatDateHTML(eventToEdit.start_date));
             setStartTime(eventToEdit.start_time ? eventToEdit.start_time : '');
             setEndTime(eventToEdit.end_time ? eventToEdit.end_time : '');
             setAllDay(eventToEdit.all_day ? true : false);
             setAddress(eventToEdit.address ? eventToEdit.address : '');
-            setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
+            // setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
             setRecurring(eventToEdit.recurring ? eventToEdit.recurring : 'Not-Recurring');
             setTimeVisibility(eventToEdit.all_day ? 'hidden' : 'visible')
         }
@@ -51,6 +51,14 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
     const saveEvent = async (event) => {
         event.preventDefault();
+        console.log("eventName", eventName);
+        console.log("eventDate", eventDate);
+        console.log("startTime", startTime);
+        console.log("endTime", endTime);
+        console.log("allDay", allDay);
+        console.log("address", address);
+        console.log("recurring", recurring);
+        // console.log("startDate", startDate);
 
         const formatDate = (fullDate) => {
             const day = new Date(fullDate + 'T00:00').getDate();
@@ -61,16 +69,15 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
         // startTime and endTime must not be null unless allDay is checked
         // date must not be null unless recurring
-        // end date must not be a value unless recurring
+        // start date must not be a value unless recurring
 
         if ((!startTime || !endTime) && !allDay) {
             alert('Event must have a start time and end time.');
         }
-        else if (!eventDate && !startDate) {
+        else if (!eventDate) {
             alert("Event must have a date.")
         }
         else {
-
             const response = await fetch('/api/data/edit', {
                 method: 'PUT',
                 body: JSON.stringify({
@@ -82,7 +89,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                     endTime: allDay ? null : endTime,
                     allDay: allDay,
                     address: address ? address : null,
-                    startDate: recurring !== 'Not-Recurring' ? formatDate(startDate) : null,
+                    startDate: recurring !== 'Not-Recurring' ? formatDate(eventDate) : null,
                     recurring: recurring !== 'Not-Recurring' ? recurring : null,
                 }),
                 headers: { 'Content-Type': 'application/json' },
@@ -142,7 +149,12 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                                         <label htmlFor='date'>Date</label>
                                         <input type="date" name="date" value={eventDate} onChange={event => setEventDate(event.target.value)} />
                                     </div>
-                                ) : null
+                                ) : (
+                                    <div id="form-input">
+                                        <label htmlFor='date'>Start Date</label>
+                                        <input type="date" name="date" value={eventDate} onChange={event => setEventDate(event.target.value)} />
+                                    </div>
+                                )
                             ) : null}
 
                             {eventToEdit ? (
@@ -186,14 +198,14 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                                 </div>
                             ) : null}
 
-                            {eventToEdit ? (
+                            {/*eventToEdit ? (
                                 eventToEdit.recurring ? (
                                     <div id="form-input">
                                         <label htmlFor='startDate'>Start Date</label>
                                         <input type="date" name="startDate" value={startDate} onChange={event => setStartDate(event.target.value)} />
                                     </div>
                                 ) : null
-                            ) : null}
+                                ) : null*/}
 
                             <div id="form-submit-buttons">
                                 <input type="submit" value="Save" />

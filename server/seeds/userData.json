@@ -4,6 +4,7 @@
         "name": "Ramita",
         "email": "ramita@example.com",
         "password": "password12345",
-        "location": "Pasadena"
+        "location": "Pasadena",
+        "colour": "saffron"
     }
 ]
