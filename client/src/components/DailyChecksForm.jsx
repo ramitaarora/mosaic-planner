@@ -238,7 +238,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                 <div id="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
 
-                    <div id="checks-modal" className={css`display: flex; justify-content: space-evenly; margin-bottom: 5px;`}>
+                    <div id="checks-modal" className={css`display: flex; justify-content: space-evenly; margin-bottom: 5px; align-content: center;`}>
 
                         <div id="check-list">
                             <div id="modal-header">
@@ -280,15 +280,16 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                         </div>
                     </div>
 
-                    <form id="add-new-check-form" onSubmit={submitNewCheck} className={css`border-top: 1px solid lightgrey; width: 75%; padding: 20px 0; margin: auto; display: flex; justify-content: space-evenly; align-items: center;`}>
+                    <form id="add-new-check-form" onSubmit={submitNewCheck} className={css`border-top: 1px solid lightgrey; width: 75%; padding: 10px 0; margin: auto; display: flex; justify-content: space-evenly; align-items: center;`}>
                         <label htmlFor='add-new-check'>Add New Check:</label>
                         <input type="text" name="add-new-check" required />
                         <input type="submit" />
                     </form>
-
+                    
+                    <div id="form-submit-buttons">
                     <button onClick={submitTodaysChecks}>Done</button>
                     <button onClick={closeModal}>Cancel</button>
-
+                    </div>
                 </div>
             </div>
         </div>
