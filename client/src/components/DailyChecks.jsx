@@ -17,10 +17,10 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         const goalItem = document.getElementById(`check-list-item-${checkID}`)
         goalItem.setAttribute('class', 'hidden');
 
-        const formID = document.getElementById(`checkForm-${checkID}`);
+        const formID = document.getElementById(`checksForm-${checkID}`);
         formID.setAttribute('class', 'visible');
 
-        const inputField = document.getElementById(`checkInput-${checkID}`);
+        const inputField = document.getElementById(`checksInput-${checkID}`);
         inputField.setAttribute('value', checkValue);
     }
 
@@ -135,8 +135,8 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                             <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`}/>
                             <label>{check.daily_check}</label>
                         </div>
-                        <form id={'checkForm-' + check.id} className="hidden" onSubmit={submitEdit}>
-                            <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
+                        <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitEdit}>
+                            <input type="text" id={'checksInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
                             <input type="submit" className="submit-button" />
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                         </form>

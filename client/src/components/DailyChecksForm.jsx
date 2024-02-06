@@ -166,10 +166,10 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         const checkID = event.target.attributes[2].nodeValue;
         const checkValue = event.target.attributes[3].nodeValue;
 
-        const checkItem = document.getElementById(`check-list-item-${checkID}`)
+        const checkItem = document.getElementById(`check-item-${checkID}`)
         checkItem.setAttribute('class', 'hidden');
 
-        const formID = document.getElementById(`checksForm-${checkID}`);
+        const formID = document.getElementById(`checkForm-${checkID}`);
         formID.setAttribute('class', 'visible');
 
         const inputField = document.getElementById(`checkInput-${checkID}`);
@@ -201,7 +201,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         const formID = event.target.id;
         const checkID = event.target[2].id;
         const formInput = event.target[0].value;
-        const checkItem = document.getElementById(`check-list-item-${checkID}`)
+        const checkItem = document.getElementById(`check-item-${checkID}`)
 
         const response = await fetch('/api/data/edit', {
             method: 'PUT',
@@ -233,7 +233,7 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         const formEl = document.getElementById(formID);
         formEl.setAttribute('class', 'hidden');
 
-        const checkItem = document.getElementById(`check-list-item-${checkID}`)
+        const checkItem = document.getElementById(`check-item-${checkID}`)
         checkItem.setAttribute('class', 'visible');
         setInputValue('');
     }
@@ -254,10 +254,10 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                                 checks.map((check, index) =>
                                     <div key={index} id="add-each-check" className={css`width: 250px; display: flex; justify-content: space-between; align-items: center;`}>
                                         <div id="each-check" className={css`display: flex; align-items: center;`}>
-                                            <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck} height="16px" width="16px" />
-                                            <p id={'check-list-item-' + check.id} className={css`margin-left: 8px;`}>{check.daily_check}</p>
+                                            <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck} height="16px" width="16px" className={css`margin-right: 10px;`}/>
+                                            <p id={'check-item-' + check.id}>{check.daily_check}</p>
                                         </div>
-                                        <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>
+                                        <form id={'checkForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>
                                             <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
                                             <input type="submit" className="submit-button" />
                                             <button id={check.id} onClick={cancelEdit}>Cancel</button>
