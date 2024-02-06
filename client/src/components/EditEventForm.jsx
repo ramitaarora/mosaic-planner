@@ -122,12 +122,12 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
         <div id="modal-background" className={editVisibility}>
             <div id="modal">
                 <div id="modal-content">
-                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
+                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
                     <div id="edit-event-modal">
                         <div id="form-header">
                             <h2>Edit {eventToEdit ? eventToEdit.event : null}</h2>
                         </div>
-                        <form id="event-form" onSubmit={saveEvent}>
+                        <form id="event-form" onSubmit={saveEvent} className={css`margin: 0 auto; width: 75%;`}>
 
                             {eventToEdit ? (
                                 <div id="form-input">
@@ -146,6 +146,13 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                             ) : null}
 
                             {eventToEdit ? (
+                                <div id="checkbox">
+                                    <label htmlFor='allDay'>All Day?</label>
+                                    <input type="checkbox" name="allDay" checked={allDay} onChange={changeAllDay} />
+                                </div>
+                            ) : null}
+
+                            {eventToEdit ? (
                                 <div>
                                     <div id="form-input" className={timeVisibility}>
                                         <label htmlFor='startTime'>Start Time</label>
@@ -156,13 +163,6 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                                         <label htmlFor='endTime'>End Time</label>
                                         <input type="time" name="endTime" value={endTime} onChange={event => setEndTime(event.target.value)} />
                                     </div>
-                                </div>
-                            ) : null}
-
-                            {eventToEdit ? (
-                                <div id="form-input">
-                                    <label htmlFor='allDay'>All Day</label>
-                                    <input type="checkbox" name="allDay" checked={allDay} onChange={changeAllDay} />
                                 </div>
                             ) : null}
 

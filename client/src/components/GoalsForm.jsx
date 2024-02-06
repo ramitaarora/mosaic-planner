@@ -44,8 +44,12 @@ export default function GoalsForm({ visibility, setVisibility }) {
                 <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
 
                     <div id="goals-modal">
-                        <form id="save-goal" onSubmit={saveGoal}>
+                        <div id="modal-header">
+                            <h2>Add a New Goal</h2>
                             <p>Yearly resolutions break down into monthly goals, which can be further broken down into weekly goals.</p>
+                        </div>
+                        <form id="save-goal" onSubmit={saveGoal} className={css`margin: 0 auto; width: 75%;`}>
+                            
                             <div id="form-input">
                                 <label htmlFor='yearly'>Yearly Goal</label>
                                 <input type="text" name="yearly" placeholder="Type your yearly goal here..." required />

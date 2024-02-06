@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
-export default function ProfileForm({ visibility, setVisibility, colourTheme, setColourTheme }) {
+export default function ProfileForm({ visibility, setVisibility, colourTheme, setColourTheme, getData }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [location, setLocation] = useState('')
@@ -10,7 +10,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
         setVisibility('hidden');
     }
 
-    const getData = () => {
+    const getUser = () => {
         fetch('/api/users/getUser')
             .then((response) => {
                 if (!response.ok) {
@@ -46,8 +46,10 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
             });
 
             if (response.ok) {
-                alert(`${inputType} updated!`)
+                // alert(`${inputType} updated!`)
                 getData();
+                getUser();
+                closeModal();
             } else {
                 alert(response.statusText);
             }
@@ -55,7 +57,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     }
 
     useEffect(() => {
-        getData();
+        getUser();
     }, [])
 
     const handleColours = async (event) => {
@@ -89,7 +91,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                             <h2>Edit Profile</h2>
                         </div>
 
-                        <div id="account-forms" className={css`width: 55%;`}>
+                        <div id="account-forms" className={css`width: 70%; margin: 0 auto;`}>
                             <form id="name-form" onSubmit={updateProfile}>
                                 <div id="form-input">
                                     <label htmlFor="editName">Name:</label>
@@ -115,7 +117,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                 <div id="form-input">
                                     <label htmlFor="editEmail">Email:</label>
                                     <div>
-                                        <input type="email" name="editEmail" id="editEmail" value={email} onChange={(event) => setEmail(event.target.value)} required />
+                                        <input type="text" name="editEmail" id="editEmail" value={email} onChange={(event) => setEmail(event.target.value)} required />
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>

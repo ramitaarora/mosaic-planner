@@ -123,7 +123,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     }
 
     return (
-        <div id="daily-checks" className={`card ${css`max-height: 50vh; min-height: 30vh;`}`}>
+        <div id="daily-checks" className={`card ${css`height: 60vh;`}`}>
             <div id="card-header">
                 <h2>Daily Checks</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />

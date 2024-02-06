@@ -143,7 +143,7 @@ export default function Dashboard() {
     <div>
 
       <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} />
-      <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme}/>
+      <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData}/>
 
       <main className={css`display: flex; width: 100vw;`}>
         <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>

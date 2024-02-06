@@ -86,7 +86,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                 <div id="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
 
-                    <div id="add-event-modal">
+                    <div id="add-event-modal" className={css`margin: 0 auto; width: 75%;`}>
                         <div id="form-header">
                             <h2>Add an Event</h2>
                         </div>
@@ -99,7 +99,10 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                                 <label htmlFor='date'>Date</label>
                                 <input type="date" name="date" />
                             </div>
-
+                            <div id="checkbox">
+                                <label htmlFor='allDay'>All Day?</label>
+                                <input type="checkbox" name="allDay" onChange={setTimeVisibility} />
+                            </div>
                             <div id="form-input" className={showTime}>
                                 <label htmlFor='startTime'>Start Time</label>
                                 <input type="time" name="startTime" />
@@ -107,11 +110,6 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                             <div id="form-input" className={showTime}>
                                 <label htmlFor='endTime'>End Time</label>
                                 <input type="time" name="endTime" />
-                            </div>
-
-                            <div id="form-input">
-                                <label htmlFor='allDay'>All Day</label>
-                                <input type="checkbox" name="allDay" onChange={setTimeVisibility} />
                             </div>
                             <div id="form-input">
                                 <label htmlFor='address'>Address</label>

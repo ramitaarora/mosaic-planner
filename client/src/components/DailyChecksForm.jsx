@@ -9,43 +9,44 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
 
     const getChecks = () => {
         fetch('/api/data/checks')
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          // console.log(response);
-          return response.json(); // or response.text() for text data
-        })
-        .then((data) => {
-        //   console.log(data);
-          setChecks(data);
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        });
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // console.log(response);
+                return response.json(); // or response.text() for text data
+            })
+            .then((data) => {
+                //   console.log(data);
+                setChecks(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
 
         fetch('/api/data/checksHistory')
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          // console.log(response);
-          return response.json(); // or response.text() for text data
-        })
-        .then((data) => {
-        //   console.log(data);
-          if (!data.Message) {
-            setTodaysChecks(data);
-            setSavedChecks(data);
-        }})
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        });
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // console.log(response);
+                return response.json(); // or response.text() for text data
+            })
+            .then((data) => {
+                //   console.log(data);
+                if (!data.Message) {
+                    setTodaysChecks(data);
+                    setSavedChecks(data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
     }
 
     useEffect(() => {
         getChecks();
-    },[])
+    }, [])
 
     const closeModal = () => {
         setVisibility('hidden');
@@ -143,11 +144,11 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
                         alert(response);
                         console.log(response.statusText);
                     }
-                } 
+                }
             }
 
 
-           
+
         }
         setTodaysChecks([]);
         setSavedChecks([])
@@ -235,39 +236,45 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
         <div id="modal-background" className={visibility}>
             <div id="modal">
                 <div id="modal-content">
-                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
+                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
 
                     <div id="checks-modal" className={css`display: flex; justify-content: space-evenly; margin-bottom: 5px;`}>
+
                         <div id="check-list">
-                            <h2>Add Daily Checks</h2>
+                            <div id="modal-header">
+                                <h2>Add Daily Checks</h2>
+                            </div>
                             {checks.length ? (
                                 checks.map((check, index) =>
-                                <div key={index} id="add-each-check" className={css`width: 220px; display: flex; justify-content: space-between;`}>
-                                    <div id="each-check">
-                                        <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck}/>
-                                        <p id={'check-list-item-' + check.id}>{check.daily_check}</p>
+                                    <div key={index} id="add-each-check" className={css`width: 250px; display: flex; justify-content: space-between; align-items: center;`}>
+                                        <div id="each-check" className={css`display: flex; align-items: center;`}>
+                                            <img src="./svgs/add.svg" alt="add" id={check.id} onClick={addCheck} height="16px" width="16px" />
+                                            <p id={'check-list-item-' + check.id} className={css`margin-left: 8px;`}>{check.daily_check}</p>
+                                        </div>
+                                        <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>
+                                            <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
+                                            <input type="submit" className="submit-button" />
+                                            <button id={check.id} onClick={cancelEdit}>Cancel</button>
+                                        </form>
+                                        <div id="edit-buttons">
+                                            <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} onClick={editCheck} />
+                                            <img src="./svgs/delete.svg" alt="delete" id={check.id} onClick={deleteCheck} />
+                                        </div>
                                     </div>
-                                    <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>
-                                        <input type="text" id={'checkInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} />
-                                        <input type="submit" className="submit-button" />
-                                        <button id={check.id} onClick={cancelEdit}>Cancel</button>
-                                    </form>
-                                    <div id="edit-buttons">
-                                        <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} onClick={editCheck}/>
-                                        <img src="./svgs/delete.svg" alt="delete" id={check.id} onClick={deleteCheck}/>
-                                    </div>
-                                </div>
-                            )) : (
+                                )) : (
                                 null
                             )}
                         </div>
 
                         <div id="added-checks">
-                            <h2>Checks for Today</h2>
+                            <div id="modal-header">
+                                <h2>Checks for Today</h2>
+                            </div>
+
                             {todaysChecks.map((check, index) =>
-                                <div key={index} id="each-added-check" className={css`width: 220px; display: flex; justify-content: space-between;`}>
+                                <div key={index} id="each-added-check" className={css`width: 250px; display: flex; justify-content: space-between; align-items: center;`}>
                                     <p>{check.daily_check}</p>
-                                    <img src="./svgs/minus.svg" alt="minus" id={check.id} onClick={removeCheck} className={css`&:hover {cursor: pointer;}`}/>
+                                    <img src="./svgs/minus.svg" alt="minus" id={check.id} onClick={removeCheck} className={css`margin: 10px 0;`}/>
                                 </div>
                             )}
                         </div>
@@ -275,13 +282,13 @@ export default function DailyChecksForm({ visibility, setVisibility }) {
 
                     <form id="add-new-check-form" onSubmit={submitNewCheck} className={css`border-top: 1px solid lightgrey; width: 75%; padding: 20px 0; margin: auto; display: flex; justify-content: space-evenly; align-items: center;`}>
                         <label htmlFor='add-new-check'>Add New Check:</label>
-                        <input type="text" name="add-new-check" required/>
-                        <input type="submit"/>
+                        <input type="text" name="add-new-check" required />
+                        <input type="submit" />
                     </form>
 
                     <button onClick={submitTodaysChecks}>Done</button>
                     <button onClick={closeModal}>Cancel</button>
-                    
+
                 </div>
             </div>
         </div>

@@ -100,6 +100,9 @@ export default function Notes({ notes, setNotes, getData }) {
     
             if (response.ok) {
                 getData();
+                document.getElementById('add-note').setAttribute('class', 'hidden');
+                document.getElementById('cancel-note-button').setAttribute('class', 'hidden');
+                document.getElementById('add-note-button').setAttribute('class', 'visible');
             } else {
                 alert(response.statusText);
             }
@@ -114,7 +117,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     return (
-        <div id="notes" className={`card ${css`max-height: 50vh; min-height: 30vh;`}`}>
+        <div id="notes" className={`card ${css`height: 60vh;`}`}>
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />

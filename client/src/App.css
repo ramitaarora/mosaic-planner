@@ -60,8 +60,25 @@ input[type="reset"] {
 
 input[type="submit"]:hover, 
 input[type="reset"]:hover,
+input[type="checkbox"],
 button:hover {
     cursor: pointer;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--background);
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    border: 1px solid var(--card-background);
+    background-color: transparent;
+    outline: none;
+}
+
+input[type="checkbox"]:not(:disabled):checked {
+    background-image: url('./svgs/check.png');
+    background-color: var(--background);
+    color: var(--text)
 }
 
 /* Login Page Styles */
@@ -104,6 +121,7 @@ button:hover {
     justify-content: space-between;
     margin: 0 25px;
     font-size: 12px;
+    align-items:baseline;
 }
 
 .card h2 {
@@ -225,6 +243,16 @@ button:hover {
     margin: 5px;
 }
 
+#form-input input[type="text"], 
+#form-input input[type="date"], 
+#form-input input[type="time"] {
+    width: 200px;
+}
+
+#form-input select {
+    width: 212px;
+}
+
 #form-input input[type="radio"] {
     display: none;
 }
@@ -238,6 +266,16 @@ button:hover {
 #colour-form img {
     border: 1px solid var(--background);
     height: 60px;
+}
+
+#checkbox {
+    margin: 5px; 
+    display: flex; 
+    align-content: center;
+}
+
+#checkbox label {
+    margin-right: 135px;
 }
 
 /* Mobile Styles */
