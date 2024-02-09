@@ -25,7 +25,6 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if ((String(eventDate)).slice(0, 15) === (String(currentDate)).slice(0, 15) && !checkDuplicate) {
                 setTodaysEvents((pre => [...pre, event]));
-                sortTodaysEvents();
             }
         })
 
@@ -44,7 +43,6 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
-                sortTodaysEvents();
             }
         })
 
@@ -65,7 +63,6 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
-                sortTodaysEvents();
             }
         })
 
@@ -87,7 +84,6 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
-                sortTodaysEvents();
             }
         })
 
@@ -108,7 +104,6 @@ export default function Schedule({ events, setEvents, getData }) {
 
             if (isToday && !checkDuplicate) {
                 setTodaysEvents((pre) => [...pre, event]);
-                sortTodaysEvents();
             }
         })
     }
@@ -122,7 +117,7 @@ export default function Schedule({ events, setEvents, getData }) {
         else {
             formatDate(currentDate);
         }
-    }, [events, todaysEvents])
+    }, [events, currentDate])
 
     const sortTodaysEvents = () => {
         todaysEvents.sort((a, b) => {
