@@ -19,7 +19,7 @@ Technologies used in this application include:
 
 ## Usage
 
-This project has been deployed at:
+This project has been deployed at: https://mosaic-planner-112e49ce3b90.herokuapp.com/
 
 ## Credits
 
