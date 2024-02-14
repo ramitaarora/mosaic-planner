@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "name": "Ramita",
-        "email": "ramita@example.com",
+        "name": "Demo",
+        "email": "demo@example.com",
         "password": "password12345",
         "location": "Pasadena",
         "colour": "saffron"

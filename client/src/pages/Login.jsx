@@ -88,6 +88,29 @@ export default function Login() {
         }
     }
 
+    const loginDemo = async (event) => {
+        event.preventDefault();
+        // console.log(event);
+        const email = 'demo@example.com'
+        const password = 'password12345';
+
+        const response = await fetch('/api/users/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                password: password
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        if (response.ok) {
+            document.getElementById('login-error').setAttribute('class', 'hidden');
+            window.location.replace('/');
+        } else {
+            console.error(response.statusText);
+            document.getElementById('login-error').setAttribute('class', 'visible');
+        }
+    }
+
     return (
         <div id="login" className={css`text-align: center; height: 100vh; margin: 0 auto;`}>
             <h1 className={css`margin: 30vh auto 0 auto;`}>Your goals, schedule & reminders, all in one place.</h1>
@@ -98,6 +121,7 @@ export default function Login() {
                     <input type="password" placeholder="Password" required/>
                     <input type="submit" value="Login"/>
                 </form>
+
                 <p id="login-error" className="hidden">Incorrect email and/or password.</p>
                 
                 <button id="signup-instead" className="visible" onClick={showSignup}>Sign up instead</button>
@@ -111,6 +135,8 @@ export default function Login() {
                 </form>
 
                 <button id="login-instead" className="hidden" onClick={showLogin}>Login instead</button>
+
+                <button id="demo" className={css`display: block; margin: 10px auto;`} onClick={loginDemo}>Demo Dashboard</button>
             </div>
         </div>
     )

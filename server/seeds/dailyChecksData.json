@@ -11,17 +11,7 @@
     },
     {
         "id": 3,
-        "daily_check": "Go for a walk",
-        "user_id": 1
-    },
-    {
-        "id": 4,
         "daily_check": "Stretch/do yoga",
-        "user_id": 1
-    },
-    {
-        "id": 5,
-        "daily_check": "Gratitude journaling",
         "user_id": 1
     }
 ]
