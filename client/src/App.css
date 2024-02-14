@@ -307,42 +307,56 @@ input[type="checkbox"]:not(:disabled):checked {
 
 /* Mobile Styles */
 
-@media only screen and (max-width: 1000px) {
-    body {
-        margin: 0 30px;
-    }
+@media only screen and (max-width: 1100px) {
     main {
-        display: block;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
-    #left, #middle, #right {
+    #left, #middle, #right, #goals, #schedule, #daily-checks, #notes {
+        width: 100%;
+        height: fit-content;
+    }
+    header {
+        flex-direction: column;
+        padding: 0;
+    }
+    #today, #navigation {
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    #weather {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #modal {
+        width: 100vw;
+        margin: 0;
+    }
+    #account-forms {
         width: 100%;
     }
-    #goal-form-div,
-    #event-form-div,
-    #notes-form-div,
-    #daily-checks-form-div {
-        width: 90%;
+    #form-input input[type="text"], 
+    #form-input input[type="date"], 
+    #form-input input[type="time"] {
+        width: 100%;
     }
-    #setup-forms input[type="text"],
-    #setup-forms input[type="date"],
-    #setup-forms input[type="time"] {
-        width: 100px;
-    }
-    #setup-forms select {
-        width: 112px;
-    }
-}
-
-@media only screen and (max-width: 1300px) {
-    #weather-2 {
+    #form-input {
         flex-direction: column;
+        align-items: flex-start;
     }
-}
-
-@media only screen and (max-width: 700px) {
-    header {
-        display: block;
-        display: flex;
+    #checks-modal {
+        flex-direction: column;
+        align-items: center;
+    }
+    #check-list, #added-checks {
+        margin-bottom: 20px;
+    }
+    #add-new-check-form {
         flex-direction: column;
     }
 }
