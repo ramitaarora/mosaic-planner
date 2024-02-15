@@ -21,6 +21,12 @@ Technologies used in this application include:
 
 This project has been deployed at: https://mosaic-planner-112e49ce3b90.herokuapp.com/
 
+<img src="./client/public/screenshots/planner-screenshot-1.png" alt="screenshot-1">
+
+<img src="./client/public/screenshots/planner-screenshot-2.png" alt="screenshot-2">
+
+<img src="./client/public/screenshots/planner-screenshot-3.png" alt="screenshot-3">
+
 ## Credits
 
 This project was created by Ramita Indurkhya.
