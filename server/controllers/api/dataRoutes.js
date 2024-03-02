@@ -10,21 +10,43 @@ const day = new Date().getDate();
 router.get('/allData', withAuth, async (req, res) => {
     try {
         const userData = await User.findAll({ where: { id: req.session.user_id } });
-        const user = userData.map(user => user.get({ plain: true }));
-    
         const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
         const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
-        const dailyChecksData = await DailyChecksHistory.findAll({ where: { 
+        const eventsData = await Events.findAll({ where: { user_id: req.session.user_id }})
+
+        const user = userData.map(user => user.get({ plain: true }));
+        const goals = goalsData.map(goal => goal.get({ plain: true }));
+        const notes = notesData.map(note => note.get({ plain: true }));
+        const events = eventsData.map(event => event.get({ plain: true }));
+
+        let dailyChecksData = await DailyChecksHistory.findAll({ where: { 
             user_id: req.session.user_id,
             date: `${year}-${month}-${day}`
         } });
-        const eventsData = await Events.findAll({ where: { 
-            user_id: req.session.user_id,
-         }})
-        const goals = goalsData.map(goal => goal.get({ plain: true }));
-        const notes = notesData.map(note => note.get({ plain: true }));
+
+        if (!dailyChecksData.length) {
+            const existingDailyChecks = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
+            
+            if (existingDailyChecks) {
+
+                for (let i = 0; i < existingDailyChecks.length; i++) {
+                    const checksData = await DailyChecksHistory.create({
+                        daily_check: existingDailyChecks[i].daily_check,
+                        user_id: req.session.user_id,
+                        date: `${year}-${month}-${day}`,
+                        completed: false,
+                        parent_id: existingDailyChecks[i].id
+                    })
+                }
+                
+                dailyChecksData = await DailyChecksHistory.findAll({ where: { 
+                    user_id: req.session.user_id,
+                    date: `${year}-${month}-${day}`
+                } });
+
+            }
+        }
         const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
-        const events = eventsData.map(event => event.get({ plain: true }));
     
         res.status(200).json({goals, notes, dailyChecks, events, user});
     } catch (err) {
