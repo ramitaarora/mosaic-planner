@@ -7,6 +7,8 @@ import DailyChecks from '../components/DailyChecks.jsx';
 import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
 import ProfileForm from '../components/ProfileForm.jsx';
+import Tasks from '../components/Tasks.jsx';
+import { all } from 'axios';
 
 export default function Dashboard() {
   const [yearGoals, setYearGoals] = useState([]);
@@ -15,7 +17,9 @@ export default function Dashboard() {
   const [notes, setNotes] = useState([]);
   const [checks, setChecks] = useState([]);
   const [events, setEvents] = useState([]);
-  const [name, setName] = useState('name')
+  const [inProgressTasks, setInProgressTasks] = useState([]);
+  const [allTasks, setAllTasks] = useState([]);
+  const [name, setName] = useState('name');
   const [location, setLocation] = useState('Pasadena')
   const [visibility, setVisibility] = useState('hidden');
   const [colourTheme, setColourTheme] = useState();
@@ -147,18 +151,20 @@ export default function Dashboard() {
 
       <main className={css`display: flex; width: 100vw;`}>
         <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-          <DailyChecks checks={checks} setChecks={setChecks} getData={getData}/>
+          
           <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData}/>
+          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
+          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
         </section>
 
         <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
           <Schedule events={events} setEvents={setEvents} getData={getData}/>
-          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
+          <DailyChecks checks={checks} setChecks={setChecks} getData={getData}/>
         </section>
 
         <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
+          <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
           <Notes notes={notes} setNotes={setNotes} getData={getData}/>
-          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
         </section>
       </main>
 

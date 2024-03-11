@@ -7,7 +7,7 @@ const childGoalsData = require('./childGoalsData.json');
 const dailyChecksData = require('./dailyChecksData.json');
 const eventsData = require('./eventsData.json');
 
-const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory } = require('../models');
+const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../models');
 
 const year = new Date().getFullYear();
 const month = new Date().getMonth() + 1;
@@ -59,6 +59,8 @@ const seedDatabase = async () => {
             returning: true,
         })
     }
+
+
 
     process.exit(0);
 };

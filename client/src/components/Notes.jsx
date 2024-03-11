@@ -57,13 +57,14 @@ export default function Notes({ notes, setNotes, getData }) {
 
         if (response.ok) {
             getData();
+            setInputValue('');
         } else {
             alert(response.statusText);
         }
 
         document.getElementById(noteFormID).setAttribute('class', 'hidden');
         noteItem.setAttribute('class', 'visible');
-        setInputValue('');
+        
     }
 
     const cancelNoteEdit = (event) => {
@@ -79,6 +80,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const addNewNote = (event) => {
+        setInputValue('');
         document.getElementById('add-note').setAttribute('class', 'visible');
         document.getElementById('add-note-button').setAttribute('class', 'hidden');
         document.getElementById('cancel-note-button').setAttribute('class', 'visible');
@@ -117,7 +119,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     return (
-        <div id="notes" className={`card ${css`height: 60vh;`}`}>
+        <div id="notes" className={`card ${css`height: 30vh;`}`}>
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />
@@ -127,7 +129,6 @@ export default function Notes({ notes, setNotes, getData }) {
             <form id="add-note" onSubmit={submitNewNote} className="hidden">
                 <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`}/>
                 <input type="submit" />
-                {/*<button id="cancel" onClick={cancelNewNote}>Cancel</button>*/}
             </form>
             <div id="notes-list">
                 <ol>

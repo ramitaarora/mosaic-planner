@@ -86,7 +86,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     return (
-        <div id="goals" className={`card ${css`height: 40vh;`}`}>
+        <div id="goals" className={`card ${css`height: 33vh;`}`}>
             <div id="card-header">
                 <h2>{goalType} Goals</h2>
                 <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal}/>
