@@ -94,6 +94,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                 body: JSON.stringify({
                     id: checkID,
                     completed: event.target.checked,
+                    type: 'Daily Check'
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -110,6 +111,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                 body: JSON.stringify({
                     id: checkID,
                     completed: event.target.checked,
+                    type: 'Daily Check'
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });

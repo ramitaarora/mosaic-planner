@@ -32,6 +32,10 @@ Goals.init(
             },
             onDelete: 'CASCADE',
         },
+        completed: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,

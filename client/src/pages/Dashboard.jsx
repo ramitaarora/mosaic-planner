@@ -8,7 +8,7 @@ import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
 import ProfileForm from '../components/ProfileForm.jsx';
 import Tasks from '../components/Tasks.jsx';
-import { all } from 'axios';
+import InProgressTasks from '../components/InProgressTasks.jsx';
 
 export default function Dashboard() {
   const [yearGoals, setYearGoals] = useState([]);
@@ -44,6 +44,8 @@ export default function Dashboard() {
         setLocation(data.user.map(user => user.location));
         setEvents(data.events.map(event => event));
         setColourTheme(data.user[0].colour);
+        setAllTasks(data.tasks.filter(task => !task.in_progress));
+        setInProgressTasks(data.tasks.filter(task => task.in_progress === true));
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -164,6 +166,7 @@ export default function Dashboard() {
 
         <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
           <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
+          <InProgressTasks inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} />
           <Notes notes={notes} setNotes={setNotes} getData={getData}/>
         </section>
       </main>

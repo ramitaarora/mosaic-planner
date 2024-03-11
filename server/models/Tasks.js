@@ -29,7 +29,6 @@ Tasks.init(
         },
         completed: {
             type: DataTypes.BOOLEAN,
-            allowNull: true,
             defaultValue: false,
         },
         date_created: {

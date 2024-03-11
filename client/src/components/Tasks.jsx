@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function Tasks({ allTasks, setAllTasks, getData }) {
@@ -71,7 +71,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
         const taskID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
         const taskFormID = event.target.form.id;
         const taskItem = document.getElementById(`task-list-item-${taskID}`)
-        
+
         const formID = document.getElementById(taskFormID);
         formID.setAttribute('class', 'hidden');
         taskItem.setAttribute('class', 'visible');
@@ -97,7 +97,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
-    
+
             if (response.ok) {
                 getData();
                 document.getElementById('add-task').setAttribute('class', 'hidden');
@@ -125,28 +125,31 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
             </div>
 
             <form id="add-task" onSubmit={submitNewTask} className="hidden">
-                <input type="text" placeholder="Write new task here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`}/>
+                <input type="text" placeholder="Write new task here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`} />
                 <input type="submit" />
             </form>
             <div id="task-list">
                 <ol>
                     {allTasks.length ? (
                         allTasks.map((task, index) =>
-                        <div key={index} id="line" value={task.id}>
-                            <div id={'task-' + task.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                <li id={'task-list-item-' + task.id}>{task.task}</li>
-                                <form id={'taskForm-' + task.id} className="hidden" onSubmit={submitTaskEdit}>
-                                    <input type="text" id={'taskInput-' + task.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
-                                    <input type="submit" />
-                                    <button id="cancel-edit" onClick={cancelTaskEdit}>Cancel</button>
-                                </form>
+                            <div key={index} id="line" value={task.id}>
+                                <div id={'task-' + task.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
+                                    <div id={'task-list-item-' + task.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
+                                        <img src="./svgs/add.svg" alt="add-to-in-progress" className={css`margin-right: 5px;`}/>
+                                        <li id={'task-list-item-' + task.id}>{task.task}</li>
+                                    </div>
+                                    <form id={'taskForm-' + task.id} className="hidden" onSubmit={submitTaskEdit}>
+                                        <input type="text" id={'taskInput-' + task.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
+                                        <input type="submit" />
+                                        <button id="cancel-edit" onClick={cancelTaskEdit}>Cancel</button>
+                                    </form>
+                                </div>
+                                <div id="edit-buttons">
+                                    <img src="./svgs/edit.svg" alt="edit" onClick={editTask} id={task.id} value={task.task} />
+                                    <img src="./svgs/delete.svg" alt="edit" onClick={deleteTask} id={task.id} />
+                                </div>
                             </div>
-                            <div id="edit-buttons">
-                                <img src="./svgs/edit.svg" alt="edit" onClick={editTask} id={task.id} value={task.task} />
-                                <img src="./svgs/delete.svg" alt="edit" onClick={deleteTask} id={task.id} />
-                            </div>
-                        </div>
-                    )) : (
+                        )) : (
                         <p id="empty">No tasks yet! Click the plus to add a task.</p>
                     )}
                 </ol>
