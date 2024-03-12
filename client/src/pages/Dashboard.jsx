@@ -8,7 +8,7 @@ import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
 import ProfileForm from '../components/ProfileForm.jsx';
 import Tasks from '../components/Tasks.jsx';
-import InProgressTasks from '../components/InProgressTasks.jsx';
+import TasksInProgress from '../components/TasksInProgress.jsx';
 
 export default function Dashboard() {
   const [yearGoals, setYearGoals] = useState([]);
@@ -168,7 +168,7 @@ export default function Dashboard() {
 
         <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
           <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
-          <InProgressTasks inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} />
+          <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} />
           <Notes notes={notes} setNotes={setNotes} getData={getData}/>
         </section>
       </main>

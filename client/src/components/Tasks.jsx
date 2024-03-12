@@ -120,11 +120,12 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     const addProgressTask = async (event) => {
         const taskID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
 
-        const response = await fetch('/api/data/inProgress', {
+        const response = await fetch('/api/data/taskEdits', {
             method: 'PUT',
             body: JSON.stringify({
                 id: taskID,
                 inProgress: true,
+                type: 'In Progress'
             }),
             headers: { 'Content-Type': 'application/json' },
         });

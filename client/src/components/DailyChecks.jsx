@@ -7,7 +7,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     const [visibility, setVisibility] = useState('hidden');
 
     const showModal = () => {
-        setVisibility('visible')
+        setVisibility('visible');
     }
 
     const editCheck = (event) => {

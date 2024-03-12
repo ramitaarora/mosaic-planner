@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { css } from '@emotion/css';
+import TasksArchived from './TasksArchived';
 
-export default function InProgressTasks({ inProgressTasks, setInProgressTasks, getData }) {
+export default function TasksInProgress ({ inProgressTasks, setInProgressTasks, getData, archivedTasks }) {
+    const [visibility, setVisibility] = useState('hidden');
 
     const editProgress = (event) => {
         const progressID = event.target.attributes[2].nodeValue;
@@ -20,10 +23,11 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
         const progressID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to archive this task?")) {
-            const response = await fetch('/api/data/archiveTask', {
+            const response = await fetch('/api/data/taskEdits', {
                 method: 'PUT',
                 body: JSON.stringify({
                     id: progressID,
+                    type: 'Archive Task'
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -100,11 +104,12 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
     const removeProgressTask = async (event) => {
         const taskID = event.target.id;
 
-        const response = await fetch('/api/data/inProgress', {
+        const response = await fetch('/api/data/taskEdits', {
             method: 'PUT',
             body: JSON.stringify({
                 id: taskID,
                 inProgress: false,
+                type: 'In Progress'
             }),
             headers: { 'Content-Type': 'application/json' },
         });
@@ -116,10 +121,15 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
         }
     }
 
+    const showArchiveModal = () => {
+        setVisibility('visible');
+    }
+
     return (
         <div id="in-progress-tasks" className={`card ${css`height: 30vh;`}`}>
             <div id="card-header">
                 <h2>Tasks in Progress</h2>
+                <img src="./svgs/archive.svg" alt="open-archive" onClick={showArchiveModal} />
             </div>
             {inProgressTasks.length ? (
                 inProgressTasks.map((progress, index) =>
@@ -134,7 +144,7 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                         </form>
                         <div id="edit-buttons">
-                            <img src="./svgs/up.svg" alt="move-to-tasks" onClick={removeProgressTask} id={progress.id} />
+                            <img src="./svgs/minus.svg" alt="move-to-tasks" onClick={removeProgressTask} id={progress.id} />
                             <img src="./svgs/edit.svg" alt="edit" onClick={editProgress} id={progress.id} value={progress.task} />
                             <img src="./svgs/archive.svg" alt="archive" onClick={archiveProgress} id={progress.id} />
                         </div>
@@ -143,6 +153,7 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
                     <p id="empty">No tasks in progress yet! Click the plus beside a task to add it here.</p>
             )
             }
+            <TasksArchived visibility={visibility} setVisibility={setVisibility} getData={getData} archivedTasks={archivedTasks}/>
         </div>
     )
 }
