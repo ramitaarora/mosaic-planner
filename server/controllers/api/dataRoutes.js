@@ -215,7 +215,6 @@ router.put('/taskEdits', withAuth, async (req, res) => {
     }
 })
 
-
 router.post('/add', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Note') {

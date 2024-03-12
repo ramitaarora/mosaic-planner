@@ -125,7 +125,10 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                         </div>
 
                         <div id="colour-themes" className={css`margin: 20px 0;`}>
-                            <h2>Set Colour Theme</h2>
+                            <div id="modal-header">
+                                <h2>Set Colour Theme</h2>
+                            </div>
+                            
 
                             <form id="colour-form" onChange={handleColours} className={css`display: flex; flex-wrap: wrap; justify-content: space-evenly;`} >
                                 <div id="form-input">

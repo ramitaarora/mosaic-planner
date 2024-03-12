@@ -229,7 +229,7 @@ export default function Schedule({ events, setEvents, getData }) {
     }
 
     return (
-        <div id="schedule" className={`card ${css`height: 60vh;`}`}>
+        <div id="schedule" className={`card ${css`height: 65vh;`}`}>
 
             <div id="card-header">
                 <h2>{formattedDate ? formattedDate : "Today"}</h2>

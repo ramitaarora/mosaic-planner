@@ -176,6 +176,12 @@ input[type="checkbox"]:not(:disabled):checked {
     text-align: center;
 }
 
+.list-item {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
 /* Calendar Styles */
 
 .react-calendar {

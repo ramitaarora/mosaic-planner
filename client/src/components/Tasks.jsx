@@ -62,7 +62,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
         }
 
         document.getElementById(taskFormID).setAttribute('class', 'hidden');
-        taskItem.setAttribute('class', 'visible');
+        taskItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -74,7 +74,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
 
         const formID = document.getElementById(taskFormID);
         formID.setAttribute('class', 'hidden');
-        taskItem.setAttribute('class', 'visible');
+        taskItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -156,8 +156,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                         allTasks.map((task, index) =>
                             <div key={index} id="line" value={task.id}>
                                 <div id={'task-' + task.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                    <div id={'task-list-item-' + task.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
-                                        <img src="./svgs/add.svg" alt="add-to-in-progress" onClick={addProgressTask} className={css`margin-right: 5px;`}/>
+                                    <div id={'task-list-item-' + task.id} className="list-item">
                                         <li id={'task-list-item-' + task.id} >{task.task}</li>
                                     </div>
                                     <form id={'taskForm-' + task.id} className="hidden" onSubmit={submitTaskEdit}>
@@ -167,6 +166,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
+                                    <img src="./svgs/add.svg" alt="add-to-in-progress" onClick={addProgressTask}/>
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editTask} id={task.id} value={task.task} />
                                     <img src="./svgs/delete.svg" alt="edit" onClick={deleteTask} id={task.id} />
                                 </div>

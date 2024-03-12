@@ -63,7 +63,7 @@ export default function TasksInProgress ({ inProgressTasks, setInProgressTasks, 
         }
 
         document.getElementById(formID).setAttribute('class', 'hidden');
-        progressItem.setAttribute('class', 'visible');
+        progressItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -76,7 +76,7 @@ export default function TasksInProgress ({ inProgressTasks, setInProgressTasks, 
         formEl.setAttribute('class', 'hidden');
 
         const progressItem = document.getElementById(`progress-list-item-${progressID}`)
-        progressItem.setAttribute('class', 'visible');
+        progressItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -134,7 +134,7 @@ export default function TasksInProgress ({ inProgressTasks, setInProgressTasks, 
             {inProgressTasks.length ? (
                 inProgressTasks.map((progress, index) =>
                     <div id="line" key={index} value={progress.id}>
-                        <div id={'progress-list-item-' + progress.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
+                        <div id={'progress-list-item-' + progress.id} className="list-item">
                             <input type="checkbox" id={"is-completed-" + progress.id} onChange={checkbox} checked={progress.completed ? true : false} className={css`margin-right: 5px;`}/>
                             <label>{progress.task}</label>
                         </div>

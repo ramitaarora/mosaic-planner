@@ -68,7 +68,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         }
 
         document.getElementById(formID).setAttribute('class', 'hidden');
-        checkItem.setAttribute('class', 'visible');
+        checkItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -81,7 +81,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         formEl.setAttribute('class', 'hidden');
 
         const checkItem = document.getElementById(`check-list-item-${checkID}`)
-        checkItem.setAttribute('class', 'visible');
+        checkItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -106,7 +106,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     }
 
     return (
-        <div id="daily-checks" className={`card ${css`height: 60vh;`}`}>
+        <div id="daily-checks" className={`card ${css`height: 35vh;`}`}>
             <div id="card-header">
                 <h2>Daily Checks</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
@@ -114,7 +114,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
             {checks.length ? (
                 checks.map((check, index) =>
                     <div id="line" key={index} value={check.id}>
-                        <div id={'check-list-item-' + check.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
+                        <div id={'check-list-item-' + check.id} className="list-item">
                             <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`}/>
                             <label>{check.daily_check}</label>
                         </div>

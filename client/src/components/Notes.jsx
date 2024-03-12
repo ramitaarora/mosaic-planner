@@ -63,7 +63,7 @@ export default function Notes({ notes, setNotes, getData }) {
         }
 
         document.getElementById(noteFormID).setAttribute('class', 'hidden');
-        noteItem.setAttribute('class', 'visible');
+        noteItem.setAttribute('class', 'list-item');
         
     }
 
@@ -75,7 +75,7 @@ export default function Notes({ notes, setNotes, getData }) {
         
         const formID = document.getElementById(noteFormID);
         formID.setAttribute('class', 'hidden');
-        noteItem.setAttribute('class', 'visible');
+        noteItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -136,7 +136,7 @@ export default function Notes({ notes, setNotes, getData }) {
                         notes.map((note, index) =>
                         <div key={index} id="line" value={note.id}>
                             <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                <li id={'note-list-item-' + note.id}>{note.note}</li>
+                                <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>
                                 <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
                                     <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
                                     <input type="submit" />

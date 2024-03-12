@@ -64,7 +64,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
         }
 
         document.getElementById(formID).setAttribute('class', 'hidden');
-        goalItem.setAttribute('class', 'visible');
+        goalItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -77,7 +77,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
         formEl.setAttribute('class', 'hidden');
 
         const goalItem = document.getElementById(`goal-list-item-${goalID}`)
-        goalItem.setAttribute('class', 'visible');
+        goalItem.setAttribute('class', 'list-item');
         setInputValue('');
     }
 
@@ -120,7 +120,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                         goals.map(((goal, index) =>
                             <div key={index} id="line" value={goal.id}>
                                 <div id={'goal-' + goal.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                    <div id={'goal-list-item-' + goal.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
+                                    <div id={'goal-list-item-' + goal.id} className="list-item">
                                         <input type="checkbox" id={"is-completed-" + goal.id} onChange={checkbox} checked={goal.completed ? true : false} className={css`margin-right: 5px;`} />
                                         <label>{goal.goal}</label>
                                     </div>
