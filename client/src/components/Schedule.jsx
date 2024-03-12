@@ -264,7 +264,7 @@ export default function Schedule({ events, setEvents, getData }) {
                             </div>
                         )
                     ) : (
-                        <p id="empty">No events yet!</p>
+                        <p id="empty">No events yet! Click the plus to add to your schedule.</p>
                     )}
                 </ul>
             </div>

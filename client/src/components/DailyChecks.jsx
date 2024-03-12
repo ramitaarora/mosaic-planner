@@ -129,7 +129,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                         </div>
                     </div>
                 )) : (
-                    <p id="empty" onClick={showModal}>No daily checks yet!</p>
+                    <p id="empty" onClick={showModal}>No daily checks yet! Click the plus to add a daily check.</p>
             )
             }
             <DailyChecksForm visibility={visibility} setVisibility={setVisibility} />

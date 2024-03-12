@@ -149,7 +149,7 @@ export default function Notes({ notes, setNotes, getData }) {
                             </div>
                         </div>
                     )) : (
-                        <p id="empty">No notes yet!</p>
+                        <p id="empty">No notes yet! Click the plus to add a note or reminder.</p>
                     )}
                 </ol>
             </div>
