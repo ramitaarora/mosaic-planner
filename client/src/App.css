@@ -127,7 +127,9 @@ input[type="checkbox"]:not(:disabled):checked {
     margin-bottom: 10px;
 }
 
-#card-header img:hover {
+#card-header img:hover,
+#edit-buttons img:hover,
+#line img:hover {
     cursor: pointer;
 }
 
@@ -163,11 +165,7 @@ input[type="checkbox"]:not(:disabled):checked {
     margin: 10px 0;
 }
 
-#edit-buttons img:hover {
-    cursor: pointer;
-}
-
-#add-note {
+#add-note, #add-task {
     text-align: center;
     margin: 10px 35px;
     display: flex;

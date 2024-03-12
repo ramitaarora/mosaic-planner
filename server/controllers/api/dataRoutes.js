@@ -116,21 +116,54 @@ router.put('/completed', withAuth, async (req, res) => {
             })
             res.status(200).json(taskData);
         }
-    } catch (err) {
-        res.status(400).json(err);
-        console.log(err);
-    }
-})
+        if (req.body.type === 'Goal') {
+            const parentGoalData = await Goals.findAll({
+                where: {
+                    user_id: req.session.user_id,
+                    id: req.body.id,
+                    parent_goal: {
+                        [Op.not]: null
+                    }
+                }
+            })
 
-router.put('/finishedGoal', withAuth, async (req, res) => {
-    try {
-        const goalsData = await Goals.update({ completed: req.body.completed }, {
-            where: {
-                id: req.body.id,
-                user_id: req.session.user_id,
+            if (!parentGoalData.length) {
+                try {
+                    const parentData = await Goals.update({ completed: req.body.completed }, {
+                        where: {
+                            id: req.body.id,
+                            user_id: req.session.user_id,
+                        }
+                    })
+
+                    const childData = await Goals.update({ completed: req.body.completed }, {
+                        where: {
+                            parent_goal: req.body.id,
+                            user_id: req.session.user_id,
+                        }
+                    })
+
+                    res.status(200).json({parentData, childData});
+                } catch (err) {
+                    res.status(400).json(err);
+                    console.log(err);
+                }
+
+            } else {
+                try {
+                    const goalsData = await Goals.update({ completed: req.body.completed }, {
+                        where: {
+                            id: req.body.id,
+                            user_id: req.session.user_id,
+                        }
+                    })
+                    res.status(200).json(goalsData);
+                } catch (err) {
+                    res.status(400).json(err);
+                    console.log(err);
+                }
             }
-        })
-        res.status(200).json(goalsData);
+        }
     } catch (err) {
         res.status(400).json(err);
         console.log(err);

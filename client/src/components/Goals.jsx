@@ -85,11 +85,31 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
         setVisibility('visible')
     }
 
+    const checkbox = async (event) => {
+        const goalID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
+
+        const response = await fetch('/api/data/completed', {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: goalID,
+                completed: event.target.checked,
+                type: 'Goal'
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            getData()
+        } else {
+            alert(response.statusText);
+        }
+    }
+
     return (
         <div id="goals" className={`card ${css`height: 33vh;`}`}>
             <div id="card-header">
                 <h2>{goalType} Goals</h2>
-                <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal}/>
+                <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal} />
             </div>
 
             <GoalsForm visibility={visibility} setVisibility={setVisibility} />
@@ -98,24 +118,27 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                 <ol>
                     {goals.length ? (
                         goals.map(((goal, index) =>
-                        <div key={index} id="line" value={goal.id}>
-                            <div id={'goal-' + goal.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                <li id={'goal-list-item-'+ goal.id}>{goal.goal}</li>
-                                <form id={'goalForm-' + goal.id} className="hidden" onSubmit={submitEdit}>
-                                    <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
-                                    <input type="submit" />
-                                    <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
-                                </form>
+                            <div key={index} id="line" value={goal.id}>
+                                <div id={'goal-' + goal.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
+                                    <div id={'goal-list-item-' + goal.id} className={css`display: flex; align-items: center; justify-content: space-evenly;`}>
+                                        <input type="checkbox" id={"is-completed-" + goal.id} onChange={checkbox} checked={goal.completed ? true : false} className={css`margin-right: 5px;`} />
+                                        <label>{goal.goal}</label>
+                                    </div>
+                                    <form id={'goalForm-' + goal.id} className="hidden" onSubmit={submitEdit}>
+                                        <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
+                                        <input type="submit" />
+                                        <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
+                                    </form>
+                                </div>
+                                <div id="edit-buttons">
+                                    <img src="./svgs/edit.svg" alt="edit" onClick={editGoal} id={goal.id} value={goal.goal} />
+                                    <img src="./svgs/delete.svg" alt="delete" onClick={deleteGoal} id={goal.id} />
+                                </div>
                             </div>
-                            <div id="edit-buttons">
-                                <img src="./svgs/edit.svg" alt="edit" onClick={editGoal} id={goal.id} value={goal.goal} />
-                                <img src="./svgs/delete.svg" alt="delete" onClick={deleteGoal} id={goal.id} />
-                            </div>
-                        </div>
-                    ))) : (
+                        ))) : (
                         <p id="empty">No goals yet!</p>
                     )
-                }
+                    }
                 </ol>
             </div>
         </div>

@@ -82,6 +82,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
         document.getElementById('add-task').setAttribute('class', 'visible');
         document.getElementById('add-task-button').setAttribute('class', 'hidden');
         document.getElementById('cancel-task-button').setAttribute('class', 'visible');
+        setInputValue('');
     }
 
     const submitNewTask = async (event) => {

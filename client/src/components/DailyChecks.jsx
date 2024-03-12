@@ -88,39 +88,20 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     const checkbox = async (event) => {
         const checkID = event.target.parentElement.parentElement.attributes[1].value;
 
-        if (event.target.checked) {
-            const response = await fetch('/api/data/completed', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: checkID,
-                    completed: event.target.checked,
-                    type: 'Daily Check'
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-    
-            if (response.ok) {
-                getData()
-            } else {
-                alert(response.statusText);
-            }
-        }
-        else {
-            const response = await fetch('/api/data/completed', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: checkID,
-                    completed: event.target.checked,
-                    type: 'Daily Check'
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-    
-            if (response.ok) {
-                getData()
-            } else {
-                alert(response.statusText);
-            }
+        const response = await fetch('/api/data/completed', {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: checkID,
+                completed: event.target.checked,
+                type: 'Daily Check'
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            getData()
+        } else {
+            alert(response.statusText);
         }
     }
 

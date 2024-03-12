@@ -6,6 +6,7 @@ const parentGoalsData = require('./parentGoalsData.json');
 const childGoalsData = require('./childGoalsData.json');
 const dailyChecksData = require('./dailyChecksData.json');
 const eventsData = require('./eventsData.json');
+const taskData = require('./tasksData.json');
 
 const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../models');
 
@@ -60,7 +61,10 @@ const seedDatabase = async () => {
         })
     }
 
-
+    const tasks = await Tasks.bulkCreate(taskData, {
+        individualHooks: true,
+        returning: true,
+    })
 
     process.exit(0);
 };

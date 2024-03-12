@@ -80,39 +80,21 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
     const checkbox = async (event) => {
         const progressID = event.target.parentElement.parentElement.attributes[1].value;
 
-        if (event.target.checked) {
-            const response = await fetch('/api/data/completed', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: progressID,
-                    completed: event.target.checked,
-                    type: 'Task'
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-    
-            if (response.ok) {
-                getData()
-            } else {
-                alert(response.statusText);
-            }
-        }
-        else {
-            const response = await fetch('/api/data/completed', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: progressID,
-                    completed: event.target.checked,
-                    type: 'Task'
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-    
-            if (response.ok) {
-                getData()
-            } else {
-                alert(response.statusText);
-            }
+        const response = await fetch('/api/data/completed', {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: progressID,
+                completed: event.target.checked,
+                type: 'Task'
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            getData()
+        } else {
+            alert(response.statusText);
+            console.log(response);
         }
     }
 
