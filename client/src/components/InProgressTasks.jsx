@@ -116,6 +116,25 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
         }
     }
 
+    const removeProgressTask = async (event) => {
+        const taskID = event.target.id;
+
+        const response = await fetch('/api/data/inProgress', {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: taskID,
+                inProgress: false,
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            getData();
+        } else {
+            alert(response.statusText);
+        }
+    }
+
     return (
         <div id="in-progress-tasks" className={`card ${css`height: 30vh;`}`}>
             <div id="card-header">
@@ -134,6 +153,7 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                         </form>
                         <div id="edit-buttons">
+                            <img src="./svgs/minus.svg" alt="remove" onClick={removeProgressTask} id={progress.id} />
                             <img src="./svgs/edit.svg" alt="edit" onClick={editProgress} id={progress.id} value={progress.task} />
                             <img src="./svgs/delete.svg" alt="delete" onClick={deleteProgress} id={progress.id} />
                         </div>
