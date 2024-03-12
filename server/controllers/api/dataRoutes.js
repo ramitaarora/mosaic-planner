@@ -185,6 +185,24 @@ router.put('/inProgress', withAuth, async (req, res) => {
     }
 })
 
+router.put('/archiveTask', withAuth, async (req,res) => {
+    try {
+        const taskData = await Tasks.update({ 
+            archived: true,
+            in_progress: false, 
+        }, { where: {
+                id: req.body.id,
+                user_id: req.session.user_id
+            }
+        });
+
+        res.status(200).json(taskData);
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+})
+
 router.post('/add', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Note') {

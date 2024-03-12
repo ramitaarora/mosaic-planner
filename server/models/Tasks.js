@@ -34,6 +34,10 @@ Tasks.init(
         date_created: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
+        },
+        archived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
         }
     },
     {

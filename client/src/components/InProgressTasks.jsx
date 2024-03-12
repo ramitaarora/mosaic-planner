@@ -16,15 +16,14 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
         inputField.setAttribute('value', progressValue);
     }
 
-    const deleteProgress = async (event) => {
+    const archiveProgress = async (event) => {
         const progressID = event.target.attributes[2].nodeValue;
 
-        if (window.confirm("Are you sure you want to delete this task?")) {
-            const response = await fetch('/api/data/delete', {
-                method: 'DELETE',
+        if (window.confirm("Are you sure you want to archive this task?")) {
+            const response = await fetch('/api/data/archiveTask', {
+                method: 'PUT',
                 body: JSON.stringify({
                     id: progressID,
-                    type: 'Task',
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -135,9 +134,9 @@ export default function InProgressTasks({ inProgressTasks, setInProgressTasks, g
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                         </form>
                         <div id="edit-buttons">
-                            <img src="./svgs/minus.svg" alt="remove" onClick={removeProgressTask} id={progress.id} />
+                            <img src="./svgs/up.svg" alt="move-to-tasks" onClick={removeProgressTask} id={progress.id} />
                             <img src="./svgs/edit.svg" alt="edit" onClick={editProgress} id={progress.id} value={progress.task} />
-                            <img src="./svgs/delete.svg" alt="delete" onClick={deleteProgress} id={progress.id} />
+                            <img src="./svgs/archive.svg" alt="archive" onClick={archiveProgress} id={progress.id} />
                         </div>
                     </div>
                 )) : (

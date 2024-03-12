@@ -19,6 +19,7 @@ export default function Dashboard() {
   const [events, setEvents] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
+  const [archivedTasks, setArchivedTasks] = useState([]);
   const [name, setName] = useState('name');
   const [location, setLocation] = useState('Pasadena')
   const [visibility, setVisibility] = useState('hidden');
@@ -44,8 +45,9 @@ export default function Dashboard() {
         setLocation(data.user.map(user => user.location));
         setEvents(data.events.map(event => event));
         setColourTheme(data.user[0].colour);
-        setAllTasks(data.tasks.filter(task => !task.in_progress));
-        setInProgressTasks(data.tasks.filter(task => task.in_progress === true));
+        setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
+        setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
+        setArchivedTasks(data.tasks.filter(task => task.archived === true));
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
