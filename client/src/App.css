@@ -50,11 +50,11 @@ button,
 input[type="submit"], 
 input[type="reset"] {
     border-radius: 5px; 
-    border: 1px solid transparent;
+    border: 1px solid var(--line-background);
     background-color: var(--background);
     color: var(--line-background);
     padding: 3px 5px;
-    margin: 3px 3px;
+    margin: 3px 0;
 }
 
 input[type="submit"]:hover, 
