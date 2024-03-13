@@ -3,8 +3,14 @@ import DailyChecksForm from './DailyChecksForm';
 import { css } from '@emotion/css';
 
 export default function DailyChecks({ checks, setChecks, getData }) {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
+    const today = `${year}-${month}-${day}`;
+
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('hidden');
+    const [currentDay, setCurrentDay] = useState(today)
 
     const showModal = () => {
         setVisibility('visible');
@@ -105,21 +111,98 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         }
     }
 
+    const getToday = async () => {
+        fetch(`/api/data/checksHistory`)
+        .then((response) => {
+            if (!response.ok) {
+                alert(response.statusText);
+            } 
+            return response.json();
+        })
+        .then((data) => {
+            setCurrentDay(today);
+            console.log(currentDay);
+            if (data.Message) {
+                setChecks([]);
+            } else {
+                setChecks(data);
+            }
+        })
+    }
+
+    const minusDay = async () => {
+        let current = new Date(currentDay);
+        let minusOne = current.setDate(current.getDate() - 1);
+        let newYear = new Date(minusOne).getFullYear();
+        let newMonth = new Date(minusOne).getMonth() + 1;
+        let newDay = new Date(minusOne).getDate();
+        let newFullDate = `${newYear}-${newMonth}-${newDay}`;
+
+        fetch(`/api/data/checksDate/${newFullDate}`)
+        .then((response) => {
+            if (!response.ok) {
+                alert(response.statusText);
+            } 
+            return response.json();
+        })
+        .then((data) => {
+            setCurrentDay(newFullDate);
+            console.log(currentDay);
+            if (data.Message) {
+                setChecks([]);
+            } else {
+                setChecks(data);
+            }
+        })
+    }
+
+    const addDay = async () => {
+        let current = new Date(currentDay);
+        let addOne = current.setDate(current.getDate() + 1);
+        let newYear = new Date(addOne).getFullYear();
+        let newMonth = new Date(addOne).getMonth() + 1;
+        let newDay = new Date(addOne).getDate();
+        let newFullDate = `${newYear}-${newMonth}-${newDay}`;
+
+        fetch(`/api/data/checksDate/${newFullDate}`)
+        .then((response) => {
+            if (!response.ok) {
+                alert(response.statusText);
+            } 
+            return response.json();
+        })
+        .then((data) => {
+            setCurrentDay(newFullDate);
+            console.log(currentDay);
+            if (data.Message) {
+                setChecks([]);
+
+            } else {
+                setChecks(data);
+            }
+        })
+    }
+
     return (
         <div id="daily-checks" className={`card ${css`height: 35vh;`}`}>
             <div id="card-header">
                 <h2>Daily Checks</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
             </div>
+            <div id="arrows" className={css`width: 90%; margin: 0 auto 5px auto; display: flex; justify-content: space-between; align-items: center;`}>
+                <img src="./svgs/arrow-left.svg" alt="back" onClick={minusDay}/>
+                <button onClick={getToday}>Today</button>
+                <img src="./svgs/arrow-right.svg" alt="forward" onClick={addDay}/>
+            </div>
             {checks.length ? (
                 checks.map((check, index) =>
                     <div id="line" key={index} value={check.id}>
                         <div id={'check-list-item-' + check.id} className="list-item">
-                            <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`}/>
+                            <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`} />
                             <label>{check.daily_check}</label>
                         </div>
                         <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitEdit}>
-                            <input type="text" id={'checksInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
+                            <input type="text" id={'checksInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
                             <input type="submit" className="submit-button" />
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                         </form>
@@ -129,7 +212,7 @@ export default function DailyChecks({ checks, setChecks, getData }) {
                         </div>
                     </div>
                 )) : (
-                    <p id="empty" onClick={showModal}>No daily checks yet! Click the plus to add a daily check.</p>
+                <p id="empty" onClick={showModal}>No daily checks! Click the plus to add a daily check.</p>
             )
             }
             <DailyChecksForm visibility={visibility} setVisibility={setVisibility} />

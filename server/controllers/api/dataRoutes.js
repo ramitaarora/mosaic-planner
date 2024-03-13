@@ -96,6 +96,25 @@ router.get('/checksHistory', withAuth, async (req, res) => {
     }
 })
 
+router.get('/checksDate/:newDate', withAuth, async (req, res) => {
+    try {
+        const checksData = await DailyChecksHistory.findAll({
+            where: {
+                user_id: req.session.user_id,
+                date: req.params.newDate
+            }
+        })
+        if (checksData.length) {
+            res.status(200).json(checksData);
+        } else {
+            res.status(200).json({ "Message": "No existing checks for today." })
+        }
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+})
+
 router.put('/completed', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Daily Check') {
