@@ -3,6 +3,8 @@ import { css } from '@emotion/css';
 
 export default function Notes({ notes, setNotes, getData }) {
     const [inputValue, setInputValue] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [suggestions, setSuggestions] = useState([]);
 
     const editNote = (event) => {
         const noteID = event.target.attributes[2].nodeValue;
@@ -118,6 +120,48 @@ export default function Notes({ notes, setNotes, getData }) {
         document.getElementById('add-note-button').setAttribute('class', 'visible');
     }
 
+    const getAISuggestions = (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        fetch(`/api/chat/notes`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                let parsedGoals = JSON.parse(data);
+                setSuggestions(parsedGoals.noteSuggestions);
+                setLoading(false);
+            })
+    }
+
+    const addAISuggestion = async (event) => {
+        const newNoteValue = event.target.innerText;
+
+        if (newNoteValue.length) {
+            const response = await fetch('/api/data/add', {
+                method: 'POST',
+                body: JSON.stringify({
+                    note: newNoteValue,
+                    type: 'Note'
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+    
+            if (response.ok) {
+                getData();
+                document.getElementById('add-note').setAttribute('class', 'hidden');
+                document.getElementById('cancel-note-button').setAttribute('class', 'hidden');
+                document.getElementById('add-note-button').setAttribute('class', 'visible');
+            } else {
+                alert(response.statusText);
+            }
+        }
+    }
+
     return (
         <div id="notes" className={`card ${css`height: 30vh;`}`}>
             <div id="card-header">
@@ -149,7 +193,25 @@ export default function Notes({ notes, setNotes, getData }) {
                             </div>
                         </div>
                     )) : (
-                        <p id="empty">No notes yet! Click the plus to add a note or reminder.</p>
+                        <div>
+                            <p id="empty">No notes yet! Click the plus to add a note or reminder.</p>
+                            <div id="ai-suggestions" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
+                                <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
+                                {loading ? (
+                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
+                                ) : (
+                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" className={css`visibility: hidden;`}/>
+                                )}
+                                
+                            </div>
+                            <div id="suggestions">
+                            {suggestions.length ? (
+                                suggestions.map((item, index) => (
+                                    <p id="each-suggestion" key={index} onClick={addAISuggestion}>{item}</p>
+                                ))
+                            ): null}
+                            </div>
+                        </div>
                     )}
                 </ol>
             </div>

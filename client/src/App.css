@@ -309,6 +309,23 @@ input[type="checkbox"]:not(:disabled):checked {
     margin-right: 135px;
 }
 
+#suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#each-suggestion {
+    cursor: pointer;
+    padding: 10px;
+    background-color: var(--line-background);
+    border-radius: var(--radius);
+    border: 1px solid var(--line-background);
+    margin: 5px 20px;
+    padding: 5px 15px;
+}
+
 /* Mobile Styles */
 
 @media only screen and (max-width: 1100px) {
