@@ -3,6 +3,8 @@ import { css } from '@emotion/css';
 
 export default function Tasks({ allTasks, setAllTasks, getData }) {
     const [inputValue, setInputValue] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [suggestions, setSuggestions] = useState([]);
 
     const editTask = (event) => {
         const taskID = event.target.attributes[2].nodeValue;
@@ -118,7 +120,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const addProgressTask = async (event) => {
-        const taskID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
+        const taskID = event.target.attributes[2].nodeValue;
 
         const response = await fetch('/api/data/taskEdits', {
             method: 'PUT',
@@ -135,7 +137,48 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
         } else {
             alert(response.statusText);
         }
+    }
 
+    const getAISuggestions = (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        fetch(`/api/chat/tasks`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                let parsedGoals = JSON.parse(data);
+                setSuggestions(parsedGoals.taskSuggestions);
+                setLoading(false);
+            })
+    }
+
+    const addAISuggestion = async (event) => {
+        const newTaskValue = event.target.innerText;
+
+        if (newTaskValue.length) {
+            const response = await fetch('/api/data/add', {
+                method: 'POST',
+                body: JSON.stringify({
+                    task: newTaskValue,
+                    type: 'Task'
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (response.ok) {
+                getData();
+                document.getElementById('add-task').setAttribute('class', 'hidden');
+                document.getElementById('cancel-task-button').setAttribute('class', 'hidden');
+                document.getElementById('add-task-button').setAttribute('class', 'visible');
+            } else {
+                alert(response.statusText);
+            }
+        }
     }
 
     return (
@@ -166,13 +209,32 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
-                                    <img src="./svgs/add.svg" alt="add-to-in-progress" onClick={addProgressTask}/>
+                                    <img src="./svgs/add.svg" alt="add-to-in-progress" id={task.id} onClick={addProgressTask}/>
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editTask} id={task.id} value={task.task} />
                                     <img src="./svgs/delete.svg" alt="edit" onClick={deleteTask} id={task.id} />
                                 </div>
                             </div>
                         )) : (
-                        <p id="empty">No tasks yet! Click the plus to add a task.</p>
+                        
+                        <div>
+                            <p id="empty">No tasks yet! Click the plus to add a task.</p>
+                            <div id="ai-suggestions" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
+                                <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
+                                {loading ? (
+                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
+                                ) : (
+                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" className={css`visibility: hidden;`}/>
+                                )}
+                                
+                            </div>
+                            <div id="suggestions">
+                            {suggestions.length ? (
+                                suggestions.map((item, index) => (
+                                    <p id="each-suggestion" key={index} onClick={addAISuggestion}>{item}</p>
+                                ))
+                            ): null}
+                            </div>
+                        </div>
                     )}
                 </ol>
             </div>

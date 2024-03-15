@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function Notes({ notes, setNotes, getData }) {
