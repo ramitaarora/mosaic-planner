@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
 export default function GoalsForm({ visibility, setVisibility }) {
+    const [loading, setLoading] = useState(false);
+    const [suggestions, setSuggestions] = useState('');
+    const [yearly, setYearly] = useState('');
+    const [monthly, setMonthly] = useState('');
+    const [weekly, setWeekly] = useState('');
 
     const closeModal = () => {
         setVisibility('hidden');
@@ -10,17 +15,14 @@ export default function GoalsForm({ visibility, setVisibility }) {
     const saveGoal = async (event) => {
         event.preventDefault();
         const formID = event.target.id;
-        let yearlyGoal = event.target[0].value;
-        let monthlyGoal = event.target[1].value;
-        let weeklyGoal = event.target[2].value;
 
         const response = await fetch('/api/data/add', {
             method: 'POST',
             body: JSON.stringify({
                 type: 'Goal',
-                yearlyGoal: yearlyGoal,
-                monthlyGoal: monthlyGoal,
-                weeklyGoal: weeklyGoal,
+                yearlyGoal: yearly,
+                monthlyGoal: monthly,
+                weeklyGoal: weekly,
                 goal_type: 'Goals',
             }),
             headers: { 'Content-Type': 'application/json' },
@@ -37,32 +39,70 @@ export default function GoalsForm({ visibility, setVisibility }) {
         }
     }
 
+    const getAISuggestions = (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        fetch(`/api/chat/goals/${suggestions}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                let parsedGoals = JSON.parse(data);
+                setSuggestions('');
+                setYearly(parsedGoals.goalSuggestions[0]);
+                setMonthly(parsedGoals.goalSuggestions[1]);
+                setWeekly(parsedGoals.goalSuggestions[2]);
+                setLoading(false);
+            })
+    }
+
     return (
         <div id="modal-background" className={visibility}>
             <div id="modal">
                 <div id="modal-content">
-                <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
+                    <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
 
                     <div id="goals-modal">
                         <div id="modal-header">
                             <h2>Add a New Goal</h2>
                             <p>Yearly resolutions break down into monthly goals, which can be further broken down into weekly goals.</p>
                         </div>
+                        <form id="ai-suggestions" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
+                            <select id="form-input" value={suggestions} onChange={event => setSuggestions(event.target.value)} required>
+                                <option></option>
+                                <option>Travel</option>
+                                <option>Reading</option>
+                                <option>Fitness</option>
+                                <option>Work</option>
+                                <option>Love Life</option>
+                                <option>Money</option>
+                            </select>
+                            <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
+                            {loading ? (
+                                <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
+                            ) : (
+                                <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" className={css`visibility: hidden;`}/>
+                            )}
+                        </form>
                         <form id="save-goal" onSubmit={saveGoal} className={css`margin: 0 auto; width: 75%;`}>
-                            
+
                             <div id="form-input">
                                 <label htmlFor='yearly'>Yearly Goal</label>
-                                <input type="text" name="yearly" placeholder="Type your yearly goal here..." required />
+                                <input type="text" name="yearly" placeholder="Type your yearly goal here..." value={yearly} onChange={e => setYearly(e.target.value)} required />
                             </div>
 
                             <div id="form-input">
                                 <label htmlFor='monthly'>Monthly Goal</label>
-                                <input type="text" name="monthly" placeholder="Type your monthly goal here..." required />
+                                <input type="text" name="monthly" placeholder="Type your monthly goal here..." value={monthly} onChange={e => setMonthly(e.target.value)} required />
                             </div>
 
                             <div id="form-input">
                                 <label htmlFor='weekly'>Weekly Goal</label>
-                                <input type="text" name="weekly" placeholder="Type your weekly goal here..." required />
+                                <input type="text" name="weekly" placeholder="Type your weekly goal here..." value={weekly} onChange={e => setWeekly(e.target.value)} required />
                             </div>
 
                             <div id="form-submit-buttons">

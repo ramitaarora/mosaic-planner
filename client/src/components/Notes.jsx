@@ -88,7 +88,7 @@ export default function Notes({ notes, setNotes, getData }) {
 
     const submitNewNote = async (event) => {
         event.preventDefault();
-        const newNoteValue = event.target[0].value;
+        const newNoteValue = inputValue;
 
         if (newNoteValue.length) {
             const response = await fetch('/api/data/add', {
