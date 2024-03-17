@@ -43,6 +43,10 @@ User.init(
     colour: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   },
   {

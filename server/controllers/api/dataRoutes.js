@@ -45,16 +45,17 @@ router.get('/generateChecks', withAuth, async (req, res) => {
         if (existingDailyChecks) {
 
             for (let i = 0; i < existingDailyChecks.length; i++) {
-                const checksData = await DailyChecksHistory.create({
+                let checksData = await DailyChecksHistory.create({
                     daily_check: existingDailyChecks[i].daily_check,
                     user_id: req.session.user_id,
                     date: `${year}-${month}-${day}`,
                     completed: false,
                     parent_id: existingDailyChecks[i].id
                 })
-            }
-
-            res.status(200).json();
+            } 
+            res.status(200).json({ message: 'Checks created.'});
+        } else {
+            res.status(200).json({ message: 'No checks.'})
         }
     } catch (err) {
         res.status(400).json(err);

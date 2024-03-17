@@ -38,6 +38,10 @@ Tasks.init(
         archived: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     },
     {

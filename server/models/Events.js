@@ -47,6 +47,10 @@ Events.init(
                 key: 'id'
             }
         },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        }
     },
     {
         sequelize,

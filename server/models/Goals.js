@@ -43,6 +43,10 @@ Goals.init(
                 model: 'user',
                 key: 'id'
             }
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     },
     {

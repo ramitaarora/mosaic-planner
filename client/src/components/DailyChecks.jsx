@@ -169,15 +169,22 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
             })
     }
 
-    const generateTodaysChecks = async () => {
+    const generateTodaysChecks = () => {
         try {
-            const response = await fetch('/api/data/generateChecks');
-            if (response.ok) {
+            fetch('/api/data/generateChecks')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`)
+                }
+                return response.json();
+            })
+            .then((data) => {
                 getData();
-            }
-            else {
-                console.error(response);
-            }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
         } catch (err) {
             console.log(err);
         }
@@ -215,7 +222,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
 
                     <div id="empty">
                         <p onClick={showModal}>No daily checks!</p>
-                        <button onClick={generateTodaysChecks}>Generate Today's Checks</button>
+                        {currentDay === today ? <button onClick={generateTodaysChecks}>Generate Today's Checks</button> : null}
                         {errorMessage.length ? (
                             <p>{errorMessage}</p>
                         ) : null}

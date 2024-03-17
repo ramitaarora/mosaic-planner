@@ -80,10 +80,6 @@ input[type="checkbox"]:not(:disabled):checked {
     color: var(--text)
 }
 
-input[type="text"] {
-    height: fit-content;
-}
-
 /* Login Page Styles */
 
 #auth-form, #signup-form {
@@ -184,6 +180,7 @@ input[type="text"] {
     justify-content: center; 
     align-items: center; 
     line-height: 30px;
+    font-size: 14px;
 }
 
 .list-item {
@@ -207,6 +204,10 @@ input[type="text"] {
 .react-calendar button:hover {
     background-color: var(--card-background);
     border: 1px solid var(--line-background);
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    text-align: center;
 }
 
 /* Modal Form Styles */
@@ -321,7 +322,7 @@ input[type="text"] {
 #suggestions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -330,9 +331,13 @@ input[type="text"] {
     padding: 10px;
     background-color: var(--line-background);
     border-radius: var(--radius);
-    border: 1px solid var(--line-background);
+    border: 1px solid var(--text);
     margin: 5px 20px;
     padding: 5px 15px;
+}
+
+#each-suggestion:hover {
+    background-color: var(--card-background);
 }
 
 /* Mobile Styles */
