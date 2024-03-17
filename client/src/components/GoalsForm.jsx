@@ -3,7 +3,6 @@ import { css } from '@emotion/css';
 
 export default function GoalsForm({ visibility, setVisibility }) {
     const [loading, setLoading] = useState(false);
-    const [suggestions, setSuggestions] = useState('');
     const [yearly, setYearly] = useState('');
     const [monthly, setMonthly] = useState('');
     const [weekly, setWeekly] = useState('');
@@ -30,7 +29,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
 
         if (response.ok) {
             // console.log(response.statusText);
-            alert('Goal saved!')
+            // alert('Goal saved!')
             document.getElementById(formID).reset();
             closeModal();
             location.reload();
@@ -43,7 +42,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
         event.preventDefault();
         setLoading(true);
 
-        fetch(`/api/chat/goals/${suggestions}`)
+        fetch(`/api/chat/goals`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(response.status);
@@ -52,7 +51,6 @@ export default function GoalsForm({ visibility, setVisibility }) {
             })
             .then((data) => {
                 let parsedGoals = JSON.parse(data);
-                setSuggestions('');
                 setYearly(parsedGoals.goalSuggestions[0]);
                 setMonthly(parsedGoals.goalSuggestions[1]);
                 setWeekly(parsedGoals.goalSuggestions[2]);
@@ -71,24 +69,13 @@ export default function GoalsForm({ visibility, setVisibility }) {
                             <h2>Add a New Goal</h2>
                             <p>Yearly resolutions break down into monthly goals, which can be further broken down into weekly goals.</p>
                         </div>
-                        <form id="ai-suggestions" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
-                            <select id="form-input" value={suggestions} onChange={event => setSuggestions(event.target.value)} required>
-                                <option></option>
-                                <option>Travel</option>
-                                <option>Reading</option>
-                                <option>Fitness</option>
-                                <option>Work</option>
-                                <option>Love Life</option>
-                                <option>Money</option>
-                            </select>
+                        <form id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                             <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
                             {loading ? (
                                 <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
-                            ) : (
-                                <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" className={css`visibility: hidden;`}/>
-                            )}
+                            ) : null}
                         </form>
-                        <form id="save-goal" onSubmit={saveGoal} className={css`margin: 0 auto; width: 75%;`}>
+                        <form id="save-goal" onSubmit={saveGoal} className={css`margin: 0 auto; width: 80%;`}>
 
                             <div id="form-input">
                                 <label htmlFor='yearly'>Yearly Goal</label>

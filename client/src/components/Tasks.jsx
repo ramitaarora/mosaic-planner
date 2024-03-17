@@ -141,6 +141,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
 
     const getAISuggestions = (event) => {
         event.preventDefault();
+        setSuggestions([]);
         setLoading(true);
 
         fetch(`/api/chat/tasks`)
@@ -216,15 +217,13 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                             </div>
                         )) : (
                         
-                        <div>
-                            <p id="empty">No tasks yet! Click the plus to add a task.</p>
-                            <div id="ai-suggestions" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
+                        <div id="empty">
+                            <p>No tasks yet! Click the plus to add a task.</p>
+                            <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                                 <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
                                 {loading ? (
                                     <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
-                                ) : (
-                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" className={css`visibility: hidden;`}/>
-                                )}
+                                ) : null}
                                 
                             </div>
                             <div id="suggestions">

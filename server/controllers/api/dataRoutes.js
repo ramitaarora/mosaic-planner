@@ -14,12 +14,14 @@ router.get('/allData', withAuth, async (req, res) => {
         const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
         const eventsData = await Events.findAll({ where: { user_id: req.session.user_id } });
         const tasksData = await Tasks.findAll({ where: { user_id: req.session.user_id } });
+        const checksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id }})
 
         const user = userData.map(user => user.get({ plain: true }));
         const goals = goalsData.map(goal => goal.get({ plain: true }));
         const notes = notesData.map(note => note.get({ plain: true }));
         const events = eventsData.map(event => event.get({ plain: true }));
         const tasks = tasksData.map(task => task.get({ plain: true }));
+        const checks = checksData.map(check => check.get({ plain: true }));
 
         let dailyChecksData = await DailyChecksHistory.findAll({
             where: {
@@ -27,68 +29,32 @@ router.get('/allData', withAuth, async (req, res) => {
                 date: `${year}-${month}-${day}`
             }
         });
-
-        if (!dailyChecksData.length) {
-            const existingDailyChecks = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
-
-            if (existingDailyChecks) {
-
-                for (let i = 0; i < existingDailyChecks.length; i++) {
-                    const checksData = await DailyChecksHistory.create({
-                        daily_check: existingDailyChecks[i].daily_check,
-                        user_id: req.session.user_id,
-                        date: `${year}-${month}-${day}`,
-                        completed: false,
-                        parent_id: existingDailyChecks[i].id
-                    })
-                }
-
-                dailyChecksData = await DailyChecksHistory.findAll({
-                    where: {
-                        user_id: req.session.user_id,
-                        date: `${year}-${month}-${day}`
-                    }
-                });
-
-            }
-        }
         const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
 
-        res.status(200).json({ goals, notes, dailyChecks, events, user, tasks });
+        res.status(200).json({ goals, notes, dailyChecks, events, user, tasks, checks });
     } catch (err) {
         res.status(400).json(err);
         console.log(err);
     }
 });
 
-router.get('/checks', withAuth, async (req, res) => {
+router.get('/generateChecks', withAuth, async (req, res) => {
     try {
-        const checksData = await DailyChecks.findAll({
-            where: { user_id: req.session.user_id }
-        })
-        if (checksData.length) {
-            res.status(200).json(checksData);
-        } else {
-            res.status(200).json({ "Message": "No existing checks." });
-        }
-    } catch (err) {
-        res.status(400).json(err);
-        console.log(err);
-    }
-})
+        const existingDailyChecks = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
 
-router.get('/checksHistory', withAuth, async (req, res) => {
-    try {
-        const checksData = await DailyChecksHistory.findAll({
-            where: {
-                user_id: req.session.user_id,
-                date: `${year}-${month}-${day}`
+        if (existingDailyChecks) {
+
+            for (let i = 0; i < existingDailyChecks.length; i++) {
+                const checksData = await DailyChecksHistory.create({
+                    daily_check: existingDailyChecks[i].daily_check,
+                    user_id: req.session.user_id,
+                    date: `${year}-${month}-${day}`,
+                    completed: false,
+                    parent_id: existingDailyChecks[i].id
+                })
             }
-        })
-        if (checksData.length) {
-            res.status(200).json(checksData);
-        } else {
-            res.status(200).json({ "Message": "No existing checks for today." })
+
+            res.status(200).json();
         }
     } catch (err) {
         res.status(400).json(err);
@@ -162,7 +128,7 @@ router.put('/completed', withAuth, async (req, res) => {
                         }
                     })
 
-                    res.status(200).json({parentData, childData});
+                    res.status(200).json({ parentData, childData });
                 } catch (err) {
                     res.status(400).json(err);
                     console.log(err);
@@ -202,29 +168,31 @@ router.put('/taskEdits', withAuth, async (req, res) => {
         }
 
         if (req.body.type === 'Archive Task') {
-            const taskData = await Tasks.update({ 
+            const taskData = await Tasks.update({
                 archived: true,
-                in_progress: false, 
-            }, { where: {
+                in_progress: false,
+            }, {
+                where: {
                     id: req.body.id,
                     user_id: req.session.user_id
                 }
             });
-    
+
             res.status(200).json(taskData);
         }
 
         if (req.body.type === 'Undo Archive') {
-            const taskData = await Tasks.update({ 
+            const taskData = await Tasks.update({
                 archived: false,
                 in_progress: false,
-                completed: false, 
-            }, { where: {
+                completed: false,
+            }, {
+                where: {
                     id: req.body.id,
                     user_id: req.session.user_id
                 }
             });
-    
+
             res.status(200).json(taskData);
         }
 
@@ -273,7 +241,7 @@ router.post('/add', withAuth, async (req, res) => {
                 daily_check: req.body.dailyCheck,
                 user_id: req.session.user_id
             })
-            res.status(200).json(checksData);
+            res.status(200).json({id: checksData.dataValues.id});
         }
         if (req.body.type === 'Daily Checks History') {
             const checksData = await DailyChecksHistory.create({
@@ -450,6 +418,7 @@ router.delete('/delete', withAuth, async (req, res) => {
                 }
             });
             res.status(200).json(checksData);
+            console.log(checksData);
         }
         if (req.body.type === 'Task') {
             const taskData = await Tasks.destroy({

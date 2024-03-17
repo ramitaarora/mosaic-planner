@@ -122,6 +122,7 @@ export default function Notes({ notes, setNotes, getData }) {
 
     const getAISuggestions = (event) => {
         event.preventDefault();
+        setSuggestions([]);
         setLoading(true);
 
         fetch(`/api/chat/notes`)
@@ -193,15 +194,13 @@ export default function Notes({ notes, setNotes, getData }) {
                             </div>
                         </div>
                     )) : (
-                        <div>
-                            <p id="empty">No notes yet! Click the plus to add a note or reminder.</p>
-                            <div id="ai-suggestions" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
+                        <div id="empty">
+                            <p>No notes yet! Click the plus to add a note or reminder.</p>
+                            <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                                 <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
                                 {loading ? (
                                     <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
-                                ) : (
-                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" className={css`visibility: hidden;`}/>
-                                )}
+                                ) : null}
                                 
                             </div>
                             <div id="suggestions">

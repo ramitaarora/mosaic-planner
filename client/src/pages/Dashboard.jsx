@@ -15,7 +15,8 @@ export default function Dashboard() {
   const [monthGoals, setMonthGoals] = useState([]);
   const [weekGoals, setWeekGoals] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [checks, setChecks] = useState([]);
+  const [dailyChecks, setDailyChecks] = useState([]);
+  const [dailyChecksHistory, setDailyChecksHistory] = useState([]);
   const [events, setEvents] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
@@ -40,7 +41,8 @@ export default function Dashboard() {
         setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
         setNotes(data.notes.map(note => note));
-        setChecks(data.dailyChecks.map(check => check));
+        setDailyChecks(data.checks.map(check => check));
+        setDailyChecksHistory(data.dailyChecks.map(check => check));
         setName(data.user.map(user => user.name));
         setLocation(data.user.map(user => user.location));
         setEvents(data.events.map(event => event));
@@ -163,7 +165,7 @@ export default function Dashboard() {
 
         <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
           <Schedule events={events} setEvents={setEvents} getData={getData}/>
-          <DailyChecks checks={checks} setChecks={setChecks} getData={getData}/>
+          <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} getData={getData}/>
         </section>
 
         <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>

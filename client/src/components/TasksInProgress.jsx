@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { css } from '@emotion/css';
 import TasksArchived from './TasksArchived';
 
-export default function TasksInProgress ({ inProgressTasks, setInProgressTasks, getData, archivedTasks }) {
+export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks }) {
     const [visibility, setVisibility] = useState('hidden');
 
     const editProgress = (event) => {
@@ -135,11 +135,11 @@ export default function TasksInProgress ({ inProgressTasks, setInProgressTasks, 
                 inProgressTasks.map((progress, index) =>
                     <div id="line" key={index} value={progress.id}>
                         <div id={'progress-list-item-' + progress.id} className="list-item">
-                            <input type="checkbox" id={"is-completed-" + progress.id} onChange={checkbox} checked={progress.completed ? true : false} className={css`margin-right: 5px;`}/>
+                            <input type="checkbox" id={"is-completed-" + progress.id} onChange={checkbox} checked={progress.completed ? true : false} className={css`margin-right: 5px;`} />
                             <label>{progress.task}</label>
                         </div>
                         <form id={'progressForm-' + progress.id} className="hidden" onSubmit={submitEdit}>
-                            <input type="text" id={'progressInput-' + progress.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
+                            <input type="text" id={'progressInput-' + progress.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
                             <input type="submit" className="submit-button" />
                             <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                         </form>
@@ -150,10 +150,13 @@ export default function TasksInProgress ({ inProgressTasks, setInProgressTasks, 
                         </div>
                     </div>
                 )) : (
-                    <p id="empty">No tasks in progress yet! Click the plus beside a task to add it here.</p>
+                <div id="empty">
+                    <p>No tasks in progress yet! Click the plus beside a task to add it here.</p>
+                </div>
+
             )
             }
-            <TasksArchived visibility={visibility} setVisibility={setVisibility} getData={getData} archivedTasks={archivedTasks}/>
+            <TasksArchived visibility={visibility} setVisibility={setVisibility} getData={getData} archivedTasks={archivedTasks} />
         </div>
     )
 }

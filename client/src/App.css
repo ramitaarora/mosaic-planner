@@ -80,6 +80,10 @@ input[type="checkbox"]:not(:disabled):checked {
     color: var(--text)
 }
 
+input[type="text"] {
+    height: fit-content;
+}
+
 /* Login Page Styles */
 
 #auth-form, #signup-form {
@@ -175,6 +179,11 @@ input[type="checkbox"]:not(:disabled):checked {
 
 #empty {
     text-align: center;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    line-height: 30px;
 }
 
 .list-item {
@@ -374,7 +383,7 @@ input[type="checkbox"]:not(:disabled):checked {
         flex-direction: column;
         align-items: center;
     }
-    #check-list, #added-checks {
+    #check-list {
         margin-bottom: 20px;
     }
     #add-new-check-form {

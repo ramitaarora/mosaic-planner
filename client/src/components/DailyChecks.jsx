@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DailyChecksForm from './DailyChecksForm';
 import { css } from '@emotion/css';
 
-export default function DailyChecks({ checks, setChecks, getData }) {
+export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHistory, setDailyChecksHistory, getData }) {
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
     const day = new Date().getDate();
@@ -10,7 +10,8 @@ export default function DailyChecks({ checks, setChecks, getData }) {
 
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('hidden');
-    const [currentDay, setCurrentDay] = useState(today)
+    const [currentDay, setCurrentDay] = useState(today);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const showModal = () => {
         setVisibility('visible');
@@ -112,22 +113,8 @@ export default function DailyChecks({ checks, setChecks, getData }) {
     }
 
     const getToday = async () => {
-        fetch(`/api/data/checksHistory`)
-        .then((response) => {
-            if (!response.ok) {
-                alert(response.statusText);
-            } 
-            return response.json();
-        })
-        .then((data) => {
-            setCurrentDay(today);
-            console.log(currentDay);
-            if (data.Message) {
-                setChecks([]);
-            } else {
-                setChecks(data);
-            }
-        })
+        getData();
+        setCurrentDay(today);
     }
 
     const minusDay = async () => {
@@ -139,21 +126,21 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         let newFullDate = `${newYear}-${newMonth}-${newDay}`;
 
         fetch(`/api/data/checksDate/${newFullDate}`)
-        .then((response) => {
-            if (!response.ok) {
-                alert(response.statusText);
-            } 
-            return response.json();
-        })
-        .then((data) => {
-            setCurrentDay(newFullDate);
-            console.log(currentDay);
-            if (data.Message) {
-                setChecks([]);
-            } else {
-                setChecks(data);
-            }
-        })
+            .then((response) => {
+                if (!response.ok) {
+                    alert(response.statusText);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setCurrentDay(newFullDate);
+                // console.log(currentDay);
+                if (data.Message) {
+                    setDailyChecksHistory([]);
+                } else {
+                    setDailyChecksHistory(data);
+                }
+            })
     }
 
     const addDay = async () => {
@@ -165,57 +152,77 @@ export default function DailyChecks({ checks, setChecks, getData }) {
         let newFullDate = `${newYear}-${newMonth}-${newDay}`;
 
         fetch(`/api/data/checksDate/${newFullDate}`)
-        .then((response) => {
-            if (!response.ok) {
-                alert(response.statusText);
-            } 
-            return response.json();
-        })
-        .then((data) => {
-            setCurrentDay(newFullDate);
-            console.log(currentDay);
-            if (data.Message) {
-                setChecks([]);
-
-            } else {
-                setChecks(data);
-            }
-        })
+            .then((response) => {
+                if (!response.ok) {
+                    alert(response.statusText);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setCurrentDay(newFullDate);
+                // console.log(currentDay);
+                if (data.Message) {
+                    setDailyChecksHistory([]);
+                } else {
+                    setDailyChecksHistory(data);
+                }
+            })
     }
 
-    return (
-        <div id="daily-checks" className={`card ${css`height: 35vh;`}`}>
-            <div id="card-header">
-                <h2>Daily Checks</h2>
-                <img src="./svgs/add.svg" alt="add" onClick={showModal} />
-            </div>
-            <div id="arrows" className={css`width: 90%; margin: 0 auto 5px auto; display: flex; justify-content: space-between; align-items: center;`}>
-                <img src="./svgs/arrow-left.svg" alt="back" onClick={minusDay}/>
-                <button onClick={getToday}>Today</button>
-                <img src="./svgs/arrow-right.svg" alt="forward" onClick={addDay}/>
-            </div>
-            {checks.length ? (
-                checks.map((check, index) =>
-                    <div id="line" key={index} value={check.id}>
-                        <div id={'check-list-item-' + check.id} className="list-item">
-                            <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`} />
-                            <label>{check.daily_check}</label>
-                        </div>
-                        <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitEdit}>
-                            <input type="text" id={'checksInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
-                            <input type="submit" className="submit-button" />
-                            <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
-                        </form>
-                        <div id="edit-buttons">
-                            <img src="./svgs/edit.svg" alt="edit" onClick={editCheck} id={check.id} value={check.daily_check} />
-                            <img src="./svgs/delete.svg" alt="delete" onClick={deleteCheck} id={check.id} />
-                        </div>
-                    </div>
-                )) : (
-                <p id="empty" onClick={showModal}>No daily checks! Click the plus to add a daily check.</p>
-            )
+    const generateTodaysChecks = async () => {
+        try {
+            const response = await fetch('/api/data/generateChecks');
+            if (response.ok) {
+                getData();
             }
-            <DailyChecksForm visibility={visibility} setVisibility={setVisibility} />
-        </div>
-    )
-}
+            else {
+                console.error(response);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+        return (
+            <div id="daily-checks" className={`card ${css`height: 35vh;`}`}>
+                <div id="card-header">
+                    <h2>Daily Checks</h2>
+                    <img src="./svgs/add.svg" alt="add" onClick={showModal} />
+                </div>
+                <div id="arrows" className={css`width: 90%; margin: 0 auto 5px auto; display: flex; justify-content: space-between; align-items: center;`}>
+                    <img src="./svgs/arrow-left.svg" alt="back" onClick={minusDay} />
+                    <button onClick={getToday}>Today</button>
+                    <img src="./svgs/arrow-right.svg" alt="forward" onClick={addDay} />
+                </div>
+                {dailyChecksHistory.length ? (
+                    dailyChecksHistory.map((check, index) =>
+                        <div id="line" key={index} value={check.id}>
+                            <div id={'check-list-item-' + check.id} className="list-item">
+                                <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`} />
+                                <label>{check.daily_check}</label>
+                            </div>
+                            <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitEdit}>
+                                <input type="text" id={'checksInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
+                                <input type="submit" className="submit-button" />
+                                <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
+                            </form>
+                            <div id="edit-buttons">
+                                <img src="./svgs/edit.svg" alt="edit" onClick={editCheck} id={check.id} value={check.daily_check} />
+                                <img src="./svgs/delete.svg" alt="delete" onClick={deleteCheck} id={check.id} />
+                            </div>
+                        </div>
+                    )) : (
+
+                    <div id="empty">
+                        <p onClick={showModal}>No daily checks!</p>
+                        <button onClick={generateTodaysChecks}>Generate Today's Checks</button>
+                        {errorMessage.length ? (
+                            <p>{errorMessage}</p>
+                        ) : null}
+                    </div>
+                )
+                }
+                <DailyChecksForm visibility={visibility} setVisibility={setVisibility} getData={getData} dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} />
+            </div>
+        )
+    }
