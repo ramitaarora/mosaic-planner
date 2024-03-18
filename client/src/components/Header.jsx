@@ -99,11 +99,11 @@ export default function Header({ name, location, visibility, setVisibility }) {
                 return response.json(); // or response.text() for text data
             })
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 setCity(data.city.name);
                 setTemp(data.list[0].main.temp);
                 setForecast(data.list[0].weather[0].description)
-                setIcon(`http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
+                setIcon(`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);

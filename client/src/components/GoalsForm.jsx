@@ -56,6 +56,12 @@ export default function GoalsForm({ visibility, setVisibility }) {
             })
     }
 
+    const resetForm = () => {
+        setWeekly('');
+        setMonthly('');
+        setYearly('');
+    }
+
     return (
         <div id="modal-background" className={visibility}>
             <div id="modal">
@@ -92,7 +98,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
 
                             <div id="form-submit-buttons">
                                 <input type="submit" value="Save" />
-                                <input type="reset" value="Reset" />
+                                <input type="reset" onClick={resetForm} value="Reset" />
                             </div>
                         </form>
                     </div>

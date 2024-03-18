@@ -4,6 +4,7 @@ import TasksArchived from './TasksArchived';
 
 export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks }) {
     const [visibility, setVisibility] = useState('hidden');
+    const [inputValue, setInputValue] = useState('');
 
     const editProgress = (event) => {
         const progressID = event.target.attributes[2].nodeValue;
@@ -50,14 +51,14 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
             method: 'PUT',
             body: JSON.stringify({
                 id: progressID,
-                progress: formInput,
+                task: formInput,
                 type: 'Task'
             }),
             headers: { 'Content-Type': 'application/json' },
         });
 
         if (response.ok) {
-            getData()
+            getData();
         } else {
             console.error(response.statusText);
         }
