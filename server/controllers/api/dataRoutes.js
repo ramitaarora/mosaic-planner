@@ -14,7 +14,7 @@ router.get('/allData', withAuth, async (req, res) => {
         const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
         const eventsData = await Events.findAll({ where: { user_id: req.session.user_id } });
         const tasksData = await Tasks.findAll({ where: { user_id: req.session.user_id } });
-        const checksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id }})
+        const checksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
 
         const user = userData.map(user => user.get({ plain: true }));
         const goals = goalsData.map(goal => goal.get({ plain: true }));
@@ -52,10 +52,10 @@ router.get('/generateChecks', withAuth, async (req, res) => {
                     completed: false,
                     parent_id: existingDailyChecks[i].id
                 })
-            } 
-            res.status(200).json({ message: 'Checks created.'});
+            }
+            res.status(200).json({ message: 'Checks created.' });
         } else {
-            res.status(200).json({ message: 'No checks.'})
+            res.status(200).json({ message: 'No checks.' })
         }
     } catch (err) {
         res.status(400).json(err);
@@ -242,7 +242,7 @@ router.post('/add', withAuth, async (req, res) => {
                 daily_check: req.body.dailyCheck,
                 user_id: req.session.user_id
             })
-            res.status(200).json({id: checksData.dataValues.id});
+            res.status(200).json({ id: checksData.dataValues.id });
         }
         if (req.body.type === 'Daily Checks History') {
             const checksData = await DailyChecksHistory.create({
@@ -434,6 +434,23 @@ router.delete('/delete', withAuth, async (req, res) => {
         res.status(400).json(err);
         console.log(err)
     }
+})
+
+router.get('/weather/:location', async (req, res) => {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${req.params.location}&appid=${process.env.WEATHER_API}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json(); // or response.text() for text data
+        })
+        .then((data) => {
+            res.status(200).json(data);
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+            res.status(400).json(err);
+        });
 })
 
 module.exports = router;

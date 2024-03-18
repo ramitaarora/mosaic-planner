@@ -91,7 +91,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
     }, 1000)
 
     useEffect(() => {
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${import.meta.env.VITE_WEATHER_API}`)
+        fetch(`/api/data/weather/${location}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -99,7 +99,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
                 return response.json(); // or response.text() for text data
             })
             .then((data) => {
-                // console.log(data);
+                console.log(data);
                 setCity(data.city.name);
                 setTemp(data.list[0].main.temp);
                 setForecast(data.list[0].weather[0].description)
