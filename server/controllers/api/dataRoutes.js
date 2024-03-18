@@ -42,7 +42,7 @@ router.get('/generateChecks', withAuth, async (req, res) => {
     try {
         const existingDailyChecks = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
 
-        if (existingDailyChecks) {
+        if (existingDailyChecks.length) {
 
             for (let i = 0; i < existingDailyChecks.length; i++) {
                 let checksData = await DailyChecksHistory.create({
