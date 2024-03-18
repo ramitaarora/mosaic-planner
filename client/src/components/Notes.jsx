@@ -35,7 +35,7 @@ export default function Notes({ notes, setNotes, getData }) {
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -61,7 +61,7 @@ export default function Notes({ notes, setNotes, getData }) {
             getData();
             setInputValue('');
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
 
         document.getElementById(noteFormID).setAttribute('class', 'hidden');
@@ -108,7 +108,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 document.getElementById('cancel-note-button').setAttribute('class', 'hidden');
                 document.getElementById('add-note-button').setAttribute('class', 'visible');
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -158,7 +158,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 document.getElementById('cancel-note-button').setAttribute('class', 'hidden');
                 document.getElementById('add-note-button').setAttribute('class', 'visible');
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }

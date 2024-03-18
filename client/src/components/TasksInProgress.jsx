@@ -34,7 +34,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -59,7 +59,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
         if (response.ok) {
             getData()
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
 
         document.getElementById(formID).setAttribute('class', 'hidden');
@@ -96,7 +96,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
         if (response.ok) {
             getData()
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
             console.log(response);
         }
     }
@@ -117,7 +117,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
         if (response.ok) {
             getData();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
     }
 

@@ -28,13 +28,11 @@ export default function GoalsForm({ visibility, setVisibility }) {
         });
 
         if (response.ok) {
-            // console.log(response.statusText);
-            // alert('Goal saved!')
             document.getElementById(formID).reset();
             closeModal();
             location.reload();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
     }
 

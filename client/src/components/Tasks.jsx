@@ -35,7 +35,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -60,7 +60,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
         if (response.ok) {
             getData();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
 
         document.getElementById(taskFormID).setAttribute('class', 'hidden');
@@ -107,7 +107,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                 document.getElementById('cancel-task-button').setAttribute('class', 'hidden');
                 document.getElementById('add-task-button').setAttribute('class', 'visible');
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -135,7 +135,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
         if (response.ok) {
             getData();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
     }
 
@@ -177,7 +177,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                 document.getElementById('cancel-task-button').setAttribute('class', 'hidden');
                 document.getElementById('add-task-button').setAttribute('class', 'visible');
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }

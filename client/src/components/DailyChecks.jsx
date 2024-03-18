@@ -46,7 +46,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -71,7 +71,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         if (response.ok) {
             getData()
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
 
         document.getElementById(formID).setAttribute('class', 'hidden');
@@ -108,7 +108,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         if (response.ok) {
             getData()
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
     }
 
@@ -128,7 +128,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         fetch(`/api/data/checksDate/${newFullDate}`)
             .then((response) => {
                 if (!response.ok) {
-                    alert(response.statusText);
+                    console.error(response.statusText);
                 }
                 return response.json();
             })
@@ -154,7 +154,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         fetch(`/api/data/checksDate/${newFullDate}`)
             .then((response) => {
                 if (!response.ok) {
-                    alert(response.statusText);
+                    console.error(response.statusText);
                 }
                 return response.json();
             })

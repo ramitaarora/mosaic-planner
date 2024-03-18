@@ -20,7 +20,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
         if (response.ok) {
             getData();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
     }
 
@@ -39,7 +39,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }

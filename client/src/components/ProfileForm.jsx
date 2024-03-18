@@ -46,12 +46,11 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
             });
 
             if (response.ok) {
-                // alert(`${inputType} updated!`)
                 getData();
                 getUser();
                 closeModal();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -73,10 +72,9 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
         });
 
         if (response.ok) {
-            // alert(`Colour theme updated!`)
             getData();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
     }
 

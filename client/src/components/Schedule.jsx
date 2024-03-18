@@ -212,7 +212,7 @@ export default function Schedule({ events, setEvents, getData }) {
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }

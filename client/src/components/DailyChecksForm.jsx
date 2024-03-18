@@ -89,7 +89,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -115,7 +115,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
             // console.log(response.statusText);
             getData();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
 
         document.getElementById(formID).setAttribute('class', 'hidden');

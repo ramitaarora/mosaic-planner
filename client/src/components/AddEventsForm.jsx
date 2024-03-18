@@ -58,13 +58,12 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
             });
 
             if (response.ok) {
-                // alert('Event saved!')
                 document.getElementById(formID).reset();
                 getData();
                 closeModal();
                 location.reload();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }

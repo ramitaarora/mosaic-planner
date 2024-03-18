@@ -35,7 +35,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
             if (response.ok) {
                 getData();
             } else {
-                alert(response.statusText);
+                console.error(response.statusText);
             }
         }
     }
@@ -60,7 +60,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
         if (response.ok) {
             getData();
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
 
         document.getElementById(formID).setAttribute('class', 'hidden');
@@ -101,7 +101,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
         if (response.ok) {
             getData()
         } else {
-            alert(response.statusText);
+            console.error(response.statusText);
         }
     }
 
