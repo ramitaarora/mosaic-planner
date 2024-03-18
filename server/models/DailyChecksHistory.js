@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection')
 
 class DailyChecksHistory extends Model {}
@@ -6,10 +6,10 @@ class DailyChecksHistory extends Model {}
 DailyChecksHistory.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true,
+            defaultValue: DataTypes.UUIDV4,
         },
         daily_check: {
             type: DataTypes.STRING,
@@ -26,7 +26,7 @@ DailyChecksHistory.init(
             defaultValue: false,
         },
         user_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             allowNull: false,
             references: {
                 model: 'user',
@@ -34,7 +34,7 @@ DailyChecksHistory.init(
             }
         },
         parent_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             allowNull: false,
             references: {
                 model: 'dailyChecks',

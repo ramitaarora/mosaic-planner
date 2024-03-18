@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection')
 
 class Goals extends Model {}
@@ -6,10 +6,10 @@ class Goals extends Model {}
 Goals.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true,
+            defaultValue: DataTypes.UUIDV4,
         },
         goal: {
             type: DataTypes.STRING,
@@ -25,7 +25,7 @@ Goals.init(
             defaultValue: DataTypes.NOW,
           },
         parent_goal: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             references: {
                 model: 'goals',
                 key: 'id'
@@ -37,7 +37,7 @@ Goals.init(
             defaultValue: false,
         },
         user_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             allowNull: false,
             references: {
                 model: 'user',
