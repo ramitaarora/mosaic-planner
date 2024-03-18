@@ -4,7 +4,7 @@ Your goals, schedule & reminders, all in one place.
 
 ## Description
 
-This project is a full-stack application that combines different aspects of a traditional planner: a calendar, schedule, daily items, reminders/notes, and goals. A user will be able to add, view, update and delete anything via the dashboard.
+This project is a full-stack application that combines different aspects of a traditional planner: a calendar, schedule, daily items, reminders/notes, tasks and goals. A user will be able to add, view, update and delete anything via the dashboard.
 
 Technologies used in this application include:
 - React
@@ -15,6 +15,8 @@ Technologies used in this application include:
 - Emotion
 - Express Session
 - bcrypt
+- ChatGPT API
+- Open Weather API
 - <a href="https://www.npmjs.com/package/react-calendar">React Calendar</a>
 
 ## Usage
