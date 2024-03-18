@@ -24,6 +24,18 @@ Goals.init(
             allowNull: false,
             defaultValue: DataTypes.NOW,
           },
+        completed: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        archived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
         parent_goal: {
             type: DataTypes.UUID,
             references: {
@@ -31,10 +43,6 @@ Goals.init(
                 key: 'id'
             },
             onDelete: 'CASCADE',
-        },
-        completed: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
         },
         user_id: {
             type: DataTypes.UUID,
@@ -44,10 +52,6 @@ Goals.init(
                 key: 'id'
             }
         },
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: true
-        }
     },
     {
         sequelize,

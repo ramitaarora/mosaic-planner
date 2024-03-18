@@ -15,6 +15,10 @@ DailyChecks.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        archived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
         user_id: {
             type: DataTypes.UUID,
             allowNull: false,
@@ -23,10 +27,6 @@ DailyChecks.init(
                 key: 'id'
             }
         },
-        archived: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        }
     },
     {
         sequelize,

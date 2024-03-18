@@ -20,7 +20,15 @@ Notes.init(
             allowNull: false,
             defaultValue: DataTypes.NOW,
           },
-          user_id: {
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        archived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        user_id: {
             type: DataTypes.UUID,
             allowNull: false,
             references: {
@@ -28,10 +36,6 @@ Notes.init(
                 key: 'id'
             }
         },
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: true
-        }
     },
     {
         sequelize,

@@ -39,6 +39,10 @@ Events.init(
         address: {
             type: DataTypes.STRING,
         },
+        archived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
         user_id: {
             type: DataTypes.UUID,
             allowNull: false,

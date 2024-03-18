@@ -15,14 +15,6 @@ Tasks.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        user_id: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            references: {
-                model: 'user',
-                key: 'id'
-            }
-        },
         in_progress: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
@@ -42,7 +34,15 @@ Tasks.init(
         description: {
             type: DataTypes.TEXT,
             allowNull: true
-        }
+        },
+        user_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: 'user',
+                key: 'id'
+            }
+        },
     },
     {
         sequelize,

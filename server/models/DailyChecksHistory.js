@@ -25,6 +25,10 @@ DailyChecksHistory.init(
             allowNull: false,
             defaultValue: false,
         },
+        archived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
         user_id: {
             type: DataTypes.UUID,
             allowNull: false,
