@@ -37,7 +37,7 @@ ol, ul {
     display: content !important;
 }
 
-input, select {
+input, select, textarea {
     border-radius: 5px; 
     border: 1px solid var(--card-background);
     background-color: var(--line-background);
@@ -286,12 +286,13 @@ input[type="checkbox"]:not(:disabled):checked {
 
 #form-input input[type="text"], 
 #form-input input[type="date"], 
-#form-input input[type="time"] {
-    width: 200px;
+#form-input input[type="time"],
+#form-input textarea {
+    width: 250px;
 }
 
 #form-input select {
-    width: 212px;
+    width: 262px;
 }
 
 #form-input input[type="radio"] {
@@ -377,7 +378,9 @@ input[type="checkbox"]:not(:disabled):checked {
     }
     #form-input input[type="text"], 
     #form-input input[type="date"], 
-    #form-input input[type="time"] {
+    #form-input input[type="time"],
+    #form-input textarea,
+    #form-input select {
         width: 100%;
     }
     #form-input {
