@@ -331,6 +331,15 @@ router.put('/edit', withAuth, async (req, res) => {
             })
             res.status(200).json(checksData);
         }
+        if (req.body.type === 'Daily Check Archive') {
+            const checksData = await DailyChecks.update({ archived: req.body.archived }, {
+                where: {
+                    id: req.body.id,
+                    user_id: req.session.user_id,
+                }
+            })
+            res.status(200).json(checksData);
+        }
         if (req.body.type === 'Daily Check History') {
             const checksData = await DailyChecksHistory.update({ daily_check: req.body.check }, {
                 where: {

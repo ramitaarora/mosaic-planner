@@ -22,6 +22,10 @@ DailyChecks.init(
                 model: 'user',
                 key: 'id'
             }
+        },
+        archived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     },
     {

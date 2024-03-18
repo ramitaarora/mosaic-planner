@@ -41,7 +41,7 @@ export default function Dashboard() {
         setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
         setNotes(data.notes.map(note => note));
-        setDailyChecks(data.checks.map(check => check));
+        setDailyChecks(data.checks.filter(check => !check.archived));
         setDailyChecksHistory(data.dailyChecks.map(check => check));
         setName(data.user.map(user => user.name));
         setLocation(data.user.map(user => user.location));

@@ -58,7 +58,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
             });
 
             if (response.ok) {
-                alert('Event saved!')
+                // alert('Event saved!')
                 document.getElementById(formID).reset();
                 getData();
                 closeModal();

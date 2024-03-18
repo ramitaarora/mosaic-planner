@@ -96,7 +96,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
             });
 
             if (response.ok) {
-                alert('Event saved!')
+                // alert('Event saved!')
                 getData();
                 closeModal();
                 location.reload();

@@ -73,15 +73,16 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
         inputField.setAttribute('value', checkValue);
     }
 
-    const deleteCheck = async (event) => {
+    const archiveCheck = async (event) => {
         const checkID = event.target.attributes[2].nodeValue;
 
-        if (window.confirm("Are you sure you want to delete this check?")) {
-            const response = await fetch('/api/data/delete', {
-                method: 'DELETE',
+        if (window.confirm("Are you sure you want to archive this check?")) {
+            const response = await fetch('/api/data/edit', {
+                method: 'PUT',
                 body: JSON.stringify({
                     id: checkID,
-                    type: 'Daily Check',
+                    type: 'Daily Check Archive',
+                    archived: true,
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -183,7 +184,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                                         </form>
                                         <div id="edit-buttons">
                                             <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} onClick={editCheck} />
-                                            <img src="./svgs/delete.svg" alt="delete" id={check.id} onClick={deleteCheck} />
+                                            <img src="./svgs/archive.svg" alt="archive" id={check.id} onClick={archiveCheck} />
                                         </div>
                                     </div>
                                 )) : (

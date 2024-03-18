@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css'
 
 export default function Login() {
+    const [errorMessage, setErrorMessage] = useState(''); 
+
     useEffect(() => {
         fetch('api/home')
         .then((response) => {
@@ -39,7 +41,7 @@ export default function Login() {
 
     const login = async (event) => {
         event.preventDefault();
-        // console.log(event);
+
         const email = event.target[0].value;
         const password = event.target[1].value;
 
@@ -52,17 +54,15 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            document.getElementById('login-error').setAttribute('class', 'hidden');
             window.location.replace('/');
         } else {
             console.error(response.statusText);
-            document.getElementById('login-error').setAttribute('class', 'visible');
+            setErrorMessage('Incorrect email and/or password.')
         }
     }
 
     const signup = async (event) => {
         event.preventDefault();
-        console.log(event);
 
         const name = event.target[0].value;
         const email = event.target[1].value;
@@ -80,17 +80,16 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            document.getElementById('login-error').setAttribute('class', 'hidden');
             window.location.replace('/');
         } else {
             console.error(response.statusText);
-            document.getElementById('login-error').setAttribute('class', 'visible');
+            setErrorMessage('User already exists!')
         }
     }
 
     const loginDemo = async (event) => {
         event.preventDefault();
-        // console.log(event);
+
         const email = 'demo@example.com'
         const password = 'password12345';
 
@@ -103,11 +102,10 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            document.getElementById('login-error').setAttribute('class', 'hidden');
             window.location.replace('/');
         } else {
             console.error(response.statusText);
-            document.getElementById('login-error').setAttribute('class', 'visible');
+            setErrorMessage('Something went wrong.')
         }
     }
 
@@ -122,9 +120,7 @@ export default function Login() {
                     <input type="submit" value="Login"/>
                 </form>
 
-                <p id="login-error" className="hidden">Incorrect email and/or password.</p>
                 
-                <button id="signup-instead" className="visible" onClick={showSignup}>Sign up instead</button>
 
                 <form id="signup-form" className="hidden" onSubmit={signup}>
                     <input type="text" placeholder="Name" required/>
@@ -134,7 +130,12 @@ export default function Login() {
                     <input type="submit" value="Sign Up"/>
                 </form>
 
-                <button id="login-instead" className="hidden" onClick={showLogin}>Login instead</button>
+                {errorMessage.length ? <p id="login-error">{errorMessage}</p> : null}
+
+                <button id="signup-instead" className="visible" onClick={showSignup}>Sign Up Instead</button>
+
+                <button id="login-instead" className="hidden" onClick={showLogin}>Log In Instead</button>
+                
 
                 <button id="demo" className={css`display: block; margin: 10px auto;`} onClick={loginDemo}>Demo Dashboard</button>
             </div>
