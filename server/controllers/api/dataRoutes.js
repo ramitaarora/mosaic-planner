@@ -3,11 +3,10 @@ const { Op } = require('sequelize');
 const withAuth = require('../../utils/auth');
 const { User, Goals, Notes, DailyChecks, DailyChecksHistory, Events, Tasks } = require('../../models');
 
-const year = new Date().getFullYear();
-const month = new Date().getMonth() + 1;
-const day = new Date().getDate();
-
 router.get('/allData', withAuth, async (req, res) => {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
     try {
         const userData = await User.findAll({ where: { id: req.session.user_id } });
         const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
@@ -39,6 +38,9 @@ router.get('/allData', withAuth, async (req, res) => {
 });
 
 router.get('/generateChecks', withAuth, async (req, res) => {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
     try {
         const existingDailyChecks = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
 
@@ -204,6 +206,9 @@ router.put('/taskEdits', withAuth, async (req, res) => {
 })
 
 router.post('/add', withAuth, async (req, res) => {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
     try {
         if (req.body.type === 'Note') {
             const notesData = await Notes.create({
