@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DailyChecksForm from './DailyChecksForm';
 import { css } from '@emotion/css';
 
@@ -10,8 +10,29 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
 
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('hidden');
-    const [currentDay, setCurrentDay] = useState(today);
     const [errorMessage, setErrorMessage] = useState('');
+    const [currentDay, setCurrentDay] = useState(today);
+    const [formatMonth, setFormatMonth] = useState();
+    const [currentDateNum, setCurrentDateNum] = useState();
+
+    useEffect(() => {
+        let current = new Date(currentDay);
+        setCurrentDateNum(current.getDate());
+        let monthNum = current.getMonth();
+
+        if (monthNum === 0) setFormatMonth('January');
+        if (monthNum === 1) setFormatMonth('February');
+        if (monthNum === 2) setFormatMonth('March');
+        if (monthNum === 3) setFormatMonth('April');
+        if (monthNum === 4) setFormatMonth('May');
+        if (monthNum === 5) setFormatMonth('June');
+        if (monthNum === 6) setFormatMonth('July');
+        if (monthNum === 7) setFormatMonth('August');
+        if (monthNum === 8) setFormatMonth('September');
+        if (monthNum === 9) setFormatMonth('October');
+        if (monthNum === 10) setFormatMonth('November');
+        if (monthNum === 11) setFormatMonth('December');
+    }, [currentDay])
 
     const showModal = () => {
         setVisibility('visible');
@@ -196,7 +217,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     return (
         <div id="daily-checks" className={`card ${css`height: 35vh;`}`}>
             <div id="card-header">
-                <h2>Daily Checks</h2>
+                <h2>Daily Checks for {formatMonth} {currentDateNum}</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
             </div>
             <div id="arrows" className={css`width: 90%; margin: 0 auto 5px auto; display: flex; justify-content: space-between; align-items: center;`}>
@@ -224,7 +245,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
                 )) : (
 
                 <div id="empty">
-                    <p onClick={showModal}>No daily checks!</p>
+                    <p onClick={showModal}>No daily checks yet!</p>
                     {currentDay === today ? <button onClick={generateTodaysChecks}>Generate Today's Checks</button> : null}
                     {errorMessage.length ? (
                         <p>{errorMessage}</p>

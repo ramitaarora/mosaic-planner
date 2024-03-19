@@ -3,6 +3,8 @@ import Navigation from './Navigation';
 import { css } from '@emotion/css';
 
 export default function Header({ name, location, visibility, setVisibility }) {
+    const [loading, setLoading] = useState(false);
+
     const [greeting, setGreeting] = useState('Hello');
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
@@ -91,6 +93,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
     }, 1000)
 
     useEffect(() => {
+        setLoading(true);
         fetch(`/api/data/weather/${location}`)
             .then((response) => {
                 if (!response.ok) {
@@ -104,6 +107,7 @@ export default function Header({ name, location, visibility, setVisibility }) {
                 setTemp(data.list[0].main.temp);
                 setForecast(data.list[0].weather[0].description)
                 setIcon(`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -113,7 +117,10 @@ export default function Header({ name, location, visibility, setVisibility }) {
     return (
         <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px; text-align: center; `}>
 
-            <div id="weather" className={css` width: 33%; display: flex; justify-content: center; align-items: center; flex-direction: column;`}>
+            {loading ? (
+                <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
+            ): (
+                <div id="weather" className={css` width: 33%; display: flex; justify-content: center; align-items: center; flex-direction: column;`}>
                 <div id="weather-1" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
                     <p>Weather for {city}</p>
                     <img src={icon} alt={forecast} height="50px" width="50px" />
@@ -123,6 +130,8 @@ export default function Header({ name, location, visibility, setVisibility }) {
                     <p>{forecast}</p>
                 </div>
             </div>
+            )}
+
 
             <div id="today" className={css`width: 34%; height: 80px; display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;`}>
                 <h1 id="today">{greeting}, {name}</h1>

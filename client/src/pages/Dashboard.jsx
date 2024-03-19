@@ -11,6 +11,11 @@ import Tasks from '../components/Tasks.jsx';
 import TasksInProgress from '../components/TasksInProgress.jsx';
 
 export default function Dashboard() {
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
+  const day = new Date().getDate();
+  const today = `${year}-${month}-${day}`;
+
   const [yearGoals, setYearGoals] = useState([]);
   const [monthGoals, setMonthGoals] = useState([]);
   const [weekGoals, setWeekGoals] = useState([]);
@@ -25,6 +30,7 @@ export default function Dashboard() {
   const [location, setLocation] = useState('Pasadena')
   const [visibility, setVisibility] = useState('hidden');
   const [colourTheme, setColourTheme] = useState();
+  const [loading, setLoading] = useState(true);
 
   const getData = () => {
     fetch('/api/data/allData')
@@ -42,7 +48,7 @@ export default function Dashboard() {
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
         setNotes(data.notes.map(note => note));
         setDailyChecks(data.checks.filter(check => !check.archived));
-        setDailyChecksHistory(data.dailyChecks.map(check => check));
+        setDailyChecksHistory(data.dailyChecks.filter(check => check.date == today));
         setName(data.user.map(user => user.name));
         setLocation(data.user.map(user => user.location));
         setEvents(data.events.map(event => event));
@@ -57,6 +63,7 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    setLoading(true);
     fetch('/api/home')
       .then((response) => {
         if (!response.ok) {
@@ -68,6 +75,7 @@ export default function Dashboard() {
       .then((data) => {
         if (data.loggedIn) {
           // console.log(data);
+          setLoading(false);
           getData();
         } else {
           window.location.replace('/login')
@@ -151,30 +159,37 @@ export default function Dashboard() {
 
   return (
     <div>
+      {loading ? (
+        <div className={css`width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;`}>
+          <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
+        </div>
+      ) : (
+        <div>
+          <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} />
+          <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
 
-      <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} />
-      <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData}/>
+          <main className={css`display: flex; width: 100vw;`}>
+            <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
 
-      <main className={css`display: flex; width: 100vw;`}>
-        <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-          
-          <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData}/>
-          <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData}/>
-          <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData}/>
-        </section>
+              <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
+              <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
+              <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
+            </section>
 
-        <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
-          <Schedule events={events} setEvents={setEvents} getData={getData}/>
-          <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} getData={getData}/>
-        </section>
+            <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
+              <Schedule events={events} setEvents={setEvents} getData={getData} />
+              <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} getData={getData} />
+            </section>
 
-        <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-          <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
-          <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} />
-          <Notes notes={notes} setNotes={setNotes} getData={getData}/>
-        </section>
-      </main>
-
+            <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
+              <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
+              <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} />
+              <Notes notes={notes} setNotes={setNotes} getData={getData} />
+            </section>
+          </main>
+        </div>
+      )
+      }
     </div>
   )
 }
