@@ -44,6 +44,29 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
         }
     }
 
+    const formatDate = (date) => {
+        let newDate = new Date(date);
+        let monthNum = newDate.getMonth();
+        let dateNum = newDate.getDate();
+        let yearNum = newDate.getFullYear();
+        let month;
+
+        if (monthNum === 0) month = 'January';
+        if (monthNum === 1) month = 'February';
+        if (monthNum === 2) month = 'March';
+        if (monthNum === 3) month = 'April';
+        if (monthNum === 4) month = 'May';
+        if (monthNum === 5) month = 'June';
+        if (monthNum === 6) month = 'July';
+        if (monthNum === 7) month = 'August';
+        if (monthNum === 8) month = 'September';
+        if (monthNum === 9) month = 'October';
+        if (monthNum === 10) month = 'November';
+        if (monthNum === 11) month = 'December';
+
+        return `${month} ${dateNum} ${yearNum}`;
+    }
+
     return (
         <div id="modal-background" className={visibility}>
             <div id="modal">
@@ -59,7 +82,11 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
                             {archivedTasks.length ? (
                                 archivedTasks.map((task, index) => (
                                     <div id="line" key={index}>
-                                        <li>{task.task}</li>
+                                        <div>
+                                            <li>{task.task}</li>
+                                            <p className={css`font-size: 12px;`}>{task.date_completed ? formatDate(task.date_completed) : formatDate(task.date_created)}</p>
+                                        </div>
+                                        
                                         <div id="edit-buttons">
                                             <img src="./svgs/undo.svg" alt="unarchive" onClick={undoArchive} id={task.id} />
                                             <img src="./svgs/delete.svg" alt="edit" onClick={deleteTask} id={task.id} />

@@ -8,6 +8,8 @@
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
+    "migration": "cd server && npm run migration",
+    "taskSeed": "cd server && npm run taskSeed",
     "build": "npm install && cd client && npm run build",
     "heroku-postbuild": "npm install && cd server && npm i && cd ../client && npm i && npm run build"
   },

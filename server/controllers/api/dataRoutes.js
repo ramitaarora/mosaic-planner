@@ -85,6 +85,9 @@ router.get('/checksDate/:newDate', withAuth, async (req, res) => {
 })
 
 router.put('/completed', withAuth, async (req, res) => {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
     try {
         if (req.body.type === 'Daily Check') {
             const checksData = await DailyChecksHistory.update({ completed: req.body.completed }, {
@@ -96,13 +99,30 @@ router.put('/completed', withAuth, async (req, res) => {
             res.status(200).json(checksData);
         }
         if (req.body.type === 'Task') {
-            const taskData = await Tasks.update({ completed: req.body.completed }, {
-                where: {
-                    id: req.body.id,
-                    user_id: req.session.user_id,
-                }
-            })
-            res.status(200).json(taskData);
+            if (req.body.completed === true) {
+                const taskData = await Tasks.update({ 
+                    completed: req.body.completed,
+                    date_completed: `${year}-${month}-${day}`
+                }, {
+                    where: {
+                        id: req.body.id,
+                        user_id: req.session.user_id,
+                    }
+                })
+                res.status(200).json(taskData);
+            } else {
+                const taskData = await Tasks.update({ 
+                    completed: req.body.completed,
+                    date_completed: null
+                }, {
+                    where: {
+                        id: req.body.id,
+                        user_id: req.session.user_id,
+                    }
+                })
+                res.status(200).json(taskData);
+            }
+
         }
         if (req.body.type === 'Goal') {
             const parentGoalData = await Goals.findAll({
@@ -189,6 +209,7 @@ router.put('/taskEdits', withAuth, async (req, res) => {
                 archived: false,
                 in_progress: false,
                 completed: false,
+                date_completed: null,
             }, {
                 where: {
                     id: req.body.id,

@@ -27,6 +27,10 @@ Tasks.init(
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
         },
+        date_completed: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         archived: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
