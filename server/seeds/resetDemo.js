@@ -18,16 +18,16 @@ const seedDatabase = async () => {
     const todaysDate = `${year}-${month}-${day}`;
 
     const deleteEvents = await Events.destroy({ where: { user_id: 1 }});
-    const deleteChecks = await DailyChecks.destroy({ where: { user_id: 1 }});
     const deleteHistory = await DailyChecksHistory.destroy({ where: { user_id: 1 }});
+    const deleteChecks = await DailyChecks.destroy({ where: { user_id: 1 }});
     const deleteNotes = await Notes.destroy({ where: { user_id: 1 }});
     const deleteGoals = await Goals.destroy({ where: { user_id: 1 }});
     const deleteTasks = await Tasks.destroy({ where: { user_id: 1 }});
 
-    const user = await User.bulkCreate(userData, {
-        individualHooks: true,
-        returning: true,
-    });
+    // const user = await User.bulkCreate(userData, {
+    //     individualHooks: true,
+    //     returning: true,
+    // });
 
     const events = await Events.bulkCreate(eventsData, {
         individualHooks: true,
