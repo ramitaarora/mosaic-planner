@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import Navigation from './Navigation';
+import Weather from './Weather';
 import { css } from '@emotion/css';
 
 export default function Header({ name, location, visibility, setVisibility }) {
-    const [loading, setLoading] = useState(false);
-
     const [greeting, setGreeting] = useState('Hello');
     const [hours, setHours] = useState(new Date().getHours() % 12 || 12);
     const [minutes, setMinutes] = useState(new Date().getMinutes());
@@ -15,11 +14,6 @@ export default function Header({ name, location, visibility, setVisibility }) {
     const [day, setDay] = useState(new Date().getDay());
     const [date, setDate] = useState(new Date().getDate());
     const [year, setYear] = useState(new Date().getFullYear());
-
-    const [city, setCity] = useState();
-    const [forecast, setForecast] = useState();
-    const [temp, setTemp] = useState();
-    const [icon, setIcon] = useState();
 
     useEffect(() => {
         let monthNum = new Date().getMonth();
@@ -92,49 +86,12 @@ export default function Header({ name, location, visibility, setVisibility }) {
 
     }, 1000)
 
-    useEffect(() => {
-        setLoading(true);
-        fetch(`/api/data/weather/${location}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json(); // or response.text() for text data
-            })
-            .then((data) => {
-                // console.log(data);
-                setCity(data.city.name);
-                setTemp(data.list[0].main.temp);
-                setForecast(data.list[0].weather[0].description)
-                setIcon(`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
-    }, [location]);
+    
 
     return (
         <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px; text-align: center; `}>
 
-            <div id="weather" className={css` width: 33%;`}>
-                {loading ? (
-                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
-                ) : (
-                    <div className={css`display: flex; justify-content: center; align-items: center; flex-direction: column;`}>
-                        <div id="weather-1" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
-                            <p>Weather for {city}</p>
-                            <img src={icon} alt={forecast} height="50px" width="50px" />
-                        </div>
-                        <div id="weather-2" className={css` width: 50%; display: flex; justify-content: space-evenly; align-items: center;`}>
-                            <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p>
-                            <p>{forecast}</p>
-                        </div>
-                    </div>
-                )}
-
-            </div>
-
+            <Weather location={location} />
 
             <div id="today" className={css`width: 34%; height: 80px; display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;`}>
                 <h1 id="today">{greeting}, {name}</h1>
