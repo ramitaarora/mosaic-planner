@@ -11,10 +11,62 @@ import Tasks from '../components/Tasks.jsx';
 import TasksInProgress from '../components/TasksInProgress.jsx';
 
 export default function Dashboard() {
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth() + 1;
-  const day = new Date().getDate();
-  const today = `${year}-${month}-${day}`;
+  // Date in format: 2024/04/23
+  const [today, setToday] = useState('');
+  const [time, setTime] = useState('');
+  const [timezone, setTimezone] = useState('America/Los_Angeles');
+  // Date in format: Tuesday, April 23, 2024
+  const [fullDate, setFullDate] = useState('');
+  const [hour, setHour] = useState('');
+  
+  useEffect(() => {
+    const date = new Date();
+
+    const timeZoneDate = new Intl.DateTimeFormat('en-US', {
+      dateStyle: 'full',
+      timeZone: timezone,
+    }).format(date);
+    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+    }).format(date);
+    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+      hourCycle: "h24"
+    }).format(date);
+
+    const year = new Date(timeZoneDate).getFullYear();
+    const month = new Date(timeZoneDate).getMonth() + 1;
+    const day = new Date(timeZoneDate).getDate();
+    setToday(`${year}-${month}-${day}`);
+    setTime(timeZoneTime)
+    setFullDate(timeZoneDate);
+    setHour(timeZoneHour);
+
+  }, [])
+
+  setTimeout(() => {
+    const date = new Date();
+
+    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+    }).format(date);
+    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+      hourCycle: "h24"
+    }).format(date);
+
+    setTime(timeZoneTime)
+    setHour(timeZoneHour);
+      
+  }, 60000)
+
+  useEffect(() => {
+    // console.log(hour)
+  }, [today])
 
   const [yearGoals, setYearGoals] = useState([]);
   const [monthGoals, setMonthGoals] = useState([]);
@@ -27,7 +79,7 @@ export default function Dashboard() {
   const [allTasks, setAllTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
   const [name, setName] = useState('name');
-  const [location, setLocation] = useState('Pasadena')
+  const [location, setLocation] = useState('Pasadena');
   const [visibility, setVisibility] = useState('hidden');
   const [colourTheme, setColourTheme] = useState();
   const [loading, setLoading] = useState(true);
@@ -165,20 +217,19 @@ export default function Dashboard() {
         </div>
       ) : (
         <div>
-          <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} />
+          <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour}/>
           <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
 
           <main className={css`display: flex; width: 100vw;`}>
             <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-
               <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
               <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
               <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
             </section>
 
             <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
-              <Schedule events={events} setEvents={setEvents} getData={getData} />
-              <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} getData={getData} />
+              <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} getData={getData} />
+              <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} getData={getData} />
             </section>
 
             <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>

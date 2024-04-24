@@ -33,4 +33,6 @@ function formatDate(fullDate) {
     if (!(String(dateNum)).endsWith('1') && !(String(dateNum)).endsWith('2') && !(String(dateNum)).endsWith('3')) setDate(new Date().getDate() + 'th');
 
     return;
-} 
+}; 
+
+module.exports = formatDate;
