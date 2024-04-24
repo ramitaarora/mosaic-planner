@@ -7,9 +7,15 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     const [visibility, setVisibility] = useState('hidden');
     const [errorMessage, setErrorMessage] = useState('');
     const [currentDay, setCurrentDay] = useState(fullDate);
+    const [currentFullDate, setCurrentFullDate] = useState('')
 
     useEffect(() => {
         getToday();
+
+        let newYear = new Date(currentDay).getFullYear();
+        let newMonth = new Date(currentDay).getMonth() + 1;
+        let newDay = new Date(currentDay).getDate();
+        setCurrentFullDate(`${newYear}-${newMonth}-${newDay}`);
     }, [])
 
     const showModal = () => {
@@ -31,6 +37,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
                 timeZone: timezone,
               }).format(newFullDateLong);
 
+            setCurrentFullDate(newFullDate);
             setCurrentDay(timeZoneDate);
             if (data.Message) {
                 setDailyChecksHistory([]);
@@ -153,6 +160,11 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     const getToday = () => {
         getData();
         setCurrentDay(fullDate);
+        
+        let newYear = new Date(currentDay).getFullYear();
+        let newMonth = new Date(currentDay).getMonth() + 1;
+        let newDay = new Date(currentDay).getDate();
+        setCurrentFullDate(`${newYear}-${newMonth}-${newDay}`);
     }
 
     const minusDay = async () => {
@@ -233,7 +245,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
 
                 <div id="empty">
                     <p onClick={showModal}>No daily checks yet!</p>
-                    {currentDay === today ? <button onClick={generateTodaysChecks}>Generate Today's Checks</button> : null}
+                    {currentFullDate === today ? <button onClick={generateTodaysChecks}>Generate Today's Checks</button> : null}
                     {errorMessage.length ? (
                         <p>{errorMessage}</p>
                     ) : null}
