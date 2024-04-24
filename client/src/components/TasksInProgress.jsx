@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { css } from '@emotion/css';
 import TasksArchived from './TasksArchived';
 
-export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks }) {
+export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks, today }) {
     const [visibility, setVisibility] = useState('hidden');
     const [inputValue, setInputValue] = useState('');
 
@@ -23,20 +23,18 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     const archiveProgress = async (event) => {
         const progressID = event.target.attributes[2].nodeValue;
 
-        if (window.confirm("Are you sure you want to archive this task?")) {
-            const response = await fetch('/api/data/taskEdits', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: progressID,
-                    type: 'Archive Task'
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-            if (response.ok) {
-                getData();
-            } else {
-                console.error(response.statusText);
-            }
+        const response = await fetch('/api/data/taskEdits', {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: progressID,
+                type: 'Archive Task'
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+        if (response.ok) {
+            getData();
+        } else {
+            console.error(response.statusText);
         }
     }
 
@@ -89,7 +87,8 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
             body: JSON.stringify({
                 id: progressID,
                 completed: event.target.checked,
-                type: 'Task'
+                type: 'Task',
+                date: today,
             }),
             headers: { 'Content-Type': 'application/json' },
         });

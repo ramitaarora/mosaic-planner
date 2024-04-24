@@ -79,9 +79,6 @@ router.get('/checksDate/:newDate', withAuth, async (req, res) => {
 })
 
 router.put('/completed', withAuth, async (req, res) => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
     try {
         if (req.body.type === 'Daily Check') {
             const checksData = await DailyChecksHistory.update({ completed: req.body.completed }, {
@@ -96,7 +93,7 @@ router.put('/completed', withAuth, async (req, res) => {
             if (req.body.completed === true) {
                 const taskData = await Tasks.update({ 
                     completed: req.body.completed,
-                    date_completed: `${year}-${month}-${day}`
+                    date_completed: req.body.date,
                 }, {
                     where: {
                         id: req.body.id,

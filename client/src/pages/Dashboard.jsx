@@ -230,7 +230,7 @@ export default function Dashboard() {
 
             <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
               <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
-              <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} />
+              <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
               <Notes notes={notes} setNotes={setNotes} getData={getData} />
             </section>
           </main>
