@@ -107,13 +107,6 @@ export default function Schedule({ events, setEvents, fullDate, timezone, getDat
         })
     }
 
-    useEffect(() => {
-        if (events.length) {
-            getTodaysEvents();
-            sortTodaysEvents();
-        }
-    }, [events, currentDate])
-
     const sortTodaysEvents = () => {
         todaysEvents.sort((a, b) => {
             if (a.all_day !== b.all_day) {
@@ -124,6 +117,13 @@ export default function Schedule({ events, setEvents, fullDate, timezone, getDat
             return timeA.localeCompare(timeB);
         })
     }
+
+    useEffect(() => {
+        if (events.length) {
+            getTodaysEvents();
+            sortTodaysEvents();
+        }
+    }, [events, currentDate])
 
     const getHours = (time) => {
         if (Number(time[0] + time[1]) <= 12 && Number(time[0]) !== 0) {
@@ -167,6 +167,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, getDat
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
+                setTodaysEvents([]);
                 getData();
             } else {
                 console.error(response.statusText);
@@ -200,8 +201,8 @@ export default function Schedule({ events, setEvents, fullDate, timezone, getDat
             </div>
 
             <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay} value={currentDate} onChange={clickDay} />
-            <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} />
-            <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit} />
+            <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} setTodaysEvents={setTodaysEvents} />
+            <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit} setTodaysEvents={setTodaysEvents} />
 
             <div>
                 <ul>

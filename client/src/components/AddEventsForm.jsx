@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { css } from '@emotion/css';
 
-export default function AddEventsForm({ addVisibility, setAddVisibility, getData }) {
+export default function AddEventsForm({ addVisibility, setAddVisibility, getData, setTodaysEvents }) {
     const [showTime, setShowTime] = useState('visible');
     const [recurring, setReccuring] = useState('Not-Recurring');
 
@@ -9,7 +9,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
         if (event.target.checked) {
             setShowTime('hidden');
         } else {
-            setShowTime('visible')
+            setShowTime('visible');
         }
     }
 
@@ -59,9 +59,12 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
 
             if (response.ok) {
                 document.getElementById(formID).reset();
+                resetForm();
+
+                setTodaysEvents([]);
                 getData();
+                
                 closeModal();
-                location.reload();
             } else {
                 console.error(response.statusText);
             }

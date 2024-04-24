@@ -12,10 +12,10 @@ const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = r
 
 const seedDatabase = async () => {
     // await sequelize.sync({ force: true });
-    // const year = new Date().getFullYear();
-    // const month = new Date().getMonth() + 1;
-    // const day = new Date().getDate();
-    // const todaysDate = `${year}-${month}-${day}`;
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
+    const todaysDate = `${year}-${month}-${day}`;
 
     const deleteEvents = await Events.destroy({ where: { user_id: 1 }});
     const deleteHistory = await DailyChecksHistory.destroy({ where: { user_id: 1 }});
@@ -49,18 +49,18 @@ const seedDatabase = async () => {
         returning: true,
     })
 
-    // for (let i = 0; i < dailyChecksData.length; i++) {
-    //     const dailyChecksHistory = await DailyChecksHistory.create({
-    //         daily_check: dailyChecksData[i].daily_check,
-    //         user_id: dailyChecksData[i].user_id,
-    //         parent_id: dailyChecksData[i].id,
-    //         date: todaysDate,
-    //         completed: false,
-    //     }, {
-    //         individualHooks: true,
-    //         returning: true,
-    //     })
-    // }
+    for (let i = 0; i < dailyChecksData.length; i++) {
+        const dailyChecksHistory = await DailyChecksHistory.create({
+            daily_check: dailyChecksData[i].daily_check,
+            user_id: dailyChecksData[i].user_id,
+            parent_id: dailyChecksData[i].id,
+            date: todaysDate,
+            completed: false,
+        }, {
+            individualHooks: true,
+            returning: true,
+        })
+    }
 
     const tasks = await Tasks.bulkCreate(taskData, {
         individualHooks: true,

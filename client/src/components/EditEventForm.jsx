@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { css } from '@emotion/css';
 
-export default function EditEventsForm({ editVisibility, setEditVisibility, getData, eventToEdit }) {
+export default function EditEventsForm({ editVisibility, setEditVisibility, getData, eventToEdit, setTodaysEvents }) {
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -51,14 +51,6 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
     const saveEvent = async (event) => {
         event.preventDefault();
-        console.log("eventName", eventName);
-        console.log("eventDate", eventDate);
-        console.log("startTime", startTime);
-        console.log("endTime", endTime);
-        console.log("allDay", allDay);
-        console.log("address", address);
-        console.log("recurring", recurring);
-        // console.log("startDate", startDate);
 
         const formatDate = (fullDate) => {
             const day = new Date(fullDate + 'T00:00').getDate();
@@ -96,9 +88,9 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
             });
 
             if (response.ok) {
+                setTodaysEvents([]);
                 getData();
                 closeModal();
-                location.reload();
             } else {
                 console.error(response.statusText);
             }
