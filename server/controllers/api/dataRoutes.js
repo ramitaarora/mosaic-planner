@@ -3,10 +3,7 @@ const { Op } = require('sequelize');
 const withAuth = require('../../utils/auth');
 const { User, Goals, Notes, DailyChecks, DailyChecksHistory, Events, Tasks } = require('../../models');
 
-router.get('/allData', withAuth, async (req, res) => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
+router.get('/allData/:today', withAuth, async (req, res) => {
     try {
         const userData = await User.findAll({ where: { id: req.session.user_id } });
         const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
@@ -25,7 +22,7 @@ router.get('/allData', withAuth, async (req, res) => {
         let dailyChecksData = await DailyChecksHistory.findAll({
             where: {
                 user_id: req.session.user_id,
-                date: `${year}-${month}-${day}`
+                date: req.params.today,
             }
         });
         const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
@@ -37,10 +34,7 @@ router.get('/allData', withAuth, async (req, res) => {
     }
 });
 
-router.get('/generateChecks', withAuth, async (req, res) => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
+router.get('/generateChecks/:today', withAuth, async (req, res) => {
     try {
         const existingDailyChecks = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
 
@@ -50,7 +44,7 @@ router.get('/generateChecks', withAuth, async (req, res) => {
                 let checksData = await DailyChecksHistory.create({
                     daily_check: existingDailyChecks[i].daily_check,
                     user_id: req.session.user_id,
-                    date: `${year}-${month}-${day}`,
+                    date: req.params.today,
                     completed: false,
                     parent_id: existingDailyChecks[i].id
                 })
@@ -227,9 +221,6 @@ router.put('/taskEdits', withAuth, async (req, res) => {
 })
 
 router.post('/add', withAuth, async (req, res) => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
     try {
         if (req.body.type === 'Note') {
             const notesData = await Notes.create({
@@ -274,7 +265,7 @@ router.post('/add', withAuth, async (req, res) => {
             const checksData = await DailyChecksHistory.create({
                 daily_check: req.body.dailyCheck,
                 user_id: req.session.user_id,
-                date: `${year}-${month}-${day}`,
+                date: req.body.date,
                 completed: false,
                 parent_id: req.body.parentID
             })

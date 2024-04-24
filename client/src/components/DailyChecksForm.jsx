@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { css } from '@emotion/css';
 
-export default function DailyChecksForm({ visibility, setVisibility, dailyChecks, setDailyChecks, getData }) {
+export default function DailyChecksForm({ visibility, setVisibility, dailyChecks, setDailyChecks, today, getData }) {
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
@@ -34,6 +34,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                     body: JSON.stringify({
                         dailyCheck: inputValue,
                         parentID: data.id,
+                        date: today,
                         type: 'Daily Checks History'
                     }),
                     headers: { 'Content-Type': 'application/json' },
@@ -112,7 +113,6 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
         });
 
         if (response.ok) {
-            // console.log(response.statusText);
             getData();
         } else {
             console.error(response.statusText);

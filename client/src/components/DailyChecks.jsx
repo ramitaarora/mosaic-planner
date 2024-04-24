@@ -2,40 +2,45 @@ import { useState, useEffect } from 'react';
 import DailyChecksForm from './DailyChecksForm';
 import { css } from '@emotion/css';
 
-export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHistory, setDailyChecksHistory, getData }) {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
-    const today = `${year}-${month}-${day}`;
-
+export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHistory, setDailyChecksHistory, today, fullDate, timezone, getData }) {
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('hidden');
     const [errorMessage, setErrorMessage] = useState('');
-    const [currentDay, setCurrentDay] = useState(today);
-    const [formatMonth, setFormatMonth] = useState();
-    const [currentDateNum, setCurrentDateNum] = useState();
+    const [currentDay, setCurrentDay] = useState(fullDate);
 
     useEffect(() => {
-        let current = new Date(currentDay);
-        setCurrentDateNum(current.getDate());
-        let monthNum = current.getMonth();
-
-        if (monthNum === 0) setFormatMonth('January');
-        if (monthNum === 1) setFormatMonth('February');
-        if (monthNum === 2) setFormatMonth('March');
-        if (monthNum === 3) setFormatMonth('April');
-        if (monthNum === 4) setFormatMonth('May');
-        if (monthNum === 5) setFormatMonth('June');
-        if (monthNum === 6) setFormatMonth('July');
-        if (monthNum === 7) setFormatMonth('August');
-        if (monthNum === 8) setFormatMonth('September');
-        if (monthNum === 9) setFormatMonth('October');
-        if (monthNum === 10) setFormatMonth('November');
-        if (monthNum === 11) setFormatMonth('December');
-    }, [currentDay])
+        getToday();
+    }, [])
 
     const showModal = () => {
         setVisibility('visible');
+    }
+
+    const fetchSpecificDayChecks = (newFullDate) => {
+        fetch(`/api/data/checksDate/${newFullDate}`)
+        .then((response) => {
+            if (!response.ok) {
+                console.error(response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            let newFullDateLong = new Date(newFullDate);
+            const timeZoneDate = new Intl.DateTimeFormat('en-US', {
+                dateStyle: 'full',
+                timeZone: timezone,
+              }).format(newFullDateLong);
+
+            setCurrentDay(timeZoneDate);
+            if (data.Message) {
+                setDailyChecksHistory([]);
+            } else {
+                setDailyChecksHistory(data);
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
     }
 
     const editCheck = (event) => {
@@ -65,7 +70,11 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
-                getData();
+                let newYear = new Date(currentDay).getFullYear();
+                let newMonth = new Date(currentDay).getMonth() + 1;
+                let newDay = new Date(currentDay).getDate();
+                let newFullDate = `${newYear}-${newMonth}-${newDay}`;
+                fetchSpecificDayChecks(newFullDate);
             } else {
                 console.error(response.statusText);
             }
@@ -90,7 +99,11 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         });
 
         if (response.ok) {
-            getData()
+            let newYear = new Date(currentDay).getFullYear();
+            let newMonth = new Date(currentDay).getMonth() + 1;
+            let newDay = new Date(currentDay).getDate();
+            let newFullDate = `${newYear}-${newMonth}-${newDay}`;
+            fetchSpecificDayChecks(newFullDate);
         } else {
             console.error(response.statusText);
         }
@@ -127,15 +140,19 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         });
 
         if (response.ok) {
-            getData()
+            let newYear = new Date(currentDay).getFullYear();
+            let newMonth = new Date(currentDay).getMonth() + 1;
+            let newDay = new Date(currentDay).getDate();
+            let newFullDate = `${newYear}-${newMonth}-${newDay}`;
+            fetchSpecificDayChecks(newFullDate);
         } else {
             console.error(response.statusText);
         }
     }
 
-    const getToday = async () => {
+    const getToday = () => {
         getData();
-        setCurrentDay(today);
+        setCurrentDay(fullDate);
     }
 
     const minusDay = async () => {
@@ -146,22 +163,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         let newDay = new Date(minusOne).getDate();
         let newFullDate = `${newYear}-${newMonth}-${newDay}`;
 
-        fetch(`/api/data/checksDate/${newFullDate}`)
-            .then((response) => {
-                if (!response.ok) {
-                    console.error(response.statusText);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setCurrentDay(newFullDate);
-                // console.log(currentDay);
-                if (data.Message) {
-                    setDailyChecksHistory([]);
-                } else {
-                    setDailyChecksHistory(data);
-                }
-            })
+        fetchSpecificDayChecks(newFullDate);
     }
 
     const addDay = async () => {
@@ -172,27 +174,12 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         let newDay = new Date(addOne).getDate();
         let newFullDate = `${newYear}-${newMonth}-${newDay}`;
 
-        fetch(`/api/data/checksDate/${newFullDate}`)
-            .then((response) => {
-                if (!response.ok) {
-                    console.error(response.statusText);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setCurrentDay(newFullDate);
-                // console.log(currentDay);
-                if (data.Message) {
-                    setDailyChecksHistory([]);
-                } else {
-                    setDailyChecksHistory(data);
-                }
-            })
+        fetchSpecificDayChecks(newFullDate);
     }
 
     const generateTodaysChecks = () => {
         try {
-            fetch('/api/data/generateChecks')
+            fetch(`/api/data/generateChecks/${today}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`)
@@ -217,7 +204,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     return (
         <div id="daily-checks" className={`card ${css`height: 45vh;`}`}>
             <div id="card-header">
-                <h2>Daily Checks for {formatMonth} {currentDateNum}</h2>
+                <h2>Daily Checks for {currentDay.split(',')[1]}</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
             </div>
             <div id="arrows" className={css`width: 90%; margin: 0 auto 5px auto; display: flex; justify-content: space-between; align-items: center;`}>
@@ -253,7 +240,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
                 </div>
             )
             }
-            <DailyChecksForm visibility={visibility} setVisibility={setVisibility} getData={getData} dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} />
+            <DailyChecksForm visibility={visibility} setVisibility={setVisibility} getData={getData} dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} today={today} />
         </div>
     )
 }

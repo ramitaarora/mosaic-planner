@@ -18,55 +18,6 @@ export default function Dashboard() {
   // Date in format: Tuesday, April 23, 2024
   const [fullDate, setFullDate] = useState('');
   const [hour, setHour] = useState('');
-  
-  useEffect(() => {
-    const date = new Date();
-
-    const timeZoneDate = new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'full',
-      timeZone: timezone,
-    }).format(date);
-    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-    }).format(date);
-    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-      hourCycle: "h24"
-    }).format(date);
-
-    const year = new Date(timeZoneDate).getFullYear();
-    const month = new Date(timeZoneDate).getMonth() + 1;
-    const day = new Date(timeZoneDate).getDate();
-    setToday(`${year}-${month}-${day}`);
-    setTime(timeZoneTime)
-    setFullDate(timeZoneDate);
-    setHour(timeZoneHour);
-
-  }, [])
-
-  setTimeout(() => {
-    const date = new Date();
-
-    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-    }).format(date);
-    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-      hourCycle: "h24"
-    }).format(date);
-
-    setTime(timeZoneTime)
-    setHour(timeZoneHour);
-      
-  }, 60000)
-
-  useEffect(() => {
-    // console.log(hour)
-  }, [today])
 
   const [yearGoals, setYearGoals] = useState([]);
   const [monthGoals, setMonthGoals] = useState([]);
@@ -85,7 +36,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   const getData = () => {
-    fetch('/api/data/allData')
+    fetch(`/api/data/allData/${today}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -126,9 +77,29 @@ export default function Dashboard() {
       })
       .then((data) => {
         if (data.loggedIn) {
-          // console.log(data);
-          setLoading(false);
-          getData();
+          const date = new Date();
+
+          const timeZoneDate = new Intl.DateTimeFormat('en-US', {
+            dateStyle: 'full',
+            timeZone: timezone,
+          }).format(date);
+          const timeZoneTime = new Intl.DateTimeFormat('en-US', {
+            timeStyle: 'short',
+            timeZone: timezone,
+          }).format(date);
+          const timeZoneHour = new Intl.DateTimeFormat('en-US', {
+            timeStyle: 'short',
+            timeZone: timezone,
+            hourCycle: "h24"
+          }).format(date);
+      
+          const year = new Date(timeZoneDate).getFullYear();
+          const month = new Date(timeZoneDate).getMonth() + 1;
+          const day = new Date(timeZoneDate).getDate();
+          setToday(`${year}-${month}-${day}`);
+          setTime(timeZoneTime)
+          setFullDate(timeZoneDate);
+          setHour(timeZoneHour);
         } else {
           window.location.replace('/login')
         }
@@ -137,6 +108,31 @@ export default function Dashboard() {
         console.error(error)
       });
   }, []);
+
+  useEffect(() => {
+    if (today) {
+      getData();
+      setLoading(false);
+    }
+  }, [today])
+
+  setTimeout(() => {
+    const date = new Date();
+
+    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+    }).format(date);
+    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+      hourCycle: "h24"
+    }).format(date);
+
+    setTime(timeZoneTime)
+    setHour(timeZoneHour);
+      
+  }, 60000)
 
   const changeColour = (theme) => {
     const rootEl = document.querySelector(':root');
@@ -229,7 +225,7 @@ export default function Dashboard() {
 
             <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
               <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} getData={getData} />
-              <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} getData={getData} />
+              <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
             </section>
 
             <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
