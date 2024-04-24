@@ -224,7 +224,7 @@ export default function Dashboard() {
             </section>
 
             <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
-              <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} getData={getData} />
+              <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
               <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
             </section>
 

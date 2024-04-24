@@ -120,11 +120,13 @@ input[type="checkbox"]:not(:disabled):checked {
     justify-content: space-between;
     margin: 0 25px;
     font-size: 12px;
-    align-items:baseline;
+    align-items: center;
+    margin-bottom: 10px;
+    width: auto;
 }
 
-.card h2 {
-    margin-bottom: 10px;
+#card-header h2 {
+    width: 70%;
 }
 
 #card-header img:hover,

@@ -4,13 +4,14 @@ import AddEventsForm from './AddEventsForm';
 import EditEventsForm from './EditEventForm';
 import Calendar from 'react-calendar';
 
-export default function Schedule({ events, setEvents, fullDate, timezone, getData }) {
+export default function Schedule({ events, setEvents, fullDate, timezone, today, getData }) {
     const [currentDate, setCurrentDate] = useState(fullDate);
     const [todaysEvents, setTodaysEvents] = useState([])
     const [addVisibility, setAddVisibility] = useState('hidden');
     const [editVisibility, setEditVisibility] = useState('hidden');
     const [eventToEdit, setEventToEdit] = useState();
-    const [formattedDate, setFormattedDate] = useState(new Date(currentDate))
+    const [formattedDate, setFormattedDate] = useState(new Date(currentDate));
+    const [currentYearDate, setCurrentYearDate] = useState(today);
 
     const getTodaysEvents = () => {
         const nonRecurring = events.filter(event => event.date);
@@ -182,14 +183,30 @@ export default function Schedule({ events, setEvents, fullDate, timezone, getDat
     const clickDay = (event, value) => {
         let selectedDate = new Date(event);
 
-        const timeZoneDate = new Intl.DateTimeFormat('en-US', {
-            dateStyle: 'full',
-            timeZone: timezone,
-          }).format(selectedDate);
+        if (selectedDate === new Date(today)) {
+            getToday();
+        } else {
+            const timeZoneDate = new Intl.DateTimeFormat('en-US', {
+                dateStyle: 'full',
+                timeZone: timezone,
+              }).format(selectedDate);
+            
+            setTodaysEvents([]);
 
-        setCurrentDate(timeZoneDate);
-        setFormattedDate(new Date(timeZoneDate));
+            const year = new Date(timeZoneDate).getFullYear();
+            const month = new Date(timeZoneDate).getMonth() + 1;
+            const day = new Date(timeZoneDate).getDate();
+            setCurrentYearDate(`${year}-${month}-${day}`);
+            setFormattedDate(new Date(timeZoneDate));
+            setCurrentDate(timeZoneDate);
+        } 
+    }
+
+    const getToday = () => {
         setTodaysEvents([]);
+        setCurrentDate(fullDate);
+        setFormattedDate(new Date(currentDate));
+        setCurrentYearDate(today);
     }
 
     return (
@@ -197,6 +214,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, getDat
 
             <div id="card-header">
                 <h2>{currentDate ? currentDate : "Today"}</h2>
+                <button onClick={getToday}>Today</button>
                 <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
             </div>
 
