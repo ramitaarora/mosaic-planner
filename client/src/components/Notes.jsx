@@ -164,7 +164,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     return (
-        <div id="notes" className={`card ${css`height: 30vh;`}`}>
+        <div id="notes" className={`card ${css`height: 20vh;`}`}>
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />

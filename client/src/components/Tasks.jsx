@@ -183,7 +183,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     return (
-        <div id="tasks" className={`card ${css`height: 33vh;`}`}>
+        <div id="tasks" className={`card ${css`height: 30vh;`}`}>
             <div id="card-header">
                 <h2>All Tasks</h2>
                 <img id="add-task-button" src="./svgs/add.svg" alt="add" onClick={addNewTask} />
