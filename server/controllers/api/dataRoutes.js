@@ -36,7 +36,12 @@ router.get('/allData/:today', withAuth, async (req, res) => {
 
 router.get('/generateChecks/:today', withAuth, async (req, res) => {
     try {
-        const existingDailyChecks = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
+        const existingDailyChecks = await DailyChecks.findAll({
+            where: {
+                user_id: req.session.user_id,
+                archived: false,
+            }
+        })
 
         if (existingDailyChecks.length) {
 
@@ -91,7 +96,7 @@ router.put('/completed', withAuth, async (req, res) => {
         }
         if (req.body.type === 'Task') {
             if (req.body.completed === true) {
-                const taskData = await Tasks.update({ 
+                const taskData = await Tasks.update({
                     completed: req.body.completed,
                     date_completed: req.body.date,
                 }, {
@@ -102,7 +107,7 @@ router.put('/completed', withAuth, async (req, res) => {
                 })
                 res.status(200).json(taskData);
             } else {
-                const taskData = await Tasks.update({ 
+                const taskData = await Tasks.update({
                     completed: req.body.completed,
                     date_completed: null
                 }, {
