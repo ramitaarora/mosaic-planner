@@ -9,6 +9,7 @@ import Schedule from '../components/Schedule.jsx';
 import ProfileForm from '../components/ProfileForm.jsx';
 import Tasks from '../components/Tasks.jsx';
 import TasksInProgress from '../components/TasksInProgress.jsx';
+import MobileNav from '../components/MobileNav.jsx';
 
 export default function Dashboard() {
   // Date in format: 2024/04/23

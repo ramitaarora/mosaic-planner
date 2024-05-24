@@ -341,6 +341,20 @@ input[type="checkbox"]:not(:disabled):checked {
 
 #each-suggestion:hover {
     background-color: var(--card-background);
+    height: 30px;
+    width: 30px;
+}
+
+/* Mobile Nav */
+
+#mobile-nav svg {
+    fill: var(--line-background);
+    cursor: pointer;
+}
+
+#mobile-nav svg:hover {
+    position: relative;
+    top: -7px;
 }
 
 /* Mobile Styles */
@@ -366,6 +380,9 @@ input[type="checkbox"]:not(:disabled):checked {
         margin-bottom: 10px;
     }
     #weather {
+        display: none;
+    }
+    footer {
         display: none;
     }
 }
@@ -398,5 +415,8 @@ input[type="checkbox"]:not(:disabled):checked {
     }
     #add-new-check-form {
         flex-direction: column;
+    }
+    footer {
+        display: none;
     }
 }
