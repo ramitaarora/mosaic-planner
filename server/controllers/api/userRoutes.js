@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 const withAuth = require('../../utils/auth');
+const bcrypt = require('bcrypt');
 
 router.get('/getUser', withAuth, async (req, res) => {
   try {
@@ -21,19 +22,24 @@ router.get('/getUser', withAuth, async (req, res) => {
 router.put('/updateUser', withAuth, async (req, res) => {
   try {
     if (req.body.type === 'name') {
-      const userData = await User.update({ name : req.body.data }, { where: { id: req.session.user_id }} );
+      const userData = await User.update({ name : req.body.data }, { where: { id: req.session.user_id }});
       res.status(200).json(userData);
     }
     if (req.body.type === 'email') {
-      const userData = await User.update({ email : req.body.data }, { where: { id: req.session.user_id }} );
+      const userData = await User.update({ email : req.body.data }, { where: { id: req.session.user_id }});
       res.status(200).json(userData);
     }
     if (req.body.type === 'location') {
-      const userData = await User.update({ location : req.body.data }, { where: { id: req.session.user_id }} );
+      const userData = await User.update({ location : req.body.data }, { where: { id: req.session.user_id }});
       res.status(200).json(userData);
     }
     if (req.body.type === 'colour') {
       const userData = await User.update({ colour: req.body.colourTheme}, { where: { id: req.session.user_id }});
+      res.status(200).json(userData);
+    }
+    if (req.body.type === 'password') {
+      const hash = await bcrypt.hash(req.body.data, 10);
+      const userData = await User.update( { password: hash }, { where: { id: req.session.user_id }})
       res.status(200).json(userData);
     }
   } catch (err) {

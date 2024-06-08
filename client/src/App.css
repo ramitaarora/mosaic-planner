@@ -289,6 +289,7 @@ input[type="checkbox"]:not(:disabled):checked {
 #form-input input[type="text"], 
 #form-input input[type="date"], 
 #form-input input[type="time"],
+#form-input input[type="password"],
 #form-input textarea {
     width: 250px;
 }
@@ -398,6 +399,7 @@ input[type="checkbox"]:not(:disabled):checked {
     #form-input input[type="text"], 
     #form-input input[type="date"], 
     #form-input input[type="time"],
+    #form-input input[type="password"],
     #form-input textarea,
     #form-input select {
         width: 100%;
