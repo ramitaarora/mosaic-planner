@@ -12,6 +12,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     const [eventToEdit, setEventToEdit] = useState();
     const [formattedDate, setFormattedDate] = useState(new Date(currentDate));
     const [currentYearDate, setCurrentYearDate] = useState(today);
+    const [todaysSortedEvents, setTodaysSortedEvents] = useState([]);
 
     const getTodaysEvents = () => {
         const nonRecurring = events.filter(event => event.date);
@@ -107,9 +108,9 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             }
         })
     }
-
-    const sortTodaysEvents = () => {
-        todaysEvents.sort((a, b) => {
+    
+    useEffect(() => {
+        const sortedEvents = todaysEvents.sort((a, b) => {
             if (a.all_day !== b.all_day) {
                 return a.all_day ? -1 : 1;
             }
@@ -117,12 +118,12 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             const timeB = b.start_time || '';
             return timeA.localeCompare(timeB);
         })
-    }
+        setTodaysSortedEvents(sortedEvents);
+    }, [todaysEvents])
 
     useEffect(() => {
         if (events.length) {
             getTodaysEvents();
-            sortTodaysEvents();
         }
     }, [events, currentDate])
 
@@ -224,8 +225,8 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
 
             <div>
                 <ul>
-                    {todaysEvents.length ? (
-                        todaysEvents.map((event, index) =>
+                    {todaysSortedEvents.length ? (
+                        todaysSortedEvents.map((event, index) =>
                             <div key={index} id="line" value={event.id}>
                                 <div id="each-event" className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     {event.all_day ? (
