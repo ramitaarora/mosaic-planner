@@ -77,7 +77,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
                         <h2>Archived Tasks</h2>
                     </div>
 
-                    <div id="archived-tasks-modal">
+                    <div id="archived-tasks-modal" className={css`height: 300px; overflow: overlay;`}>
                         <ul>
                             {archivedTasks.length ? (
                                 archivedTasks.map((task, index) => (
