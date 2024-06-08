@@ -7,6 +7,7 @@ const childGoalsData = require('./childGoalsData.json');
 const dailyChecksData = require('./dailyChecksData.json');
 const eventsData = require('./eventsData.json');
 const taskData = require('./tasksData.json');
+const archivedTasksData = require('./archivedTasksData.json');
 
 const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../models');
 
@@ -65,6 +66,21 @@ const seedDatabase = async () => {
         individualHooks: true,
         returning: true,
     })
+
+    for (let j = 0; j < archivedTasksData.length; j++) {
+        const archivedTasks = await Tasks.create({
+            user_id: archivedTasksData[j].user_id,
+            task: archivedTasksData[j].task,
+            in_progress: archivedTasksData[j].in_progress,
+            completed: archivedTasksData[j].completed,
+            date_created: new Date(todaysDate),
+            date_completed: `${year}-${month}-${day + j}`,
+            archived: archivedTasksData[j].archived,
+        }, {
+            individualHooks: true,
+            returning: true,
+        })
+    }
 
     process.exit(0);
 };

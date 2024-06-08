@@ -1,6 +1,20 @@
+import { useEffect, useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function TasksArchived({ visibility, setVisibility, archivedTasks, getData }) {
+    const [sortedArchivedTasks, setSortedArchivedTasks] = useState(archivedTasks);
+
+    useEffect(() => {
+        const sortTasks = archivedTasks.sort((a, b) => {
+            let dateA = a.date_completed ? new Date(a.date_completed) : new Date(a.date_created);
+            let dateB = b.date_completed ? new Date(b.date_completed) : new Date(b.date_created);
+
+            return dateB - dateA;
+        })
+
+        setSortedArchivedTasks(sortTasks);
+    }, [archivedTasks])
+
     const closeModal = () => {
         setVisibility('hidden');
     }
@@ -84,7 +98,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
                                     <div id="line" key={index}>
                                         <div>
                                             <li>{task.task}</li>
-                                            <p className={css`font-size: 12px;`}>{task.date_completed ? formatDate(task.date_completed) : formatDate(task.date_created)}</p>
+                                            <p className={css`font-size: 12px;`}>{task.date_completed ? "Date Completed: " + formatDate(task.date_completed) : "Date Created: " + formatDate(task.date_created)}</p>
                                         </div>
                                         
                                         <div id="edit-buttons">

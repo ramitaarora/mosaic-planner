@@ -1,12 +1,6 @@
 [
     {
         "user_id": 1,
-        "task": "Finish report",
-        "in_progress": true,
-        "completed": true
-    },
-    {
-        "user_id": 1,
         "task": "Call Annika",
         "in_progress": false,
         "completed": false
@@ -34,17 +28,5 @@
         "task": "Read book on organization",
         "in_progress": false,
         "completed": false
-    },
-    {
-        "user_id": 1,
-        "task": "Brainstorm new project ideas",
-        "in_progress": false,
-        "completed": false
-    },
-    {
-        "user_id": 1,
-        "task": "Make appointment",
-        "in_progress": true,
-        "completed": true
     }
 ]
