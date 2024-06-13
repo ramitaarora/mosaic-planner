@@ -10,6 +10,7 @@ import ProfileForm from '../components/ProfileForm.jsx';
 import Tasks from '../components/Tasks.jsx';
 import TasksInProgress from '../components/TasksInProgress.jsx';
 import MobileNav from '../components/MobileNav.jsx';
+import MobileCard from '../components/MobileCard.jsx';
 
 export default function Dashboard() {
   // Date in format: 2024/04/23
@@ -19,7 +20,7 @@ export default function Dashboard() {
   // Date in format: Tuesday, April 23, 2024
   const [fullDate, setFullDate] = useState('');
   const [hour, setHour] = useState('');
-
+  // Data variables
   const [yearGoals, setYearGoals] = useState([]);
   const [monthGoals, setMonthGoals] = useState([]);
   const [weekGoals, setWeekGoals] = useState([]);
@@ -34,7 +35,10 @@ export default function Dashboard() {
   const [location, setLocation] = useState('Pasadena');
   const [visibility, setVisibility] = useState('hidden');
   const [colourTheme, setColourTheme] = useState();
+  // Loading for dashboard
   const [loading, setLoading] = useState(true);
+  // Mobile navigation
+  const [mobileCard, setMobileCard] = useState();
 
   const getData = () => {
     fetch(`/api/data/allData/${today}`)
@@ -93,7 +97,7 @@ export default function Dashboard() {
             timeZone: timezone,
             hourCycle: "h24"
           }).format(date);
-      
+
           const year = new Date(timeZoneDate).getFullYear();
           const month = new Date(timeZoneDate).getMonth() + 1;
           const day = new Date(timeZoneDate).getDate();
@@ -132,7 +136,7 @@ export default function Dashboard() {
 
     setTime(timeZoneTime)
     setHour(timeZoneHour);
-      
+
   }, 60000)
 
   const changeColour = (theme) => {
@@ -206,6 +210,11 @@ export default function Dashboard() {
     }
   }, [colourTheme])
 
+  const navigate = (event) => {
+    setMobileCard(event.target.id.split('-')[1]);
+    console.log(mobileCard);
+  }
+
   return (
     <div>
       {loading ? (
@@ -214,27 +223,65 @@ export default function Dashboard() {
         </div>
       ) : (
         <div>
-          <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour}/>
-          <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
+          <div id="desktop">
+            <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
 
-          <main className={css`display: flex; width: 100vw;`}>
-            <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-              <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
-              <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
-              <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
-            </section>
+            <main className={css`display: flex; width: 100vw;`}>
+              <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
+                <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
+                <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
+                <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
+              </section>
 
-            <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
-              <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
-              <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
-            </section>
+              <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
+                <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
+                <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
+              </section>
 
-            <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-              <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
-              <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
-              <Notes notes={notes} setNotes={setNotes} getData={getData} />
-            </section>
-          </main>
+              <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
+                <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
+                <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
+                <Notes notes={notes} setNotes={setNotes} getData={getData} />
+              </section>
+            </main>
+          </div>
+
+          <div id="mobile">
+            <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
+            {mobileCard === '' || !mobileCard ? (
+              <MobileCard navigate={navigate} />
+            ) : null}
+            {mobileCard === 'tasks' ? (
+              <div id="mobile-card">
+                <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
+                <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
+              </div>
+            ) : null}
+            {mobileCard === 'checks' ? (
+              <div id="mobile-card">
+                <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
+              </div>
+            ) : null}
+            {mobileCard === 'schedule' ? (
+              <div id="mobile-card">
+                <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
+              </div>
+            ) : null}
+            {mobileCard === 'goals' ? (
+              <div id="mobile-card">
+                <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
+                <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
+                <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
+              </div>
+            ) : null}
+            {mobileCard === 'notes' ? (
+              <div id="mobile-card">
+                <Notes notes={notes} setNotes={setNotes} getData={getData} />
+              </div>
+            ) : null}
+            <MobileNav navigate={navigate} />
+          </div>
         </div>
       )
       }
