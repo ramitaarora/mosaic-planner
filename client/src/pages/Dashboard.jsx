@@ -210,9 +210,10 @@ export default function Dashboard() {
     }
   }, [colourTheme])
 
-  const navigate = (event) => {
-    setMobileCard(event.target.id.split('-')[1]);
-    console.log(mobileCard);
+  const navigate = (id) => {
+    console.log(`target = ${id}`)
+    setMobileCard(id.split('-')[1]);
+    // console.log(mobileCard);
   }
 
   return (

@@ -362,6 +362,7 @@ input[type="checkbox"]:not(:disabled):checked {
     position: relative;
     top: -7px;
     cursor: pointer;
+    border: 1px solid black;
 }
 
 /* Mobile Card */
