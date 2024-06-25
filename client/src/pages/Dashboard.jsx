@@ -250,7 +250,7 @@ export default function Dashboard() {
           <div id="mobile">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
             <div id="mobile-component">
-              {mobileCard === '' || !mobileCard ? (
+              {mobileCard === '' || mobileCard === 'home' || !mobileCard ? (
                 <MobileCard navigate={navigate} />
               ) : null}
               {mobileCard === 'tasks' ? (

@@ -360,15 +360,19 @@ input[type="checkbox"]:not(:disabled):checked {
     margin: 0 auto;
 }
 
-#mobile-nav svg {
-    fill: var(--line-background);
-}
-
 #mobile-nav svg:hover,
 .mobile-card-nav-div:hover {
     position: relative;
     top: -7px;
     cursor: pointer;
+}
+
+.mobile-nav-inactive svg {
+    fill: var(--line-background);
+}
+
+.mobile-nav-active svg {
+    fill: var(--card-background);
 }
 
 /* Mobile Card */
