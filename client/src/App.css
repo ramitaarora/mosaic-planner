@@ -309,7 +309,7 @@ input[type="checkbox"]:not(:disabled):checked {
 }
 
 #colour-form img {
-    border: 1px solid var(--background);
+    border: 1px solid var(--text);
     height: 60px;
 }
 
@@ -348,9 +348,16 @@ input[type="checkbox"]:not(:disabled):checked {
 
 /* Mobile Nav */
 
+#mobile {
+    display: none;
+}
+
 #mobile-nav {
     position: sticky;
     bottom: 0;
+    min-height: 5vh;
+    max-height: 5vh;
+    margin: 0 auto;
 }
 
 #mobile-nav svg {
@@ -358,30 +365,39 @@ input[type="checkbox"]:not(:disabled):checked {
 }
 
 #mobile-nav svg:hover,
-#mobile-card-nav svg:hover {
+.mobile-card-nav-div:hover {
     position: relative;
     top: -7px;
     cursor: pointer;
-    border: 1px solid black;
 }
 
 /* Mobile Card */
 
-#mobile-card {
-    width: 100vw;
-    height: 100%;
+#mobile-component {
+    min-height: 75vh;
+    max-height: 75vh;
+    min-width: 100%;
+    overflow: overlay;
+    padding: 20px 0;
 }
 
 #mobile-card-nav {
+    min-height: 75vh;
+    max-height: 75vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
+    text-align: center;
+}
+
+.mobile-card-nav-div {
+    width: 80%;
+    margin: 10px;
 }
 
 #mobile-card-nav svg {
-    width: 30%;
-    margin: 20px auto;
+    padding: 10px 15px;
 }
 
 /* Mobile Styles */
@@ -393,12 +409,15 @@ input[type="checkbox"]:not(:disabled):checked {
         align-items: center;
     }
     #left, #middle, #right, #goals, #schedule, #daily-checks, #notes, #tasks, #in-progress-tasks {
-        width: 100%;
+        margin: 10px auto;
+        width: 80%;
         height: fit-content;
     }
     header {
         flex-direction: column;
         padding: 0;
+        min-height: 15vh;
+        max-height: 15vh;
     }
     #today, #navigation {
         height: 100%;
@@ -427,6 +446,11 @@ input[type="checkbox"]:not(:disabled):checked {
     }
     #account-forms {
         width: 100%;
+    }
+    #left, #middle, #right, #goals, #schedule, #daily-checks, #notes, #tasks, #in-progress-tasks {
+        margin: 10px auto;
+        width: 95%;
+        height: fit-content;
     }
     #form-input input[type="text"], 
     #form-input input[type="date"], 
@@ -458,5 +482,8 @@ input[type="checkbox"]:not(:disabled):checked {
     }
     #mobile {
         display: block;
+    }
+    .mobile-card-nav-div {
+        width: 30%;
     }
 }

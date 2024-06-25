@@ -11,6 +11,7 @@ import Tasks from '../components/Tasks.jsx';
 import TasksInProgress from '../components/TasksInProgress.jsx';
 import MobileNav from '../components/MobileNav.jsx';
 import MobileCard from '../components/MobileCard.jsx';
+import MobileWeather from '../components/MobileWeather.jsx';
 
 export default function Dashboard() {
   // Date in format: 2024/04/23
@@ -211,9 +212,7 @@ export default function Dashboard() {
   }, [colourTheme])
 
   const navigate = (id) => {
-    console.log(`target = ${id}`)
     setMobileCard(id.split('-')[1]);
-    // console.log(mobileCard);
   }
 
   return (
@@ -250,37 +249,44 @@ export default function Dashboard() {
 
           <div id="mobile">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
-            {mobileCard === '' || !mobileCard ? (
-              <MobileCard navigate={navigate} />
-            ) : null}
-            {mobileCard === 'tasks' ? (
-              <div id="mobile-card">
-                <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
-                <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
-              </div>
-            ) : null}
-            {mobileCard === 'checks' ? (
-              <div id="mobile-card">
-                <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
-              </div>
-            ) : null}
-            {mobileCard === 'schedule' ? (
-              <div id="mobile-card">
-                <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
-              </div>
-            ) : null}
-            {mobileCard === 'goals' ? (
-              <div id="mobile-card">
-                <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
-                <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
-                <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
-              </div>
-            ) : null}
-            {mobileCard === 'notes' ? (
-              <div id="mobile-card">
-                <Notes notes={notes} setNotes={setNotes} getData={getData} />
-              </div>
-            ) : null}
+            <div id="mobile-component">
+              {mobileCard === '' || !mobileCard ? (
+                <MobileCard navigate={navigate} />
+              ) : null}
+              {mobileCard === 'tasks' ? (
+                <div id="mobile-card">
+                  <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
+                  <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
+                </div>
+              ) : null}
+              {mobileCard === 'checks' ? (
+                <div id="mobile-card">
+                  <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
+                </div>
+              ) : null}
+              {mobileCard === 'schedule' ? (
+                <div id="mobile-card">
+                  <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
+                </div>
+              ) : null}
+              {mobileCard === 'goals' ? (
+                <div id="mobile-card">
+                  <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
+                  <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
+                  <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
+                </div>
+              ) : null}
+              {mobileCard === 'notes' ? (
+                <div id="mobile-card">
+                  <Notes notes={notes} setNotes={setNotes} getData={getData} />
+                </div>
+              ) : null}
+              {mobileCard === 'weather' ? (
+                <div id="mobile-card">
+                  <MobileWeather location={location} />
+                </div>
+              ) : null}
+            </div>
             <MobileNav navigate={navigate} />
           </div>
         </div>

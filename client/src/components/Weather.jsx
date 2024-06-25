@@ -10,24 +10,24 @@ export default function Weather({ location }) {
 
     useEffect(() => {
         setLoading(true);
-        // fetch(`/api/data/weather/${location}`)
-        //     .then((response) => {
-        //         if (!response.ok) {
-        //             throw new Error(`HTTP error! Status: ${response.status}`);
-        //         }
-        //         return response.json(); // or response.text() for text data
-        //     })
-        //     .then((data) => {
-        //         // console.log(data);
-        //         setCity(data.city.name);
-        //         setTemp(data.list[0].main.temp);
-        //         setForecast(data.list[0].weather[0].description)
-        //         setIcon(`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
-        //         setLoading(false);
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching data:', error);
-        //     });
+        fetch(`/api/data/weather/${location}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // or response.text() for text data
+            })
+            .then((data) => {
+                // console.log(data);
+                setCity(data.city.name);
+                setTemp(data.list[0].main.temp);
+                setForecast(data.list[0].weather[0].description)
+                setIcon(`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
     }, [location]);
 
     return (
