@@ -37,13 +37,16 @@ export default function MobileWeather({ location }) {
             ) : (
                 <div className={css`display: flex; justify-content: center; align-items: center; flex-direction: column;`}>
                     <div id="weather-1" className={css`width: 100%; display: flex; justify-content: center; align-items: center;`}>
-                        <p>Weather for {city}</p>
-                        <img src={icon} alt={forecast} height="50px" width="50px" />
+                        <h2>Weather for {city}</h2>
                     </div>
-                    <div id="weather-2" className={css` width: 50%; display: flex; justify-content: space-evenly; align-items: center;`}>
-                        <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p>
-                        <p>{forecast}</p>
+                    <div id="weather-2" className={css` width: fit-content; display: flex; justify-content: space-evenly; align-items: center;`}>
+                        <img src={icon} alt={forecast} height="100px" width="100px" />
+                        <div className={css`text-align: left;`}>
+                            <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p>
+                            <p>{forecast}</p>
+                        </div>
                     </div>
+
                 </div>
             )}
         </div>
