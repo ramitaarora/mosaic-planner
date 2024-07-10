@@ -230,16 +230,20 @@ export default function Notes({ notes, setNotes, getData }) {
                         <div id="empty">
                             <p>No notes yet! Click the plus to add a note or reminder.</p>
                             <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
-                                <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
                                 {loading ? (
                                     <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
-                                ) : null}
+                                ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                             </div>
                             <div id="suggestions">
                                 {suggestions.length ? (
-                                    suggestions.map((item, index) => (
-                                        <p id="each-suggestion" key={index} onClick={addAISuggestion}>{item}</p>
-                                    ))
+                                    <div className={css`display: flex;`}>
+                                        <div>
+                                            {suggestions.map((item, index) => (
+                                                <p key={index} id="each-suggestion" onClick={addAISuggestion}>{item}</p>
+                                            ))}
+                                        </div>
+                                        <img src="./svgs/exit.svg" alt="delete-suggestions" className={css`float: right; margin-right: 20px; cursor: pointer;`} onClick={removeAISuggestions} />
+                                    </div>
                                 ) : null}
                             </div>
                         </div>

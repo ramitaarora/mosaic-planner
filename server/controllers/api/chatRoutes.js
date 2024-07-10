@@ -6,6 +6,8 @@ const { User, Goals, Notes, DailyChecks, DailyChecksHistory, Events, Tasks } = r
 const goalTypes = ["Travel", "Reading", "Fitness", "Work", "Love Life", "Family", "Friendships", "Money", "Clubs", "Career", "Saving", "Classes", "Hobbies", "Health"]
 let existingGoals = [];
 let existingNotes = [];
+let existingChecks = [];
+let existingTasks = [];
 
 router.get('/goals', async (req, res) => {
   try {
@@ -104,20 +106,30 @@ router.get('/tasks', async (req, res) => {
 
 router.get('/checks', async (req, res) => {
   try {
-    const suggestionsData = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: "You are a helpful assistant designed to output JSON.",
-        },
-        { role: "user", content: "Can you give me three different daily tasks that people typically need to do throughout the day, for example floss, drink water, stretch or take vitamins? Please format short notes or reminders in an array called 'checkSuggestions'. Please only have the task content in each array element." },
-      ],
-      model: "gpt-3.5-turbo-0125",
-      response_format: { type: "json_object" },
-    });
+    const checksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id } });
+    const checks = checksData.map(check => check.get({ plain: true }));
+    for (let i = 0; i < checks.length; i++) {
+      existingChecks.push(checks[i].daily_check);
+    }
+    try {
+      const suggestionsData = await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant designed to output JSON.",
+          },
+          { role: "user", content: "Can you give me three different daily tasks that people typically need to do throughout the day, for example floss, drink water, stretch or take vitamins? Please do not include any thing in this list: " + existingChecks + ". Please format short notes or reminders in an array called 'checkSuggestions'. Please only have the task content in each array element." },
+        ],
+        model: "gpt-3.5-turbo-0125",
+        response_format: { type: "json_object" },
+      });
 
-    // console.log(suggestionsData.choices[0].message.content);
-    res.status(200).json(suggestionsData.choices[0].message.content);
+      // console.log(suggestionsData.choices[0].message.content);
+      res.status(200).json(suggestionsData.choices[0].message.content);
+    } catch (err) {
+      res.status(400).json(err);
+      console.log(err);
+    }
   } catch (err) {
     res.status(400).json(err);
     console.log(err);

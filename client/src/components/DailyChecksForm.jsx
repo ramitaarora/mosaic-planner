@@ -149,6 +149,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                 return response.json();
             })
             .then((data) => {
+                // console.log(data);
                 let parsedGoals = JSON.parse(data);
                 setSuggestions(parsedGoals.checkSuggestions);
                 setLoading(false);
@@ -156,7 +157,13 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const addAISuggestion = async (event) => {
-        setInputValue(event.target.innerText);     
+        setInputValue(event.target.innerText);
+        const removedCheck = suggestions.filter((item) => item != event.target.innerText);
+        setSuggestions(removedCheck);
+    }
+
+    const removeAISuggestions = () => {
+        setSuggestions([]);
     }
 
     return (
@@ -198,20 +205,24 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                         <input type="submit" />
                     </form>
 
-                    <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
-                        <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
+                    <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px;`}>
                         {loading ? (
                             <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
-                        ) : null}
+                        ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                     </div>
 
                     <div id="suggestions">
-                        {suggestions.length ? (
-                            suggestions.map((item, index) => (
-                                <p id="each-suggestion" key={index} onClick={addAISuggestion}>{item}</p>
-                            ))
-                        ) : null}
-                    </div>
+                    {suggestions.length ? (
+                        <div className={css`display: flex;`}>
+                            <div>
+                                {suggestions.map((item, index) => (
+                                    <p key={index} id="each-suggestion" onClick={addAISuggestion}>{item}</p>
+                                ))}
+                            </div>
+                            <img src="./svgs/exit.svg" alt="delete-suggestions" className={css`float: right; margin-right: 20px; cursor: pointer;`} onClick={removeAISuggestions} />
+                        </div>
+                    ) : null}
+                </div>
                     
                 </div>
             </div>
