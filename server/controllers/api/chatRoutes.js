@@ -84,13 +84,20 @@ router.get('/notes', async (req, res) => {
 
 router.get('/tasks', async (req, res) => {
   try {
+    const tasksData = await Tasks.findAll({ where: { user_id: req.session.user_id } });
+    const tasks = tasksData.map(task => task.get({ plain: true }));
+
+    for (let i = 0; i < tasks.length; i++) {
+      existingTasks.push(tasks[i].task);
+    }
+
     const suggestionsData = await openai.chat.completions.create({
       messages: [
         {
           role: "system",
           content: "You are a helpful assistant designed to output JSON.",
         },
-        { role: "user", content: "Can you give me three different work tasks that people typically need to do throughout the week? Please format short notes or reminders in an array called 'taskSuggestions'. Please only have the task content in each array element." },
+        { role: "user", content: "Can you give me three different work tasks that people typically need to do throughout the week? Please do not suggest anything in this list: " + existingTasks + ". Please format short notes or reminders in an array called 'taskSuggestions'. Please only have the task content in each array element." },
       ],
       model: "gpt-3.5-turbo-0125",
       response_format: { type: "json_object" },

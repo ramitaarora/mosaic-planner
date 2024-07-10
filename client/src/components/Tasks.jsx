@@ -176,16 +176,32 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                 document.getElementById('add-task').setAttribute('class', 'hidden');
                 document.getElementById('cancel-task-button').setAttribute('class', 'hidden');
                 document.getElementById('add-task-button').setAttribute('class', 'visible');
+
+                let removeSuggestion = suggestions.filter((item) => item != event.target.innerText);
+                setSuggestions(removeSuggestion);
             } else {
                 console.error(response.statusText);
             }
         }
     }
 
+    const removeAISuggestions = () => {
+        setSuggestions([]);
+    }
+
     return (
         <div id="tasks" className={`card ${css`height: 30vh;`}`}>
             <div id="card-header">
                 <h2>All Tasks</h2>
+
+                {allTasks.length ? (
+                    <div id="ai-suggestions" className={css`margin-right: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
+                        {loading ? (
+                            <img src="/svgs/loading.gif" alt="loading" height="35px" width="35px" />
+                        ) : <input type="submit" onClick={getAISuggestions} value="AI Suggestions" />}
+                    </div>
+                ) : null}
+
                 <img id="add-task-button" src="./svgs/add.svg" alt="add" onClick={addNewTask} />
                 <img id="cancel-task-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewTask} className="hidden" />
             </div>
@@ -194,6 +210,21 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                 <input type="text" placeholder="Write new task here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`} />
                 <input type="submit" />
             </form>
+
+            {allTasks.length ? (
+                <div id="suggestions">
+                    {suggestions.length ? (
+                        <div className={css`display: flex;`}>
+                            <div>
+                                {suggestions.map((item, index) => (
+                                    <p key={index} id="each-suggestion" onClick={addAISuggestion}>{item}</p>
+                                ))}
+                            </div>
+                            <img src="./svgs/exit.svg" alt="delete-suggestions" className={css`float: right; margin-right: 20px; cursor: pointer;`} onClick={removeAISuggestions} />
+                        </div>
+                    ) : null}
+                </div>
+            ) : null}
             <div id="task-list">
                 <ol>
                     {allTasks.length ? (
@@ -220,10 +251,9 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                         <div id="empty">
                             <p>No tasks yet! Click the plus to add a task.</p>
                             <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
-                                <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
                                 {loading ? (
                                     <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
-                                ) : null}
+                                ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                                 
                             </div>
                             <div id="suggestions">
