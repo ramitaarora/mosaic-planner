@@ -66,7 +66,7 @@ export default function Notes({ notes, setNotes, getData }) {
 
         document.getElementById(noteFormID).setAttribute('class', 'hidden');
         noteItem.setAttribute('class', 'list-item');
-        
+
     }
 
     const cancelNoteEdit = (event) => {
@@ -74,7 +74,7 @@ export default function Notes({ notes, setNotes, getData }) {
         const noteID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
         const noteFormID = event.target.form.id;
         const noteItem = document.getElementById(`note-list-item-${noteID}`)
-        
+
         const formID = document.getElementById(noteFormID);
         formID.setAttribute('class', 'hidden');
         noteItem.setAttribute('class', 'list-item');
@@ -101,7 +101,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
-    
+
             if (response.ok) {
                 getData();
                 document.getElementById('add-note').setAttribute('class', 'hidden');
@@ -133,6 +133,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 return response.json();
             })
             .then((data) => {
+                // console.log(data);
                 let parsedGoals = JSON.parse(data);
                 setSuggestions(parsedGoals.noteSuggestions);
                 setLoading(false);
@@ -140,7 +141,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const addAISuggestion = async (event) => {
-        const newNoteValue = event.target.innerText;
+        let newNoteValue = event.target.innerText;
 
         if (newNoteValue.length) {
             const response = await fetch('/api/data/add', {
@@ -151,64 +152,95 @@ export default function Notes({ notes, setNotes, getData }) {
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
-    
+
             if (response.ok) {
-                getData();
                 document.getElementById('add-note').setAttribute('class', 'hidden');
                 document.getElementById('cancel-note-button').setAttribute('class', 'hidden');
                 document.getElementById('add-note-button').setAttribute('class', 'visible');
+
+                let removeSuggestion = suggestions.filter((item) => item != event.target.innerText);
+                setSuggestions(removeSuggestion);
+                getData();
             } else {
                 console.error(response.statusText);
             }
         }
     }
 
+    const removeAISuggestions = () => {
+        setSuggestions([]);
+    }
+
     return (
         <div id="notes" className={`card ${css`height: 20vh;`}`}>
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
+
+                {notes.length ? (
+                    <div id="ai-suggestions" className={css`margin-right: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
+                        {loading ? (
+                            <img src="/svgs/loading.gif" alt="loading" height="35px" width="35px" />
+                        ) : <input type="submit" onClick={getAISuggestions} value="AI Suggestions" />}
+                    </div>
+                ) : null}
+
                 <img id="add-note-button" src="./svgs/add.svg" alt="add" onClick={addNewNote} />
                 <img id="cancel-note-button" src="./svgs/minus.svg" alt="minus" onClick={cancelNewNote} className="hidden" />
             </div>
 
             <form id="add-note" onSubmit={submitNewNote} className="hidden">
-                <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`}/>
+                <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`} />
                 <input type="submit" />
             </form>
+
+            {notes.length ? (
+                <div id="suggestions">
+                    {suggestions.length ? (
+                        <div className={css`display: flex;`}>
+                            <div>
+                                {suggestions.map((item, index) => (
+                                    <p key={index} id="each-suggestion" onClick={addAISuggestion}>{item}</p>
+                                ))}
+                            </div>
+                            <img src="./svgs/exit.svg" alt="delete-suggestions" className={css`float: right; margin-right: 20px; cursor: pointer;`} onClick={removeAISuggestions} />
+                        </div>
+                    ) : null}
+                </div>
+            ) : null}
+
             <div id="notes-list">
                 <ol>
                     {notes.length ? (
                         notes.map((note, index) =>
-                        <div key={index} id="line" value={note.id}>
-                            <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>
-                                <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
-                                    <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`}/>
-                                    <input type="submit" />
-                                    <button id="cancel-edit" onClick={cancelNoteEdit}>Cancel</button>
-                                </form>
+                            <div key={index} id="line" value={note.id}>
+                                <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
+                                    <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>
+                                    <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
+                                        <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
+                                        <input type="submit" />
+                                        <button id="cancel-edit" onClick={cancelNoteEdit}>Cancel</button>
+                                    </form>
+                                </div>
+                                <div id="edit-buttons">
+                                    <img src="./svgs/edit.svg" alt="edit" onClick={editNote} id={note.id} value={note.note} />
+                                    <img src="./svgs/delete.svg" alt="edit" onClick={deleteNote} id={note.id} />
+                                </div>
                             </div>
-                            <div id="edit-buttons">
-                                <img src="./svgs/edit.svg" alt="edit" onClick={editNote} id={note.id} value={note.note} />
-                                <img src="./svgs/delete.svg" alt="edit" onClick={deleteNote} id={note.id} />
-                            </div>
-                        </div>
-                    )) : (
+                        )) : (
                         <div id="empty">
                             <p>No notes yet! Click the plus to add a note or reminder.</p>
                             <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                                 <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
                                 {loading ? (
-                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
+                                    <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
                                 ) : null}
-                                
                             </div>
                             <div id="suggestions">
-                            {suggestions.length ? (
-                                suggestions.map((item, index) => (
-                                    <p id="each-suggestion" key={index} onClick={addAISuggestion}>{item}</p>
-                                ))
-                            ): null}
+                                {suggestions.length ? (
+                                    suggestions.map((item, index) => (
+                                        <p id="each-suggestion" key={index} onClick={addAISuggestion}>{item}</p>
+                                    ))
+                                ) : null}
                             </div>
                         </div>
                     )}

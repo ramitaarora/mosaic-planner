@@ -333,17 +333,24 @@ input[type="checkbox"]:not(:disabled):checked {
 #each-suggestion {
     cursor: pointer;
     padding: 10px;
-    background-color: var(--line-background);
+    background-color: var(--background);
     border-radius: var(--radius);
-    border: 1px solid var(--text);
-    margin: 5px 20px;
+    border: 1px solid var(--background);
+    margin: 3px 20px;
     padding: 5px 15px;
+    display: flex;
+    font-size: 12px;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--line-background);
 }
 
 #each-suggestion:hover {
-    background-color: var(--card-background);
-    /* height: 30px;
-    width: 30px; */
+    border: 1px solid var(--line-background);
+}
+
+#each-suggestion svg {
+    fill: var(--line-background);
 }
 
 /* Mobile Nav */

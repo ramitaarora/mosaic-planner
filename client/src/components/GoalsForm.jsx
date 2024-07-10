@@ -74,10 +74,9 @@ export default function GoalsForm({ visibility, setVisibility }) {
                             <p>Yearly resolutions break down into monthly goals, which can be further broken down into weekly goals.</p>
                         </div>
                         <form id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
-                            <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />
                             {loading ? (
                                 <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
-                            ) : null}
+                            ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                         </form>
                         <form id="save-goal" onSubmit={saveGoal} className={css`margin: 0 auto; width: 80%;`}>
 
@@ -98,7 +97,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
 
                             <div id="form-submit-buttons">
                                 <input type="submit" value="Save" />
-                                <input type="reset" onClick={resetForm} value="Reset" />
+                                <input type="reset" onClick={resetForm} value="Clear" />
                             </div>
                         </form>
                     </div>
