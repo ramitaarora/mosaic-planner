@@ -5,18 +5,19 @@ const { User } = require('../../models');
 
 const addTimezone = async () => {
     try {
-        await sequelize.sync({ alter: true })
+        // await sequelize.sync({ alter: true })
 
-        await queryInterface.addColumn('User', 'timezone', {
-            type:
-                DataTypes.STRING,
-            defaultValue: 'America/Los_Angeles',
-        });
+        // await queryInterface.addColumn('User', 'timezone', {
+        //     type:
+        //         DataTypes.STRING,
+        //     defaultValue: 'America/Los_Angeles',
+        // });
         
         const userData = await User.findAll();
         const users = userData.map(user => user.get({ plain: true }));
 
         console.log(users);
+        console.table(users);
 
     } catch (error) {
         console.log(error);
