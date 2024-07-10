@@ -47,6 +47,10 @@ User.init(
     photo: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    timezone: {
+      type: DataTypes.STRING,
+      defaultValue: 'America/Los_Angeles',
     }
   },
   {

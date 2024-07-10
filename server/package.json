@@ -8,7 +8,8 @@
     "start": "node server.js",
     "seed": "node seeds/seed.js",
     "resetDemo": "node seeds/resetDemo.js",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "sync": "node seeds/migrations/addTimezone.js"
   },
   "keywords": [],
   "author": "",
