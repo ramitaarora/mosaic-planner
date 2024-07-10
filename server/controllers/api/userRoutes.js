@@ -12,8 +12,9 @@ router.get('/getUser', withAuth, async (req, res) => {
     const email = user.map(user => user.email)
     const location = user.map(user => user.location)
     const colour = user.map(user => user.colour)
+    const timezone = user.map(user => user.timezone)
 
-    res.status(200).json({ name, location, email, colour });
+    res.status(200).json({ name, location, email, colour, timezone });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -40,6 +41,10 @@ router.put('/updateUser', withAuth, async (req, res) => {
     if (req.body.type === 'password') {
       const hash = await bcrypt.hash(req.body.data, 10);
       const userData = await User.update({ password: hash }, { where: { id: req.session.user_id } })
+      res.status(200).json(userData);
+    }
+    if (req.body.type === 'timezone') {
+      const userData = await User.update({ timezone: req.body.data }, { where: { id: req.session.user_id } })
       res.status(200).json(userData);
     }
   } catch (err) {

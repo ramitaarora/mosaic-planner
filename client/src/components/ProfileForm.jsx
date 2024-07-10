@@ -6,6 +6,9 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [location, setLocation] = useState('')
+    const [timezone, setTimezone] = useState('')
+
+    const timezoneOptions = ["America/New_York", "America/Los_Angeles", "America/Chicago", "Europe/London", "Asia/Tokyo", "Europe/Paris", "Asia/Shanghai", "Asia/Kolkata", "Europe/Berlin", "Australia/Sydney"];
 
     const closeModal = () => {
         setVisibility('hidden');
@@ -25,6 +28,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                 setEmail(data.email);
                 setLocation(data.location);
                 setColourTheme(data.colour);
+                setTimezone(data.timezone);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -49,7 +53,6 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
             if (response.ok) {
                 getData();
                 getUser();
-                closeModal();
             } else {
                 console.error(response.statusText);
             }
@@ -109,9 +112,23 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>
-
-
                             </form>
+
+                            <form id="timezone-form" onSubmit={updateProfile}>
+                                <div id="form-input">
+                                    <label htmlFor="editTimezone">Timezone:</label>
+                                    <div>
+                                        <select name="editTimezone" id="editTimezone" onChange={(event) => setTimezone(event.target.value)} required>
+                                            <option value={timezone}>{timezone}</option>
+                                            {timezoneOptions.filter((time) => time != timezone).map((zone, index) => 
+                                                <option value={zone} key={index}>{zone}</option>    
+                                            )}
+                                        </select>
+                                        <input type="submit" value="Save" />
+                                    </div>
+                                </div>
+                            </form>
+
                             <form id="email-form" onSubmit={updateProfile}>
                                 <div id="form-input">
                                     <label htmlFor="editEmail">Email:</label>

@@ -65,6 +65,7 @@ export default function Dashboard() {
         setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
         setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
         setArchivedTasks(data.tasks.filter(task => task.archived === true));
+        setTimezone(data.user[0].timezone);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -83,29 +84,7 @@ export default function Dashboard() {
       })
       .then((data) => {
         if (data.loggedIn) {
-          const date = new Date();
-
-          const timeZoneDate = new Intl.DateTimeFormat('en-US', {
-            dateStyle: 'full',
-            timeZone: timezone,
-          }).format(date);
-          const timeZoneTime = new Intl.DateTimeFormat('en-US', {
-            timeStyle: 'short',
-            timeZone: timezone,
-          }).format(date);
-          const timeZoneHour = new Intl.DateTimeFormat('en-US', {
-            timeStyle: 'short',
-            timeZone: timezone,
-            hourCycle: "h24"
-          }).format(date);
-
-          const year = new Date(timeZoneDate).getFullYear();
-          const month = new Date(timeZoneDate).getMonth() + 1;
-          const day = new Date(timeZoneDate).getDate();
-          setToday(`${year}-${month}-${day}`);
-          setTime(timeZoneTime)
-          setFullDate(timeZoneDate);
-          setHour(timeZoneHour);
+          getTimezone();
         } else {
           window.location.replace('/login')
         }
@@ -116,11 +95,41 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
+    getTimezone();
+  }, [timezone])
+
+  const getTimezone = () => {
+    const date = new Date();
+
+    const timeZoneDate = new Intl.DateTimeFormat('en-US', {
+      dateStyle: 'full',
+      timeZone: timezone,
+    }).format(date);
+    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+    }).format(date);
+    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short',
+      timeZone: timezone,
+      hourCycle: "h24"
+    }).format(date);
+
+    const year = new Date(timeZoneDate).getFullYear();
+    const month = new Date(timeZoneDate).getMonth() + 1;
+    const day = new Date(timeZoneDate).getDate();
+    setToday(`${year}-${month}-${day}`);
+    setTime(timeZoneTime)
+    setFullDate(timeZoneDate);
+    setHour(timeZoneHour);
+  }
+
+  useEffect(() => {
     if (today) {
       getData();
       setLoading(false);
     }
-  }, [today])
+  }, [today, timezone])
 
   setTimeout(() => {
     const date = new Date();
@@ -225,7 +234,7 @@ export default function Dashboard() {
         <div>
           <div id="desktop">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
-            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} timezone={timezone} setTimezone={setTimezone} />
 
             <main className={css`display: flex; width: 100vw;`}>
               <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
