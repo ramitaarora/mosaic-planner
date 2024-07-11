@@ -186,7 +186,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                                         </div>
                                         <form id={'checkForm-' + check.id} className="hidden" onSubmit={submitCheckEdit}>
                                             <input type="text" id={'checkInput-' + check.id} />
-                                            <input type="submit" className="submit-button" />
+                                            <input type="submit" className="submit-button" value="Save"/>
                                             <button id={check.id} onClick={cancelEdit}>Cancel</button>
                                         </form>
                                         <div id="edit-buttons">
@@ -202,7 +202,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                     <form id="add-new-check-form" onSubmit={submitNewCheck} className={css`width: 75%; padding: 10px 0; margin: auto; display: flex; justify-content: space-evenly; align-items: center;`}>
                         <label htmlFor='add-new-check'>Add New Check:</label>
                         <input type="text" name="add-new-check" value={inputValue} onChange={event => setInputValue(event.target.value)} required />
-                        <input type="submit" />
+                        <input type="submit" value="Save"/>
                     </form>
 
                     <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px;`}>

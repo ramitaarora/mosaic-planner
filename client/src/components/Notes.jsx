@@ -190,7 +190,7 @@ export default function Notes({ notes, setNotes, getData }) {
 
             <form id="add-note" onSubmit={submitNewNote} className="hidden">
                 <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`} />
-                <input type="submit" />
+                <input type="submit" value="Save"/>
             </form>
 
             {notes.length ? (
@@ -217,7 +217,7 @@ export default function Notes({ notes, setNotes, getData }) {
                                     <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>
                                     <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
                                         <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
-                                        <input type="submit" />
+                                        <input type="submit" value="Save"/>
                                         <button id="cancel-edit" onClick={cancelNoteEdit}>Cancel</button>
                                     </form>
                                 </div>

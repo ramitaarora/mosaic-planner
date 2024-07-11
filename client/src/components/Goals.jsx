@@ -126,7 +126,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                                     </div>
                                     <form id={'goalForm-' + goal.id} className="hidden" onSubmit={submitEdit}>
                                         <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
-                                        <input type="submit" />
+                                        <input type="submit" value="Save"/>
                                         <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
                                     </form>
                                 </div>

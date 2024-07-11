@@ -208,7 +208,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
 
             <form id="add-task" onSubmit={submitNewTask} className="hidden">
                 <input type="text" placeholder="Write new task here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`} />
-                <input type="submit" />
+                <input type="submit" value="Save"/>
             </form>
 
             {allTasks.length ? (
@@ -236,7 +236,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                                     </div>
                                     <form id={'taskForm-' + task.id} className="hidden" onSubmit={submitTaskEdit}>
                                         <input type="text" id={'taskInput-' + task.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
-                                        <input type="submit" />
+                                        <input type="submit" value="Save"/>
                                         <button id="cancel-edit" onClick={cancelTaskEdit}>Cancel</button>
                                     </form>
                                 </div>
