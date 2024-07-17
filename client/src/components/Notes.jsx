@@ -229,7 +229,7 @@ export default function Notes({ notes, setNotes, getData }) {
                         )) : (
                         <div id="empty">
                             <p>No notes yet! Click the plus to add a note or reminder.</p>
-                            <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
+                            <div className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                                 {loading ? (
                                     <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
                                 ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}

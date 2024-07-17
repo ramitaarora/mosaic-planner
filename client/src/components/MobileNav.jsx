@@ -8,7 +8,7 @@ export default function MobileNav({ navigate }) {
         }
 
         const activeElement = document.getElementById(`${id}`);
-        console.log(activeElement);
+        // console.log(activeElement);
         activeElement.setAttribute('class', 'mobile-nav-active');
     }
 

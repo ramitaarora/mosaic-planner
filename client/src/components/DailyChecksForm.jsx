@@ -205,7 +205,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                         <input type="submit" value="Save"/>
                     </form>
 
-                    <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px;`}>
+                    <div className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px;`}>
                         {loading ? (
                             <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
                         ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}

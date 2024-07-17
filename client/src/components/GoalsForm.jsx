@@ -28,7 +28,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
         });
 
         if (response.ok) {
-            document.getElementById(formID).reset();
+            resetForm();
             closeModal();
             location.reload();
         } else {
@@ -73,12 +73,12 @@ export default function GoalsForm({ visibility, setVisibility }) {
                             <h2>Add a New Goal</h2>
                             <p>Yearly resolutions break down into monthly goals, which can be further broken down into weekly goals.</p>
                         </div>
-                        <form id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
+                        <form className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                             {loading ? (
                                 <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px"/>
                             ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                         </form>
-                        <form id="save-goal" onSubmit={saveGoal} className={css`margin: 0 auto; width: 80%;`}>
+                        <form onSubmit={saveGoal} className={css`margin: 0 auto; width: 80%;`}>
 
                             <div id="form-input">
                                 <label htmlFor='yearly'>Yearly Goal</label>

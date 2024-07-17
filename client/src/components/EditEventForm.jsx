@@ -125,7 +125,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                         <div id="form-header">
                             <h2>Edit {eventToEdit ? eventToEdit.event : null}</h2>
                         </div>
-                        <form id="event-form" onSubmit={saveEvent} className={css`margin: 0 auto; width: 75%;`}>
+                        <form onSubmit={saveEvent} className={css`margin: 0 auto; width: 75%;`}>
 
                             {eventToEdit ? (
                                 <div id="form-input">

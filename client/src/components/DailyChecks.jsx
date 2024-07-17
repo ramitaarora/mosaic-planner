@@ -234,7 +234,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
                         <form id={'checksForm-' + check.id} className="hidden" onSubmit={submitEdit}>
                             <input type="text" id={'checksInput-' + check.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
                             <input type="submit" className="submit-button" value="Save" />
-                            <button id="cancel-edit" onClick={cancelEdit}>Cancel</button>
+                            <button onClick={cancelEdit}>Cancel</button>
                         </form>
                         <div id="edit-buttons">
                             <img src="./svgs/edit.svg" alt="edit" onClick={editCheck} id={check.id} value={check.daily_check} />

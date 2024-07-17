@@ -237,7 +237,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                                     <form id={'taskForm-' + task.id} className="hidden" onSubmit={submitTaskEdit}>
                                         <input type="text" id={'taskInput-' + task.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
                                         <input type="submit" value="Save"/>
-                                        <button id="cancel-edit" onClick={cancelTaskEdit}>Cancel</button>
+                                        <button onClick={cancelTaskEdit}>Cancel</button>
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
