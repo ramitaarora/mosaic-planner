@@ -8,6 +8,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     const [errorMessage, setErrorMessage] = useState('');
     const [currentDay, setCurrentDay] = useState(fullDate);
     const [currentFullDate, setCurrentFullDate] = useState('')
+    const [sortedDailyChecks, setSortedDailyChecks] = useState([]);
 
     useEffect(() => {
         getToday();
@@ -17,6 +18,18 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         let newDay = new Date(currentDay).getDate();
         setCurrentFullDate(`${newYear}-${newMonth}-${newDay}`);
     }, [])
+
+    useEffect(() => {
+        setSortedDailyChecks([]);
+        
+        for (let i = 0; i < dailyChecksHistory.length; i++) {
+            if (!dailyChecksHistory[i].completed) {
+                setSortedDailyChecks((prev) => [dailyChecksHistory[i], ...prev]);
+            } else {
+                setSortedDailyChecks((prev) => [...prev, dailyChecksHistory[i]]);
+            }
+        }
+    }, [dailyChecksHistory])
 
     const showModal = () => {
         setVisibility('visible');
@@ -224,8 +237,8 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
                 <button onClick={getToday}>Today</button>
                 <img src="./svgs/arrow-right.svg" alt="forward" onClick={addDay} />
             </div>
-            {dailyChecksHistory.length ? (
-                dailyChecksHistory.map((check, index) =>
+            {sortedDailyChecks.length ? (
+                sortedDailyChecks.map((check, index) =>
                     <div id="line" key={index} value={check.id}>
                         <div id={'check-list-item-' + check.id} className="list-item">
                             <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`} />

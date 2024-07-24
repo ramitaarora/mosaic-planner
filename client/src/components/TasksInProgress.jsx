@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 import TasksArchived from './TasksArchived';
 
 export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks, today }) {
     const [visibility, setVisibility] = useState('hidden');
     const [inputValue, setInputValue] = useState('');
+    const [sortedTasks, setSortedTasks] = useState([]);
+
+    useEffect(() => {
+        setSortedTasks([]);
+
+        for (let i = 0; i < inProgressTasks.length; i++) {
+            if (!inProgressTasks[i].completed) {
+                setSortedTasks((prev) => [inProgressTasks[i], ...prev]);
+            } else {
+                setSortedTasks((prev) => [...prev, inProgressTasks[i]]);
+            }
+        }
+    }, [inProgressTasks])
 
     const editProgress = (event) => {
         const progressID = event.target.attributes[2].nodeValue;
@@ -131,8 +144,8 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
                 <h2>Tasks in Progress</h2>
                 <img src="./svgs/archive.svg" alt="open-archive" onClick={showArchiveModal} />
             </div>
-            {inProgressTasks.length ? (
-                inProgressTasks.map((progress, index) =>
+            {sortedTasks.length ? (
+                sortedTasks.map((progress, index) =>
                     <div id="line" key={index} value={progress.id}>
                         <div id={'progress-list-item-' + progress.id} className="list-item">
                             <input type="checkbox" id={"is-completed-" + progress.id} onChange={checkbox} checked={progress.completed ? true : false} className={css`margin-right: 5px;`} />

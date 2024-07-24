@@ -5,6 +5,19 @@ import { css } from '@emotion/css'
 export default function Goals({ goals, setGoals, goalType, getData }) {
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('hidden');
+    const [sortedGoals, setSortedGoals] = useState([]);
+
+    useEffect(() => {
+        setSortedGoals([]);
+
+        for (let i = 0; i < goals.length; i++) {
+            if (!goals[i].completed) {
+                setSortedGoals((prev) => [goals[i], ...prev]);
+            } else {
+                setSortedGoals((prev) => [...prev, goals[i]]);
+            }
+        }
+    }, [goals])
 
     const editGoal = (event) => {
         const goalID = event.target.attributes[2].nodeValue;
@@ -116,8 +129,8 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
 
             <div id="goals-list">
                 <ol>
-                    {goals.length ? (
-                        goals.map(((goal, index) =>
+                    {sortedGoals.length ? (
+                        sortedGoals.map(((goal, index) =>
                             <div key={index} id="line" value={goal.id}>
                                 <div id={'goal-' + goal.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div id={'goal-list-item-' + goal.id} className="list-item">
