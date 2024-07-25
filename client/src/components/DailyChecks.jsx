@@ -9,6 +9,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     const [currentDay, setCurrentDay] = useState(fullDate);
     const [currentFullDate, setCurrentFullDate] = useState('')
     const [sortedDailyChecks, setSortedDailyChecks] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getToday();
@@ -202,6 +203,18 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         fetchSpecificDayChecks(newFullDate);
     }
 
+    const getInsights = () => {
+        fetch('/api/chat/checks-insights', {
+            method: 'GET'
+        }).then((response) => {
+            if (!response.ok) {
+                console.error(response);
+            }
+        }).then((data) => {
+            console.log(data);
+        })
+    }
+
     const generateTodaysChecks = () => {
         try {
             fetch(`/api/data/generateChecks/${today}`)
@@ -230,7 +243,15 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
         <div id="daily-checks" className={`card ${css`height: 45vh;`}`}>
             <div id="card-header">
                 <h2>Daily Checks for {currentDay.split(',')[1]}</h2>
+                {sortedDailyChecks.length ? (
+                    <div id="ai-insights" className={css`margin-right: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
+                        {loading ? (
+                            <img src="/svgs/loading.gif" alt="loading" height="35px" width="35px" />
+                        ) : <input type="submit" onClick={getInsights} value="AI Insights" />}
+                    </div>
+                ) : null}
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
+                
             </div>
             <div id="arrows" className={css`width: 90%; margin: 0 auto 5px auto; display: flex; justify-content: space-between; align-items: center;`}>
                 <img src="./svgs/arrow-left.svg" alt="back" onClick={minusDay} />

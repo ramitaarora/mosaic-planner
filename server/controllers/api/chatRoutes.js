@@ -8,6 +8,7 @@ let existingGoals = [];
 let existingNotes = [];
 let existingChecks = [];
 let existingTasks = [];
+let checksInsightData = [];
 
 router.get('/goals', async (req, res) => {
   try {
@@ -142,5 +143,47 @@ router.get('/checks', async (req, res) => {
     console.log(err);
   }
 });
+
+router.get('/checks-insights', async (req, res) => {
+  try {
+    const checksData = await DailyChecksHistory.findAll({ where: { user_id: req.session.user_id } });
+
+    const checks = checksData.map(check => check.get({ plain: true }));
+
+    for (let i = 0; i < checks.length; i++) {
+      checksInsightData.push({
+        daily_check: checks[i].daily_check,
+        completed: checks[i].completed,
+        date: checks[i].date,
+      });
+    }
+
+    if (checksInsightData.length) {
+      const suggestionsData = await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant designed to output JSON.",
+          },
+          { role: "user", content: "This is a list of objects that contain daily_checks (the name of the Daily Check), completed status (if the Daily Check was completed or not) and the date the Daily Check was completed or not. " + checksInsightData + " Based on this data, can you give insights on the data on which Daily Checks were completed the most, and which Daily Checks could be improved on completing? Can you summarize your insights in a full sentence using the names of the Daily Check that are stored in daily_check?"},
+          // Can you summarize your insights in a full sentence?
+        ],
+        model: "gpt-3.5-turbo-0125",
+        response_format: { type: "json_object" },
+      });
+      
+      console.log(checksInsightData);
+      console.log(suggestionsData.choices[0].message.content);
+      res.status(200).json(suggestionsData.choices[0].message.content);
+    } else {
+      // res.status(200).json({message: 'Please add Daily Checks for insights.'});
+      res.status(200).json({message: 'ERROR.'});
+    }
+    
+  } catch (err) {
+    res.status(400).json(err);
+    console.log(err);
+  }
+})
 
 module.exports = router;
