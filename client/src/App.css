@@ -140,11 +140,11 @@ input[type="checkbox"]:not(:disabled):checked {
     display: flex;
     justify-content: space-between;
     background-color: var(--line-background);
-    margin: 10px 20px;
+    margin: 10px 3%;
     border-radius: var(--radius);
     border: 1px solid var(--line-background);
     align-items: center;
-    padding: 0px 15px;
+    padding: 0px 2%;
 }
 
 #line input:checked + label {
@@ -189,6 +189,7 @@ input[type="checkbox"]:not(:disabled):checked {
     display: flex; 
     align-items: center; 
     justify-content: center;
+    padding: 2px 0;
 }
 
 /* Calendar Styles */
