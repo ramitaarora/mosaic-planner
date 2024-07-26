@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
 export default function Tasks({ allTasks, setAllTasks, getData }) {
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
+    const [sortedTasks, setSortedTasks] = useState([]);
+
+    useEffect(() => {
+        setSortedTasks([]);
+
+        const tasksSorted = allTasks.sort((a, b) => {
+            const timeA = a.date_created || '';
+            const timeB = b.date_created || '';
+            return timeB.localeCompare(timeA);
+        })
+        
+        setSortedTasks(tasksSorted);
+    }, [allTasks])
 
     const editTask = (event) => {
         const taskID = event.target.attributes[2].nodeValue;
@@ -194,7 +207,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
             <div id="card-header">
                 <h2>All Tasks</h2>
 
-                {allTasks.length ? (
+                {sortedTasks.length ? (
                     <div id="ai-suggestions" className={css`margin-right: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                         {loading ? (
                             <img src="/svgs/loading.gif" alt="loading" height="35px" width="35px" />
@@ -211,7 +224,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                 <input type="submit" value="Save"/>
             </form>
 
-            {allTasks.length ? (
+            {sortedTasks.length ? (
                 <div id="suggestions">
                     {suggestions.length ? (
                         <div className={css`display: flex;`}>
@@ -227,8 +240,8 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
             ) : null}
             <div id="task-list">
                 <ol>
-                    {allTasks.length ? (
-                        allTasks.map((task, index) =>
+                    {sortedTasks.length ? (
+                        sortedTasks.map((task, index) =>
                             <div key={index} id="line" value={task.id}>
                                 <div id={'task-' + task.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div id={'task-list-item-' + task.id} className="list-item">

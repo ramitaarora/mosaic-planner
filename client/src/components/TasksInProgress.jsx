@@ -10,11 +10,17 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     useEffect(() => {
         setSortedTasks([]);
 
-        for (let i = 0; i < inProgressTasks.length; i++) {
-            if (!inProgressTasks[i].completed) {
-                setSortedTasks((prev) => [inProgressTasks[i], ...prev]);
+        const tasksSorted = inProgressTasks.sort((a, b) => {
+            const timeA = a.date_created || '';
+            const timeB = b.date_created || '';
+            return timeA.localeCompare(timeB);
+        })
+
+        for (let i = 0; i < tasksSorted.length; i++) {
+            if (!tasksSorted[i].completed) {
+                setSortedTasks((prev) => [tasksSorted[i], ...prev]);
             } else {
-                setSortedTasks((prev) => [...prev, inProgressTasks[i]]);
+                setSortedTasks((prev) => [...prev, tasksSorted[i]]);
             }
         }
     }, [inProgressTasks])

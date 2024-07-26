@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
 export default function Notes({ notes, setNotes, getData }) {
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
+    const [sortedNotes, setSortedNotes] = useState([]);
+
+    useEffect(() => {
+        setSortedNotes([]);
+
+        const notesSorted = notes.sort((a, b) => {
+            const timeA = a.date_created || '';
+            const timeB = b.date_created || '';
+            return timeA.localeCompare(timeB);
+        })
+        setSortedNotes(notesSorted);
+    }, [notes])
 
     const editNote = (event) => {
         const noteID = event.target.attributes[2].nodeValue;
@@ -176,7 +188,7 @@ export default function Notes({ notes, setNotes, getData }) {
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
 
-                {notes.length ? (
+                {sortedNotes.length ? (
                     <div id="ai-suggestions" className={css`margin-right: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                         {loading ? (
                             <img src="/svgs/loading.gif" alt="loading" height="35px" width="35px" />
@@ -193,7 +205,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 <input type="submit" value="Save"/>
             </form>
 
-            {notes.length ? (
+            {sortedNotes.length ? (
                 <div id="suggestions">
                     {suggestions.length ? (
                         <div className={css`display: flex;`}>
@@ -210,8 +222,8 @@ export default function Notes({ notes, setNotes, getData }) {
 
             <div id="notes-list">
                 <ol>
-                    {notes.length ? (
-                        notes.map((note, index) =>
+                    {sortedNotes.length ? (
+                        sortedNotes.map((note, index) =>
                             <div key={index} id="line" value={note.id}>
                                 <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>

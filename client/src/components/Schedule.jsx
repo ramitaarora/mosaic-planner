@@ -110,6 +110,8 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }
     
     useEffect(() => {
+        setTodaysSortedEvents([]);
+        
         const sortedEvents = todaysEvents.sort((a, b) => {
             if (a.all_day !== b.all_day) {
                 return a.all_day ? -1 : 1;
@@ -118,6 +120,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             const timeB = b.start_time || '';
             return timeA.localeCompare(timeB);
         })
+
         setTodaysSortedEvents(sortedEvents);
     }, [todaysEvents])
 
