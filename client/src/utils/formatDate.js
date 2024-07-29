@@ -1,8 +1,7 @@
 function formatDate(fullDate) {
-    let monthNum = new Date().getMonth();
-    let dayNum = new Date().getDay();
-    let dateNum = new Date().getDate();
-    let hours;
+    let monthNum = new Date(fullDate).getMonth();
+    let dayNum = new Date(fullDate).getDay();
+    let dateNum = new Date(fullDate).getDate();
     let month;
     let day;
 

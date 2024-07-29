@@ -416,6 +416,10 @@ input[type="checkbox"]:not(:disabled):checked {
     text-align: center;
 }
 
+.weather-line {
+    border: 1px solid black;
+}
+
 /* Mobile Styles */
 
 @media only screen and (max-width: 1100px) {
