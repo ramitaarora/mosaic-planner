@@ -417,7 +417,21 @@ input[type="checkbox"]:not(:disabled):checked {
 }
 
 .weather-line {
-    border: 1px solid black;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.weather-line:not(:last-child) {
+    border-bottom: 1px dotted var(--background);
+}
+
+.weather-line-item {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Mobile Styles */

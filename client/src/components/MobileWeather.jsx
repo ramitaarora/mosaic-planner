@@ -35,7 +35,7 @@ export default function MobileWeather({ location }) {
     const getWeatherForecast = (data) => {
         setNextWeatherData([]);
         for (let i = 1; i < data.list.length; i++) {
-            if (data.list[i].dt_txt.split(' ')[1] === '12:00:00') {
+            if (data.list[i].dt_txt.split(' ')[1] === '15:00:00') {
 
                 let currentDate = data.list[i].dt_txt.split(' ')[0];
                 let dayNum = new Date(currentDate).getDay();
@@ -54,10 +54,6 @@ export default function MobileWeather({ location }) {
         setLoading(true);
         getWeather();
     }, []);
-
-    useEffect(() => {
-        console.log(nextWeatherData)
-    }, [nextWeatherData])
 
     return (
         <div id="mobile-weather-div" className="card">
@@ -78,9 +74,13 @@ export default function MobileWeather({ location }) {
                     {nextWeatherData.length &&
                         nextWeatherData.map((data, index) => (
                             <div className="weather-line" key={index}>
-                                <p>{data.day}</p>
-                                <img src={data.icon} alt={data.weather} />
-                                <p>{(Math.trunc((data.temp - 273.15) * (9 / 5) + 32))}° F</p>
+                                <div className="weather-line-item">
+                                    <p>{data.day}</p>
+                                </div>
+                                <div className="weather-line-item">
+                                    <img src={data.icon} alt={data.weather} />
+                                    <p>{(Math.trunc((data.temp - 273.15) * (9 / 5) + 32))}° F</p>
+                                </div>
                             </div>
                         ))}
                 </div>
