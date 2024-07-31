@@ -19,7 +19,7 @@ export default function MobileWeather({ location }) {
                 return response.json(); // or response.text() for text data
             })
             .then((data) => {
-                // console.log(data);
+                console.log(data);
                 setCity(data.city.name);
                 setTemp(data.list[0].main.temp);
                 setForecast(data.list[0].weather[0].description)
@@ -79,7 +79,10 @@ export default function MobileWeather({ location }) {
                                 </div>
                                 <div className="weather-line-item">
                                     <img src={data.icon} alt={data.weather} />
-                                    <p>{(Math.trunc((data.temp - 273.15) * (9 / 5) + 32))}° F</p>
+                                    <div className={css`display: flex; flex-wrap: wrap; align-items: center; justify-content: space-evenly; width: 50%; @media (max-width: 550px) { flex-direction: column; }`}>
+                                        <p>{data.weather}</p>
+                                        <p>{(Math.trunc((data.temp - 273.15) * (9 / 5) + 32))}° F</p>
+                                    </div>
                                 </div>
                             </div>
                         ))}
