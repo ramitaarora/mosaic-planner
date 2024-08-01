@@ -10,7 +10,7 @@ const addTimezone = async () => {
         await queryInterface.addColumn('user', 'timezone', {
             type:
                 DataTypes.STRING,
-            defaultValue: 'America/Los_Angeles',
+                defaultValue: 'America/Los_Angeles',
         });
         
         const userData = await User.findAll();

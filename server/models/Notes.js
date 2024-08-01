@@ -28,6 +28,9 @@ Notes.init(
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
+        order: {
+            type: DataTypes.NUMBER,
+        },
         user_id: {
             type: DataTypes.UUID,
             allowNull: false,
