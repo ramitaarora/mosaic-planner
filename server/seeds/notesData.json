@@ -1,14 +1,17 @@
 [
     {
         "note": "Be kind to yourself!",
-        "user_id": 1
+        "user_id": 1,
+        "order": 1
     },
     {
         "note": "Pick up eggs from grocery store",
-        "user_id": 1
+        "user_id": 1,
+        "order": 3
     },
     {
         "note": "Dinner with parents Sunday night",
-        "user_id": 1
+        "user_id": 1,
+        "order": 2
     }
 ]

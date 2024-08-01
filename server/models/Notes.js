@@ -29,8 +29,7 @@ Notes.init(
             defaultValue: false,
         },
         order: {
-            type: DataTypes.NUMBER,
-            autoIncrement: true,
+            type: DataTypes.INTEGER,
         },
         user_id: {
             type: DataTypes.UUID,
