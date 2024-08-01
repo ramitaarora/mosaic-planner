@@ -10,6 +10,7 @@ const addOrderCol = async () => {
         await queryInterface.addColumn('notes', 'order', {
             type:
                 DataTypes.NUMBER,
+                autoIncrement: true,
         });
         
         const notesData = await Notes.findAll();

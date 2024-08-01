@@ -30,6 +30,7 @@ Notes.init(
         },
         order: {
             type: DataTypes.NUMBER,
+            autoIncrement: true,
         },
         user_id: {
             type: DataTypes.UUID,
