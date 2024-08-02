@@ -10,11 +10,7 @@ export default function Notes({ notes, setNotes, getData }) {
     useEffect(() => {
         setSortedNotes([]);
 
-        const notesSorted = notes.sort((a, b) => {
-            const timeA = a.date_created || '';
-            const timeB = b.date_created || '';
-            return timeA.localeCompare(timeB);
-        })
+        const notesSorted = notes.sort((a, b) => a.order - b.order)
         setSortedNotes(notesSorted);
     }, [notes])
 
@@ -226,7 +222,7 @@ export default function Notes({ notes, setNotes, getData }) {
                         sortedNotes.map((note, index) =>
                             <div key={index} id="line" value={note.id}>
                                 <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                    <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>
+                                    <li id={'note-list-item-' + note.id} className="list-item">{note.note}{note.order}</li>
                                     <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
                                         <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
                                         <input type="submit" value="Save"/>
