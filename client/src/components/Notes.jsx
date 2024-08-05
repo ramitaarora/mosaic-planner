@@ -105,6 +105,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 method: 'POST',
                 body: JSON.stringify({
                     note: newNoteValue,
+                    order: notes.length + 1,
                     type: 'Note'
                 }),
                 headers: { 'Content-Type': 'application/json' },
@@ -156,6 +157,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 method: 'POST',
                 body: JSON.stringify({
                     note: newNoteValue,
+                    order: notes.length + 1,
                     type: 'Note'
                 }),
                 headers: { 'Content-Type': 'application/json' },

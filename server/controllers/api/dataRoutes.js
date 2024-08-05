@@ -227,6 +227,7 @@ router.post('/add', withAuth, async (req, res) => {
         if (req.body.type === 'Note') {
             const notesData = await Notes.create({
                 note: req.body.note,
+                order: req.body.order,
                 user_id: req.session.user_id
             })
             res.status(200).json(notesData);
