@@ -303,6 +303,10 @@ router.post('/add', withAuth, async (req, res) => {
     }
 })
 
+router.put('/reorder', withAuth, async (req, res) => {
+    
+})
+
 router.put('/edit', withAuth, async (req, res) => {
     try {
         if (req.body.type === 'Goal') {
