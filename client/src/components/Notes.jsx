@@ -6,13 +6,9 @@ export default function Notes({ notes, setNotes, getData }) {
     const [loading, setLoading] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
     const [sortedNotes, setSortedNotes] = useState([]);
-    // Drag and Drop
-    const [dragItem, setDragItem] = useState();
-    const [dragTarget, setDragTarget] = useState();
 
     useEffect(() => {
         setSortedNotes([]);
-
         const notesSorted = notes.sort((a, b) => a.order - b.order)
         setSortedNotes(notesSorted);
     }, [notes])
@@ -108,7 +104,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 method: 'POST',
                 body: JSON.stringify({
                     note: newNoteValue,
-                    order: notes.length + 1,
+                    order: notes.length,
                     type: 'Note'
                 }),
                 headers: { 'Content-Type': 'application/json' },
@@ -160,7 +156,7 @@ export default function Notes({ notes, setNotes, getData }) {
                 method: 'POST',
                 body: JSON.stringify({
                     note: newNoteValue,
-                    order: notes.length + 1,
+                    order: notes.length,
                     type: 'Note'
                 }),
                 headers: { 'Content-Type': 'application/json' },
@@ -184,46 +180,89 @@ export default function Notes({ notes, setNotes, getData }) {
         setSuggestions([]);
     }
 
-    const changeOrder = async () => {
-        console.log(dragItem, dragTarget)
+    const changeOrder = async (event) => {
+        let targetID = event.target.parentElement.id;
+        let switchID;
 
+        if (event.target.id === "down") {
+            // Order is always 0, order becomes 1 and 1 will become 0
+            for (let i = 0; i < sortedNotes.length; i++) {
+                if (sortedNotes[i].order === 1) {
+                    switchID = sortedNotes[i].id;
+                }
+            }
 
-        // if (dragItem && dragTarget) {
-        //     const response = await fetch('/api/data/reorder', {
-        //         method: 'POST',
-        //         body: JSON.stringify({
-        //             id: dragItem.id
-        //         }),
-        //         headers: { 'Content-Type': 'application/json' },
-        //     });
-
-        //     if (response.ok) {
-        //         getData();
-        //     } else {
-        //         console.error(response.statusText);
-        //     }
-        // }
-    }
-
-    const dragStart = (event) => {
-        if (event.target.attributes.value) {
-            console.log("start", event.target.attributes.value)
-            setDragItem({
-                id: event.target.attributes.value.value,
-                order: event.target.attributes.order.value
+            const responseTarget = await fetch('/api/data/reorder', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: targetID,
+                    order: 1,
+                }),
+                headers: { 'Content-Type': 'application/json' },
             });
+
+            if (responseTarget.ok) {
+                const responseSwitch = await fetch('/api/data/reorder', {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: switchID,
+                        order: 0,
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                if (responseSwitch.ok) {
+                    getData();
+                } else {
+                    console.error(responseSwitch.statusText);
+                }
+            } else {
+                console.error(responseTarget.statusText);
+            }
         }
 
-    }
+        if (event.target.id === "up") {
+            // Target element in list must minus one to order, the next element in list must become target's order num
+            let targetNum = Number(event.target.parentElement.attributes.order.value);
+            let switchNum = Number(event.target.parentElement.attributes.order.value) - 1;
 
-    const dragEnter = (event) => {
-        if (event.target.attributes.value) {
-            console.log("enter", event.target.attributes.value)
-            setDragTarget({
-                id: event.target.attributes.value.value,
-                order: event.target.attributes.order.value
+            for (let i = 0; i < sortedNotes.length; i++) {
+                if (sortedNotes[i].order === switchNum) {
+                    switchID = sortedNotes[i].id;
+                }
+            }
+
+            const responseTarget = await fetch('/api/data/reorder', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: targetID,
+                    order: switchNum,
+                }),
+                headers: { 'Content-Type': 'application/json' },
             });
+
+            if (responseTarget.ok) {
+                const responseSwitch = await fetch('/api/data/reorder', {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: switchID,
+                        order: targetNum,
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                if (responseSwitch.ok) {
+                    getData();
+                } else {
+                    console.error(responseSwitch.statusText);
+                }
+            } else {
+                console.error(responseTarget.statusText);
+            }
+
+
         }
+
     }
 
     return (
@@ -267,13 +306,10 @@ export default function Notes({ notes, setNotes, getData }) {
                 <ol>
                     {sortedNotes.length ? (
                         sortedNotes.map((note, index) =>
-                            <div key={index} id="line" value={note.note} order={note.order} draggable onDragStart={(event) => dragStart(event)} onDragEnter={(event) => dragEnter(event)} onDragEnd={changeOrder}>
+                            <div key={index} id="line" value={note.id}>
                                 <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
-                                    <div className={css`display: flex; align-items: center; justify-content: space-between;`}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className={css`margin-right: 5px;` + ' drag'}>
-                                            <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-                                        </svg>
-                                        <li id={'note-list-item-' + note.id} className="list-item">{note.note} - {note.order}</li>
+                                    <div>
+                                        <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>
                                     </div>
                                     <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
                                         <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
@@ -282,6 +318,18 @@ export default function Notes({ notes, setNotes, getData }) {
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
+                                    <div className={css`cursor: pointer;`} onClick={(event) => changeOrder(event)} id={note.id} order={note.order}>
+                                        {index > 0 && (
+                                            <svg id="up" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" onClick={(event) => changeOrder(event)}>
+                                                <path fillRule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+                                            </svg>
+                                        )}
+                                        {index === 0 && (
+                                            <svg id="down" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" onClick={(event) => changeOrder(event)}>
+                                                <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
+                                            </svg>
+                                        )}
+                                    </div>
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editNote} id={note.id} value={note.note} />
                                     <img src="./svgs/delete.svg" alt="edit" onClick={deleteNote} id={note.id} />
                                 </div>

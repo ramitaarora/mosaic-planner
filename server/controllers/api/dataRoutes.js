@@ -304,7 +304,18 @@ router.post('/add', withAuth, async (req, res) => {
 })
 
 router.put('/reorder', withAuth, async (req, res) => {
-    
+    try {
+        const notesData = await Notes.update({ order: req.body.order }, {
+            where: {
+                id: req.body.id,
+                user_id: req.session.user_id
+            }
+        })
+        res.status(200).json(notesData)
+    } catch(err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
 })
 
 router.put('/edit', withAuth, async (req, res) => {

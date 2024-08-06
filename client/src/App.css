@@ -80,10 +80,6 @@ input[type="checkbox"]:not(:disabled):checked {
     color: var(--text)
 }
 
-.drag {
-    cursor:move;
-}
-
 /* Login Page Styles */
 
 #auth-form, #signup-form {
