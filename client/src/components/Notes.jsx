@@ -6,6 +6,9 @@ export default function Notes({ notes, setNotes, getData }) {
     const [loading, setLoading] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
     const [sortedNotes, setSortedNotes] = useState([]);
+    // Drag and Drop
+    const [dragItem, setDragItem] = useState();
+    const [dragTarget, setDragTarget] = useState();
 
     useEffect(() => {
         setSortedNotes([]);
@@ -181,6 +184,48 @@ export default function Notes({ notes, setNotes, getData }) {
         setSuggestions([]);
     }
 
+    const changeOrder = async () => {
+        console.log(dragItem, dragTarget)
+
+
+        // if (dragItem && dragTarget) {
+        //     const response = await fetch('/api/data/reorder', {
+        //         method: 'POST',
+        //         body: JSON.stringify({
+        //             id: dragItem.id
+        //         }),
+        //         headers: { 'Content-Type': 'application/json' },
+        //     });
+
+        //     if (response.ok) {
+        //         getData();
+        //     } else {
+        //         console.error(response.statusText);
+        //     }
+        // }
+    }
+
+    const dragStart = (event) => {
+        if (event.target.attributes.value) {
+            console.log("start", event.target.attributes.value)
+            setDragItem({
+                id: event.target.attributes.value.value,
+                order: event.target.attributes.order.value
+            });
+        }
+
+    }
+
+    const dragEnter = (event) => {
+        if (event.target.attributes.value) {
+            console.log("enter", event.target.attributes.value)
+            setDragTarget({
+                id: event.target.attributes.value.value,
+                order: event.target.attributes.order.value
+            });
+        }
+    }
+
     return (
         <div id="notes" className={`card ${css`height: 20vh;`}`}>
             <div id="card-header">
@@ -200,7 +245,7 @@ export default function Notes({ notes, setNotes, getData }) {
 
             <form id="add-note" onSubmit={submitNewNote} className="hidden">
                 <input type="text" placeholder="Write new note here..." value={inputValue} onChange={(event) => setInputValue(event.target.value)} className={css`width: 80%;`} />
-                <input type="submit" value="Save"/>
+                <input type="submit" value="Save" />
             </form>
 
             {sortedNotes.length ? (
@@ -222,18 +267,18 @@ export default function Notes({ notes, setNotes, getData }) {
                 <ol>
                     {sortedNotes.length ? (
                         sortedNotes.map((note, index) =>
-                            <div key={index} id="line" value={note.id}>
+                            <div key={index} id="line" value={note.note} order={note.order} draggable onDragStart={(event) => dragStart(event)} onDragEnter={(event) => dragEnter(event)} onDragEnd={changeOrder}>
                                 <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div className={css`display: flex; align-items: center; justify-content: space-between;`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className={css`margin-right: 5px;` + ' drag'}>
                                             <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
                                         </svg>
-                                        <li id={'note-list-item-' + note.id} className="list-item">{note.note}{note.order}</li>
+                                        <li id={'note-list-item-' + note.id} className="list-item">{note.note} - {note.order}</li>
                                     </div>
                                     <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
                                         <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
-                                        <input type="submit" value="Save"/>
-                                        <button id="cancel-edit" onClick={cancelNoteEdit}>Cancel</button>
+                                        <input type="submit" value="Save" />
+                                        <button onClick={cancelNoteEdit}>Cancel</button>
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
