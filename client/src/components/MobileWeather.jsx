@@ -79,7 +79,7 @@ export default function MobileWeather({ location }) {
                                 </div>
                                 <div className="weather-line-item">
                                     <img src={data.icon} alt={data.weather} />
-                                    <div className={css`display: flex; flex-wrap: wrap; align-items: center; justify-content: space-evenly; width: 50%; @media (max-width: 550px) { flex-direction: column; }`}>
+                                    <div className={css`display: flex; flex-wrap: wrap; align-items: center; justify-content: space-evenly; width: 50%; flex-direction: column;`}>
                                         <p>{data.weather}</p>
                                         <p>{(Math.trunc((data.temp - 273.15) * (9 / 5) + 32))}° F</p>
                                     </div>
