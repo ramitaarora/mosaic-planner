@@ -7,6 +7,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     const [pass, setPass] = useState('');
     const [location, setLocation] = useState('')
     const [timezone, setTimezone] = useState('')
+    const [temperature, setTemperature] = useState('');
 
     const timezoneOptions = ["America/New_York", "America/Los_Angeles", "America/Chicago", "Europe/London", "Asia/Tokyo", "Europe/Paris", "Asia/Shanghai", "Asia/Kolkata", "Europe/Berlin", "Australia/Sydney"];
 
@@ -20,15 +21,16 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                // console.log(response);
-                return response.json(); // or response.text() for text data
+                return response.json();
             })
             .then((data) => {
-                setName(data.name);
-                setEmail(data.email);
-                setLocation(data.location);
-                setColourTheme(data.colour);
-                setTimezone(data.timezone);
+                // console.log(data)
+                setName(data.user[0].name);
+                setEmail(data.user[0].email);
+                setLocation(data.user[0].location);
+                setColourTheme(data.user[0].colour);
+                setTimezone(data.user[0].timezone);
+                setTemperature(data.user[0].temperature);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -38,7 +40,17 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     const updateProfile = async (event) => {
         event.preventDefault();
         const inputType = String(event.target.id).split('-')[0];
-        const inputData = event.target[0].value;
+        let inputData;
+
+        if (inputType === 'temperature') {
+            for (let i = 0; i < 2; i++) {
+                if (event.target[i].checked) {
+                    inputData = event.target[i].value;
+                }
+            }
+        } else {
+            inputData = event.target[0].value;
+        }
 
         if (inputData.length) {
             const response = await fetch('/api/users/updateUser', {
@@ -98,7 +110,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                 <div id="form-input">
                                     <label htmlFor="editName">Name:</label>
                                     <div>
-                                        <input type="text" name="editName" id="editName" value={name} onChange={(event) => setName(event.target.value)} required />
+                                        <input type="text" name="editName" value={name} onChange={(event) => setName(event.target.value)} required />
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>
@@ -108,7 +120,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                 <div id="form-input">
                                     <label htmlFor="editLocation">Location:</label>
                                     <div>
-                                        <input type="text" name="editLocation" id="editLocation" value={location} onChange={(event) => setLocation(event.target.value)} required />
+                                        <input type="text" name="editLocation" value={location} onChange={(event) => setLocation(event.target.value)} required />
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>
@@ -118,7 +130,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                 <div id="form-input">
                                     <label htmlFor="editTimezone">Timezone:</label>
                                     <div>
-                                        <select name="editTimezone" id="editTimezone" onChange={(event) => setTimezone(event.target.value)} required>
+                                        <select name="editTimezone" onChange={(event) => setTimezone(event.target.value)} required>
                                             <option value={timezone}>{timezone}</option>
                                             {timezoneOptions.filter((time) => time != timezone).map((zone, index) => 
                                                 <option value={zone} key={index}>{zone}</option>    
@@ -129,11 +141,30 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                 </div>
                             </form>
 
+                            <form id="temperature-form" onSubmit={updateProfile}>
+                                <div id="form-input">
+                                    <label>Temperature:</label>
+                                    <div className={css`width: 100%; display: flex; justify-content: space-between; align-items: center;`}>
+                                        <div className={css`width: 100%; display: flex; justify-content: space-evenly; align-items: center;`}>
+                                            <div>
+                                                <input type="radio" name="editTemperature" value="F" required onChange={(event) => setTemperature(event.target.value)}/>
+                                                <label htmlFor='F'>°F</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="editTemperature" value="C" required onChange={(event) => setTemperature(event.target.value)}/>
+                                                <label htmlFor='C'>°C</label>
+                                            </div>
+                                        </div>
+                                        <input type="submit" value="Save" />
+                                    </div>
+                                </div>
+                            </form>
+
                             <form id="email-form" onSubmit={updateProfile}>
                                 <div id="form-input">
                                     <label htmlFor="editEmail">Email:</label>
                                     <div>
-                                        <input type="text" name="editEmail" id="editEmail" value={email} onChange={(event) => setEmail(event.target.value)} required />
+                                        <input type="text" name="editEmail" value={email} onChange={(event) => setEmail(event.target.value)} required />
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>
@@ -143,7 +174,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                 <div id="form-input">
                                     <label htmlFor="editPass">Password:</label>
                                     <div>
-                                        <input type="password" name="editPass" id="editPass" value={pass} onChange={(event) => setPass(event.target.value)} required />
+                                        <input type="password" name="editPass" value={pass} onChange={(event) => setPass(event.target.value)} required />
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>

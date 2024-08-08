@@ -52,7 +52,7 @@ export default function Dashboard() {
         return response.json(); // or response.text() for text data
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         // Set Gooals
         setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
         setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
@@ -240,7 +240,7 @@ export default function Dashboard() {
         <div>
           <div id="desktop">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} temperature={temperature} />
-            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} timezone={timezone} setTimezone={setTimezone} />
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
 
             <main className={css`display: flex; width: 100vw;`}>
               <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
@@ -264,6 +264,7 @@ export default function Dashboard() {
 
           <div id="mobile">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
             <div id="mobile-component">
               {mobileCard === '' || mobileCard === 'home' || !mobileCard ? (
                 <MobileCard navigate={navigate} />

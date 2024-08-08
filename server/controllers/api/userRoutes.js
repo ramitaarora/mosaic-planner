@@ -8,13 +8,7 @@ router.get('/getUser', withAuth, async (req, res) => {
     const userData = await User.findAll({ where: { id: req.session.user_id } });
     const user = userData.map(user => user.get({ plain: true }));
 
-    const name = user.map(user => user.name)
-    const email = user.map(user => user.email)
-    const location = user.map(user => user.location)
-    const colour = user.map(user => user.colour)
-    const timezone = user.map(user => user.timezone)
-
-    res.status(200).json({ name, location, email, colour, timezone });
+    res.status(200).json({ user });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -45,6 +39,10 @@ router.put('/updateUser', withAuth, async (req, res) => {
     }
     if (req.body.type === 'timezone') {
       const userData = await User.update({ timezone: req.body.data }, { where: { id: req.session.user_id } })
+      res.status(200).json(userData);
+    }
+    if (req.body.type === 'temperature') {
+      const userData = await User.update({ temperature: req.body.data }, { where: { id: req.session.user_id } })
       res.status(200).json(userData);
     }
   } catch (err) {

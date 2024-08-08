@@ -299,7 +299,7 @@ input[type="checkbox"]:not(:disabled):checked {
     width: 262px;
 }
 
-#form-input input[type="radio"] {
+#colour-form input[type="radio"] {
     display: none;
 }
 
