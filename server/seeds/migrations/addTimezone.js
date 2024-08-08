@@ -12,12 +12,6 @@ const addTimezone = async () => {
                 DataTypes.STRING,
                 defaultValue: 'America/Los_Angeles',
         });
-        
-        const userData = await User.findAll();
-        const users = userData.map(user => user.get({ plain: true }));
-
-        console.log(users);
-        console.table(users);
 
     } catch (error) {
         console.log(error);
