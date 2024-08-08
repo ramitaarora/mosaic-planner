@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
-export default function ProfileForm({ visibility, setVisibility, colourTheme, setColourTheme, getData }) {
+export default function ProfileForm({ visibility, setVisibility, colourTheme, setColourTheme, getData, demo }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -160,7 +160,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                 </div>
                             </form>
 
-                            <form id="email-form" onSubmit={updateProfile}>
+                           {!demo && <form id="email-form" onSubmit={updateProfile}>
                                 <div id="form-input">
                                     <label htmlFor="editEmail">Email:</label>
                                     <div>
@@ -168,9 +168,9 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>
-                            </form>
+                            </form>}
 
-                            <form id="password-form" onSubmit={updateProfile}>
+                            {!demo && <form id="password-form" onSubmit={updateProfile}>
                                 <div id="form-input">
                                     <label htmlFor="editPass">Password:</label>
                                     <div>
@@ -178,7 +178,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                                         <input type="submit" value="Save" />
                                     </div>
                                 </div>
-                            </form>
+                            </form>}
 
                         </div>
 

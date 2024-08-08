@@ -41,6 +41,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   // Mobile navigation
   const [mobileCard, setMobileCard] = useState();
+  // If Demo Mode
+  const [demo, setDemo] = useState(false);
 
   const getData = () => {
     fetch(`/api/data/allData/${today}`)
@@ -61,13 +63,15 @@ export default function Dashboard() {
         setNotes(data.notes.map(note => note));
         setDailyChecks(data.checks.filter(check => !check.archived));
         setDailyChecksHistory(data.dailyChecks.filter(check => check.date == today));
+        // Set Events
+        setEvents(data.events.map(event => event));
         // Set User Preferences
         setName(data.user.map(user => user.name));
         setLocation(data.user.map(user => user.location));
-        setEvents(data.events.map(event => event));
         setColourTheme(data.user[0].colour);
         setTimezone(data.user[0].timezone);
         setTemperature(data.user[0].temperature);
+        if (data.user[0].id === '1') setDemo(true);
         // Set Tasks
         setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
         setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
@@ -240,7 +244,7 @@ export default function Dashboard() {
         <div>
           <div id="desktop">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} temperature={temperature} />
-            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} demo={demo}/>
 
             <main className={css`display: flex; width: 100vw;`}>
               <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
@@ -264,7 +268,7 @@ export default function Dashboard() {
 
           <div id="mobile">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
-            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} />
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} demo={demo} />
             <div id="mobile-component">
               {mobileCard === '' || mobileCard === 'home' || !mobileCard ? (
                 <MobileCard navigate={navigate} />
