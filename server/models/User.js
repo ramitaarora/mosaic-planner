@@ -51,6 +51,10 @@ User.init(
     timezone: {
       type: DataTypes.STRING,
       defaultValue: 'America/Los_Angeles',
+    },
+    temperature: {
+      type: DataTypes.STRING,
+      defaultValue: 'F'
     }
   },
   {
