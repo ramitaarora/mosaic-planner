@@ -67,7 +67,7 @@ export default function MobileWeather({ location, temperature }) {
                     <div id="weather-2" className={css` width: fit-content; display: flex; justify-content: space-evenly; align-items: center;`}>
                         <img src={icon} alt={forecast} height="100px" width="100px" />
                         <div className={css`text-align: left;`}>
-                            <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p>
+                            {temperature === 'F' ? <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}°F</p> : <p>{(Math.trunc((temp - 273.15)))}°C</p>}
                             <p>{forecast}</p>
                         </div>
                     </div>

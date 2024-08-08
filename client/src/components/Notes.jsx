@@ -318,16 +318,12 @@ export default function Notes({ notes, setNotes, getData }) {
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
-                                    <div className={css`cursor: pointer;`} onClick={(event) => changeOrder(event)} id={note.id} order={note.order}>
+                                    <div className={css`cursor: pointer; margin-top: 2px;`} onClick={(event) => changeOrder(event)} id={note.id} order={note.order}>
                                         {index > 0 && (
-                                            <svg id="up" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" onClick={(event) => changeOrder(event)}>
-                                                <path fillRule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
-                                            </svg>
+                                            <img src="./svgs/arrow-up.svg" alt="up" onClick={(event) => changeOrder(event)} />
                                         )}
                                         {index === 0 && (
-                                            <svg id="down" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" onClick={(event) => changeOrder(event)}>
-                                                <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
-                                            </svg>
+                                            <img src="./svgs/arrow-down.svg" alt="up" onClick={(event) => changeOrder(event)} />
                                         )}
                                     </div>
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editNote} id={note.id} value={note.note} />
