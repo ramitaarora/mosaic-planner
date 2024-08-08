@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 import getMonth from '../utils/getMonth';
 
-export default function MobileWeather({ location }) {
+export default function MobileWeather({ location, temperature }) {
     const [loading, setLoading] = useState(false);
     const [city, setCity] = useState();
     const [forecast, setForecast] = useState();
@@ -81,7 +81,7 @@ export default function MobileWeather({ location }) {
                                     <img src={data.icon} alt={data.weather} />
                                     <div className={css`display: flex; flex-wrap: wrap; align-items: center; justify-content: space-evenly; width: 50%; flex-direction: column;`}>
                                         <p>{data.weather}</p>
-                                        <p>{(Math.trunc((data.temp - 273.15) * (9 / 5) + 32))}° F</p>
+                                        {temperature === 'F' ? <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p> : <p>{(Math.trunc((temp - 273.15)))}° C</p>}
                                     </div>
                                 </div>
                             </div>

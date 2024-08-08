@@ -36,6 +36,7 @@ export default function Dashboard() {
   const [location, setLocation] = useState('Pasadena');
   const [visibility, setVisibility] = useState('hidden');
   const [colourTheme, setColourTheme] = useState();
+  const [temperature, setTemperature] = useState('');
   // Loading for dashboard
   const [loading, setLoading] = useState(true);
   // Mobile navigation
@@ -51,21 +52,26 @@ export default function Dashboard() {
         return response.json(); // or response.text() for text data
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
+        // Set Gooals
         setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
         setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
+        // Set Notes
         setNotes(data.notes.map(note => note));
         setDailyChecks(data.checks.filter(check => !check.archived));
         setDailyChecksHistory(data.dailyChecks.filter(check => check.date == today));
+        // Set User Preferences
         setName(data.user.map(user => user.name));
         setLocation(data.user.map(user => user.location));
         setEvents(data.events.map(event => event));
         setColourTheme(data.user[0].colour);
+        setTimezone(data.user[0].timezone);
+        setTemperature(data.user[0].temperature);
+        // Set Tasks
         setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
         setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
         setArchivedTasks(data.tasks.filter(task => task.archived === true));
-        setTimezone(data.user[0].timezone);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -233,7 +239,7 @@ export default function Dashboard() {
       ) : (
         <div>
           <div id="desktop">
-            <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
+            <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} temperature={temperature} />
             <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} timezone={timezone} setTimezone={setTimezone} />
 
             <main className={css`display: flex; width: 100vw;`}>
@@ -292,7 +298,7 @@ export default function Dashboard() {
               ) : null}
               {mobileCard === 'weather' ? (
                 <div id="mobile-card">
-                  <MobileWeather location={location} />
+                  <MobileWeather location={location} temperature={temperature} />
                 </div>
               ) : null}
             </div>

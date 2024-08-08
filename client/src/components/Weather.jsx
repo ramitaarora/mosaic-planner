@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
-export default function Weather({ location }) {
+export default function Weather({ location, temperature }) {
     const [loading, setLoading] = useState(false);
     const [city, setCity] = useState();
     const [forecast, setForecast] = useState();
@@ -41,7 +41,7 @@ export default function Weather({ location }) {
                         <img src={icon} alt={forecast} height="50px" width="50px" />
                     </div>
                     <div id="weather-2" className={css` width: 50%; display: flex; justify-content: space-evenly; align-items: center;`}>
-                        <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p>
+                        {temperature === 'F' ? <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}° F</p> : <p>{(Math.trunc((temp - 273.15)))}° C</p>}
                         <p>{forecast}</p>
                     </div>
                 </div>

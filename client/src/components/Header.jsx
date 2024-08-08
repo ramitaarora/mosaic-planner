@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import Weather from './Weather';
 import { css } from '@emotion/css';
 
-export default function Header({ name, location, visibility, setVisibility, fullDate, time, hour }) {
+export default function Header({ name, location, visibility, setVisibility, fullDate, time, hour, temperature }) {
     const [greeting, setGreeting] = useState('Hello');
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function Header({ name, location, visibility, setVisibility, full
     return (
         <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px; text-align: center; `}>
 
-            <Weather location={location} />
+            <Weather location={location} temperature={temperature} />
 
             <div id="today" className={css`width: 34%; height: 80px; display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;`}>
                 <h1 id="today">{greeting}, {name}</h1>
