@@ -181,10 +181,11 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const changeOrder = async (event) => {
-        let targetID = event.target.parentElement.id;
+        let targetID = event.target.id;
         let switchID;
+        console.log(event.target.attributes.alt.value)
 
-        if (event.target.id === "down") {
+        if (event.target.attributes.alt.value === "down") {
             // Order is always 0, order becomes 1 and 1 will become 0
             for (let i = 0; i < sortedNotes.length; i++) {
                 if (sortedNotes[i].order === 1) {
@@ -221,10 +222,10 @@ export default function Notes({ notes, setNotes, getData }) {
             }
         }
 
-        if (event.target.id === "up") {
+        if (event.target.attributes.alt.value === "up") {
             // Target element in list must minus one to order, the next element in list must become target's order num
-            let targetNum = Number(event.target.parentElement.attributes.order.value);
-            let switchNum = Number(event.target.parentElement.attributes.order.value) - 1;
+            let targetNum = Number(event.target.attributes.order.value);
+            let switchNum = Number(event.target.attributes.order.value) - 1;
 
             for (let i = 0; i < sortedNotes.length; i++) {
                 if (sortedNotes[i].order === switchNum) {
@@ -318,12 +319,12 @@ export default function Notes({ notes, setNotes, getData }) {
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
-                                    <div className={css`cursor: pointer; margin-top: 2px;`} onClick={(event) => changeOrder(event)} id={note.id} order={note.order}>
+                                    <div className={css`cursor: pointer; margin-top: 2px;`}>
                                         {index > 0 && (
-                                            <img src="./svgs/arrow-up.svg" alt="up" onClick={(event) => changeOrder(event)} />
+                                            <img src="./svgs/arrow-up.svg" alt="up" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
                                         )}
                                         {index === 0 && (
-                                            <img src="./svgs/arrow-down.svg" alt="up" onClick={(event) => changeOrder(event)} />
+                                            <img src="./svgs/arrow-down.svg" alt="down" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
                                         )}
                                     </div>
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editNote} id={note.id} value={note.note} />
