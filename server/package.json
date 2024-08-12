@@ -10,7 +10,7 @@
     "resetDemo": "node seeds/resetDemo.js",
     "watch": "nodemon",
     "sync": "node seeds/migrations/addUserTemp.js",
-    "data": "node seeds/data.js"
+    "data": "node seeds/test/data.js"
   },
   "keywords": [],
   "author": "",

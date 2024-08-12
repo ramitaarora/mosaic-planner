@@ -1,5 +1,5 @@
-const sequelize = require('../config/connection');
-const { User, DailyChecks, Events, Goals, Notes, Tasks } = require('../models');
+const sequelize = require('../../config/connection');
+const { User, DailyChecks, Events, Goals, Notes, Tasks } = require('../../models');
 
 const seeData = async () => {
     try {

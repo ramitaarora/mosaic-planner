@@ -258,7 +258,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
 
                 <div id="empty">
                     <p onClick={showModal}>No daily checks yet!</p>
-                    {currentFullDate === today ? <button onClick={generateTodaysChecks}>Generate Today's Checks</button> : null}
+                    {currentFullDate === today && dailyChecks.length ? <button onClick={generateTodaysChecks}>Generate Today's Checks</button> : null}
                     {errorMessage.length ? (
                         <p>{errorMessage}</p>
                     ) : null}
