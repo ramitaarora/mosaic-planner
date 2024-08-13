@@ -3,9 +3,9 @@ const { User, DailyChecks, Events, Goals, Notes, Tasks } = require('../../models
 
 const seeData = async () => {
     try {
-        const userData = await User.findAll();
-        const users = userData.map(user => user.get({ plain: true }));
-        console.log(users);
+        // const userData = await User.findAll();
+        // const users = userData.map(user => user.get({ plain: true }));
+        // console.log(users);
 
         // const checksData = await DailyChecks.findAll();
         // const checks = checksData.map(check => check.get({ plain: true }));

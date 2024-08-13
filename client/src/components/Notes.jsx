@@ -319,14 +319,12 @@ export default function Notes({ notes, setNotes, getData }) {
                                     </form>
                                 </div>
                                 <div id="edit-buttons">
-                                    <div className={css`cursor: pointer; margin-top: 2px;`}>
-                                        {index > 0 && (
-                                            <img src="./svgs/arrow-up.svg" alt="up" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
-                                        )}
-                                        {index === 0 && (
-                                            <img src="./svgs/arrow-down.svg" alt="down" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
-                                        )}
-                                    </div>
+                                    {index > 0 && (
+                                        <img src="./svgs/arrow-up-circle.svg" alt="up" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
+                                    )}
+                                    {index === 0 && (
+                                        <img src="./svgs/arrow-down-circle.svg" alt="down" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
+                                    )}
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editNote} id={note.id} value={note.note} />
                                     <img src="./svgs/delete.svg" alt="edit" onClick={deleteNote} id={note.id} />
                                 </div>
