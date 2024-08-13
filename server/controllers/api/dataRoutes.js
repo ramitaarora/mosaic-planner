@@ -312,7 +312,7 @@ router.put('/reorder', withAuth, async (req, res) => {
             }
         })
         res.status(200).json(notesData)
-    } catch(err) {
+    } catch (err) {
         res.status(400).json(err);
         console.log(err);
     }

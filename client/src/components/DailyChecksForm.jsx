@@ -77,13 +77,31 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     const archiveCheck = async (event) => {
         const checkID = event.target.attributes[2].nodeValue;
 
-        if (window.confirm("Are you sure you want to archive this check?")) {
-            const response = await fetch('/api/data/edit', {
-                method: 'PUT',
+        const response = await fetch('/api/data/edit', {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: checkID,
+                type: 'Daily Check Archive',
+                archived: true,
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+        if (response.ok) {
+            getData();
+        } else {
+            console.error(response.statusText);
+        }
+    }
+
+    const deleteCheck = async (event) => {
+        const checkID = event.target.attributes.id.value;
+
+        if (window.confirm("Are you sure you want to delete this check?")) {
+            const response = await fetch('/api/data/delete', {
+                method: 'DELETE',
                 body: JSON.stringify({
                     id: checkID,
-                    type: 'Daily Check Archive',
-                    archived: true,
+                    type: 'Daily Check',
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -192,6 +210,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                                         <div id="edit-buttons">
                                             <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} onClick={editCheck} />
                                             <img src="./svgs/archive.svg" alt="archive" id={check.id} onClick={archiveCheck} />
+                                            <img src="./svgs/delete.svg" alt="delete" onClick={deleteCheck} id={check.id} />
                                         </div>
                                     </div>
                                 )) : (
