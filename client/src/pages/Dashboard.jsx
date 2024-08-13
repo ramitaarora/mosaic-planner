@@ -259,8 +259,8 @@ export default function Dashboard() {
               </section>
 
               <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-                <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
                 <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
+                <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
                 <Notes notes={notes} setNotes={setNotes} getData={getData} />
               </section>
             </main>
@@ -275,8 +275,8 @@ export default function Dashboard() {
               ) : null}
               {mobileCard === 'tasks' ? (
                 <div id="mobile-card">
-                  <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
                   <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
+                  <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'checks' ? (
