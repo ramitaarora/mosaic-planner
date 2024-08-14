@@ -3,14 +3,19 @@ import DailyChecksForm from './DailyChecksForm';
 import { css } from '@emotion/css';
 
 export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHistory, setDailyChecksHistory, today, fullDate, timezone, getData }) {
+    // Input value when editing checks
     const [inputValue, setInputValue] = useState('');
+    // Visibility of Daily checks form modal
     const [visibility, setVisibility] = useState('hidden');
+    // Error message when trying to generate today's checks - should not occur
     const [errorMessage, setErrorMessage] = useState('');
+    // Controlling the current day and scrolling through different day's checks
     const [currentDay, setCurrentDay] = useState(fullDate);
     const [currentFullDate, setCurrentFullDate] = useState('')
     const [sortedDailyChecks, setSortedDailyChecks] = useState([]);
 
     useEffect(() => {
+        // Load today's date
         getToday();
 
         let newYear = new Date(currentDay).getFullYear();
@@ -20,6 +25,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }, [])
 
     useEffect(() => {
+        // Sort daily checks according to whether they are completed (push to bottom of array) or not (push to top of array)
         setSortedDailyChecks([]);
         
         for (let i = 0; i < dailyChecksHistory.length; i++) {
@@ -32,10 +38,12 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }, [dailyChecksHistory])
 
     const showModal = () => {
+        // Open Daily Checks modal
         setVisibility('visible');
     }
 
     const fetchSpecificDayChecks = (newFullDate) => {
+        // Function to fetch checks when scrolling through different days
         fetch(`/api/data/checksDate/${newFullDate}`)
         .then((response) => {
             if (!response.ok) {
@@ -64,6 +72,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const editCheck = (event) => {
+        // Edit a check
         const checkID = event.target.attributes[2].nodeValue;
         const checkValue = event.target.attributes[3].nodeValue;
 
@@ -78,6 +87,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const deleteCheck = async (event) => {
+        // Delete a check
         const checkID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this daily check?")) {
@@ -102,6 +112,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const submitEdit = async (event) => {
+        // Submit the edit for the daily check into the database
         event.preventDefault();
         const formID = event.target.id;
         const checkID = event.target.parentElement.attributes[1].value;
@@ -134,6 +145,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const cancelEdit = (event) => {
+        // Close the edit check form
         event.preventDefault();
         const formID = event.target.form.id;
         const checkID = event.target.parentElement.parentElement.attributes[1].value;
@@ -147,6 +159,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const checkbox = async (event) => {
+        // Mark check as completed or not and commit to the database
         const checkID = event.target.parentElement.parentElement.attributes[1].value;
 
         const response = await fetch('/api/data/completed', {
@@ -171,6 +184,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const getToday = () => {
+        // Function to get today's data and set date
         getData();
         setCurrentDay(fullDate);
         
@@ -181,6 +195,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const minusDay = async () => {
+        // Go back one day from current date
         let current = new Date(currentDay);
         let minusOne = current.setDate(current.getDate() - 1);
         let newYear = new Date(minusOne).getFullYear();
@@ -192,6 +207,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const addDay = async () => {
+        // Go forward one day from current date
         let current = new Date(currentDay);
         let addOne = current.setDate(current.getDate() + 1);
         let newYear = new Date(addOne).getFullYear();
@@ -203,6 +219,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     }
 
     const generateTodaysChecks = () => {
+        // Generate the checks for the current day
         try {
             fetch(`/api/data/generateChecks/${today}`)
                 .then((response) => {
