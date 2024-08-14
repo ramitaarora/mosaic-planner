@@ -28,7 +28,7 @@ export default function Login() {
         document.getElementById("login-instead").setAttribute('class', 'visible');
         document.getElementById('auth-form').setAttribute('class', 'hidden');
         document.getElementById("signup-instead").setAttribute('class', 'hidden');
-        document.getElementById('login-error').setAttribute('class', 'hidden');
+        setErrorMessage('')
     }
 
     const showLogin = () => {
@@ -36,7 +36,7 @@ export default function Login() {
         document.getElementById("login-instead").setAttribute('class', 'hidden');
         document.getElementById('auth-form').setAttribute('class', 'visible');
         document.getElementById("signup-instead").setAttribute('class', 'visible');
-        document.getElementById('login-error').setAttribute('class', 'hidden');
+        setErrorMessage('')
     }
 
     const login = async (event) => {

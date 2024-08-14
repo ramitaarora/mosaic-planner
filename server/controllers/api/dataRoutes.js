@@ -447,6 +447,12 @@ router.delete('/delete', withAuth, async (req, res) => {
             res.status(200).json(eventData);
         }
         if (req.body.type === 'Daily Check') {
+            const checksHistoryData = await DailyChecksHistory.destroy({
+                where: {
+                    parent_id: req.body.id,
+                    user_id: req.session.user_id,
+                }
+            })
             const checksData = await DailyChecks.destroy({
                 where: {
                     id: req.body.id,

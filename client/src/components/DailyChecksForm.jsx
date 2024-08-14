@@ -96,7 +96,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     const deleteCheck = async (event) => {
         const checkID = event.target.attributes.id.value;
 
-        if (window.confirm("Are you sure you want to delete this check?")) {
+        if (window.confirm("Are you sure you want to delete this check? This will also delete all the checks in the history.")) {
             const response = await fetch('/api/data/delete', {
                 method: 'DELETE',
                 body: JSON.stringify({
