@@ -2,15 +2,20 @@ import { useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function DailyChecksForm({ visibility, setVisibility, dailyChecks, setDailyChecks, today, getData }) {
+    // Input form for submitting new checks
     const [inputValue, setInputValue] = useState('');
+    // Loading state for API call
     const [loading, setLoading] = useState(false);
+    // Array for AI suggestions
     const [suggestions, setSuggestions] = useState([]);
 
     const closeModal = () => {
+        // Closes the daily checks modal
         setVisibility('hidden');
     }
 
     const submitNewCheck =  (event) => {
+        // Adds the new Daily Check to the database
         event.preventDefault();
 
         if (inputValue.length) {
@@ -29,6 +34,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                 return response.json();
             })
             .then((data => {
+                // Adds this specific daily check to the daily check history for today
                 fetch('/api/data/add', {
                     method: 'POST',
                     body: JSON.stringify({
@@ -61,6 +67,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const editCheck = (event) => {
+        // Opens the editing check form
         const checkID = event.target.attributes[2].nodeValue;
         const checkValue = event.target.attributes[3].nodeValue;
 
@@ -75,6 +82,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const archiveCheck = async (event) => {
+        // Sets the archived status as true in the database (deletes the check, not the history)
         const checkID = event.target.attributes[2].nodeValue;
 
         const response = await fetch('/api/data/edit', {
@@ -94,6 +102,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const deleteCheck = async (event) => {
+        // Deletes check and all associated history of that check
         const checkID = event.target.attributes.id.value;
 
         if (window.confirm("Are you sure you want to delete this check? This will also delete all the checks in the history.")) {
@@ -114,6 +123,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const submitCheckEdit = async (event) => {
+        // Saves the edit for the check in the database
         event.preventDefault();
         const formID = event.target.id;
         const checkID = event.target[2].id;
@@ -142,6 +152,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const cancelEdit = (event) => {
+        // Hides the edit check form
         event.preventDefault();
         const formID = event.target.form.id;
         const checkID = event.target.id;
@@ -155,6 +166,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const getAISuggestions = (event) => {
+        // API call for AI suggestions
         event.preventDefault();
         setSuggestions([]);
         setLoading(true);
@@ -175,12 +187,14 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
     }
 
     const addAISuggestion = async (event) => {
+        // Adds the AI suggestion value to the form
         setInputValue(event.target.innerText);
         const removedCheck = suggestions.filter((item) => item != event.target.innerText);
         setSuggestions(removedCheck);
     }
 
     const removeAISuggestions = () => {
+        // Removes the AI suggestions
         setSuggestions([]);
     }
 
