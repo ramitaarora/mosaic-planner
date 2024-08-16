@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function AddEventsForm({ addVisibility, setAddVisibility, getData, setTodaysEvents }) {
+    // State to show time if "all day" is not checked off
     const [showTime, setShowTime] = useState('visible');
+    // State for if an event is recurring or not
     const [recurring, setReccuring] = useState('Not-Recurring');
 
     const setTimeVisibility = (event) => {
+        // Toggled by "all day" checkbox if time inputs are visible or not
         if (event.target.checked) {
             setShowTime('hidden');
         } else {
@@ -15,6 +18,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
 
     const saveEvent = async (event) => {
         event.preventDefault();
+        // Function to save event to database
         const formID = event.target.id;
         const eventName = event.target[0].value;
         const date = event.target[1].value;
@@ -24,6 +28,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
         const address = event.target[5].value;
 
         const formatDate = (fullDate) => {
+            // Format date to save in database as correct formatting for date string
             const day = new Date(fullDate + 'T00:00').getDate();
             const month = new Date(fullDate + 'T00:00').getMonth() + 1;
             const year = new Date(fullDate + 'T00:00').getFullYear();
@@ -72,10 +77,12 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
     }
 
     const closeModal = () => {
+        // Close add events form modal
         setAddVisibility('hidden');
     }
 
     const resetForm = () => {
+        // Reset state variables in form
         setShowTime('visible');
         setReccuring('Non-Recurring');
         
