@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function EditEventsForm({ editVisibility, setEditVisibility, getData, eventToEdit, setTodaysEvents }) {
+    // Input form state variables
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -14,6 +15,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     const [timeVisibility, setTimeVisibility] = useState('hidden')
 
     useEffect(() => {
+        // Update state variables with form events
         if (eventToEdit) {
             setEventName(eventToEdit.event);
             setEventDate(eventToEdit.date ? formatDateHTML(eventToEdit.date) : formatDateHTML(eventToEdit.start_date));
@@ -28,6 +30,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     }, [eventToEdit])
 
     const changeAllDay = (event) => {
+        // Show times if all day box is not checked
         if (event.target.checked) {
             setTimeVisibility('hidden');
             setAllDay(true)
@@ -39,6 +42,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     }
 
     const formatDateHTML = (fullDate) => {
+        // Format calendar date to match date string in database
         let day = new Date(fullDate).getDate();
         let month = new Date(fullDate).getMonth() + 1;
         const year = new Date(fullDate).getFullYear();
@@ -50,6 +54,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     }
 
     const saveEvent = async (event) => {
+        // Save event edits to database
         event.preventDefault();
 
         const formatDate = (fullDate) => {
@@ -98,10 +103,12 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
     }
 
     const closeModal = () => {
+        // Close edit event modal
         setEditVisibility('hidden');
     }
 
     const resetForm = (event) => {
+        // Reset form and state variables
         event.preventDefault();
         if (eventToEdit) {
             setEventName(eventToEdit.event);
@@ -110,7 +117,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
             setEndTime(eventToEdit.end_time ? eventToEdit.end_time : '');
             setAllDay(eventToEdit.all_day ? true : false);
             setAddress(eventToEdit.address ? eventToEdit.address : '');
-            setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
+            // setStartDate(eventToEdit.start_date ? formatDateHTML(eventToEdit.start_date) : '');
             setRecurring(eventToEdit.recurring ? eventToEdit.recurring : 'Not-Recurring');
             setTimeVisibility(eventToEdit.all_day ? 'hidden' : 'visible')
         }
