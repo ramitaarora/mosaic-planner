@@ -3,11 +3,15 @@ import GoalsForm from './GoalsForm';
 import { css } from '@emotion/css'
 
 export default function Goals({ goals, setGoals, goalType, getData }) {
+    // Input variable for editing individual goals
     const [inputValue, setInputValue] = useState('');
+    // Variable for visibility of modal
     const [visibility, setVisibility] = useState('hidden');
+    // Array to display goals after sorting
     const [sortedGoals, setSortedGoals] = useState([]);
 
     useEffect(() => {
+        // Sort goals every time data updates
         setSortedGoals([]);
 
         for (let i = 0; i < goals.length; i++) {
@@ -20,6 +24,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }, [goals])
 
     const editGoal = (event) => {
+        // Show edit goal form
         const goalID = event.target.attributes[2].nodeValue;
         const goalValue = event.target.attributes[3].nodeValue;
 
@@ -34,6 +39,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     const deleteGoal = async (event) => {
+        // Delete goal from database
         const goalID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this goal? It will delete all related goals.")) {
@@ -54,6 +60,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     const submitEdit = async (event) => {
+        // Submit individual goal edit and change in database
         event.preventDefault();
         const formID = event.target.id;
         const goalID = event.target.parentElement.parentElement.attributes[1].value;
@@ -82,6 +89,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     const cancelEdit = (event) => {
+        // Hide goal edit form
         event.preventDefault();
         const formID = event.target.form.id;
         const goalID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
@@ -95,10 +103,12 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     const addNewGoal = (event) => {
+        // Open modal
         setVisibility('visible')
     }
 
     const checkbox = async (event) => {
+        // Mark goal as completed or not in database
         const goalID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
 
         const response = await fetch('/api/data/completed', {
@@ -120,13 +130,11 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
 
     return (
         <div id="goals" className={`card ${css`height: 33vh;`}`}>
+            <GoalsForm visibility={visibility} setVisibility={setVisibility} />
             <div id="card-header">
                 <h2>{goalType} Goals</h2>
                 <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal} />
             </div>
-
-            <GoalsForm visibility={visibility} setVisibility={setVisibility} />
-
             <div id="goals-list">
                 <ol>
                     {sortedGoals.length ? (
@@ -139,7 +147,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                                     </div>
                                     <form id={'goalForm-' + goal.id} className="hidden" onSubmit={submitEdit}>
                                         <input type="text" id={'goalInput-' + goal.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
-                                        <input type="submit" value="Save"/>
+                                        <input type="submit" value="Save" />
                                         <button onClick={cancelEdit}>Cancel</button>
                                     </form>
                                 </div>
