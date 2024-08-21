@@ -2,16 +2,20 @@ import { useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function GoalsForm({ visibility, setVisibility }) {
+    // Loading state variable for AI suggestions
     const [loading, setLoading] = useState(false);
+    // Input variables for each goal
     const [yearly, setYearly] = useState('');
     const [monthly, setMonthly] = useState('');
     const [weekly, setWeekly] = useState('');
 
     const closeModal = () => {
+        // Close modal
         setVisibility('hidden');
     }
 
     const saveGoal = async (event) => {
+        // Save new goals to database
         event.preventDefault();
         const formID = event.target.id;
 
@@ -37,6 +41,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
     }
 
     const getAISuggestions = (event) => {
+        // Fetch AI suggestions and set suggestions in input boxes
         event.preventDefault();
         setLoading(true);
 
@@ -57,6 +62,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
     }
 
     const resetForm = () => {
+        // Reset form and input variables
         setWeekly('');
         setMonthly('');
         setYearly('');
