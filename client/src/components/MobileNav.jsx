@@ -2,6 +2,8 @@ import { css } from '@emotion/css';
 
 export default function MobileNav({ navigate }) {
     const setActiveMode = (id) => {
+        // This function sets the selected navigation element as the active and renders the corresponding component
+        // First sets all elements inactive, then sets the correct element as active
         const allElements = document.getElementById('mobile-nav').childNodes;
         for (let i = 0; i < allElements.length; i++) {
             allElements[i].setAttribute('class', 'mobile-nav-inactive');
