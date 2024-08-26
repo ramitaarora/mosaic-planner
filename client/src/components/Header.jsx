@@ -4,9 +4,11 @@ import Weather from './Weather';
 import { css } from '@emotion/css';
 
 export default function Header({ name, location, visibility, setVisibility, fullDate, time, hour, temperature }) {
+    // State variable for greeting at the top of the header
     const [greeting, setGreeting] = useState('Hello');
 
     useEffect(() => {
+        // Set the greeting based on the time of day
         let theHour = hour.split(':')[0];
 
         if (theHour < 12) {
