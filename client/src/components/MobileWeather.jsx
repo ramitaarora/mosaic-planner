@@ -3,14 +3,18 @@ import { css } from '@emotion/css';
 import getMonth from '../utils/getMonth';
 
 export default function MobileWeather({ location, temperature }) {
+    // Loading variable
     const [loading, setLoading] = useState(false);
+    // Variables to set current weather
     const [city, setCity] = useState();
     const [forecast, setForecast] = useState();
     const [temp, setTemp] = useState();
     const [icon, setIcon] = useState();
+    // Variable to set the next days' forecast
     const [nextWeatherData, setNextWeatherData] = useState([])
 
     const getWeather = () => {
+        // Fetch weather data from Open Weather API using user's location and set data to variables
         fetch(`/api/data/weather/${location}`)
             .then((response) => {
                 if (!response.ok) {
@@ -25,7 +29,6 @@ export default function MobileWeather({ location, temperature }) {
                 setForecast(data.list[0].weather[0].description)
                 setIcon(`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`)
                 getWeatherForecast(data);
-                setLoading(false);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -33,6 +36,7 @@ export default function MobileWeather({ location, temperature }) {
     }
 
     const getWeatherForecast = (data) => {
+        // Search through the data for the weather at 3pm and use this to set the forecast for the following days
         setNextWeatherData([]);
         for (let i = 1; i < data.list.length; i++) {
             if (data.list[i].dt_txt.split(' ')[1] === '15:00:00') {
@@ -48,9 +52,11 @@ export default function MobileWeather({ location, temperature }) {
                 }])
             }
         }
+        setLoading(false);
     }
 
     useEffect(() => {
+        // Fetch weather data and set loading states accordingly
         setLoading(true);
         getWeather();
     }, []);
