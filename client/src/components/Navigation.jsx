@@ -2,6 +2,7 @@ import { css } from '@emotion/css';
 
 export default function Navigation({ visiblity, setVisibility }) {
     const logout = async () => {
+        // Destroy session cookie
         const response = await fetch('/api/users/logout', {
             method: 'POST',
         })
@@ -13,6 +14,7 @@ export default function Navigation({ visiblity, setVisibility }) {
     }
     
     const openModal = () => {
+        // Open edit profile modal
         setVisibility('visible');
     }
 
