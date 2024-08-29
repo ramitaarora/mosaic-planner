@@ -2,20 +2,23 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
 export default function ProfileForm({ visibility, setVisibility, colourTheme, setColourTheme, getData, demo }) {
+    // Input variables for profile form; sets the existing values in the form for ease of change
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [location, setLocation] = useState('')
     const [timezone, setTimezone] = useState('')
     const [temperature, setTemperature] = useState('');
-
+    // Select options for time zones
     const timezoneOptions = ["America/New_York", "America/Los_Angeles", "America/Chicago", "Europe/London", "Asia/Tokyo", "Europe/Paris", "Asia/Shanghai", "Asia/Kolkata", "Europe/Berlin", "Australia/Sydney"];
 
     const closeModal = () => {
+        // Close profile form modal
         setVisibility('hidden');
     }
 
     const getUser = () => {
+        // Fetch user info
         fetch('/api/users/getUser')
             .then((response) => {
                 if (!response.ok) {
@@ -38,10 +41,12 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     }
 
     const updateProfile = async (event) => {
+        // Function to update user information in database
         event.preventDefault();
         const inputType = String(event.target.id).split('-')[0];
         let inputData;
 
+        // To get input data for temperature form
         if (inputType === 'temperature') {
             for (let i = 0; i < 2; i++) {
                 if (event.target[i].checked) {
@@ -49,9 +54,11 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                 }
             }
         } else {
+            // Input data for all other types
             inputData = event.target[0].value;
         }
 
+        // Change data in database
         if (inputData.length) {
             const response = await fetch('/api/users/updateUser', {
                 method: 'PUT',
@@ -72,10 +79,12 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     }
 
     useEffect(() => {
+        // Fetch user info on first load
         getUser();
     }, [])
 
     const handleColours = async (event) => {
+        // Change colour theme in database
         setColourTheme(event.target.id);
 
         const response = await fetch('/api/users/updateUser', {
