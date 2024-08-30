@@ -2,14 +2,18 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
 export default function Weather({ location, temperature }) {
+    // Loading state variable for loader image
     const [loading, setLoading] = useState(false);
+    // Variables to set weather info
     const [city, setCity] = useState();
     const [forecast, setForecast] = useState();
     const [temp, setTemp] = useState();
     const [icon, setIcon] = useState();
 
     useEffect(() => {
+        // Fetch weather data on change of user location
         setLoading(true);
+        
         fetch(`/api/data/weather/${location}`)
             .then((response) => {
                 if (!response.ok) {
