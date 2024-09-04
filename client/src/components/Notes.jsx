@@ -2,18 +2,24 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
 export default function Notes({ notes, setNotes, getData }) {
+    // Input variable for adding notes
     const [inputValue, setInputValue] = useState('');
+    // Loading state to show loader
     const [loading, setLoading] = useState(false);
+    // Variable for AI suggestions
     const [suggestions, setSuggestions] = useState([]);
+    // State for final sorted notes
     const [sortedNotes, setSortedNotes] = useState([]);
 
     useEffect(() => {
+        // Sort notes by order number
         setSortedNotes([]);
         const notesSorted = notes.sort((a, b) => a.order - b.order)
         setSortedNotes(notesSorted);
     }, [notes])
 
     const editNote = (event) => {
+        // Show edit note form
         const noteID = event.target.attributes[2].nodeValue;
         const noteValue = event.target.attributes[3].nodeValue;
 
@@ -28,6 +34,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const deleteNote = async (event) => {
+        // Delete note from database
         const noteID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this note?")) {
@@ -48,6 +55,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const submitNoteEdit = async (event) => {
+        // Submit note edit to database
         event.preventDefault();
         const noteFormID = event.target.id;
         const noteID = event.target.parentElement.parentElement.attributes[1].value;
@@ -77,6 +85,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const cancelNoteEdit = (event) => {
+        // Hide edit note form
         event.preventDefault();
         const noteID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
         const noteFormID = event.target.form.id;
@@ -89,6 +98,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const addNewNote = (event) => {
+        // Show add note form
         setInputValue('');
         document.getElementById('add-note').setAttribute('class', 'visible');
         document.getElementById('add-note-button').setAttribute('class', 'hidden');
@@ -96,6 +106,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const submitNewNote = async (event) => {
+        // Add new note to database
         event.preventDefault();
         const newNoteValue = inputValue;
 
@@ -122,6 +133,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const cancelNewNote = (event) => {
+        // Hide new note form
         event.preventDefault();
         document.getElementById('add-note').setAttribute('class', 'hidden');
         document.getElementById('cancel-note-button').setAttribute('class', 'hidden');
@@ -129,6 +141,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const getAISuggestions = (event) => {
+        // Get AI suggestions for new notes
         event.preventDefault();
         setSuggestions([]);
         setLoading(true);
@@ -149,6 +162,7 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const addAISuggestion = async (event) => {
+        // Submit AI Suggestion to database as a new note
         let newNoteValue = event.target.innerText;
 
         if (newNoteValue.length) {
@@ -177,13 +191,15 @@ export default function Notes({ notes, setNotes, getData }) {
     }
 
     const removeAISuggestions = () => {
+        // Remove AI suggestions
         setSuggestions([]);
     }
 
     const changeOrder = async (event) => {
+        // Change order of the notes based on arrows pressed
         let targetID = event.target.id;
         let switchID;
-        console.log(event.target.attributes.alt.value)
+        // console.log(event.target.attributes.alt.value)
 
         if (event.target.attributes.alt.value === "down") {
             // Order is always 0, order becomes 1 and 1 will become 0
