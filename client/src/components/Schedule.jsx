@@ -5,22 +5,30 @@ import EditEventsForm from './EditEventForm';
 import Calendar from 'react-calendar';
 
 export default function Schedule({ events, setEvents, fullDate, timezone, today, getData }) {
+    // Sets the date for the events, initially starts with today's date
     const [currentDate, setCurrentDate] = useState(fullDate);
+    // Separates out today's events
     const [todaysEvents, setTodaysEvents] = useState([])
+    // Add event form and Edit event form modal visibilities
     const [addVisibility, setAddVisibility] = useState('hidden');
     const [editVisibility, setEditVisibility] = useState('hidden');
+    // Sets the event to edit
     const [eventToEdit, setEventToEdit] = useState();
+    // Date for component header
     const [formattedDate, setFormattedDate] = useState(new Date(currentDate));
     const [currentYearDate, setCurrentYearDate] = useState(today);
+    // Final sorted events array that displays the current day's events
     const [todaysSortedEvents, setTodaysSortedEvents] = useState([]);
 
     const getTodaysEvents = () => {
+        // This function looks through the events for recurring events that could be happening on the current date
         const nonRecurring = events.filter(event => event.date);
         const dailyEvents = events.filter(event => event.recurring === "Daily");
         const weeklyEvents = events.filter(event => event.recurring === "Weekly");
         const monthlyEvents = events.filter(event => event.recurring === "Monthly");
         const annualEvents = events.filter(event => event.recurring === "Annually");
 
+        // If the event date is the current date
         nonRecurring.forEach(event => {
             let eventDate = new Date(event.date);
             const checkDuplicate = todaysEvents.find(event => event.id === event.id);
@@ -30,6 +38,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             }
         })
 
+        // If the daily recurring event is the current date
         dailyEvents.forEach(event => {
             let dailyDates = [];
 
@@ -48,6 +57,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             }
         })
 
+        // If the weekly recurring event is the current date
         weeklyEvents.forEach(event => {
             let weeklyDates = [];
             let startDate = new Date(event.start_date);
@@ -68,6 +78,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             }
         })
 
+        // If the monthly recurring event is the current date
         monthlyEvents.forEach(event => {
             let monthlyDates = [];
             let startDate = new Date(event.start_date);
@@ -88,6 +99,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             }
         })
 
+        // If the annually recurring event is the current date
         annualEvents.forEach(event => {
             let annualDates = [];
             let startDate = new Date(event.start_date + 'T00:00');
@@ -110,6 +122,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }
     
     useEffect(() => {
+        // Sort the events by time, all-day events sort to the top
         setTodaysSortedEvents([]);
         
         const sortedEvents = todaysEvents.sort((a, b) => {
@@ -125,12 +138,14 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }, [todaysEvents])
 
     useEffect(() => {
+        // Calls the function to find the current day's events
         if (events.length) {
             getTodaysEvents();
         }
     }, [events, currentDate])
 
     const getHours = (time) => {
+        // Formats the time
         if (Number(time[0] + time[1]) <= 12 && Number(time[0]) !== 0) {
             return time;
         }
@@ -153,6 +168,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }
 
     const editEvent = (event) => {
+        // Shows edit event modal form
         const eventID = event.target.attributes[2].nodeValue;
         const targetEvent = todaysEvents.find(event => event.id == eventID);
         setEventToEdit(targetEvent);
@@ -160,6 +176,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }
 
     const deleteEvent = async (event) => {
+        // To delete event from database
         const eventID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this event?")) {
@@ -181,10 +198,12 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }
 
     const addNewEvent = () => {
+        // Shows add event modal form
         setAddVisibility('visible')
     }
 
     const clickDay = (event, value) => {
+        // Sets the new current date from the calendar
         let selectedDate = new Date(event);
 
         if (selectedDate === new Date(today)) {
@@ -207,6 +226,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }
 
     const getToday = () => {
+        // Go back to today's current date
         setTodaysEvents([]);
         setCurrentDate(fullDate);
         setFormattedDate(new Date(currentDate));
