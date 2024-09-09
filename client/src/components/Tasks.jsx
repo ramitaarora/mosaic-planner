@@ -2,12 +2,17 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
 export default function Tasks({ allTasks, setAllTasks, getData }) {
+    // Input state variable to add a new task
     const [inputValue, setInputValue] = useState('');
+    // Loading state
     const [loading, setLoading] = useState(false);
+    // Array for AI suggestions
     const [suggestions, setSuggestions] = useState([]);
+    // Final array with sorted tasks to display on page
     const [sortedTasks, setSortedTasks] = useState([]);
 
     useEffect(() => {
+        // Sort tasks by date created
         setSortedTasks([]);
 
         const tasksSorted = allTasks.sort((a, b) => {
@@ -20,6 +25,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }, [allTasks])
 
     const editTask = (event) => {
+        // Show edit task form
         const taskID = event.target.attributes[2].nodeValue;
         const taskValue = event.target.attributes[3].nodeValue;
 
@@ -34,6 +40,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const deleteTask = async (event) => {
+        // Delete task from database
         const taskID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this task?")) {
@@ -54,6 +61,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const submitTaskEdit = async (event) => {
+        // Submit task edit from database
         event.preventDefault();
         const taskFormID = event.target.id;
         const taskID = event.target.parentElement.parentElement.attributes[1].value;
@@ -82,6 +90,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const cancelTaskEdit = (event) => {
+        // Hide edit ask form
         event.preventDefault();
         const taskID = event.target.parentElement.parentElement.parentElement.attributes[1].value;
         const taskFormID = event.target.form.id;
@@ -94,6 +103,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const addNewTask = (event) => {
+        // Show add new task form
         document.getElementById('add-task').setAttribute('class', 'visible');
         document.getElementById('add-task-button').setAttribute('class', 'hidden');
         document.getElementById('cancel-task-button').setAttribute('class', 'visible');
@@ -101,6 +111,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const submitNewTask = async (event) => {
+        // Add new task to the database
         event.preventDefault();
         const newTaskValue = event.target[0].value;
 
@@ -126,6 +137,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const cancelNewTask = (event) => {
+        // Hide new task form
         event.preventDefault();
         document.getElementById('add-task').setAttribute('class', 'hidden');
         document.getElementById('cancel-task-button').setAttribute('class', 'hidden');
@@ -133,6 +145,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const addProgressTask = async (event) => {
+        // Change inProgress state of task to true, moving it to Tasks in Progress component
         const taskID = event.target.attributes[2].nodeValue;
 
         const response = await fetch('/api/data/taskEdits', {
@@ -153,6 +166,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const getAISuggestions = (event) => {
+        // Get AI suggestions for new tasks
         event.preventDefault();
         setSuggestions([]);
         setLoading(true);
@@ -172,6 +186,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const addAISuggestion = async (event) => {
+        // By clicking on an AI suggestion, it will add new task to the database
         const newTaskValue = event.target.innerText;
 
         if (newTaskValue.length) {
@@ -199,6 +214,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     }
 
     const removeAISuggestions = () => {
+        // Clear AI suggestions
         setSuggestions([]);
     }
 
