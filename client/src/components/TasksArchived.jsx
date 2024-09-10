@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { css } from '@emotion/css';
 
 export default function TasksArchived({ visibility, setVisibility, archivedTasks, getData }) {
+    // Final sorted variable to display tasks on dashboard
     const [sortedArchivedTasks, setSortedArchivedTasks] = useState(archivedTasks);
 
     useEffect(() => {
+        // Sort tasks by date_completed if there is one, or date_dreated if there isn't
         const sortTasks = archivedTasks.sort((a, b) => {
             let dateA = a.date_completed ? new Date(a.date_completed) : new Date(a.date_created);
             let dateB = b.date_completed ? new Date(b.date_completed) : new Date(b.date_created);
@@ -16,10 +18,12 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
     }, [archivedTasks])
 
     const closeModal = () => {
+        // Close the archive modal
         setVisibility('hidden');
     }
 
     const undoArchive = async (event) => {
+        // Change the status of the task in the database so that it is unarchived and incompleted
         const taskID = event.target.attributes[2].nodeValue;
 
         const response = await fetch('/api/data/taskEdits', {
@@ -39,6 +43,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
     }
 
     const deleteTask = async (event) => {
+        // Delete task from the database
         const taskID = event.target.attributes[2].nodeValue;
 
         if (window.confirm("Are you sure you want to delete this task?")) {
@@ -59,6 +64,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
     }
 
     const formatDate = (date) => {
+        // Date formatting to display date neatly
         let newDate = new Date(date);
         let monthNum = newDate.getMonth();
         let dateNum = newDate.getDate();
