@@ -3,11 +3,15 @@ import { css } from '@emotion/css';
 import TasksArchived from './TasksArchived';
 
 export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks, today }) {
+    // Set visibility of archived tasks modal
     const [visibility, setVisibility] = useState('hidden');
+    // Input value for edit tasks form
     const [inputValue, setInputValue] = useState('');
+    // Final sorted tasks array to display on dashboared
     const [sortedTasks, setSortedTasks] = useState([]);
 
     useEffect(() => {
+        // Sort tasks by date created, then sort by completed status
         setSortedTasks([]);
 
         const tasksSorted = inProgressTasks.sort((a, b) => {
@@ -26,6 +30,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }, [inProgressTasks])
 
     const editProgress = (event) => {
+        // Show edit task form
         const progressID = event.target.attributes[2].nodeValue;
         const progressValue = event.target.attributes[3].nodeValue;
 
@@ -40,6 +45,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }
 
     const archiveProgress = async (event) => {
+        // Set task as archived in database
         const progressID = event.target.attributes[2].nodeValue;
 
         const response = await fetch('/api/data/taskEdits', {
@@ -58,6 +64,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }
 
     const submitEdit = async (event) => {
+        // Submit task edits to database
         event.preventDefault();
         const formID = event.target.id;
         const progressID = event.target.parentElement.attributes[1].value;
@@ -86,6 +93,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }
 
     const cancelEdit = (event) => {
+        // Hide edit task form
         event.preventDefault();
         const formID = event.target.form.id;
         const progressID = event.target.parentElement.parentElement.attributes[1].value;
@@ -99,6 +107,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }
 
     const checkbox = async (event) => {
+        // Set task as completed or incomplete in databbase
         const progressID = event.target.parentElement.parentElement.attributes[1].value;
 
         const response = await fetch('/api/data/completed', {
@@ -121,6 +130,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }
 
     const removeProgressTask = async (event) => {
+        // Mark task as not in progress and move it to tasks component
         const taskID = event.target.id;
 
         const response = await fetch('/api/data/taskEdits', {
@@ -141,6 +151,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }
 
     const showArchiveModal = () => {
+        // Show archived tasks modal
         setVisibility('visible');
     }
 
