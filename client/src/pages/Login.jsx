@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css'
 
 export default function Login() {
+    // State variable for error message when logging in (ie. incorrect password)
     const [errorMessage, setErrorMessage] = useState(''); 
 
     useEffect(() => {
+        // Redirect to homepage if logged in
         fetch('api/home')
         .then((response) => {
             if (!response.ok) {
@@ -24,6 +26,7 @@ export default function Login() {
     }, [])
 
     const showSignup = () => {
+        // Show sign up form and hide login form
         document.getElementById('signup-form').setAttribute('class', 'visible');
         document.getElementById("login-instead").setAttribute('class', 'visible');
         document.getElementById('auth-form').setAttribute('class', 'hidden');
@@ -32,6 +35,7 @@ export default function Login() {
     }
 
     const showLogin = () => {
+        // Hide signup form and show login form
         document.getElementById('signup-form').setAttribute('class', 'hidden');
         document.getElementById("login-instead").setAttribute('class', 'hidden');
         document.getElementById('auth-form').setAttribute('class', 'visible');
@@ -40,6 +44,8 @@ export default function Login() {
     }
 
     const login = async (event) => {
+        // Login by checking email and password through database
+        // Set error message if there is an issue
         event.preventDefault();
 
         const email = event.target[0].value;
@@ -62,6 +68,7 @@ export default function Login() {
     }
 
     const signup = async (event) => {
+        // Signup for an account and set user details in database
         event.preventDefault();
 
         const name = event.target[0].value;
@@ -88,6 +95,7 @@ export default function Login() {
     }
 
     const loginDemo = async (event) => {
+        // Login to demo dashboard
         event.preventDefault();
 
         const email = 'demo@example.com'
