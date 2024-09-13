@@ -87,7 +87,7 @@ export default function MobileWeather({ location, temperature }) {
                                     <img src={data.icon} alt={data.weather} />
                                     <div className={css`display: flex; flex-wrap: wrap; align-items: center; justify-content: space-evenly; width: 50%; flex-direction: column;`}>
                                         <p>{data.weather}</p>
-                                        {temperature === 'F' ? <p>{(Math.trunc((temp - 273.15) * (9 / 5) + 32))}°F</p> : <p>{(Math.trunc((temp - 273.15)))}°C</p>}
+                                        {temperature === 'F' ? <p>{(Math.trunc((data.temp - 273.15) * (9 / 5) + 32))}°F</p> : <p>{(Math.trunc((data.temp - 273.15)))}°C</p>}
                                     </div>
                                 </div>
                             </div>
