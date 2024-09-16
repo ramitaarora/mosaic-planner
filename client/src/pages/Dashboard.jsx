@@ -17,6 +17,7 @@ import MobileWeather from '../components/MobileWeather.jsx';
 import changeColour from '../utils/changeColour.js';
 import loggedIn from '../utils/loggedIn.js';
 import getTime from '../utils/getTime.js';
+import getDateTimezone from '../utils/getDateTimezone.js';
 
 export default function Dashboard() {
   // Date in format: 2024/04/23
@@ -48,6 +49,15 @@ export default function Dashboard() {
   const [mobileCard, setMobileCard] = useState();
   // If Demo Mode
   const [demo, setDemo] = useState(false);
+
+  const getTimezone = () => {
+    // Set date according to timezone
+    const fetchedTime = getDateTimezone(timezone);
+    setToday(`${fetchedTime.year}-${fetchedTime.month}-${fetchedTime.day}`);
+    setTime(fetchedTime.timeZoneTime)
+    setFullDate(fetchedTime.timeZoneDate);
+    setHour(fetchedTime.timeZoneHour);
+  }
 
   const getData = () => {
     fetch(`/api/data/allData/${today}`)
@@ -99,57 +109,33 @@ export default function Dashboard() {
         window.location.replace('/login')
       }
     })
-
   }, []);
 
   useEffect(() => {
-    getTimezone();
-  }, [timezone])
-
-  const getTimezone = () => {
-    // Set date according to timezone
-    const date = new Date();
-
-    const timeZoneDate = new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'full',
-      timeZone: timezone,
-    }).format(date);
-    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-    }).format(date);
-    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-      hourCycle: "h24"
-    }).format(date);
-
-    const year = new Date(timeZoneDate).getFullYear();
-    const month = new Date(timeZoneDate).getMonth() + 1;
-    const day = new Date(timeZoneDate).getDate();
-    setToday(`${year}-${month}-${day}`);
-    setTime(timeZoneTime)
-    setFullDate(timeZoneDate);
-    setHour(timeZoneHour);
-  }
-
-  useEffect(() => {
+    // Fetch data if date changes
     if (today) {
       getData();
       setLoading(false);
     }
+
+    if (timezone) {
+      getTimezone();
+    }
   }, [today, timezone])
 
   setTimeout(() => {
+    // Set time every minute
     const time = getTime(timezone);
     setTime(time.timeZoneTime);
     setHour(time.timeZoneHour);
-
   }, 60000)
 
   useEffect(() => {
+    // If user has a colourTheme, change to that colourTheme
     if (colourTheme) {
+      setLoading(true)
       changeColour(colourTheme);
+      setLoading(false);
     }
   }, [colourTheme])
 
@@ -167,7 +153,7 @@ export default function Dashboard() {
         <div>
           <div id="desktop">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} temperature={temperature} />
-            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} demo={demo}/>
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} demo={demo} />
 
             <main className={css`display: flex; width: 100vw;`}>
               <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
