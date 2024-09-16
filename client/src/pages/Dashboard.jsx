@@ -16,6 +16,7 @@ import MobileWeather from '../components/MobileWeather.jsx';
 
 import changeColour from '../utils/changeColour.js';
 import loggedIn from '../utils/loggedIn.js';
+import getTime from '../utils/getTime.js';
 
 export default function Dashboard() {
   // Date in format: 2024/04/23
@@ -140,20 +141,9 @@ export default function Dashboard() {
   }, [today, timezone])
 
   setTimeout(() => {
-    const date = new Date();
-
-    const timeZoneTime = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-    }).format(date);
-    const timeZoneHour = new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short',
-      timeZone: timezone,
-      hourCycle: "h24"
-    }).format(date);
-
-    setTime(timeZoneTime)
-    setHour(timeZoneHour);
+    const time = getTime(timezone);
+    setTime(time.timeZoneTime);
+    setHour(time.timeZoneHour);
 
   }, 60000)
 
