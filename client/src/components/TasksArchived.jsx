@@ -149,7 +149,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
 
     const filterMonth = (event) => {
         // Filter tasks by month or reset with "all" button
-        let date = event.target.innerText;
+        let date = event.target.value;
 
         if (date === 'All') {
             sortTasks(archivedTasks);
@@ -189,23 +189,19 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
                 <div id="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
 
-                    <div id="modal-header">
+                    <div id="modal-header" className={css`display: flex; justify-content: space-between; width: 95%; align-items: center;`}>
                         <h2>Archived Tasks ({sortedArchivedTasks.length && sortedArchivedTasks.length})</h2>
+                        <div id="archived-tasks-month">
+                            <select onChange={filterMonth}>
+                                <option>All</option>
+                                {eachMonth.length && eachMonth.map((date, index) => (
+                                    <option key={index}>{formatMonth(date.month)} {date.year}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     <div id="archived-tasks-modal" className={css`height: 300px; overflow: overlay;`}>
-
-                        <div id="archived-tasks-month" className={css`width: 100%; display: flex; justify-content: space-evenly; align-items: center; `}>
-                            <div className={css`border: 1px solid lightgrey; width: fit-content; padding: 8px; cursor: pointer;`}>
-                                <p onClick={filterMonth}>All</p>
-                            </div>
-                            {eachMonth.length && eachMonth.map((date, index) => (
-                                <div id="archived-each-month" key={index} onClick={filterMonth} className={css`border: 1px solid lightgrey; width: fit-content; padding: 8px; cursor: pointer;`}>
-                                    <p>{formatMonth(date.month)} {date.year}</p>
-                                </div>
-                            ))}
-                        </div>
-
                         <ul>
                             {sortedArchivedTasks.length ? (
                                 sortedArchivedTasks.map((task, index) => (

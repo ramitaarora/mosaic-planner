@@ -74,7 +74,8 @@ const seedDatabase = async () => {
             in_progress: archivedTasksData[j].in_progress,
             completed: archivedTasksData[j].completed,
             date_created: new Date(todaysDate),
-            date_completed: `${year}-${month}-${day + j}`,
+            date_completed: archivedTasksData[j].date_completed,
+            // date_completed: `${year}-${month}-${day + j}`,
             archived: archivedTasksData[j].archived,
         }, {
             individualHooks: true,

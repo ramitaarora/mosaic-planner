@@ -4,7 +4,8 @@
         "name": "Demo",
         "email": "demo@example.com",
         "password": "password12345",
-        "location": "Pasadena",
-        "colour": "saffron"
+        "location": "91101",
+        "colour": "saffron",
+        "temperature": "C"
     }
 ]
