@@ -90,7 +90,7 @@ export default function Login() {
             window.location.replace('/');
         } else {
             console.error(response.statusText);
-            setErrorMessage('User already exists!')
+            setErrorMessage('User already exists! Login instead.')
         }
     }
 
@@ -133,7 +133,7 @@ export default function Login() {
                 <form id="signup-form" className="hidden" onSubmit={signup}>
                     <input type="text" placeholder="Name" required/>
                     <input type="text" placeholder="Email" required/>
-                    <input type="text" placeholder="Location for Weather"/>
+                    <input type="text" placeholder="Zipcode for Weather"/>
                     <input type="password" placeholder="Password" required/>
                     <input type="submit" value="Sign Up"/>
                 </form>
