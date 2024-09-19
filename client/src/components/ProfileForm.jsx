@@ -53,7 +53,17 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                     inputData = event.target[i].value;
                 }
             }
-        } else {
+        } else if (inputType === 'location') {
+            const zipcodeTest = new RegExp('^\\d{5}$');
+            const zipcode = zipcodeTest.test(event.target[0].value);
+
+            if (!zipcode) {
+                alert('Invalid zipcode.')
+            } else {
+                inputData = event.target[0].value;
+            }
+        }
+        else {
             // Input data for all other types
             inputData = event.target[0].value;
         }

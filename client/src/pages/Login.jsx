@@ -76,21 +76,30 @@ export default function Login() {
         const location = event.target[2].value;
         const password = event.target[3].value;
 
-        const response = await fetch('/api/users/createUser', {
-            method: 'POST',
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password,
-                location: location
-            }),
-            headers: { 'Content-Type': 'application/json' },
-        })
-        if (response.ok) {
-            window.location.replace('/');
+        const zipcodeTest = new RegExp('^\\d{5}$');
+        const zipcode = zipcodeTest.test(location);
+
+        if (!zipcode) {
+            setErrorMessage('Invalid zipcode.')
         } else {
-            console.error(response.statusText);
-            setErrorMessage('User already exists! Login instead.')
+            try {
+                const response = await fetch('/api/users/createUser', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        password: password,
+                        location: location
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                if (response.ok) {
+                    window.location.replace('/');
+                }
+            } catch(err) {
+                console.error(response.statusText);
+                setErrorMessage('User already exists! Login instead.')
+            }
         }
     }
 
