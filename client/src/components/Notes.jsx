@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
+import NotesModal from './NotesModal';
 
 export default function Notes({ notes, setNotes, getData }) {
     // Input variable for adding notes
@@ -10,6 +11,8 @@ export default function Notes({ notes, setNotes, getData }) {
     const [suggestions, setSuggestions] = useState([]);
     // State for final sorted notes
     const [sortedNotes, setSortedNotes] = useState([]);
+    // Notes description modal visibility
+    const [notesModalVisibility, setNotesModalVisibility] = useState('hidden');
 
     useEffect(() => {
         // Sort notes by order number
@@ -276,14 +279,16 @@ export default function Notes({ notes, setNotes, getData }) {
             } else {
                 console.error(responseTarget.statusText);
             }
-
-
         }
-
     }
+
+    const openDescriptionModal = () => {
+        setNotesModalVisibility('visible');
+    } 
 
     return (
         <div id="notes" className={`card ${css`height: 20vh;`}`}>
+            <NotesModal notesModalVisibility={notesModalVisibility} setNotesModalVisibility={setNotesModalVisibility} />
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
 
@@ -326,7 +331,7 @@ export default function Notes({ notes, setNotes, getData }) {
                             <div key={index} id="line" value={note.id}>
                                 <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div>
-                                        <li id={'note-list-item-' + note.id} className="list-item">{note.note}</li>
+                                        <li id={'note-list-item-' + note.id} className={"list-item " + css`cursor: pointer;`} onClick={openDescriptionModal}>{note.note}</li>
                                     </div>
                                     <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
                                         <input type="text" id={'noteInput-' + note.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
