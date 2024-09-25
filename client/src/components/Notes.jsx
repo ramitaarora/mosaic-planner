@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 import NotesModal from './NotesModal';
 
-export default function Notes({ notes, setNotes, getData }) {
+export default function Notes({ notes, getData }) {
     // Input variable for adding notes
     const [inputValue, setInputValue] = useState('');
     // Loading state to show loader
@@ -11,8 +11,9 @@ export default function Notes({ notes, setNotes, getData }) {
     const [suggestions, setSuggestions] = useState([]);
     // State for final sorted notes
     const [sortedNotes, setSortedNotes] = useState([]);
-    // Notes description modal visibility
+    // Notes description modal visibility and noteID for modal
     const [notesModalVisibility, setNotesModalVisibility] = useState('hidden');
+    const [noteID, setNoteID] = useState('')
 
     useEffect(() => {
         // Sort notes by order number
@@ -282,13 +283,14 @@ export default function Notes({ notes, setNotes, getData }) {
         }
     }
 
-    const openDescriptionModal = () => {
+    const openDescriptionModal = (event) => {
+        setNoteID(event.target.id.slice(15));
         setNotesModalVisibility('visible');
     } 
 
     return (
         <div id="notes" className={`card ${css`height: 20vh;`}`}>
-            <NotesModal notesModalVisibility={notesModalVisibility} setNotesModalVisibility={setNotesModalVisibility} />
+            <NotesModal notesModalVisibility={notesModalVisibility} setNotesModalVisibility={setNotesModalVisibility} notes={notes} getData={getData} noteID={noteID} setNoteID={setNoteID} />
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
 
