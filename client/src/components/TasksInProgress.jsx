@@ -170,7 +170,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
                         </div>
                         <form id={'progressForm-' + progress.id} className="hidden" onSubmit={submitEdit}>
                             <input type="text" id={'progressInput-' + progress.id} onChange={(event) => setInputValue(event.target.value)} className={css`width: 100%;`} />
-                            <input type="submit" className="submit-button" />
+                            <input type="submit" className="submit-button" value="Save" />
                             <button onClick={cancelEdit}>Cancel</button>
                         </form>
                         <div id="edit-buttons">
