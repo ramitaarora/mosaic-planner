@@ -338,6 +338,19 @@ router.put('/edit', withAuth, async (req, res) => {
             });
             res.status(200).json(notesData);
         }
+        if (req.body.type === 'Note Description') {
+            const notesData = await Notes.update({
+                note: req.body.note,
+                date_created: req.body.date_created,
+                description: req.body.description
+            }, { 
+                where: {
+                    id: req.body.id,
+                    user_id: req.session.user_id
+                }
+            })
+            res.status(200).json(notesData);
+        }
         if (req.body.type === 'Event') {
             const eventData = await Events.update({
                 event: req.body.event,
