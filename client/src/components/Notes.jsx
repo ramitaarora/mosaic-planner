@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
-import NotesModal from './NotesModal';
+import NotesForm from './NotesForm';
 
 export default function Notes({ notes, getData }) {
     // Input variable for adding notes
@@ -290,7 +290,7 @@ export default function Notes({ notes, getData }) {
 
     return (
         <div id="notes" className={`card ${css`height: 20vh;`}`}>
-            <NotesModal notesModalVisibility={notesModalVisibility} setNotesModalVisibility={setNotesModalVisibility} notes={notes} getData={getData} noteID={noteID} setNoteID={setNoteID} />
+            <NotesForm notesModalVisibility={notesModalVisibility} setNotesModalVisibility={setNotesModalVisibility} notes={notes} getData={getData} noteID={noteID} setNoteID={setNoteID} />
             <div id="card-header">
                 <h2>Notes & Reminders</h2>
 

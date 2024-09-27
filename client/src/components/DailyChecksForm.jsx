@@ -203,13 +203,12 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
             <div id="modal">
                 <div id="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
-
-                    <div id="checks-modal" className={css`display: flex; flex-direction: column; justify-content: center; align-items: center; `}>
-
-                        <div id="check-list">
-                            <div id="modal-header">
+                    <div id="modal-header">
                                 <h2>Add Daily Checks</h2>
                             </div>
+
+                    <div id="checks-modal" className={css`display: flex; flex-direction: column; justify-content: center; align-items: center; `}>
+                        <div id="check-list">    
                             {dailyChecks.length ? (
                                 dailyChecks.map((check, index) =>
                                     <div key={index} id="add-each-check" className={css`width: 100%; display: flex; justify-content: space-between; align-items: center;`}>
