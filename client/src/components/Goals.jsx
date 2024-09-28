@@ -157,7 +157,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                                 </div>
                             </div>
                         ))) : (
-                        <p id="empty">No goals yet! Click the plus to add a goal.</p>
+                        <p className="empty">No goals yet! Click the plus to add a goal.</p>
                     )
                     }
                 </ol>

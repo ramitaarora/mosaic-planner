@@ -270,7 +270,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
                             </div>
                         )
                     ) : (
-                        <p id="empty">No events yet! Click the plus to add to your schedule.</p>
+                        <p className="empty">No events yet! Click the plus to add to your schedule.</p>
                     )}
                 </ul>
             </div>

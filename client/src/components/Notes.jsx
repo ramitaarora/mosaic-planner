@@ -353,7 +353,7 @@ export default function Notes({ notes, getData }) {
                                 </div>
                             </div>
                         )) : (
-                        <div id="empty">
+                        <div className="empty">
                             <p>No notes yet! Click the plus to add a note or reminder.</p>
                             <div className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                                 {loading ? (

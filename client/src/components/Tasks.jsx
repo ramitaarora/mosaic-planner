@@ -277,7 +277,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                             </div>
                         )) : (
                         
-                        <div id="empty">
+                        <div className="empty">
                             <p>No tasks yet! Click the plus to add a task.</p>
                             <div id="ai-suggestions" className={css`width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;`}>
                                 {loading ? (

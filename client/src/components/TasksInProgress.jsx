@@ -180,7 +180,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
                         </div>
                     </div>
                 )) : (
-                <div id="empty">
+                <div className="empty">
                     <p>No tasks in progress yet! Click the plus beside a task to add it here.</p>
                 </div>
 
