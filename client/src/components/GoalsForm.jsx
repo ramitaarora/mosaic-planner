@@ -86,17 +86,17 @@ export default function GoalsForm({ visibility, setVisibility }) {
                         </form>
                         <form onSubmit={saveGoal} className={css`margin: 0 auto; width: 80%;`}>
 
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='yearly'>Yearly Goal</label>
                                 <textarea name="yearly" placeholder="Type your yearly goal here..." value={yearly} onChange={e => setYearly(e.target.value)} required></textarea>
                             </div>
 
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='monthly'>Monthly Goal</label>
                                 <textarea name="monthly" placeholder="Type your monthly goal here..." value={monthly} onChange={e => setMonthly(e.target.value)} required></textarea>
                             </div>
 
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='weekly'>Weekly Goal</label>
                                 <textarea name="weekly" placeholder="Type your weekly goal here..." value={weekly} onChange={e => setWeekly(e.target.value)} required></textarea>
                             </div>

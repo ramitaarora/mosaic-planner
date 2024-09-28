@@ -126,7 +126,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
 
                         <div id="account-forms" className={css`width: 80%; margin: 0 auto;`}>
                             <form id="name-form" onSubmit={updateProfile}>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor="editName">Name:</label>
                                     <div>
                                         <input type="text" name="editName" value={name} onChange={(event) => setName(event.target.value)} required />
@@ -136,7 +136,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
 
                             </form>
                             <form id="location-form" onSubmit={updateProfile}>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor="editLocation">Location:</label>
                                     <div>
                                         <input type="text" name="editLocation" value={location} onChange={(event) => setLocation(event.target.value)} required />
@@ -146,7 +146,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                             </form>
 
                             <form id="timezone-form" onSubmit={updateProfile}>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor="editTimezone">Timezone:</label>
                                     <div>
                                         <select name="editTimezone" onChange={(event) => setTimezone(event.target.value)} required>
@@ -161,7 +161,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                             </form>
 
                             <form id="temperature-form" onSubmit={updateProfile}>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label>Temperature:</label>
                                     <div className={css`width: 100%; display: flex; justify-content: space-between; align-items: center;`}>
                                         <div className={css`width: 100%; display: flex; justify-content: space-evenly; align-items: center;`}>
@@ -180,7 +180,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                             </form>
 
                            {!demo && <form id="email-form" onSubmit={updateProfile}>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor="editEmail">Email:</label>
                                     <div>
                                         <input type="text" name="editEmail" value={email} onChange={(event) => setEmail(event.target.value)} required />
@@ -190,7 +190,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
                             </form>}
 
                             {!demo && <form id="password-form" onSubmit={updateProfile}>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor="editPass">Password:</label>
                                     <div>
                                         <input type="password" name="editPass" value={pass} onChange={(event) => setPass(event.target.value)} required />
@@ -208,43 +208,43 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
 
 
                             <form id="colour-form" onChange={handleColours} className={css`display: flex; flex-wrap: wrap; justify-content: space-evenly;`} >
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="dark" name="colour-theme" />
                                     <label htmlFor='dark'><img src="./colour-palettes/dark.png" alt="dark" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="light" name="colour-theme" />
                                     <label htmlFor='light'><img src="./colour-palettes/light.png" alt="light" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="blue" name="colour-theme" />
                                     <label htmlFor='blue'><img src="./colour-palettes/blue.png" alt="blue" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="purple" name="colour-theme" />
                                     <label htmlFor='purple'><img src="./colour-palettes/purple.png" alt="purple" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="pink" name="colour-theme" />
                                     <label htmlFor='pink'><img src="./colour-palettes/pink.png" alt="pink" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="forest" name="colour-theme" />
                                     <label htmlFor='forest'><img src="./colour-palettes/forest.png" alt="forest" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="misty" name="colour-theme" />
                                     <label htmlFor='misty'><img src="./colour-palettes/misty.png" alt="misty" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="classy" name="colour-theme" />
                                     <label htmlFor='classy'><img src="./colour-palettes/classy.png" alt="classy" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="saffron" name="colour-theme" />
                                     <label htmlFor='saffron'><img src="./colour-palettes/saffron.png" alt="saffron" /></label>
                                 </div>
-                                <div id="form-input">
+                                <div className="form-input">
                                     <input type="radio" id="gold" name="colour-theme" />
                                     <label htmlFor='gold'><img src="./colour-palettes/gold.png" alt="gold" /></label>
                                 </div>

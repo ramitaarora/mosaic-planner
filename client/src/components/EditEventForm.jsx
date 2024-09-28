@@ -135,7 +135,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                         <form onSubmit={saveEvent} className={css`margin: 0 auto; width: 75%;`}>
 
                             {eventToEdit ? (
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor='eventName'>Name</label>
                                     <input type="text" name="eventName" value={eventName} onChange={event => setEventName(event.target.value)} required />
                                 </div>
@@ -143,12 +143,12 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
                             {eventToEdit ? (
                                 eventToEdit.date ? (
-                                    <div id="form-input">
+                                    <div className="form-input">
                                         <label htmlFor='date'>Date</label>
                                         <input type="date" name="date" value={eventDate} onChange={event => setEventDate(event.target.value)} />
                                     </div>
                                 ) : (
-                                    <div id="form-input">
+                                    <div className="form-input">
                                         <label htmlFor='date'>Start Date</label>
                                         <input type="date" name="date" value={eventDate} onChange={event => setEventDate(event.target.value)} />
                                     </div>
@@ -164,12 +164,12 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
                             {eventToEdit ? (
                                 <div>
-                                    <div id="form-input" className={timeVisibility}>
+                                    <div className={"form-input " + timeVisibility}>
                                         <label htmlFor='startTime'>Start Time</label>
                                         <input type="time" name="startTime" value={startTime} onChange={event => setStartTime(event.target.value)} />
                                     </div>
 
-                                    <div id="form-input" className={timeVisibility}>
+                                    <div className={"form-input " + timeVisibility}>
                                         <label htmlFor='endTime'>End Time</label>
                                         <input type="time" name="endTime" value={endTime} onChange={event => setEndTime(event.target.value)} />
                                     </div>
@@ -177,14 +177,14 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                             ) : null}
 
                             {eventToEdit ? (
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor='address'>Address</label>
                                     <input type="text" name="address" value={address} onChange={event => setAddress(event.target.value)} />
                                 </div>
                             ) : null}
 
                             {eventToEdit ? (
-                                <div id="form-input">
+                                <div className="form-input">
                                     <label htmlFor='recurring'>Recurring Event?</label>
                                     <select name="recurring" value={recurring} onChange={event => setRecurring(event.target.value)}>
                                         <option value="Not-Recurring">Not Recurring</option>
@@ -198,7 +198,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
                             {/*eventToEdit ? (
                                 eventToEdit.recurring ? (
-                                    <div id="form-input">
+                                    <div className="form-input">
                                         <label htmlFor='startDate'>Start Date</label>
                                         <input type="date" name="startDate" value={startDate} onChange={event => setStartDate(event.target.value)} />
                                     </div>

@@ -276,22 +276,22 @@ input[type="checkbox"]:not(:disabled):checked {
     margin-bottom: 20px;
 }
 
-#form-input {
+.form-input {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 5px;
 }
 
-#form-input input[type="text"], 
-#form-input input[type="date"], 
-#form-input input[type="time"],
-#form-input input[type="password"],
-#form-input textarea {
+.form-input input[type="text"], 
+.form-input input[type="date"], 
+.form-input input[type="time"],
+.form-input input[type="password"],
+.form-input textarea {
     width: 250px;
 }
 
-#form-input select {
+.form-input select {
     width: 262px;
 }
 
@@ -500,15 +500,15 @@ input[type="checkbox"]:not(:disabled):checked {
         width: 95%;
         height: fit-content;
     }
-    #form-input input[type="text"], 
-    #form-input input[type="date"], 
-    #form-input input[type="time"],
-    #form-input input[type="password"],
-    #form-input textarea,
-    #form-input select {
+    .form-input input[type="text"], 
+    .form-input input[type="date"], 
+    .form-input input[type="time"],
+    .form-input input[type="password"],
+    .form-input textarea,
+    .form-input select {
         width: 100%;
     }
-    #form-input {
+    .form-input {
         flex-direction: column;
         align-items: flex-start;
     }

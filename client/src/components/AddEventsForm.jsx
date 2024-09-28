@@ -100,11 +100,11 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
 
                     <div id="add-event-modal" className={css`margin: 0 auto; width: 75%;`}>
                         <form id="event-form" onSubmit={saveEvent}>
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='eventName'>Name</label>
                                 <input type="text" name="eventName" required />
                             </div>
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='date'>Date</label>
                                 <input type="date" name="date" />
                             </div>
@@ -112,19 +112,19 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                                 <label htmlFor='allDay'>All Day?</label>
                                 <input type="checkbox" name="allDay" onChange={setTimeVisibility} />
                             </div>
-                            <div id="form-input" className={showTime}>
+                            <div className={"form-input " + showTime}>
                                 <label htmlFor='startTime'>Start Time</label>
                                 <input type="time" name="startTime" />
                             </div>
-                            <div id="form-input" className={showTime}>
+                            <div className={"form-input " + showTime}>
                                 <label htmlFor='endTime'>End Time</label>
                                 <input type="time" name="endTime" />
                             </div>
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='address'>Address</label>
                                 <input type="text" name="address" />
                             </div>
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='recurring'>Recurring Event?</label>
                                 <select name="recurring" onChange={event => setReccuring(event.target.value)}>
                                     <option value="Not-Recurring">Not Recurring</option>

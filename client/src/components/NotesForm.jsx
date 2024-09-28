@@ -113,17 +113,17 @@ export default function NotesForm({ notesModalVisibility, setNotesModalVisibilit
                         </div>
 
                         <form onSubmit={saveChanges} className={css`width: 80%; margin: 0 auto;`}>
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='note' >Note:</label>
                                 <input name="note" type="text" value={currentNote.note} onChange={handleInput} />
                             </div>
 
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='date_created' >Date Created:</label>
                                 <input name="date_created" type="date" value={currentNote.date_created.slice(0, 10)} onChange={handleInput} />
                             </div>
 
-                            <div id="form-input">
+                            <div className="form-input">
                                 <label htmlFor='description'>Longer Description:</label>
                                 <textarea name="description" value={currentNote.description ? currentNote.description : ''} onChange={handleInput}></textarea>
                             </div>
