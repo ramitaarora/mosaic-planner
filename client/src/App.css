@@ -132,7 +132,7 @@ input[type="checkbox"]:not(:disabled):checked {
     cursor: pointer;
 }
 
-#line {
+.line {
     display: flex;
     justify-content: space-between;
     background-color: var(--line-background);
@@ -143,15 +143,15 @@ input[type="checkbox"]:not(:disabled):checked {
     padding: 0px 2%;
 }
 
-#line input:checked + label {
+.line input:checked + label {
     text-decoration: line-through;
 }
 
-#line form {
+.line form {
     padding: 10px 0;
 }
 
-#line:hover {
+.line:hover {
     border: 1px solid var(--background);
 }
 

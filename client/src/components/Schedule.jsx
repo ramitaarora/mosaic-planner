@@ -250,7 +250,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
                 <ul>
                     {todaysSortedEvents.length ? (
                         todaysSortedEvents.map((event, index) =>
-                            <div key={index} id="line" value={event.id}>
+                            <div key={index} className="line" value={event.id}>
                                 <div id="each-event" className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     {event.all_day ? (
                                         <p id="all-day-event" className={css`font-size: 80%; margin: 5px 0;`}>{event.event}</p>

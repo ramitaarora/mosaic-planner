@@ -330,7 +330,7 @@ export default function Notes({ notes, getData }) {
                 <ol>
                     {sortedNotes.length ? (
                         sortedNotes.map((note, index) =>
-                            <div key={index} id="line" value={note.id}>
+                            <div key={index} className="line" value={note.id}>
                                 <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div>
                                         <li id={'note-list-item-' + note.id} className={"list-item " + css`cursor: pointer;`} onClick={openDescriptionModal}>{note.note}</li>

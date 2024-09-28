@@ -256,7 +256,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
             </div>
             {sortedDailyChecks.length ? (
                 sortedDailyChecks.map((check, index) =>
-                    <div id="line" key={index} value={check.id}>
+                    <div className="line" key={index} value={check.id}>
                         <div id={'check-list-item-' + check.id} className="list-item">
                             <input type="checkbox" id={"is-completed-" + check.id} onChange={checkbox} checked={check.completed ? true : false} className={css`margin-right: 5px;`} />
                             <label>{check.daily_check}</label>

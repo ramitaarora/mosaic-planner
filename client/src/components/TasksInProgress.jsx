@@ -163,7 +163,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
             </div>
             {sortedTasks.length ? (
                 sortedTasks.map((progress, index) =>
-                    <div id="line" key={index} value={progress.id}>
+                    <div className="line" key={index} value={progress.id}>
                         <div id={'progress-list-item-' + progress.id} className="list-item">
                             <input type="checkbox" id={"is-completed-" + progress.id} onChange={checkbox} checked={progress.completed ? true : false} className={css`margin-right: 5px;`} />
                             <label>{progress.task}</label>

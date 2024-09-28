@@ -139,7 +139,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                 <ol>
                     {sortedGoals.length ? (
                         sortedGoals.map(((goal, index) =>
-                            <div key={index} id="line" value={goal.id}>
+                            <div key={index} className="line" value={goal.id}>
                                 <div id={'goal-' + goal.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div id={'goal-list-item-' + goal.id} className="list-item">
                                         <input type="checkbox" id={"is-completed-" + goal.id} onChange={checkbox} checked={goal.completed ? true : false} className={css`margin-right: 5px;`} />

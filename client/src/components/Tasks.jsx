@@ -258,7 +258,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                 <ol>
                     {sortedTasks.length ? (
                         sortedTasks.map((task, index) =>
-                            <div key={index} id="line" value={task.id}>
+                            <div key={index} className="line" value={task.id}>
                                 <div id={'task-' + task.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div id={'task-list-item-' + task.id} className="list-item">
                                         <li id={'task-list-item-' + task.id} >{task.task}</li>

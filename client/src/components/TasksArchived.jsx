@@ -205,7 +205,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
                         <ul>
                             {sortedArchivedTasks.length ? (
                                 sortedArchivedTasks.map((task, index) => (
-                                    <div id="line" key={index}>
+                                    <div className="line" key={index}>
                                         <div>
                                             <li>{task.task}</li>
                                             <p className={css`font-size: 12px;`}>{task.date_completed ? "Date Completed: " + formatDate(task.date_completed) : "Date Created: " + formatDate(task.date_created)}</p>
