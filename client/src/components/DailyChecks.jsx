@@ -245,7 +245,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
 
     return (
         <div id="daily-checks" className={`card ${css`height: 45vh;`}`}>
-            <div id="card-header">
+            <div className="card-header">
                 <h2>Daily Checks for {currentDay.split(',')[1]}</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
             </div>

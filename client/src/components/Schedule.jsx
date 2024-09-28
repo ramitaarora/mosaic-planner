@@ -236,7 +236,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     return (
         <div id="schedule" className={`card ${css`height: 55vh;`}`}>
 
-            <div id="card-header">
+            <div className="card-header">
                 <h2>{currentDate ? currentDate : "Today"}</h2>
                 <button onClick={getToday}>Today</button>
                 <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />

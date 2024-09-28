@@ -220,7 +220,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
 
     return (
         <div id="tasks" className={`card ${css`height: 30vh;`}`}>
-            <div id="card-header">
+            <div className="card-header">
                 <h2>All Tasks</h2>
 
                 {sortedTasks.length ? (

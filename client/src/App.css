@@ -111,7 +111,7 @@ input[type="checkbox"]:not(:disabled):checked {
     box-shadow: 1px 1px 5px var(--text);
 }
 
-#card-header {
+.card-header {
     display: flex;
     justify-content: space-between;
     margin: 0 25px;
@@ -121,11 +121,11 @@ input[type="checkbox"]:not(:disabled):checked {
     width: auto;
 }
 
-#card-header h2 {
+.card-header h2 {
     width: 70%;
 }
 
-#card-header img:hover,
+.card-header img:hover,
 #edit-buttons img:hover,
 #line img:hover,
 #arrows img:hover {
