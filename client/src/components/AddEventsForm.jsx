@@ -90,11 +90,11 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
 
     return (
         <div id="modal-background" className={addVisibility}>
-            <div id="modal">
-                <div id="modal-content">
+            <div className="modal">
+                <div className="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`}/>
 
-                    <div id="form-header">
+                    <div className="modal-header">
                             <h2>Add an Event</h2>
                         </div>
 

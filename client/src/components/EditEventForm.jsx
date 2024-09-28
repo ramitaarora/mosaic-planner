@@ -125,8 +125,8 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
 
     return (
         <div id="modal-background" className={editVisibility}>
-            <div id="modal">
-                <div id="modal-content">
+            <div className="modal">
+                <div className="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
                     <div id="edit-event-modal">
                         <div id="form-header">

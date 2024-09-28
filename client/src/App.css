@@ -252,7 +252,7 @@ input[type="checkbox"]:not(:disabled):checked {
     animation: fadeIn 400ms;
 }
 
-#modal {
+.modal {
     height: fit-content;
     width: 600px;
     background-color: var(--line-background);
@@ -264,15 +264,15 @@ input[type="checkbox"]:not(:disabled):checked {
     animation: fadeIn 400ms;
 }
 
-#modal-content {
+.modal-content {
     margin: 20px;
 }
 
-#modal-content img:hover {
+.modal-content img:hover {
     cursor: pointer;
 }
 
-#modal-header {
+.modal-header {
     margin-bottom: 20px;
 }
 

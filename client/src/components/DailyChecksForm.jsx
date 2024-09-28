@@ -200,10 +200,10 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
 
     return (
         <div id="modal-background" className={visibility}>
-            <div id="modal">
-                <div id="modal-content">
+            <div className="modal">
+                <div className="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
-                    <div id="modal-header">
+                    <div className="modal-header">
                                 <h2>Add Daily Checks</h2>
                             </div>
 

@@ -70,12 +70,12 @@ export default function GoalsForm({ visibility, setVisibility }) {
 
     return (
         <div id="modal-background" className={visibility}>
-            <div id="modal">
-                <div id="modal-content">
+            <div className="modal">
+                <div className="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
 
                     <div id="goals-modal">
-                        <div id="modal-header">
+                        <div className="modal-header">
                             <h2>Add a New Goal</h2>
                             <p>Yearly resolutions break down into monthly goals, which can be further broken down into weekly goals.</p>
                         </div>

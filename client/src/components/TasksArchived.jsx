@@ -185,11 +185,11 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
 
     return (
         <div id="modal-background" className={visibility}>
-            <div id="modal">
-                <div id="modal-content">
+            <div className="modal">
+                <div className="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
 
-                    <div id="modal-header" className={css`display: flex; justify-content: space-between; width: 95%; align-items: center;`}>
+                    <div className={"modal-header " + css`display: flex; justify-content: space-between; width: 95%; align-items: center;`}>
                         <h2>Archived Tasks ({sortedArchivedTasks.length && sortedArchivedTasks.length})</h2>
                         <div id="archived-tasks-month">
                             <select onChange={filterMonth}>

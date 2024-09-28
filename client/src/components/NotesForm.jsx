@@ -103,12 +103,12 @@ export default function NotesForm({ notesModalVisibility, setNotesModalVisibilit
 
     return (
         <div id="modal-background" className={notesModalVisibility}>
-            <div id="modal">
-                <div id="modal-content">
+            <div className="modal">
+                <div className="modal-content">
                     <img src="./svgs/exit.svg" alt="exit" onClick={closeModal} className={css`float: right;`} />
 
                     <div id="profile-modal">
-                        <div id="modal-header">
+                        <div className="modal-header">
                             <h2>{currentNote.note}</h2>
                         </div>
 
