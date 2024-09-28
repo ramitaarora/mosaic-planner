@@ -99,10 +99,6 @@ input[type="checkbox"]:not(:disabled):checked {
     color: var(--line-background);
 }
 
-#login-error {
-    margin: 10px 0;
-}
-
 /* Component Styles  */
 
 .card {

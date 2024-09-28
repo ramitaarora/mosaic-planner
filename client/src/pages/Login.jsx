@@ -137,8 +137,6 @@ export default function Login() {
                     <input type="submit" value="Login"/>
                 </form>
 
-                
-
                 <form id="signup-form" className="hidden" onSubmit={signup}>
                     <input type="text" placeholder="Name" required/>
                     <input type="text" placeholder="Email" required/>
@@ -147,7 +145,7 @@ export default function Login() {
                     <input type="submit" value="Sign Up"/>
                 </form>
 
-                {errorMessage.length ? <p id="login-error">{errorMessage}</p> : null}
+                {errorMessage.length ? <p id="login-error" className={css`margin: 20px 0;`}>{errorMessage}</p> : null}
 
                 <button id="signup-instead" className="visible" onClick={showSignup}>Sign Up Instead</button>
 
