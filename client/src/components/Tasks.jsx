@@ -269,7 +269,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                                         <button onClick={cancelTaskEdit}>Cancel</button>
                                     </form>
                                 </div>
-                                <div id="edit-buttons">
+                                <div className="edit-buttons">
                                     <img src="./svgs/add.svg" alt="add-to-in-progress" id={task.id} onClick={addProgressTask}/>
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editTask} id={task.id} value={task.task} />
                                     <img src="./svgs/delete.svg" alt="edit" onClick={deleteTask} id={task.id} />

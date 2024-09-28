@@ -151,7 +151,7 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
                                         <button onClick={cancelEdit}>Cancel</button>
                                     </form>
                                 </div>
-                                <div id="edit-buttons">
+                                <div className="edit-buttons">
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editGoal} id={goal.id} value={goal.goal} />
                                     <img src="./svgs/delete.svg" alt="delete" onClick={deleteGoal} id={goal.id} />
                                 </div>

@@ -341,7 +341,7 @@ export default function Notes({ notes, getData }) {
                                         <button onClick={cancelNoteEdit}>Cancel</button>
                                     </form>
                                 </div>
-                                <div id="edit-buttons">
+                                <div className="edit-buttons">
                                     {index > 0 && (
                                         <img src="./svgs/arrow-up-circle.svg" alt="up" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
                                     )}

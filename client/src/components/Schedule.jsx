@@ -263,7 +263,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
                                     )
                                     }
                                 </div>
-                                <div id="edit-buttons">
+                                <div className="edit-buttons">
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id}/>
                                     <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id}/>
                                 </div>

@@ -220,7 +220,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                                             <input type="submit" className="submit-button" value="Save"/>
                                             <button id={check.id} onClick={cancelEdit}>Cancel</button>
                                         </form>
-                                        <div id="edit-buttons">
+                                        <div className="edit-buttons">
                                             <img src="./svgs/edit.svg" alt="edit" id={check.id} value={check.daily_check} onClick={editCheck} />
                                             <img src="./svgs/archive.svg" alt="archive" id={check.id} onClick={archiveCheck} />
                                             <img src="./svgs/delete.svg" alt="delete" onClick={deleteCheck} id={check.id} />

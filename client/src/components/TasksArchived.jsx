@@ -211,7 +211,7 @@ export default function TasksArchived({ visibility, setVisibility, archivedTasks
                                             <p className={css`font-size: 12px;`}>{task.date_completed ? "Date Completed: " + formatDate(task.date_completed) : "Date Created: " + formatDate(task.date_created)}</p>
                                         </div>
 
-                                        <div id="edit-buttons">
+                                        <div className="edit-buttons">
                                             <img src="./svgs/undo.svg" alt="unarchive" onClick={undoArchive} id={task.id} />
                                             <img src="./svgs/delete.svg" alt="edit" onClick={deleteTask} id={task.id} />
                                         </div>

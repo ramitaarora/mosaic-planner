@@ -155,11 +155,11 @@ input[type="checkbox"]:not(:disabled):checked {
     border: 1px solid var(--background);
 }
 
-#edit-buttons img {
+.edit-buttons img {
     margin-left: 5px;
 }
 
-#edit-buttons {
+.edit-buttons {
     display: flex;
     margin: 10px 0;
 }

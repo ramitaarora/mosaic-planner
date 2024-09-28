@@ -173,7 +173,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
                             <input type="submit" className="submit-button" value="Save" />
                             <button onClick={cancelEdit}>Cancel</button>
                         </form>
-                        <div id="edit-buttons">
+                        <div className="edit-buttons">
                             <img src="./svgs/minus.svg" alt="move-to-tasks" onClick={removeProgressTask} id={progress.id} />
                             <img src="./svgs/edit.svg" alt="edit" onClick={editProgress} id={progress.id} value={progress.task} />
                             <img src="./svgs/archive.svg" alt="archive" onClick={archiveProgress} id={progress.id} />

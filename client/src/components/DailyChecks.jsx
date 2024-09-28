@@ -266,7 +266,7 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
                             <input type="submit" className="submit-button" value="Save" />
                             <button onClick={cancelEdit}>Cancel</button>
                         </form>
-                        <div id="edit-buttons">
+                        <div className="edit-buttons">
                             <img src="./svgs/edit.svg" alt="edit" onClick={editCheck} id={check.id} value={check.daily_check} />
                             <img src="./svgs/delete.svg" alt="delete" onClick={deleteCheck} id={check.id} />
                         </div>
