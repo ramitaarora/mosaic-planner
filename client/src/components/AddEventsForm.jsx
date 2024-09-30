@@ -135,7 +135,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                                 </select>
                             </div>
 
-                            <div id="form-submit-buttons">
+                            <div className="form-submit-buttons">
                                 <input type="submit" value="Save" />
                                 <input type="reset" value="Clear" onClick={resetForm}/>
                             </div>

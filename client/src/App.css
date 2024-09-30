@@ -299,7 +299,7 @@ input[type="checkbox"]:not(:disabled):checked {
     display: none;
 }
 
-#form-submit-buttons {
+.form-submit-buttons {
     margin-top: 10px;
     display: flex;
     justify-content: center;

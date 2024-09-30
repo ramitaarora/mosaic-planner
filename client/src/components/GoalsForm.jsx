@@ -101,7 +101,7 @@ export default function GoalsForm({ visibility, setVisibility }) {
                                 <textarea name="weekly" placeholder="Type your weekly goal here..." value={weekly} onChange={e => setWeekly(e.target.value)} required></textarea>
                             </div>
 
-                            <div id="form-submit-buttons">
+                            <div className="form-submit-buttons">
                                 <input type="submit" value="Save" />
                                 <input type="reset" onClick={resetForm} value="Clear" />
                             </div>

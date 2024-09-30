@@ -128,7 +128,7 @@ export default function NotesForm({ notesModalVisibility, setNotesModalVisibilit
                                 <textarea name="description" value={currentNote.description ? currentNote.description : ''} onChange={handleInput}></textarea>
                             </div>
 
-                            <div id="form-submit-buttons">
+                            <div className="form-submit-buttons">
                                 <input type="reset" value="Clear" onClick={resetDescription} />
                                 <input type="submit" value="Save" />
                                 <button onClick={deleteNote}>Delete</button>
