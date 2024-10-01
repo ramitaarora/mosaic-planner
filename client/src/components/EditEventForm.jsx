@@ -156,7 +156,7 @@ export default function EditEventsForm({ editVisibility, setEditVisibility, getD
                             ) : null}
 
                             {eventToEdit ? (
-                                <div id="checkbox">
+                                <div className="checkbox">
                                     <label htmlFor='allDay'>All Day?</label>
                                     <input type="checkbox" name="allDay" checked={allDay} onChange={changeAllDay} />
                                 </div>

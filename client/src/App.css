@@ -310,14 +310,14 @@ input[type="checkbox"]:not(:disabled):checked {
     height: 60px;
 }
 
-#checkbox {
+.checkbox {
     margin: 5px; 
     display: flex; 
     align-content: center;
 }
 
-#checkbox label {
-    margin-right: 135px;
+.checkbox label {
+    margin-right: 85px;
 }
 
 #suggestions {
@@ -479,7 +479,7 @@ input[type="checkbox"]:not(:disabled):checked {
 }
 
 @media only screen and (max-width: 600px) {
-    #modal {
+    .modal {
         width: 100vw;
         margin: 0;
     }
@@ -511,6 +511,9 @@ input[type="checkbox"]:not(:disabled):checked {
     .form-input {
         flex-direction: column;
         align-items: flex-start;
+    }
+    .checkbox label {
+        margin-right: 10px;
     }
     #checks-modal {
         flex-direction: column;

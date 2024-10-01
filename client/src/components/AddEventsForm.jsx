@@ -108,7 +108,7 @@ export default function AddEventsForm({ addVisibility, setAddVisibility, getData
                                 <label htmlFor='date'>Date</label>
                                 <input type="date" name="date" />
                             </div>
-                            <div id="checkbox">
+                            <div className="checkbox">
                                 <label htmlFor='allDay'>All Day?</label>
                                 <input type="checkbox" name="allDay" onChange={setTimeVisibility} />
                             </div>
