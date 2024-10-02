@@ -241,7 +241,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
             </form>
 
             {sortedTasks.length ? (
-                <div id="suggestions">
+                <div className="suggestions">
                     {suggestions.length ? (
                         <div className={css`display: flex;`}>
                             <div>
@@ -285,7 +285,7 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
                                 ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                                 
                             </div>
-                            <div id="suggestions">
+                            <div className="suggestions">
                             {suggestions.length ? (
                                 suggestions.map((item, index) => (
                                     <p id="each-suggestion" key={index} onClick={addAISuggestion}>{item}</p>

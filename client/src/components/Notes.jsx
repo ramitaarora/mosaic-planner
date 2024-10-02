@@ -312,7 +312,7 @@ export default function Notes({ notes, getData }) {
             </form>
 
             {sortedNotes.length ? (
-                <div id="suggestions">
+                <div className="suggestions">
                     {suggestions.length ? (
                         <div className={css`display: flex;`}>
                             <div>
@@ -360,7 +360,7 @@ export default function Notes({ notes, getData }) {
                                     <img src="/svgs/loading.gif" alt="loading" height="60px" width="60px" />
                                 ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                             </div>
-                            <div id="suggestions">
+                            <div className="suggestions">
                                 {suggestions.length ? (
                                     <div className={css`display: flex;`}>
                                         <div>

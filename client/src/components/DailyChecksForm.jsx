@@ -243,7 +243,7 @@ export default function DailyChecksForm({ visibility, setVisibility, dailyChecks
                         ) : <input type="submit" onClick={getAISuggestions} value="Get AI Suggestions!" />}
                     </div>
 
-                    <div id="suggestions">
+                    <div className="suggestions">
                     {suggestions.length ? (
                         <div className={css`display: flex;`}>
                             <div>
