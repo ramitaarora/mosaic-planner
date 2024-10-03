@@ -317,7 +317,7 @@ export default function Notes({ notes, getData }) {
                         <div className={css`display: flex;`}>
                             <div>
                                 {suggestions.map((item, index) => (
-                                    <p key={index} id="each-suggestion" onClick={addAISuggestion}>{item}</p>
+                                    <p key={index} className="each-suggestion" onClick={addAISuggestion}>{item}</p>
                                 ))}
                             </div>
                             <img src="./svgs/exit.svg" alt="delete-suggestions" className={css`float: right; margin-right: 20px; cursor: pointer;`} onClick={removeAISuggestions} />
@@ -365,7 +365,7 @@ export default function Notes({ notes, getData }) {
                                     <div className={css`display: flex;`}>
                                         <div>
                                             {suggestions.map((item, index) => (
-                                                <p key={index} id="each-suggestion" onClick={addAISuggestion}>{item}</p>
+                                                <p key={index} className="each-suggestion" onClick={addAISuggestion}>{item}</p>
                                             ))}
                                         </div>
                                         <img src="./svgs/exit.svg" alt="delete-suggestions" className={css`float: right; margin-right: 20px; cursor: pointer;`} onClick={removeAISuggestions} />

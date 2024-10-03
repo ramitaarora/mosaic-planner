@@ -327,7 +327,7 @@ input[type="checkbox"]:not(:disabled):checked {
     align-items: center;
 }
 
-#each-suggestion {
+.each-suggestion {
     cursor: pointer;
     padding: 10px;
     background-color: var(--background);
@@ -342,11 +342,11 @@ input[type="checkbox"]:not(:disabled):checked {
     color: var(--line-background);
 }
 
-#each-suggestion:hover {
+.each-suggestion:hover {
     border: 1px solid var(--line-background);
 }
 
-#each-suggestion svg {
+.each-suggestion svg {
     fill: var(--line-background);
 }
 
