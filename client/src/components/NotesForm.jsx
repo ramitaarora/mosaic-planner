@@ -125,7 +125,7 @@ export default function NotesForm({ notesModalVisibility, setNotesModalVisibilit
 
                             <div className="form-input">
                                 <label htmlFor='description'>Longer Description:</label>
-                                <textarea name="description" value={currentNote.description ? currentNote.description : ''} onChange={handleInput}></textarea>
+                                <textarea name="description" rows="5" value={currentNote.description ? currentNote.description : ''} onChange={handleInput}></textarea>
                             </div>
 
                             <div className="form-submit-buttons">
