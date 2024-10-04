@@ -183,35 +183,35 @@ export default function Dashboard() {
                 <MobileCard navigate={navigate} />
               ) : null}
               {mobileCard === 'tasks' ? (
-                <div id="mobile-card">
+                <div>
                   <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
                   <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'checks' ? (
-                <div id="mobile-card">
+                <div>
                   <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'schedule' ? (
-                <div id="mobile-card">
+                <div>
                   <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'goals' ? (
-                <div id="mobile-card">
+                <div>
                   <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
                   <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
                   <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'notes' ? (
-                <div id="mobile-card">
+                <div>
                   <Notes notes={notes} setNotes={setNotes} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'weather' ? (
-                <div id="mobile-card">
+                <div>
                   <MobileWeather location={location} temperature={temperature} />
                 </div>
               ) : null}
