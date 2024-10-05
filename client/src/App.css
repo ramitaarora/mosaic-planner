@@ -126,9 +126,9 @@ input[type="checkbox"]:not(:disabled):checked {
 }
 
 .card-header img:hover,
-#edit-buttons img:hover,
-#line img:hover,
-#arrows img:hover {
+.edit-buttons img:hover,
+.line img:hover,
+.arrows img:hover {
     cursor: pointer;
 }
 
