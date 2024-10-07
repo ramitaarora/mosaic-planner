@@ -305,12 +305,20 @@ router.post('/add', withAuth, async (req, res) => {
 
 router.put('/reorder', withAuth, async (req, res) => {
     try {
-        const notesData = await Notes.update({ order: req.body.order }, {
-            where: {
-                id: req.body.id,
-                user_id: req.session.user_id
-            }
-        })
+        // const notesData = await Notes.update({ order: req.body.order }, {
+        //     where: {
+        //         id: req.body.id,
+        //         user_id: req.session.user_id
+        //     }
+        // })
+        for (let i = 0; i < req.body.notes_order; i++) {
+            const notesData = await Notes.update({
+                order: req.body.notes_order[i].index,
+            }, { where: {
+                id: req.body.notes_order[i].id,
+                user_id: req.session.uder_id
+            }})
+        }
         res.status(200).json(notesData)
     } catch (err) {
         res.status(400).json(err);
