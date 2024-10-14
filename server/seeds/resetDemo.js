@@ -18,17 +18,24 @@ const seedDatabase = async () => {
     const day = new Date().getDate();
     const todaysDate = `${year}-${month}-${day}`;
 
-    const deleteEvents = await Events.destroy({ where: { user_id: 1 }});
-    const deleteHistory = await DailyChecksHistory.destroy({ where: { user_id: 1 }});
-    const deleteChecks = await DailyChecks.destroy({ where: { user_id: 1 }});
-    const deleteNotes = await Notes.destroy({ where: { user_id: 1 }});
-    const deleteGoals = await Goals.destroy({ where: { user_id: 1 }});
-    const deleteTasks = await Tasks.destroy({ where: { user_id: 1 }});
+    const deleteEvents = await Events.destroy({ where: { user_id: 1 } });
+    const deleteHistory = await DailyChecksHistory.destroy({ where: { user_id: 1 } });
+    const deleteChecks = await DailyChecks.destroy({ where: { user_id: 1 } });
+    const deleteNotes = await Notes.destroy({ where: { user_id: 1 } });
+    const deleteGoals = await Goals.destroy({ where: { user_id: 1 } });
+    const deleteTasks = await Tasks.destroy({ where: { user_id: 1 } });
 
     // const user = await User.bulkCreate(userData, {
     //     individualHooks: true,
     //     returning: true,
     // });
+
+    const user = await User.update({
+        location: '91101',
+        colour: 'blue',
+        timezone: 'America/Los_Angeles',
+        temperature: 'F'
+    }, { where: { id: 1 } });
 
     const events = await Events.bulkCreate(eventsData, {
         individualHooks: true,
@@ -75,7 +82,7 @@ const seedDatabase = async () => {
             in_progress: archivedTasksData[j].in_progress,
             completed: archivedTasksData[j].completed,
             date_created: new Date(todaysDate),
-            date_completed: `${year}-${month}-${day + j}`,
+            date_completed: archivedTasksData[j].date_completed,
             archived: archivedTasksData[j].archived,
         }, {
             individualHooks: true,

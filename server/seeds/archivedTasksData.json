@@ -9,14 +9,6 @@
     },
     {
         "user_id": 1,
-        "task": "Make appointment",
-        "in_progress": true,
-        "completed": true,
-        "archived": true,
-        "date_completed": "2024-2-05"
-    },
-    {
-        "user_id": 1,
         "task": "Finish report",
         "in_progress": true,
         "completed": true,
@@ -25,42 +17,10 @@
     },
     {
         "user_id": 1,
-        "task": "Finish report",
-        "in_progress": true,
-        "completed": true,
-        "archived": true,
-        "date_completed": "2024-3-05"
-    },
-    {
-        "user_id": 1,
         "task": "Brainstorm new project ideas",
         "in_progress": true,
         "completed": true,
         "archived": true,
         "date_completed": "2024-7-05"
-    },
-    {
-        "user_id": 1,
-        "task": "Brainstorm new project ideas",
-        "in_progress": true,
-        "completed": true,
-        "archived": true,
-        "date_completed": "2024-6-05"
-    },
-    {
-        "user_id": 1,
-        "task": "Brainstorm new project ideas",
-        "in_progress": true,
-        "completed": true,
-        "archived": true,
-        "date_completed": "2024-5-05"
-    },
-    {
-        "user_id": 1,
-        "task": "Brainstorm new project ideas",
-        "in_progress": true,
-        "completed": true,
-        "archived": true,
-        "date_completed": "2024-4-05"
     }
 ]

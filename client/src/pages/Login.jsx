@@ -107,15 +107,8 @@ export default function Login() {
         // Login to demo dashboard
         event.preventDefault();
 
-        const email = 'demo@example.com'
-        const password = 'password12345';
-
-        const response = await fetch('/api/users/login', {
+        const response = await fetch('/api/users/login-demo', {
             method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: password
-            }),
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
