@@ -451,6 +451,8 @@ input[type="checkbox"]:not(:disabled):checked {
         margin: 10px auto;
         width: 80%;
         height: fit-content;
+        max-height: 60vh;
+        overflow: overlay;
     }
     header {
         flex-direction: column;

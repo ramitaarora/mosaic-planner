@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 import AddEventsForm from './AddEventsForm';
 import EditEventsForm from './EditEventForm';
-import Calendar from 'react-calendar';
 
 export default function Schedule({ events, setEvents, fullDate, timezone, today, getData }) {
     // Sets the date for the events, initially starts with today's date
@@ -120,11 +119,11 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
             }
         })
     }
-    
+
     useEffect(() => {
         // Sort the events by time, all-day events sort to the top
         setTodaysSortedEvents([]);
-        
+
         const sortedEvents = todaysEvents.sort((a, b) => {
             if (a.all_day !== b.all_day) {
                 return a.all_day ? -1 : 1;
@@ -202,27 +201,29 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
         setAddVisibility('visible')
     }
 
-    const clickDay = (event, value) => {
+    const clickDay = (event) => {
         // Sets the new current date from the calendar
-        let selectedDate = new Date(event);
+        if (event.target.value) {
+            let selectedDate = new Date(event.target.value);
 
-        if (selectedDate === new Date(today)) {
-            getToday();
-        } else {
-            const timeZoneDate = new Intl.DateTimeFormat('en-US', {
-                dateStyle: 'full',
-                timeZone: timezone,
-              }).format(selectedDate);
-            
-            setTodaysEvents([]);
+            if (selectedDate === new Date(today)) {
+                getToday();
+            } else {
+                const timeZoneDate = new Intl.DateTimeFormat('en-US', {
+                    dateStyle: 'full',
+                    timeZone: timezone,
+                }).format(selectedDate);
 
-            const year = new Date(timeZoneDate).getFullYear();
-            const month = new Date(timeZoneDate).getMonth() + 1;
-            const day = new Date(timeZoneDate).getDate();
-            setCurrentYearDate(`${year}-${month}-${day}`);
-            setFormattedDate(new Date(timeZoneDate));
-            setCurrentDate(timeZoneDate);
-        } 
+                setTodaysEvents([]);
+
+                const year = new Date(timeZoneDate).getFullYear();
+                const month = new Date(timeZoneDate).getMonth() + 1;
+                const day = new Date(timeZoneDate).getDate();
+                setCurrentYearDate(`${year}-${month}-${day}`);
+                setFormattedDate(new Date(timeZoneDate));
+                setCurrentDate(timeZoneDate);
+            }
+        }
     }
 
     const getToday = () => {
@@ -233,18 +234,27 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
         setCurrentYearDate(today);
     }
 
+    const formatDate = (date) => {
+        return new Date(date).toISOString().slice(0,10);
+    }
+
     return (
-        <div id="schedule" className={`card ${css`height: 55vh;`}`}>
-
-            <div className="card-header">
-                <h2>{currentDate ? currentDate : "Today"}</h2>
-                <button onClick={getToday}>Today</button>
-                <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
-            </div>
-
-            <Calendar className="react-calendar" defaultView="month" onClickDay={clickDay} value={currentDate} onChange={clickDay} />
+        <div id="schedule" className={`card ${css`height: 50vh;`}`}>
             <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} setTodaysEvents={setTodaysEvents} />
             <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit} setTodaysEvents={setTodaysEvents} />
+
+            <div className="card-header">
+                <h2>Schedule for {currentDate ? currentDate : "Today"}</h2>
+                <input 
+                    type="date" 
+                    name="date" 
+                    className={css`background: none; border: 1px solid var(--background); margin-right: 10px;`} 
+                    id="date-picker" 
+                    onChange={clickDay}
+                    defaultValue={formatDate(currentDate)} 
+                />
+                <img id="add-event-button" src="./svgs/add.svg" alt="add" onClick={addNewEvent} />
+            </div>
 
             <div>
                 <ul>
@@ -264,8 +274,8 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
                                     }
                                 </div>
                                 <div className="edit-buttons">
-                                    <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id}/>
-                                    <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id}/>
+                                    <img src="./svgs/edit.svg" alt="edit" onClick={editEvent} id={event.id} />
+                                    <img src="./svgs/delete.svg" alt="edit" onClick={deleteEvent} id={event.id} />
                                 </div>
                             </div>
                         )
