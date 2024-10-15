@@ -11,6 +11,8 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     const [temperature, setTemperature] = useState('');
     // Select options for time zones
     const timezoneOptions = ["America/New_York", "America/Los_Angeles", "America/Chicago", "Europe/London", "Asia/Tokyo", "Europe/Paris", "Asia/Shanghai", "Asia/Kolkata", "Europe/Berlin", "Australia/Sydney"];
+    // Colour theme names
+    const colourThemes = ["dark", "light", "blue", "purple", "pink", "forest", "misty", "classy", "saffron", "gold"];
 
     const closeModal = () => {
         // Close profile form modal
@@ -208,46 +210,12 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
 
 
                             <form id="colour-form" onChange={handleColours} className={css`display: flex; flex-wrap: wrap; justify-content: space-evenly;`} >
-                                <div className="form-input">
-                                    <input type="radio" id="dark" name="colour-theme" />
-                                    <label htmlFor='dark'><img src="./colour-palettes/dark.png" alt="dark" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="light" name="colour-theme" />
-                                    <label htmlFor='light'><img src="./colour-palettes/light.png" alt="light" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="blue" name="colour-theme" />
-                                    <label htmlFor='blue'><img src="./colour-palettes/blue.png" alt="blue" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="purple" name="colour-theme" />
-                                    <label htmlFor='purple'><img src="./colour-palettes/purple.png" alt="purple" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="pink" name="colour-theme" />
-                                    <label htmlFor='pink'><img src="./colour-palettes/pink.png" alt="pink" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="forest" name="colour-theme" />
-                                    <label htmlFor='forest'><img src="./colour-palettes/forest.png" alt="forest" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="misty" name="colour-theme" />
-                                    <label htmlFor='misty'><img src="./colour-palettes/misty.png" alt="misty" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="classy" name="colour-theme" />
-                                    <label htmlFor='classy'><img src="./colour-palettes/classy.png" alt="classy" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="saffron" name="colour-theme" />
-                                    <label htmlFor='saffron'><img src="./colour-palettes/saffron.png" alt="saffron" /></label>
-                                </div>
-                                <div className="form-input">
-                                    <input type="radio" id="gold" name="colour-theme" />
-                                    <label htmlFor='gold'><img src="./colour-palettes/gold.png" alt="gold" /></label>
-                                </div>
+                                {colourThemes.map((theme, index) => (
+                                    <div className="form-input" key={index}>
+                                        <input type="radio" id={theme} name="colour-theme" />
+                                        <label htmlFor={theme}><img src={`./colour-palettes/${theme}.png`} alt={theme} /></label>
+                                    </div>
+                                ))}
                             </form>
                         </div>
                     </div>
