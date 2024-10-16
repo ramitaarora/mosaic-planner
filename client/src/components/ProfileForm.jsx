@@ -12,7 +12,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
     // Select options for time zones
     const timezoneOptions = ["America/New_York", "America/Los_Angeles", "America/Chicago", "Europe/London", "Asia/Tokyo", "Europe/Paris", "Asia/Shanghai", "Asia/Kolkata", "Europe/Berlin", "Australia/Sydney"];
     // Colour theme names
-    const colourThemes = ["dark", "light", "blue", "purple", "pink", "forest", "misty", "classy", "saffron", "gold"];
+    const colourThemes = ["dark", "light", "blue", "purple", "pink", "forest", "misty", "classy", "saffron", "gold", "halloween", "spring", "ocean", "love", "desert"];
 
     const closeModal = () => {
         // Close profile form modal

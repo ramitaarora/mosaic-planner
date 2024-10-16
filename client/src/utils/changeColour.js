@@ -61,4 +61,34 @@ export default function changeColour(theme) {
       rootEl.style.setProperty('--card-background', '#B9953C');
       rootEl.style.setProperty('--line-background', '#EBEDE8');
     }
+    if (theme === 'halloween') {
+      rootEl.style.setProperty('--text', '#331F00');
+      rootEl.style.setProperty('--background', '#331F00');
+      rootEl.style.setProperty('--card-background', '#A46303');
+      rootEl.style.setProperty('--line-background', '#FDF5D0');
+    }
+    if (theme === 'spring') {
+      rootEl.style.setProperty('--text', '#140000');
+      rootEl.style.setProperty('--background', '#7CB69A');
+      rootEl.style.setProperty('--card-background', '#F3C9C9');
+      rootEl.style.setProperty('--line-background', '#FFFDF2');
+    }
+    if (theme === 'ocean') {
+      rootEl.style.setProperty('--text', '#1E3D5F');
+      rootEl.style.setProperty('--background', '#4A6E95');
+      rootEl.style.setProperty('--card-background', '#ADC1D7');
+      rootEl.style.setProperty('--line-background', '#EEF5FC');
+    }
+    if (theme === 'love') {
+      rootEl.style.setProperty('--text', '#4E0312');
+      rootEl.style.setProperty('--background', '#C66C80');
+      rootEl.style.setProperty('--card-background', '#E5BBB3');
+      rootEl.style.setProperty('--line-background', '#F9F3F0');
+    }
+    if (theme === 'desert') {
+      rootEl.style.setProperty('--text', '#311a0c');
+      rootEl.style.setProperty('--background', '#834521');
+      rootEl.style.setProperty('--card-background', '#EBC999');
+      rootEl.style.setProperty('--line-background', '#F9F7F0');
+    }
   }
