@@ -121,7 +121,7 @@ router.post('/login-demo', async (req, res) => {
         colour: 'blue',
         timezone: 'America/Los_Angeles',
         temperature: 'F'
-    }, { where: { id: 1 }});
+    }, { where: { id: '1' }});
     } catch(err) {
       console.error(err);
     }

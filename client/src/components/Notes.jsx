@@ -199,90 +199,6 @@ export default function Notes({ notes, getData }) {
         setSuggestions([]);
     }
 
-    const changeOrder = async (event) => {
-        // Change order of the notes based on arrows pressed
-        let targetID = event.target.id;
-        let switchID;
-        // console.log(event.target.attributes.alt.value)
-
-        if (event.target.attributes.alt.value === "down") {
-            // Order is always 0, order becomes 1 and 1 will become 0
-            for (let i = 0; i < sortedNotes.length; i++) {
-                if (sortedNotes[i].order === 1) {
-                    switchID = sortedNotes[i].id;
-                }
-            }
-
-            const responseTarget = await fetch('/api/data/reorder', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: targetID,
-                    order: 1,
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-
-            if (responseTarget.ok) {
-                const responseSwitch = await fetch('/api/data/reorder', {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        id: switchID,
-                        order: 0,
-                    }),
-                    headers: { 'Content-Type': 'application/json' },
-                });
-
-                if (responseSwitch.ok) {
-                    getData();
-                } else {
-                    console.error(responseSwitch.statusText);
-                }
-            } else {
-                console.error(responseTarget.statusText);
-            }
-        }
-
-        if (event.target.attributes.alt.value === "up") {
-            // Target element in list must minus one to order, the next element in list must become target's order num
-            let targetNum = Number(event.target.attributes.order.value);
-            let switchNum = Number(event.target.attributes.order.value) - 1;
-
-            for (let i = 0; i < sortedNotes.length; i++) {
-                if (sortedNotes[i].order === switchNum) {
-                    switchID = sortedNotes[i].id;
-                }
-            }
-
-            const responseTarget = await fetch('/api/data/reorder', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: targetID,
-                    order: switchNum,
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-
-            if (responseTarget.ok) {
-                const responseSwitch = await fetch('/api/data/reorder', {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        id: switchID,
-                        order: targetNum,
-                    }),
-                    headers: { 'Content-Type': 'application/json' },
-                });
-
-                if (responseSwitch.ok) {
-                    getData();
-                } else {
-                    console.error(responseSwitch.statusText);
-                }
-            } else {
-                console.error(responseTarget.statusText);
-            }
-        }
-    }
-
     const openDescriptionModal = (event) => {
         setNoteID(event.target.id.slice(15));
         setNotesModalVisibility('visible');
@@ -331,9 +247,9 @@ export default function Notes({ notes, getData }) {
                     {sortedNotes.length ? (
                         sortedNotes.map((note, index) =>
                             <div key={index} className="line" value={note.id}>
-                                <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`} draggable>
+                                <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     <div className={css`display: flex; align-items: center;`}>
-                                        {/*<img src="./svgs/drag-drop.svg" alt="drag-drop" className={css`margin-right: 5px;`} />*/}
+                                        <img src="./svgs/drag-drop.svg" alt="drag-drop" className={css`margin-right: 5px;`}/>
                                         <li id={'note-list-item-' + note.id} className={"list-item " + css`cursor: pointer;`} onClick={openDescriptionModal}>{note.note}</li>
                                     </div>
                                     <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
@@ -343,12 +259,6 @@ export default function Notes({ notes, getData }) {
                                     </form>
                                 </div>
                                 <div className="edit-buttons">
-                                    {/*index > 0 && (
-                                        <img src="./svgs/arrow-up-circle.svg" alt="up" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
-                                    )}
-                                    {index === 0 && (
-                                        <img src="./svgs/arrow-down-circle.svg" alt="down" id={note.id} order={note.order} onClick={(event) => changeOrder(event)} />
-                                    )*/}
                                     <img src="./svgs/edit.svg" alt="edit" onClick={editNote} id={note.id} value={note.note} />
                                     <img src="./svgs/delete.svg" alt="edit" onClick={deleteNote} id={note.id} />
                                 </div>
