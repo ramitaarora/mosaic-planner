@@ -333,7 +333,7 @@ export default function Notes({ notes, getData }) {
                             <div key={index} className="line" value={note.id}>
                                 <div id={'note-' + note.id} className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`} draggable>
                                     <div className={css`display: flex; align-items: center;`}>
-                                        <img src="./svgs/drag-drop.svg" alt="drag-drop" className={css`margin-right: 5px;`} />
+                                        {/*<img src="./svgs/drag-drop.svg" alt="drag-drop" className={css`margin-right: 5px;`} />*/}
                                         <li id={'note-list-item-' + note.id} className={"list-item " + css`cursor: pointer;`} onClick={openDescriptionModal}>{note.note}</li>
                                     </div>
                                     <form id={'noteForm-' + note.id} className="hidden" onSubmit={submitNoteEdit}>
