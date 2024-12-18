@@ -9,7 +9,7 @@
     "seed": "node seeds/seed.js",
     "resetDemo": "node seeds/resetDemo.js",
     "watch": "nodemon",
-    "sync": "node seeds/migrations/addUserTemp.js",
+    "sync": "node seeds/sync.js",
     "data": "node seeds/test/data.js"
   },
   "keywords": [],

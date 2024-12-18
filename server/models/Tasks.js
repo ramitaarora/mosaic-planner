@@ -39,6 +39,14 @@ Tasks.init(
             type: DataTypes.TEXT,
             allowNull: true
         },
+        goal_id: {
+            type: DataTypes.UUID,
+            allowNull: true,
+            references: {
+                model: 'goals',
+                key: 'id'
+            }
+        },
         user_id: {
             type: DataTypes.UUID,
             allowNull: false,

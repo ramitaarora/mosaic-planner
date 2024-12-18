@@ -28,6 +28,22 @@ Goals.init(
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
+        duration: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        due_date: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        date_expires: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        repeat: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
         description: {
             type: DataTypes.TEXT,
             allowNull: true
