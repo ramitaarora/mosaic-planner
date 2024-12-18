@@ -239,7 +239,7 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     }
 
     return (
-        <div id="schedule" className={`card ${css`height: 50vh;`}`}>
+        <div id="schedule" className={`card ${css`height: 77vh; width: 90%; margin: 5px auto;`}`}>
             <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} setTodaysEvents={setTodaysEvents} />
             <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit} setTodaysEvents={setTodaysEvents} />
 
@@ -263,12 +263,12 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
                             <div key={index} className="line" value={event.id}>
                                 <div id="each-event" className={css`display: flex; flex-direction: column; margin: 5px; justify-content: space-evenly;`}>
                                     {event.all_day ? (
-                                        <p id="all-day-event" className={css`font-size: 80%; margin: 5px 0;`}>{event.event}</p>
+                                        <p id="all-day-event" className={css`font-size: 12px; margin: 5px 0;`}>{event.event}</p>
                                     ) : (
                                         <div>
                                             <li>{event.event}</li>
-                                            <p className={css`font-size: 80%; margin: 5px 0;`}>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
-                                            {event.address ? <p className={css`font-size: 80%; margin: 5px 0;`}>{event.address}</p> : null}
+                                            <p className={css`font-size: 12px; margin: 5px 0;`}>{getHours(event.start_time)}{event.start_time[0] + event.start_time[1] < 12 ? 'AM' : 'PM'}-{getHours(event.end_time)}{event.end_time[0] + event.end_time[1] < 12 ? 'AM' : 'PM'}</p>
+                                            {event.address ? <p className={css`font-size: 10px; margin: 5px 0;`}>{event.address}</p> : null}
                                         </div>
                                     )
                                     }

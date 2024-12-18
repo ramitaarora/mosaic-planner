@@ -129,10 +129,10 @@ export default function Goals({ goals, setGoals, goalType, getData }) {
     }
 
     return (
-        <div id="goals" className={`card ${css`height: 33vh;`}`}>
+        <div id="goals" className={`card ${css`height: 23vh; width: 90%; margin: 5px auto;`}`}>
             <GoalsForm visibility={visibility} setVisibility={setVisibility} />
             <div className="card-header">
-                <h2>{goalType} Goals</h2>
+                <h2>Goals</h2>
                 <img id="add-goal-button" src="./svgs/add.svg" alt="add" onClick={addNewGoal} />
             </div>
             <div id="goals-list">

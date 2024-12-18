@@ -26,7 +26,7 @@ export default function Header({ name, location, visibility, setVisibility, full
     }, [])
 
     return (
-        <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; padding: 10px; text-align: center; `}>
+        <header className={css`width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; height: 10vh;`}>
 
             <Weather location={location} temperature={temperature} />
 

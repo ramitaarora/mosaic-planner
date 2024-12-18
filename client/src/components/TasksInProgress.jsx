@@ -156,7 +156,7 @@ export default function TasksInProgress({ inProgressTasks, setInProgressTasks, g
     }
 
     return (
-        <div id="in-progress-tasks" className={`card ${css`height: 40vh;`}`}>
+        <div id="in-progress-tasks" className={`card ${css`height: 35vh; width: 98%; margin: 5px auto;`}`}>
             <div className="card-header">
                 <h2>Tasks in Progress</h2>
                 <img src="./svgs/archive.svg" alt="open-archive" onClick={showArchiveModal} />

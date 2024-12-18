@@ -37,6 +37,10 @@ ol, ul {
     display: content !important;
 }
 
+li, label {
+    font-size: 14px;
+}
+
 input, select, textarea {
     border-radius: 5px; 
     border: 1px solid var(--card-background);
@@ -115,14 +119,14 @@ input[type="checkbox"]:not(:disabled):checked {
     display: flex;
     justify-content: space-between;
     margin: 0 25px;
-    font-size: 12px;
+    font-size: 11px;
     align-items: center;
     margin-bottom: 10px;
     width: auto;
 }
 
 .card-header h2 {
-    width: 70%;
+    width: 80%;
 }
 
 .card-header img:hover,
@@ -141,6 +145,7 @@ input[type="checkbox"]:not(:disabled):checked {
     border: 1px solid var(--line-background);
     align-items: center;
     padding: 0px 2%;
+    /* font-size: 14px; */
 }
 
 .line input:checked + label {

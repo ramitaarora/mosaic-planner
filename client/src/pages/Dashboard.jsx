@@ -155,22 +155,20 @@ export default function Dashboard() {
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} temperature={temperature} />
             <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} demo={demo} />
 
-            <main className={css`display: flex; width: 100vw;`}>
-              <section id="left" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
-                <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
-                <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
-                <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
-              </section>
-
-              <section id="middle" className={css`width: 34%; max-height: 100vh; display: flex; flex-direction: column;`}>
+            <main className={css`display: flex; width: 100vw; min-height: 80vh;`}>
+              <section id="left" className={css`width: 25%; min-height: 100%;`}>
                 <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
-                <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
               </section>
 
-              <section id="right" className={css`width: 33%; max-height: 100vh; display: flex; flex-direction: column;`}>
+              <section id="middle" className={css`width: 50%; min-height: 100%;`}>
                 <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
                 <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
-                <Notes notes={notes} setNotes={setNotes} getData={getData} />
+              </section>
+
+              <section id="right" className={css`width: 25%; min-height: 100%;`}>
+                  <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
+                  <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
+                  <Notes notes={notes} setNotes={setNotes} getData={getData} />
               </section>
             </main>
           </div>
