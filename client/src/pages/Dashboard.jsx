@@ -80,13 +80,6 @@ export default function Dashboard() {
         setDailyChecksHistory(data.dailyChecks.filter(check => check.date == today));
         // Set Events
         setEvents(data.events.map(event => event));
-        // Set User Preferences
-        setName(data.user.map(user => user.name));
-        setLocation(data.user.map(user => user.location));
-        setColourTheme(data.user[0].colour);
-        setTimezone(data.user[0].timezone);
-        setTemperature(data.user[0].temperature);
-        if (data.user[0].id === '1') setDemo(true);
         // Set Tasks
         setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
         setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
@@ -95,6 +88,24 @@ export default function Dashboard() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+  }
+
+  const getUser = async () => {
+    try {
+      const response = await fetch('/api/users/getUser');
+      if (response.ok) {
+        const data = await response.json();
+        // Set User Preferences
+        setName(data.user.map(user => user.name));
+        setLocation(data.user.map(user => user.location));
+        setColourTheme(data.user[0].colour);
+        setTimezone(data.user[0].timezone);
+        setTemperature(data.user[0].temperature);
+        if (data.user[0].id === '1') setDemo(true);
+      }
+    } catch (err) {
+      console.error('Error fetching data', err);
+    }
   }
 
   useEffect(() => {
@@ -115,6 +126,7 @@ export default function Dashboard() {
     // Fetch data if date changes
     if (today) {
       getData();
+      getUser();
       setLoading(false);
     }
 
@@ -153,7 +165,7 @@ export default function Dashboard() {
         <div>
           <div id="desktop">
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} temperature={temperature} />
-            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} demo={demo} />
+            <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getUser={getUser} demo={demo} />
 
             <main className={css`display: flex; width: 100vw; min-height: 80vh;`}>
               <section id="left" className={css`width: 25%; min-height: 100%;`}>

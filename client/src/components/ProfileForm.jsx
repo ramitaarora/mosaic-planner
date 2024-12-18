@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
-export default function ProfileForm({ visibility, setVisibility, colourTheme, setColourTheme, getData, demo }) {
+export default function ProfileForm({ visibility, setVisibility, colourTheme, setColourTheme, getUser, demo }) {
     // Input variables for profile form; sets the existing values in the form for ease of change
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
         setVisibility('hidden');
     }
 
-    const getUser = () => {
+    const fetchUser = () => {
         // Fetch user info
         fetch('/api/users/getUser')
             .then((response) => {
@@ -82,8 +82,8 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
             });
 
             if (response.ok) {
-                getData();
                 getUser();
+                fetchUser();
             } else {
                 console.error(response.statusText);
             }
@@ -92,7 +92,7 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
 
     useEffect(() => {
         // Fetch user info on first load
-        getUser();
+        fetchUser();
     }, [])
 
     const handleColours = async (event) => {
@@ -109,7 +109,8 @@ export default function ProfileForm({ visibility, setVisibility, colourTheme, se
         });
 
         if (response.ok) {
-            getData();
+            getUser();
+            fetchUser();
         } else {
             console.error(response.statusText);
         }
