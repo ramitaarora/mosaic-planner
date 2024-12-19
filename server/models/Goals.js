@@ -1,7 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection')
 
-class Goals extends Model {}
+class Goals extends Model { }
 
 Goals.init(
     {
@@ -23,7 +23,11 @@ Goals.init(
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-          },
+        },
+        date_completed: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         completed: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
@@ -38,10 +42,6 @@ Goals.init(
         },
         date_expires: {
             type: DataTypes.DATE,
-            allowNull: true,
-        },
-        repeat: {
-            type: DataTypes.BOOLEAN,
             allowNull: true,
         },
         description: {

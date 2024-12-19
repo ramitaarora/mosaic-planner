@@ -1,7 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection')
 
-class Tasks extends Model {}
+class Tasks extends Model { }
 
 Tasks.init(
     {
@@ -29,6 +29,18 @@ Tasks.init(
         },
         date_completed: {
             type: DataTypes.STRING,
+            allowNull: true,
+        },
+        duration: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        due_date: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        date_expires: {
+            type: DataTypes.DATE,
             allowNull: true,
         },
         archived: {

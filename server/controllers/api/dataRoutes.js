@@ -34,6 +34,20 @@ router.get('/allData/:today', withAuth, async (req, res) => {
     }
 });
 
+router.get('/goals-tasks', withAuth, async (req, res) => {
+    try {
+        const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
+        const tasksData = await Tasks.findAll({ where: { user_id: req.session.user_id } });
+        const goals = goalsData.map(goal => goal.get({ plain: true }));
+        const tasks = tasksData.map(task => task.get({ plain: true }));
+
+        res.status(200).json({ goals, tasks });
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+})
+
 router.get('/generateChecks/:today', withAuth, async (req, res) => {
     try {
         const existingDailyChecks = await DailyChecks.findAll({
