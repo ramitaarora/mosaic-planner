@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
-import TasksArchived from './TasksArchived';
+import TasksArchived from './modals/TasksArchived';
 
 export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks, today }) {
     // Set visibility of archived tasks modal

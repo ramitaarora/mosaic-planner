@@ -17,7 +17,7 @@ const day = new Date().getDate();
 const todaysDate = `${year}-${month}-${day}`;
 
 const seedDatabase = async () => {
-    // await sequelize.sync({ force: true });
+    await sequelize.sync({ force: true });
 
     const user = await User.bulkCreate(userData, {
         individualHooks: true,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import DailyChecksForm from './DailyChecksForm';
+import DailyChecksForm from './modals/DailyChecksForm';
 import { css } from '@emotion/css';
 
 export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHistory, setDailyChecksHistory, today, fullDate, timezone, getData }) {

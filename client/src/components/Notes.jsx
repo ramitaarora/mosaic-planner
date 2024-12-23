@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
-import NotesForm from './NotesForm';
+import NotesForm from './modals/NotesForm';
 
 export default function Notes({ notes, getData }) {
     // Input variable for adding notes

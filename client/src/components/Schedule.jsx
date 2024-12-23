@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
-import AddEventsForm from './AddEventsForm';
-import EditEventsForm from './EditEventForm';
+import AddEventsForm from './modals/AddEventsForm';
+import EditEventsForm from './modals/EditEventForm';
 
 export default function Schedule({ events, setEvents, fullDate, timezone, today, getData }) {
     // Sets the date for the events, initially starts with today's date

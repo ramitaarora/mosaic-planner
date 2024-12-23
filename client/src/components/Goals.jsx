@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import GoalsForm from './GoalsForm';
+import GoalsForm from './modals/GoalsForm';
 import { css } from '@emotion/css'
 
 export default function Goals({ goals, setGoals, goalType, getData }) {

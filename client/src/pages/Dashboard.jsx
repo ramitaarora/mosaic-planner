@@ -6,7 +6,7 @@ import Goals from '../components/Goals.jsx';
 import DailyChecks from '../components/DailyChecks.jsx';
 import Notes from '../components/Notes.jsx';
 import Schedule from '../components/Schedule.jsx';
-import ProfileForm from '../components/ProfileForm.jsx';
+import ProfileForm from '../components/modals/ProfileForm.jsx';
 import Tasks from '../components/Tasks.jsx';
 import TasksInProgress from '../components/TasksInProgress.jsx';
 import MobileNav from '../components/MobileNav.jsx';
