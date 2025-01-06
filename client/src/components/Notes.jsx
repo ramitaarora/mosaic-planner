@@ -3,7 +3,7 @@ import { css } from '@emotion/css';
 import NotesForm from './modals/NotesForm';
 
 export default function Notes({ data, getData }) {
-    // Notes Data
+    // Data variable
     const [notes, setNotes] = useState([]);
     // Input variable for adding notes
     const [inputValue, setInputValue] = useState('');
@@ -19,7 +19,6 @@ export default function Notes({ data, getData }) {
 
     useEffect(() => {
         if (data) {
-            console.log(data)
             // Get notes from data
             setNotes(data.notes.map(note => note));
         }

@@ -34,7 +34,7 @@ export default function Dashboard() {
   const [weekGoals, setWeekGoals] = useState([]);
 
 
-  const [events, setEvents] = useState([]);
+
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
@@ -77,8 +77,7 @@ export default function Dashboard() {
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
 
 
-        // Set Events
-        setEvents(data.events.map(event => event));
+
         // Set Tasks
         setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
         setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
@@ -168,7 +167,7 @@ export default function Dashboard() {
 
             <main className={css`display: flex; width: 100vw; min-height: 80vh;`}>
               <section id="left" className={css`width: 25%; min-height: 100%;`}>
-                <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
+                <Schedule data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
               </section>
 
               <section id="middle" className={css`width: 50%; min-height: 100%;`}>
@@ -204,7 +203,7 @@ export default function Dashboard() {
               ) : null}
               {mobileCard === 'schedule' ? (
                 <div>
-                  <Schedule events={events} setEvents={setEvents} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
+                  <Schedule data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'goals' ? (

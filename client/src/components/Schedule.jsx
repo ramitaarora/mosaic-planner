@@ -3,7 +3,9 @@ import { css } from '@emotion/css';
 import AddEventsForm from './modals/AddEventsForm';
 import EditEventsForm from './modals/EditEventForm';
 
-export default function Schedule({ events, setEvents, fullDate, timezone, today, getData }) {
+export default function Schedule({ data, fullDate, timezone, today, getData }) {
+    // Data variable
+    const [events, setEvents] = useState([]);
     // Sets the date for the events, initially starts with today's date
     const [currentDate, setCurrentDate] = useState(fullDate);
     // Separates out today's events
@@ -18,6 +20,13 @@ export default function Schedule({ events, setEvents, fullDate, timezone, today,
     const [currentYearDate, setCurrentYearDate] = useState(today);
     // Final sorted events array that displays the current day's events
     const [todaysSortedEvents, setTodaysSortedEvents] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            // Set Events
+            setEvents(data.events.map(event => event));
+        }
+    }, [data])
 
     const getTodaysEvents = () => {
         // This function looks through the events for recurring events that could be happening on the current date
