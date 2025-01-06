@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 import NotesForm from './modals/NotesForm';
 
-export default function Notes({ notes, getData }) {
+export default function Notes({ data, getData }) {
+    // Notes Data
+    const [notes, setNotes] = useState([]);
     // Input variable for adding notes
     const [inputValue, setInputValue] = useState('');
     // Loading state to show loader
@@ -16,10 +18,20 @@ export default function Notes({ notes, getData }) {
     const [noteID, setNoteID] = useState('')
 
     useEffect(() => {
+        if (data) {
+            console.log(data)
+            // Get notes from data
+            setNotes(data.notes.map(note => note));
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (notes.length) {
         // Sort notes by order number
         setSortedNotes([]);
         const notesSorted = notes.sort((a, b) => a.order - b.order)
         setSortedNotes(notesSorted);
+        }
     }, [notes])
 
     const editNote = (event) => {

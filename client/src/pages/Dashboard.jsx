@@ -28,10 +28,11 @@ export default function Dashboard() {
   const [fullDate, setFullDate] = useState('');
   const [hour, setHour] = useState('');
   // Data variables
+  const [data, setData] = useState()
   const [yearGoals, setYearGoals] = useState([]);
   const [monthGoals, setMonthGoals] = useState([]);
   const [weekGoals, setWeekGoals] = useState([]);
-  const [notes, setNotes] = useState([]);
+
   const [dailyChecks, setDailyChecks] = useState([]);
   const [dailyChecksHistory, setDailyChecksHistory] = useState([]);
   const [events, setEvents] = useState([]);
@@ -70,12 +71,12 @@ export default function Dashboard() {
       })
       .then((data) => {
         // console.log(data);
-        // Set Gooals
+        setData(data);
+        // Set Goals
         setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
         setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
-        // Set Notes
-        setNotes(data.notes.map(note => note));
+
         setDailyChecks(data.checks.filter(check => !check.archived));
         setDailyChecksHistory(data.dailyChecks.filter(check => check.date == today));
         // Set Events
@@ -180,7 +181,7 @@ export default function Dashboard() {
               <section id="right" className={css`width: 25%; min-height: 100%;`}>
                   <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
                   <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
-                  <Notes notes={notes} setNotes={setNotes} getData={getData} />
+                  <Notes data={data} getData={getData} />
               </section>
             </main>
           </div>
@@ -217,7 +218,7 @@ export default function Dashboard() {
               ) : null}
               {mobileCard === 'notes' ? (
                 <div>
-                  <Notes notes={notes} setNotes={setNotes} getData={getData} />
+                  <Notes data={data} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'weather' ? (
