@@ -33,8 +33,7 @@ export default function Dashboard() {
   const [monthGoals, setMonthGoals] = useState([]);
   const [weekGoals, setWeekGoals] = useState([]);
 
-  const [dailyChecks, setDailyChecks] = useState([]);
-  const [dailyChecksHistory, setDailyChecksHistory] = useState([]);
+
   const [events, setEvents] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
@@ -77,8 +76,7 @@ export default function Dashboard() {
         setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
         setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
 
-        setDailyChecks(data.checks.filter(check => !check.archived));
-        setDailyChecksHistory(data.dailyChecks.filter(check => check.date == today));
+
         // Set Events
         setEvents(data.events.map(event => event));
         // Set Tasks
@@ -179,7 +177,7 @@ export default function Dashboard() {
               </section>
 
               <section id="right" className={css`width: 25%; min-height: 100%;`}>
-                  <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
+                  <DailyChecks data={data} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
                   <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
                   <Notes data={data} getData={getData} />
               </section>
@@ -201,7 +199,7 @@ export default function Dashboard() {
               ) : null}
               {mobileCard === 'checks' ? (
                 <div>
-                  <DailyChecks dailyChecks={dailyChecks} setDailyChecks={setDailyChecks} dailyChecksHistory={dailyChecksHistory} setDailyChecksHistory={setDailyChecksHistory} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
+                  <DailyChecks data={data} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'schedule' ? (

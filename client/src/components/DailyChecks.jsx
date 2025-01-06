@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import DailyChecksForm from './modals/DailyChecksForm';
 import { css } from '@emotion/css';
 
-export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHistory, setDailyChecksHistory, today, fullDate, timezone, getData }) {
+export default function DailyChecks({ data, today, fullDate, timezone, getData }) {
+    // Data variables
+    const [dailyChecks, setDailyChecks] = useState([]);
+    const [dailyChecksHistory, setDailyChecksHistory] = useState([]);
     // Input value when editing checks
     const [inputValue, setInputValue] = useState('');
     // Visibility of Daily checks form modal
@@ -13,6 +16,14 @@ export default function DailyChecks({ dailyChecks, setDailyChecks, dailyChecksHi
     const [currentDay, setCurrentDay] = useState(fullDate);
     const [currentFullDate, setCurrentFullDate] = useState('')
     const [sortedDailyChecks, setSortedDailyChecks] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            // Set Daily Checks data
+            setDailyChecks(data.checks.filter(check => !check.archived));
+            setDailyChecksHistory(data.dailyChecks.filter(check => check.date == today));
+        }
+    }, [data])
 
     useEffect(() => {
         // Load today's date
