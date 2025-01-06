@@ -35,9 +35,9 @@ export default function Dashboard() {
 
 
 
-  const [inProgressTasks, setInProgressTasks] = useState([]);
-  const [allTasks, setAllTasks] = useState([]);
-  const [archivedTasks, setArchivedTasks] = useState([]);
+
+
+  
   const [name, setName] = useState('name');
   const [location, setLocation] = useState('Pasadena');
   const [visibility, setVisibility] = useState('hidden');
@@ -78,10 +78,7 @@ export default function Dashboard() {
 
 
 
-        // Set Tasks
-        setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
-        setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
-        setArchivedTasks(data.tasks.filter(task => task.archived === true));
+
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -171,8 +168,8 @@ export default function Dashboard() {
               </section>
 
               <section id="middle" className={css`width: 50%; min-height: 100%;`}>
-                <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
-                <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
+                <TasksInProgress data={data} getData={getData}today={today} />
+                <Tasks data={data} getData={getData} />
               </section>
 
               <section id="right" className={css`width: 25%; min-height: 100%;`}>
@@ -192,8 +189,8 @@ export default function Dashboard() {
               ) : null}
               {mobileCard === 'tasks' ? (
                 <div>
-                  <TasksInProgress inProgressTasks={inProgressTasks} setInProgressTasks={setInProgressTasks} getData={getData} archivedTasks={archivedTasks} today={today} />
-                  <Tasks allTasks={allTasks} setAllTasks={setAllTasks} getData={getData} />
+                  <TasksInProgress data={data} getData={getData} today={today} />
+                  <Tasks data={data} getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'checks' ? (

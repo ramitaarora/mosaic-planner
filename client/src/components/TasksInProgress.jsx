@@ -2,13 +2,24 @@ import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 import TasksArchived from './modals/TasksArchived';
 
-export default function TasksInProgress({ inProgressTasks, setInProgressTasks, getData, archivedTasks, today }) {
+export default function TasksInProgress({ data, getData, today }) {
+    // Data variables
+    const [inProgressTasks, setInProgressTasks] = useState([]);
+    const [archivedTasks, setArchivedTasks] = useState([]);
     // Set visibility of archived tasks modal
     const [visibility, setVisibility] = useState('hidden');
     // Input value for edit tasks form
     const [inputValue, setInputValue] = useState('');
     // Final sorted tasks array to display on dashboared
     const [sortedTasks, setSortedTasks] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            // Set Tasks
+            setInProgressTasks(data.tasks.filter(task => task.in_progress === true && !task.archived));
+            setArchivedTasks(data.tasks.filter(task => task.archived === true));
+        }
+    }, [data])
 
     useEffect(() => {
         // Sort tasks by date created, then sort by completed status

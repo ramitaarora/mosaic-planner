@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
-export default function Tasks({ allTasks, setAllTasks, getData }) {
+export default function Tasks({ data, getData }) {
+    // Data variable
+    const [allTasks, setAllTasks] = useState([]);
     // Input state variable to add a new task
     const [inputValue, setInputValue] = useState('');
     // Loading state
@@ -10,6 +12,13 @@ export default function Tasks({ allTasks, setAllTasks, getData }) {
     const [suggestions, setSuggestions] = useState([]);
     // Final array with sorted tasks to display on page
     const [sortedTasks, setSortedTasks] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            // Set Tasks
+            setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
+        }
+    }, [data])
 
     useEffect(() => {
         // Sort tasks by date created
