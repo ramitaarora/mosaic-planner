@@ -29,15 +29,7 @@ export default function Dashboard() {
   const [hour, setHour] = useState('');
   // Data variables
   const [data, setData] = useState()
-  const [yearGoals, setYearGoals] = useState([]);
-  const [monthGoals, setMonthGoals] = useState([]);
-  const [weekGoals, setWeekGoals] = useState([]);
-
-
-
-
-
-  
+  // User data
   const [name, setName] = useState('name');
   const [location, setLocation] = useState('Pasadena');
   const [visibility, setVisibility] = useState('hidden');
@@ -71,14 +63,6 @@ export default function Dashboard() {
       .then((data) => {
         // console.log(data);
         setData(data);
-        // Set Goals
-        setYearGoals(data.goals.filter(goal => goal.goal_type === 'Yearly'));
-        setMonthGoals(data.goals.filter(goal => goal.goal_type === 'Monthly'));
-        setWeekGoals(data.goals.filter(goal => goal.goal_type === 'Weekly'));
-
-
-
-
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -174,7 +158,7 @@ export default function Dashboard() {
 
               <section id="right" className={css`width: 25%; min-height: 100%;`}>
                   <DailyChecks data={data} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
-                  <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
+                  <Goals data={data} goalType="Yearly" getData={getData} />
                   <Notes data={data} getData={getData} />
               </section>
             </main>
@@ -205,9 +189,9 @@ export default function Dashboard() {
               ) : null}
               {mobileCard === 'goals' ? (
                 <div>
-                  <Goals goals={weekGoals} setGoals={setWeekGoals} goalType="Weekly" getData={getData} />
-                  <Goals goals={monthGoals} setGoals={setMonthGoals} goalType="Monthly" getData={getData} />
-                  <Goals goals={yearGoals} setGoals={setYearGoals} goalType="Yearly" getData={getData} />
+                  <Goals data={data} goalType="Weekly" getData={getData} />
+                  <Goals data={data} goalType="Monthly" getData={getData} />
+                  <Goals data={data} goalType="Yearly" getData={getData} />
                 </div>
               ) : null}
               {mobileCard === 'notes' ? (

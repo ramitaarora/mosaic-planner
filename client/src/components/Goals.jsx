@@ -2,13 +2,22 @@ import { useEffect, useState } from 'react';
 import GoalsForm from './modals/GoalsForm';
 import { css } from '@emotion/css'
 
-export default function Goals({ goals, setGoals, goalType, getData }) {
+export default function Goals({ data, goalType, getData }) {
+    // Data variable
+    const [goals, setGoals] = useState([]);
     // Input variable for editing individual goals
     const [inputValue, setInputValue] = useState('');
     // Variable for visibility of modal
     const [visibility, setVisibility] = useState('hidden');
     // Array to display goals after sorting
     const [sortedGoals, setSortedGoals] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            // Set Goals
+            setGoals(data.goals.filter(goal => goal.goal_type === goalType));
+        }
+    }, [data])
 
     useEffect(() => {
         // Sort goals every time data updates
