@@ -96,7 +96,7 @@ export default function Dashboard() {
       if (data.loggedIn) {
         getTimezone();
       } else {
-        window.location.replace('/login')
+        window.location.replace('/')
       }
     })
   }, []);

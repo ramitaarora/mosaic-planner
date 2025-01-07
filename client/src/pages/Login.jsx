@@ -121,7 +121,7 @@ export default function Login() {
 
     return (
         <div id="login" className={css`text-align: center; height: 70vh; margin: 0 auto;`}>
-            <h1 className={css`margin: 30vh auto 0 auto;`}>Your goals, schedule & reminders, all in one place.</h1>
+            <h1 className={css`margin: 30vh auto 0 auto;`}>Login</h1>
             <div id="authentication">
 
                 <form id="auth-form" className="visible" onSubmit={login}>

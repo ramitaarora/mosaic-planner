@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import App from './App.jsx'
 import './App.css'
 
+import Index from './pages/Index.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Login from './pages/Login.jsx';
 import Goals from './pages/Goals.jsx';
@@ -15,7 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Router>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Dashboard />} />
+          <Route index element={<Index />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/goals" element={<Goals />} />
         </Route>
