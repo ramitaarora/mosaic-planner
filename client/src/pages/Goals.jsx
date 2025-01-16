@@ -31,7 +31,42 @@ export default function Goals() {
     return (
         <div>
             {/* <Header /> */}
-            <main>
+            <main> 
+            {/* This will eventually be its own component */}
+                <section>
+                    <div>
+                        <h2>Parent Goal</h2>
+                        <p>Icons to edit, delete, archive</p>
+                    </div>
+                    <div>
+                        <h2>List of Steps</h2>
+                        <p>Icon to add a step</p>
+                        <ol>
+                            <li>1.</li>
+                            <li>2.</li>
+                            <li>3.</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h2>Tasks</h2>
+                        <p>Icon to add a task</p>
+                        <ul>
+                            <li>Checkbox and task</li>
+                            <li>Checkbox and task</li>
+                            <li>Checkbox and task</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2>Daily Habits related to goal</h2>
+                        <p>Icon to add a habit or edit existing habit to be part of this goal</p>
+                        <ul>
+                            <li>Habit</li>
+                            <li>Habit</li>
+                            <li>Habit</li>
+                        </ul>
+                    </div>
+                </section>
+
             </main>
         </div>
     )
