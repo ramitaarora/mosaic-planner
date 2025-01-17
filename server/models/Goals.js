@@ -15,10 +15,6 @@ Goals.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        goal_type: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         date_created: {
             type: DataTypes.DATE,
             allowNull: false,

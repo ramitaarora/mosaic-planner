@@ -1,0 +1,20 @@
+[
+    {
+        "id": 2,
+        "user_id": 1,
+        "goal": "Update Application Documents",
+        "parent_goal": 1
+    },
+    {
+        "id": 3,
+        "user_id": 1,
+        "goal": "Networking",
+        "parent_goal": 1
+    },
+    {
+        "id": 4,
+        "user_id": 1,
+        "goal": "Apply for Jobs",
+        "parent_goal": 1
+    }
+]

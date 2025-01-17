@@ -2,12 +2,13 @@ const sequelize = require('../config/connection');
 
 const userData = require('./userData.json');
 const notesData = require('./notesData.json');
-const parentGoalsData = require('./parentGoalsData.json');
-const childGoalsData = require('./childGoalsData.json');
 const dailyChecksData = require('./dailyChecksData.json');
 const eventsData = require('./eventsData.json');
 const taskData = require('./tasksData.json');
 const archivedTasksData = require('./archivedTasksData.json');
+const goalsData = require('./goalsData.json');
+const stepsData = require('./stepsData.json');
+const newTasksData = require('./newTasksData.json');
 
 const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../models');
 
@@ -34,21 +35,6 @@ const seedDatabase = async () => {
         returning: true,
     })
 
-    const notes = await Notes.bulkCreate(notesData, {
-        individualHooks: true,
-        returning: true,
-    })
-
-    const parentGoals = await Goals.bulkCreate(parentGoalsData, {
-        individualHooks: true,
-        returning: true,
-    })
-
-    const childGoals = await Goals.bulkCreate(childGoalsData, {
-        individualHooks: true,
-        returning: true,
-    })
-
     for (let i = 0; i < dailyChecksData.length; i++) {
         const dailyChecksHistory = await DailyChecksHistory.create({
             daily_check: dailyChecksData[i].daily_check,
@@ -61,6 +47,26 @@ const seedDatabase = async () => {
             returning: true,
         })
     }
+
+    const notes = await Notes.bulkCreate(notesData, {
+        individualHooks: true,
+        returning: true,
+    })
+
+    const goals = await Goals.bulkCreate(goalsData, {
+        individualHooks: true,
+        returning: true,
+    })
+
+    const steps = await Goals.bulkCreate(stepsData, {
+        individualHooks: true,
+        returning: true,
+    })
+
+    const goalTasks = await Tasks.bulkCreate(newTasksData, {
+        individualHooks: true,
+        returning: true,
+    })
 
     const tasks = await Tasks.bulkCreate(taskData, {
         individualHooks: true,

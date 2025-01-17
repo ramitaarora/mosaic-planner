@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "user_id": 1,
+        "goal_id": 2,
+        "task": "Update Resume"
+    },
+    {
+        "id": 2,
+        "user_id": 1,
+        "goal_id": 2,
+        "task": "Write Cover Letter"
+    },
+    {
+        "id": 3,
+        "user_id": 1,
+        "goal_id": 2,
+        "task": "Reach out to references"
+    },
+    {
+        "id": 4,
+        "user_id": 1,
+        "goal_id": 2,
+        "task": "Update References document"
+    },
+    {
+        "id": 5,
+        "user_id": 1,
+        "goal_id": 2,
+        "task": "Update LinkedIn Profile"
+    },
+    {
+        "id": 6,
+        "user_id": 1,
+        "goal_id": 2,
+        "task": "Reach out for Resume and LinkedIn Profile Feedback"
+    },
+    {
+        "id": 7,
+        "user_id": 1,
+        "goal_id": 3,
+        "task": "Research networking events"
+    },
+    {
+        "id": 8,
+        "user_id": 1,
+        "goal_id": 3,
+        "task": "Attend networking events"
+    },
+    {
+        "id": 9,
+        "user_id": 1,
+        "goal_id": 3,
+        "task": "Reach out to friends or family in field for open positions, recommendations and advice"
+    },
+    {
+        "id": 10,
+        "user_id": 1,
+        "goal_id": 4,
+        "task": "Reach out to recruiters or hiring managers of job postings"
+    },
+    {
+        "id": 11,
+        "user_id": 1,
+        "goal_id": 4,
+        "task": "Make sure to tailor Resume and Cover Letters per job postings"
+    },
+    {
+        "id": 12,
+        "user_id": 1,
+        "goal_id": 4,
+        "task": "Use a job tracking spreadsheet and record each application"
+    }
+]
