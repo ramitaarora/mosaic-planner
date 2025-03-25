@@ -108,12 +108,20 @@ router.post('/login-demo', async (req, res) => {
     const day = new Date().getDate();
     const todaysDate = `${year}-${month}-${day}`;
 
-    const deleteEvents = await Events.destroy({ where: { user_id: 1 } });
-    const deleteHistory = await DailyChecksHistory.destroy({ where: { user_id: 1 } });
-    const deleteChecks = await DailyChecks.destroy({ where: { user_id: 1 } });
-    const deleteNotes = await Notes.destroy({ where: { user_id: 1 } });
-    const deleteGoals = await Goals.destroy({ where: { user_id: 1 } });
-    const deleteTasks = await Tasks.destroy({ where: { user_id: 1 } });
+
+    try {
+      const deleteEvents = await Events.destroy({ where: { user_id: 1 } });
+      const deleteHistory = await DailyChecksHistory.destroy({ where: { user_id: 1 } });
+      const deleteChecks = await DailyChecks.destroy({ where: { user_id: 1 } });
+      const deleteNotes = await Notes.destroy({ where: { user_id: 1 } });
+      const deleteTasks = await Tasks.destroy({ where: { user_id: 1 } });
+      const deleteParentGoals = await Goals.destroy({ where: { 
+        user_id: 1,
+        parent_goal: null,
+      }});
+    } catch(err) {
+      console.error(err);
+    }
 
     try {
       const user = await User.update({

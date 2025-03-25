@@ -7,7 +7,7 @@ export default function Index() {
                 <h1 className={css`width: 70%;`}>The Progress Planner</h1>
                 <nav className={css`width: 30%;`}>
                     <ul className={css`display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap;`}>
-                        <li>Login</li>
+                        <li><a href="/login">Login</a></li>
                         <li>Demo</li>
                         <li>GitHub</li>
                     </ul>

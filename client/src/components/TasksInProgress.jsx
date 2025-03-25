@@ -167,7 +167,7 @@ export default function TasksInProgress({ data, getData, today }) {
     }
 
     return (
-        <div id="in-progress-tasks" className={`card ${css`height: 35vh; width: 98%; margin: 5px auto;`}`}>
+        <div id="in-progress-tasks" className={`${css`height: 35vh; width: 98%; margin: 5px auto;`}`}>
             <div className="card-header">
                 <h2>Tasks in Progress</h2>
                 <img src="./svgs/archive.svg" alt="open-archive" onClick={showArchiveModal} />

@@ -216,7 +216,7 @@ export default function Notes({ data, getData }) {
     } 
 
     return (
-        <div id="notes" className={`card ${css`height: 23vh; width: 90%; margin: 5px auto;`}`}>
+        <div id="notes" className={`${css`height: 23vh; width: 90%; margin: 5px auto;`}`}>
             <NotesForm notesModalVisibility={notesModalVisibility} setNotesModalVisibility={setNotesModalVisibility} notes={notes} getData={getData} noteID={noteID} setNoteID={setNoteID} />
             <div className="card-header">
                 <h2>Notes & Reminders</h2>

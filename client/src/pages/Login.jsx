@@ -60,7 +60,7 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            window.location.replace('/');
+            window.location.replace('/dashboard');
         } else {
             console.error(response.statusText);
             setErrorMessage('Incorrect email and/or password.')
@@ -112,7 +112,7 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (response.ok) {
-            window.location.replace('/');
+            window.location.replace('/dashboard');
         } else {
             console.error(response.statusText);
             setErrorMessage('Something went wrong.')

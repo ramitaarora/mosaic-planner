@@ -255,7 +255,7 @@ export default function DailyChecks({ data, today, fullDate, timezone, getData }
     }
 
     return (
-        <div id="daily-checks" className={`card ${css`height: 23vh; width: 90%; margin: 5px auto;`}`}>
+        <div id="daily-checks" className={`${css`height: 23vh; width: 90%; margin: 5px auto;`}`}>
             <div className="card-header">
                 <h2>Daily Checks for {currentDay.split(',')[1]}</h2>
                 <img src="./svgs/add.svg" alt="add" onClick={showModal} />
