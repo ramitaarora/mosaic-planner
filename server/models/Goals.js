@@ -11,7 +11,7 @@ Goals.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
         },
-        goal: {
+        project: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -48,14 +48,6 @@ Goals.init(
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
-        parent_goal: {
-            type: DataTypes.UUID,
-            references: {
-                model: 'goals',
-                key: 'id'
-            },
-            onDelete: 'CASCADE',
-        },
         user_id: {
             type: DataTypes.UUID,
             allowNull: false,
@@ -70,7 +62,7 @@ Goals.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'goals'
+        modelName: 'Goals'
     }
 );
 

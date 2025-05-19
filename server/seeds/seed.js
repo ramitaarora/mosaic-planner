@@ -6,11 +6,11 @@ const dailyChecksData = require('./dailyChecksData.json');
 const eventsData = require('./eventsData.json');
 const taskData = require('./tasksData.json');
 const archivedTasksData = require('./archivedTasksData.json');
-const goalsData = require('./goalsData.json');
+// const goalsData = require('./goalsData.json');
 const stepsData = require('./stepsData.json');
 const newTasksData = require('./newTasksData.json');
 
-const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../models');
+const { User, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../models');
 
 const year = new Date().getFullYear();
 const month = new Date().getMonth() + 1;
@@ -53,20 +53,20 @@ const seedDatabase = async () => {
         returning: true,
     })
 
-    const goals = await Goals.bulkCreate(goalsData, {
-        individualHooks: true,
-        returning: true,
-    })
+    // const goals = await Goals.bulkCreate(goalsData, {
+    //     individualHooks: true,
+    //     returning: true,
+    // })
 
-    const steps = await Goals.bulkCreate(stepsData, {
-        individualHooks: true,
-        returning: true,
-    })
+    // const steps = await Goals.bulkCreate(stepsData, {
+    //     individualHooks: true,
+    //     returning: true,
+    // })
 
-    const goalTasks = await Tasks.bulkCreate(newTasksData, {
-        individualHooks: true,
-        returning: true,
-    })
+    // const goalTasks = await Tasks.bulkCreate(newTasksData, {
+    //     individualHooks: true,
+    //     returning: true,
+    // })
 
     const tasks = await Tasks.bulkCreate(taskData, {
         individualHooks: true,

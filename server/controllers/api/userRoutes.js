@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { User, Goals, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../../models');
+const { User, DailyChecks, Events, Notes, DailyChecksHistory, Tasks } = require('../../models');
 const withAuth = require('../../utils/auth');
 const bcrypt = require('bcrypt');
 
-const parentGoalsData = require('../../seeds/parentGoalsData.json');
-const childGoalsData = require('../../seeds/childGoalsData.json');
+// const parentGoalsData = require('../../seeds/parentGoalsData.json');
+// const childGoalsData = require('../../seeds/childGoalsData.json');
 const dailyChecksData = require('../../seeds/dailyChecksData.json');
 const eventsData = require('../../seeds/eventsData.json');
 const taskData = require('../../seeds/tasksData.json');

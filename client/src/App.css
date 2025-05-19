@@ -215,18 +215,20 @@ input[type="checkbox"]:not(:disabled):checked {
     span:hover {
         cursor: pointer;
         background-color: var(--background);
-        color: var(--line-background);
+        color: var(--card-background);
         border: 1px solid var(--card-background);
     }
 }
 
 .active-tab {
-    background-color: var(--line-background) !important;
+    background-color: var(--background) !important;
+    border: 1px solid var(--card-background) !important;
+    color: var(--card-background) !important;
 }
 
 .active-tab:hover {
-    background-color: var(--background) !important;
-    color: var(--line-background) !important;
+    border: 1px solid var(--card-background) !important;
+    color: var(--card-background) !important;
 }
 
 /* Calendar Styles */

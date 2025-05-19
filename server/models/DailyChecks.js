@@ -27,6 +27,14 @@ DailyChecks.init(
                 key: 'id'
             }
         },
+        project_id: {
+            type: DataTypes.UUID,
+            allowNull: true,
+            references: {
+                model: 'projects',
+                key: 'id'
+            }
+        },
     },
     {
         sequelize,

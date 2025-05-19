@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "project": "Travel to India",
+        "user_id": 1
+    },
+    {
+        "id": 2,
+        "project": "Get fit",
+        "user_id": 1
+    },
+    {
+        "id": 3,
+        "project": "Learn how to cook",
+        "user_id": 1
+    }
+]

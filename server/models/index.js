@@ -1,4 +1,5 @@
 const User = require('./User');
+const Projects = require('./Projects');
 const Goals = require('./Goals');
 const Notes = require('./Notes');
 const DailyChecks = require('./DailyChecks');
@@ -36,4 +37,9 @@ Tasks.belongsTo(User, {
     onDelete: 'CASCADE'
 })
 
-module.exports = { User, Goals, DailyChecks, DailyChecksHistory, Events, Notes, Tasks };
+Projects.hasMany(Tasks, {
+    foreignKey: 'project_id',
+    onDelete: 'SET NULL'
+})
+
+module.exports = { User, Projects, DailyChecks, DailyChecksHistory, Events, Notes, Tasks };

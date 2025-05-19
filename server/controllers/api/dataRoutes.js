@@ -1,19 +1,19 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
 const withAuth = require('../../utils/auth');
-const { User, Goals, Notes, DailyChecks, DailyChecksHistory, Events, Tasks } = require('../../models');
+const { User, Notes, DailyChecks, DailyChecksHistory, Events, Tasks } = require('../../models');
 
 router.get('/allData/:today', withAuth, async (req, res) => {
     try {
         const userData = await User.findAll({ where: { id: req.session.user_id } });
-        const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
+        // const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
         const notesData = await Notes.findAll({ where: { user_id: req.session.user_id } });
         const eventsData = await Events.findAll({ where: { user_id: req.session.user_id } });
         const tasksData = await Tasks.findAll({ where: { user_id: req.session.user_id } });
         const checksData = await DailyChecks.findAll({ where: { user_id: req.session.user_id } })
 
         const user = userData.map(user => user.get({ plain: true }));
-        const goals = goalsData.map(goal => goal.get({ plain: true }));
+        // const goals = goalsData.map(goal => goal.get({ plain: true }));
         const notes = notesData.map(note => note.get({ plain: true }));
         const events = eventsData.map(event => event.get({ plain: true }));
         const tasks = tasksData.map(task => task.get({ plain: true }));
@@ -27,7 +27,7 @@ router.get('/allData/:today', withAuth, async (req, res) => {
         });
         const dailyChecks = dailyChecksData.map(check => check.get({ plain: true }));
 
-        res.status(200).json({ goals, notes, dailyChecks, events, user, tasks, checks });
+        res.status(200).json({ notes, dailyChecks, events, user, tasks, checks });
     } catch (err) {
         res.status(400).json(err);
         console.log(err);
@@ -36,12 +36,12 @@ router.get('/allData/:today', withAuth, async (req, res) => {
 
 router.get('/goals-tasks', withAuth, async (req, res) => {
     try {
-        const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
+        // const goalsData = await Goals.findAll({ where: { user_id: req.session.user_id } });
         const tasksData = await Tasks.findAll({ where: { user_id: req.session.user_id } });
-        const goals = goalsData.map(goal => goal.get({ plain: true }));
+        // const goals = goalsData.map(goal => goal.get({ plain: true }));
         const tasks = tasksData.map(task => task.get({ plain: true }));
 
-        res.status(200).json({ goals, tasks });
+        res.status(200).json({ tasks });
     } catch (err) {
         res.status(400).json(err);
         console.log(err);

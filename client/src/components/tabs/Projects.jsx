@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { css } from '@emotion/css';
 
 export default function Projects() {
     const [parentGoals, setParentGoals] = useState([]);
@@ -24,16 +25,18 @@ export default function Projects() {
     }
 
     useEffect(() => {
-        getGoalsData();
+        // getGoalsData();
     }, [])
 
     return (
-        <div>
-            <main> 
-            {/* This will eventually be its own component */}
+        <div className={css`width: 99vw; overflow: overlay;`}>
+
+        {/* This will eventually be its own component */}
+            <main className={`card ${css`width: fit-content;`}`}> 
+            
                 <section>
                     <div>
-                        <h2>Parent Goal</h2>
+                        <h2>Project Name</h2>
                         <p>Icons to edit, delete, archive</p>
                         <p>Progress bar of entire goal</p>
                     </div>
