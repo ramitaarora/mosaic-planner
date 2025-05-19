@@ -7,7 +7,7 @@ import DailyChecks from "../DailyChecks";
 import Goals from "../Goals";
 import Notes from "../Notes";
 
-export default function Dash({ data, fullDate, timezone, today, getData }) {
+export default function DashTab({ data, fullDate, timezone, today, getData }) {
     if (data && fullDate && timezone && today && getData) {
         try {
             return (

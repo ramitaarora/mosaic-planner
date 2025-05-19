@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { css } from '@emotion/css'
 
 // Tabs
-import Dash from '../components/tabs/Dash.jsx';
+import DashTab from '../components/tabs/DashTab.jsx';
 import Projects from '../components/tabs/Projects.jsx';
 import NotesTab from '../components/tabs/NotesTab.jsx';
 
@@ -24,7 +24,7 @@ export default function Dashboard() {
   // Date in format: Tuesday, April 23, 2024
   const [fullDate, setFullDate] = useState('');
   const [hour, setHour] = useState('');
-  // Data variables
+  // Data variable
   const [data, setData] = useState()
   // User data
   const [name, setName] = useState('name');
@@ -34,11 +34,10 @@ export default function Dashboard() {
   const [temperature, setTemperature] = useState('');
   // Loading for dashboard
   const [loading, setLoading] = useState(true);
-
   // If Demo Mode
   const [demo, setDemo] = useState(false);
   // Tab navigation
-  const [currentTab, setCurrentTab] = useState('dash');
+  const [currentTab, setCurrentTab] = useState('dash-tab');
 
   const getTimezone = () => {
     // Set date according to timezone
@@ -129,8 +128,17 @@ export default function Dashboard() {
   }, [colourTheme])
 
   const changeTab = (event) => {
+    // Remove active mode on all tabs
+    const allTabs = document.getElementById('tab-slots').childNodes;
+    for (let i = 0; i < allTabs.length; i++) {
+      document.getElementById(`${allTabs[i].id}`).setAttribute('class', 'inactive-tab');
+    }
+    // Set active tab to changed tab
+    document.getElementById(event.target.id).setAttribute('class', 'active-tab');
+
+    // Set current tab to id of clicked tab
     setCurrentTab(event.target.id);
-  }
+    }
 
   return (
     <div>
@@ -146,13 +154,13 @@ export default function Dashboard() {
 
             <div id="tabs">
               <div id="tab-slots">
-                <span id="dash" onClick={changeTab}>Dash</span>
-                <span id="projects" onClick={changeTab}>Projects</span>
-                <span id="notes" onClick={changeTab}>Notes</span>
+                <span id="dash-tab" className="active-tab" onClick={changeTab}>Dash</span>
+                <span id="projects-tab" onClick={changeTab}>Projects</span>
+                <span id="notes-tab" onClick={changeTab}>Notes</span>
               </div>
-                {currentTab === 'dash' && <Dash data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />}
-                {currentTab === 'projects' && <Projects />}    
-                {currentTab === 'notes' && <NotesTab />}         
+                {currentTab === 'dash-tab' && <DashTab data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />}
+                {currentTab === 'projects-tab' && <Projects />}    
+                {currentTab === 'notes-tab' && <NotesTab />}         
             </div>
           </div>
             <div id="mobile">

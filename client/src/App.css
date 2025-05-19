@@ -220,6 +220,15 @@ input[type="checkbox"]:not(:disabled):checked {
     }
 }
 
+.active-tab {
+    background-color: var(--line-background) !important;
+}
+
+.active-tab:hover {
+    background-color: var(--background) !important;
+    color: var(--line-background) !important;
+}
+
 /* Calendar Styles */
 
 .react-calendar {
