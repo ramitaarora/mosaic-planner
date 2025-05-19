@@ -248,7 +248,7 @@ export default function Schedule({ data, fullDate, timezone, today, getData }) {
     }
 
     return (
-        <div id="schedule" className={`card ${css`height: 77vh; width: 90%; margin: 5px auto;`}`}>
+        <div id="schedule" className={`${css`height: 77vh; width: 90%; margin: 5px auto;`}`}>
             <AddEventsForm addVisibility={addVisibility} setAddVisibility={setAddVisibility} getData={getData} setTodaysEvents={setTodaysEvents} />
             <EditEventsForm editVisibility={editVisibility} setEditVisibility={setEditVisibility} getData={getData} eventToEdit={eventToEdit} setTodaysEvents={setTodaysEvents} />
 
