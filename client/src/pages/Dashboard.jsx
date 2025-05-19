@@ -4,6 +4,7 @@ import { css } from '@emotion/css'
 // Tabs
 import Dash from '../components/tabs/Dash.jsx';
 import Projects from '../components/tabs/Projects.jsx';
+import NotesTab from '../components/tabs/NotesTab.jsx';
 
 // Components
 import ProfileForm from '../components/modals/ProfileForm.jsx';
@@ -147,9 +148,11 @@ export default function Dashboard() {
               <div id="tab-slots">
                 <span id="dash" onClick={changeTab}>Dash</span>
                 <span id="projects" onClick={changeTab}>Projects</span>
+                <span id="notes" onClick={changeTab}>Notes</span>
               </div>
                 {currentTab === 'dash' && <Dash data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />}
-                {currentTab === 'projects' && <Projects />}             
+                {currentTab === 'projects' && <Projects />}    
+                {currentTab === 'notes' && <NotesTab />}         
             </div>
           </div>
             <div id="mobile">

@@ -12,18 +12,17 @@ export default function Dash({ data, fullDate, timezone, today, getData }) {
         try {
             return (
                 <main className={css`display: flex; width: 99vw; min-height: 80vh;`}>
-                    <section id="left" className={css`width: 25%; min-height: 100%;`}>
+                    <section id="left" className={css`width: 30%; min-height: 100%;`}>
                         <Schedule data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
                     </section>
 
-                    <section id="middle" className={css`width: 50%; min-height: 100%;`}>
+                    <section id="middle" className={css`width: 40%; min-height: 100%;`}>
                         <TasksInProgress data={data} getData={getData} today={today} />
                         <Tasks data={data} getData={getData} />
                     </section>
 
-                    <section id="right" className={css`width: 25%; min-height: 100%;`}>
+                    <section id="right" className={css`width: 30%; min-height: 100%;`}>
                         <DailyChecks data={data} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
-                        <Goals data={data} goalType="Yearly" getData={getData} />
                         <Notes data={data} getData={getData} />
                     </section>
                 </main>
