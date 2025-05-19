@@ -228,7 +228,7 @@ export default function Tasks({ data, getData }) {
     }
 
     return (
-        <div id="tasks" className={`${css`height: 38vh; width: 98%; margin: 5px auto;`}`}>
+        <div id="tasks" className={`card ${css`height: 38vh; width: 98%; margin: 5px auto;`}`}>
             <div className="card-header">
                 <h2>All Tasks</h2>
 

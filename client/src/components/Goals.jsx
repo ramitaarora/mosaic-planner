@@ -138,7 +138,7 @@ export default function Goals({ data, goalType, getData }) {
     }
 
     return (
-        <div id="goals" className={`${css`height: 23vh; width: 90%; margin: 5px auto;`}`}>
+        <div id="goals" className={`card ${css`height: 23vh; width: 90%; margin: 5px auto;`}`}>
             <GoalsForm visibility={visibility} setVisibility={setVisibility} />
             <div className="card-header">
                 <h2>Goals</h2>

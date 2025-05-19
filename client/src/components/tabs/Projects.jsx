@@ -1,7 +1,6 @@
-import Header from "../components/Header";
 import { useState, useEffect } from 'react';
 
-export default function Goals() {
+export default function Projects() {
     const [parentGoals, setParentGoals] = useState([]);
     const [steps, setSteps] = useState([]);
     const [tasks, setTasks] = useState([])
@@ -30,7 +29,6 @@ export default function Goals() {
 
     return (
         <div>
-            {/* <Header /> */}
             <main> 
             {/* This will eventually be its own component */}
                 <section>
