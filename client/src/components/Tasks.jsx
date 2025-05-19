@@ -14,7 +14,7 @@ export default function Tasks({ data, getData }) {
     const [sortedTasks, setSortedTasks] = useState([]);
 
     useEffect(() => {
-        if (data) {
+        if (data.length > 0) {
             // Set Tasks
             setAllTasks(data.tasks.filter(task => !task.in_progress && !task.archived));
         }

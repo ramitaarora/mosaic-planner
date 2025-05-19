@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react';
 import { css } from '@emotion/css'
 
 import Header from '../components/Header.jsx';
+
+// Tabs
+import Dash from '../components/tabs/Dash.jsx';
+import Projects from '../components/tabs/Projects.jsx';
+
+// Components
 import Goals from '../components/Goals.jsx';
 import DailyChecks from '../components/DailyChecks.jsx';
 import Notes from '../components/Notes.jsx';
@@ -9,6 +15,8 @@ import Schedule from '../components/Schedule.jsx';
 import ProfileForm from '../components/modals/ProfileForm.jsx';
 import Tasks from '../components/Tasks.jsx';
 import TasksInProgress from '../components/TasksInProgress.jsx';
+
+// Mobile
 import MobileNav from '../components/MobileNav.jsx';
 import MobileCard from '../components/MobileCard.jsx';
 import MobileWeather from '../components/MobileWeather.jsx';
@@ -41,6 +49,8 @@ export default function Dashboard() {
   const [mobileCard, setMobileCard] = useState();
   // If Demo Mode
   const [demo, setDemo] = useState(false);
+  // Tab navigation
+  const [currentTab, setCurrentTab] = useState('dash');
 
   const getTimezone = () => {
     // Set date according to timezone
@@ -134,6 +144,10 @@ export default function Dashboard() {
     setMobileCard(id.split('-')[1]);
   }
 
+  const changeTab = (event) => {
+    setCurrentTab(event.target.id);
+  }
+
   return (
     <div>
       {loading ? (
@@ -146,22 +160,14 @@ export default function Dashboard() {
             <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} temperature={temperature} />
             <ProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getUser={getUser} demo={demo} />
 
-            <main className={css`display: flex; width: 100vw; min-height: 80vh;`}>
-              <section id="left" className={css`width: 25%; min-height: 100%;`}>
-                <Schedule data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
-              </section>
-
-              <section id="middle" className={css`width: 50%; min-height: 100%;`}>
-                <TasksInProgress data={data} getData={getData}today={today} />
-                <Tasks data={data} getData={getData} />
-              </section>
-
-              <section id="right" className={css`width: 25%; min-height: 100%;`}>
-                  <DailyChecks data={data} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
-                  <Goals data={data} goalType="Yearly" getData={getData} />
-                  <Notes data={data} getData={getData} />
-              </section>
-            </main>
+            <div id="tabs">
+              <div id="tab-slots">
+                <span id="dash" onClick={changeTab}>Dash</span>
+                <span id="projects" onClick={changeTab}>Projects</span>
+              </div>
+                {currentTab === 'dash' && <Dash data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />}
+                {currentTab === 'projects' && <Projects />}             
+            </div>
           </div>
 
           <div id="mobile">
