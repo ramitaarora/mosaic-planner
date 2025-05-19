@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
-import getMonth from '../utils/getMonth';
+import getMonth from '../../utils/getMonth';
 
 export default function MobileWeather({ location, temperature }) {
     // Loading variable

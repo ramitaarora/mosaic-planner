@@ -1,26 +1,14 @@
 import { useEffect, useState } from 'react';
 import { css } from '@emotion/css'
 
-import Header from '../components/Header.jsx';
-
 // Tabs
 import Dash from '../components/tabs/Dash.jsx';
 import Projects from '../components/tabs/Projects.jsx';
 
 // Components
-import Goals from '../components/Goals.jsx';
-import DailyChecks from '../components/DailyChecks.jsx';
-import Notes from '../components/Notes.jsx';
-import Schedule from '../components/Schedule.jsx';
 import ProfileForm from '../components/modals/ProfileForm.jsx';
-import Tasks from '../components/Tasks.jsx';
-import TasksInProgress from '../components/TasksInProgress.jsx';
-
-// Mobile
-import MobileNav from '../components/MobileNav.jsx';
-import MobileCard from '../components/MobileCard.jsx';
-import MobileWeather from '../components/MobileWeather.jsx';
-// import MobileProfileForm from '../components/MobileProfileForm.jsx';
+import Header from '../components/Header.jsx';
+import MobileDash from '../components/mobile/MobileDash.jsx';
 
 import changeColour from '../utils/changeColour.js';
 import loggedIn from '../utils/loggedIn.js';
@@ -45,8 +33,7 @@ export default function Dashboard() {
   const [temperature, setTemperature] = useState('');
   // Loading for dashboard
   const [loading, setLoading] = useState(true);
-  // Mobile navigation
-  const [mobileCard, setMobileCard] = useState();
+
   // If Demo Mode
   const [demo, setDemo] = useState(false);
   // Tab navigation
@@ -140,10 +127,6 @@ export default function Dashboard() {
     }
   }, [colourTheme])
 
-  const navigate = (id) => {
-    setMobileCard(id.split('-')[1]);
-  }
-
   const changeTab = (event) => {
     setCurrentTab(event.target.id);
   }
@@ -169,50 +152,10 @@ export default function Dashboard() {
                 {currentTab === 'projects' && <Projects />}             
             </div>
           </div>
-
-          <div id="mobile">
-            <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
-            {/*<MobileProfileForm visibility={visibility} setVisibility={setVisibility} colourTheme={colourTheme} setColourTheme={setColourTheme} getData={getData} demo={demo} />*/}
-            <div id="mobile-component">
-              {mobileCard === '' || mobileCard === 'home' || !mobileCard ? (
-                <MobileCard navigate={navigate} />
-              ) : null}
-              {mobileCard === 'tasks' ? (
-                <div>
-                  <TasksInProgress data={data} getData={getData} today={today} />
-                  <Tasks data={data} getData={getData} />
-                </div>
-              ) : null}
-              {mobileCard === 'checks' ? (
-                <div>
-                  <DailyChecks data={data} fullDate={fullDate} today={today} timezone={timezone} getData={getData} />
-                </div>
-              ) : null}
-              {mobileCard === 'schedule' ? (
-                <div>
-                  <Schedule data={data} fullDate={fullDate} timezone={timezone} today={today} getData={getData} />
-                </div>
-              ) : null}
-              {mobileCard === 'goals' ? (
-                <div>
-                  <Goals data={data} goalType="Weekly" getData={getData} />
-                  <Goals data={data} goalType="Monthly" getData={getData} />
-                  <Goals data={data} goalType="Yearly" getData={getData} />
-                </div>
-              ) : null}
-              {mobileCard === 'notes' ? (
-                <div>
-                  <Notes data={data} getData={getData} />
-                </div>
-              ) : null}
-              {mobileCard === 'weather' ? (
-                <div>
-                  <MobileWeather location={location} temperature={temperature} />
-                </div>
-              ) : null}
+            <div id="mobile">
+              <Header name={name} location={location} visibility={visibility} setVisibility={setVisibility} fullDate={fullDate} time={time} hour={hour} />
+              <MobileDash data={data} getData={getData} today={today} fullDate={fullDate} timezone={timezone} location={location} temperature={temperature} />
             </div>
-            <MobileNav navigate={navigate} />
-          </div>
         </div>
       )
       }
