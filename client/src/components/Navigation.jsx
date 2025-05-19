@@ -7,7 +7,7 @@ export default function Navigation({ visiblity, setVisibility }) {
             method: 'POST',
         })
         if (response.ok) {
-            window.location.replace('/login');
+            window.location.replace('/');
         } else {
             console.error(response.statusText);
         }

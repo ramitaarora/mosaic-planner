@@ -1,15 +1,32 @@
 import { css } from '@emotion/css';
+import { Link } from 'react-router-dom';
 
 export default function Index() {
+    const loginDemo = async (event) => {
+        // Login to demo dashboard
+        event.preventDefault();
+
+        const response = await fetch('/api/users/login-demo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        if (response.ok) {
+            window.location.replace('/dashboard');
+        } else {
+            console.error(response.statusText);
+            setErrorMessage('Something went wrong.')
+        }
+    }
+
     return (
         <div className="landing">
             <header className={css`display: flex; justify-content: space-between; align-items: center; padding: 20px 10px; flex-wrap: wrap;`}>
                 <h1 className={css`width: 70%;`}>The Progress Planner</h1>
                 <nav className={css`width: 30%;`}>
                     <ul className={css`display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap;`}>
-                        <li>Login</li>
-                        <li>Demo</li>
-                        <li>GitHub</li>
+                        <Link to="/dashboard"><li>Login</li></Link>
+                        <li onClick={loginDemo}>Demo</li>
+                        <a href="https://github.com/ramitaarora/mosaic-planner" target='_blank'><li>GitHub</li></a>
                     </ul>
                 </nav>
             </header>

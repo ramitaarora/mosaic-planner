@@ -112,7 +112,7 @@ router.post('/login-demo', async (req, res) => {
     const deleteHistory = await DailyChecksHistory.destroy({ where: { user_id: 1 } });
     const deleteChecks = await DailyChecks.destroy({ where: { user_id: 1 } });
     const deleteNotes = await Notes.destroy({ where: { user_id: 1 } });
-    const deleteGoals = await Goals.destroy({ where: { user_id: 1 } });
+    // const deleteGoals = await Goals.destroy({ where: { user_id: 1 } });
     const deleteTasks = await Tasks.destroy({ where: { user_id: 1 } });
 
     try {
@@ -136,15 +136,15 @@ router.post('/login-demo', async (req, res) => {
       returning: true,
     })
 
-    const parentGoals = await Goals.bulkCreate(parentGoalsData, {
-      individualHooks: true,
-      returning: true,
-    })
+    // const parentGoals = await Goals.bulkCreate(parentGoalsData, {
+    //   individualHooks: true,
+    //   returning: true,
+    // })
 
-    const childGoals = await Goals.bulkCreate(childGoalsData, {
-      individualHooks: true,
-      returning: true,
-    })
+    // const childGoals = await Goals.bulkCreate(childGoalsData, {
+    //   individualHooks: true,
+    //   returning: true,
+    // })
 
     for (let i = 0; i < dailyChecksData.length; i++) {
       const dailyChecksHistory = await DailyChecksHistory.create({
